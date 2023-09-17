@@ -11,9 +11,7 @@ class _SplashScreenOwnerState extends State<SplashScreenOwner> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(children: [
-        
-      ]),
+      body: ListView(children: const []),
     );
   }
 }

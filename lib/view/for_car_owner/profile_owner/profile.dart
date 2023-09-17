@@ -44,7 +44,7 @@ class _ProfileState extends State<Profile> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
+              const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
@@ -57,7 +57,7 @@ class _ProfileState extends State<Profile> {
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.34,
               ),
-              CircleAvatar(
+              const CircleAvatar(
                 radius: 40,
               )
             ],
@@ -77,7 +77,7 @@ class _ProfileState extends State<Profile> {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
-                child: Column(
+                child: const Column(
                   children: [Text("100"), Text("Total Route")],
                 ),
               ),
@@ -87,7 +87,7 @@ class _ProfileState extends State<Profile> {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
-                child: Column(
+                child: const Column(
                   children: [Text("12"), Text("Total Miles")],
                 ),
               ),
@@ -97,7 +97,7 @@ class _ProfileState extends State<Profile> {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
-                child: Column(
+                child: const Column(
                   children: [Text("2"), Text("Total Vehicles")],
                 ),
               ),
@@ -114,7 +114,7 @@ class _ProfileState extends State<Profile> {
         GestureDetector(
           onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return MySchedule();
+              return const MySchedule();
             }));
           },
           child: Card(
@@ -130,10 +130,10 @@ class _ProfileState extends State<Profile> {
                         "assets/icon/route.png",
                         width: 30,
                       ),
-                      Text("My Route", style: AppTextStyle.listCardProfile),
+                      const Text("My Route", style: AppTextStyle.listCardProfile),
                     ],
                   ),
-                  Icon(
+                  const Icon(
                     Icons.arrow_forward_ios,
                     color: Colors.grey,
                   )
@@ -145,7 +145,7 @@ class _ProfileState extends State<Profile> {
         GestureDetector(
           onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return MessageScreen();
+              return const MessageScreen();
             }));
           },
           child: Card(
@@ -161,10 +161,10 @@ class _ProfileState extends State<Profile> {
                         "assets/icon/notification.png",
                         width: 30,
                       ),
-                      Text("Message", style: AppTextStyle.listCardProfile),
+                      const Text("Message", style: AppTextStyle.listCardProfile),
                     ],
                   ),
-                  Icon(
+                  const Icon(
                     Icons.arrow_forward_ios,
                     color: Colors.grey,
                   )
@@ -176,7 +176,7 @@ class _ProfileState extends State<Profile> {
         GestureDetector(
           onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return VehicleList();
+              return const VehicleList();
             }));
           },
           child: Card(
@@ -192,10 +192,10 @@ class _ProfileState extends State<Profile> {
                         "assets/icon/vehicle.png",
                         width: 30,
                       ),
-                      Text("Vehicle", style: AppTextStyle.listCardProfile),
+                      const Text("Vehicle", style: AppTextStyle.listCardProfile),
                     ],
                   ),
-                  Icon(
+                  const Icon(
                     Icons.arrow_forward_ios,
                     color: Colors.grey,
                   )
@@ -207,7 +207,7 @@ class _ProfileState extends State<Profile> {
         GestureDetector(
           onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return AddNewVehicle();
+              return const AddNewVehicle();
             }));
           },
           child: Card(
@@ -223,11 +223,11 @@ class _ProfileState extends State<Profile> {
                         "assets/icon/personalcard.png",
                         width: 30,
                       ),
-                      Text("Driver Licence",
+                      const Text("Driver Licence",
                           style: AppTextStyle.listCardProfile),
                     ],
                   ),
-                  Icon(
+                  const Icon(
                     Icons.arrow_forward_ios,
                     color: Colors.grey,
                   )
@@ -239,7 +239,7 @@ class _ProfileState extends State<Profile> {
         GestureDetector(
           onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return ChangePassword();
+              return const ChangePassword();
             }));
           },
           child: Card(
@@ -255,11 +255,11 @@ class _ProfileState extends State<Profile> {
                         "assets/icon/lock.png",
                         width: 30,
                       ),
-                      Text("Change Password",
+                      const Text("Change Password",
                           style: AppTextStyle.listCardProfile),
                     ],
                   ),
-                  Icon(
+                  const Icon(
                     Icons.arrow_forward_ios,
                     color: Colors.grey,
                   )
@@ -287,10 +287,10 @@ class _ProfileState extends State<Profile> {
                         "assets/icon/call.png",
                         width: 30,
                       ),
-                      Text("Contact", style: AppTextStyle.listCardProfile),
+                      const Text("Contact", style: AppTextStyle.listCardProfile),
                     ],
                   ),
-                  Icon(
+                  const Icon(
                     Icons.arrow_forward_ios,
                     color: Colors.grey,
                   )

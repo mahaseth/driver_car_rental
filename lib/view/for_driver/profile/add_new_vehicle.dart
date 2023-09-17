@@ -10,7 +10,7 @@ class AddNewVehicle extends StatefulWidget {
 }
 
 class _AddNewVehicleState extends State<AddNewVehicle> {
-  TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
   String _uploadedFileName = '';
 
   void handleFileUpload() async {
@@ -18,7 +18,7 @@ class _AddNewVehicleState extends State<AddNewVehicle> {
       FilePickerResult? result = await FilePicker.platform.pickFiles();
       if (result != null) {
         setState(() {
-          _uploadedFileName = result.files.single.name!;
+          _uploadedFileName = result.files.single.name;
         });
       }
     } on PlatformException catch (e) {
@@ -62,12 +62,12 @@ class _AddNewVehicleState extends State<AddNewVehicle> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: Icon(Icons.arrow_back)),
-              SizedBox(
+                  icon: const Icon(Icons.arrow_back)),
+              const SizedBox(
                 height: 50,
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+              const Padding(
+                padding: EdgeInsets.only(left: 20.0, right: 20.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -83,7 +83,7 @@ class _AddNewVehicleState extends State<AddNewVehicle> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 40,
               ),
             ],
@@ -99,21 +99,21 @@ class _AddNewVehicleState extends State<AddNewVehicle> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             "Vehicle info",
             style: TextStyle(fontSize: 20),
           ),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
-          SizedBox(
+          const SizedBox(
             height: 14,
           ),
-          Text("Vehicle make"),
-          SizedBox(
+          const Text("Vehicle make"),
+          const SizedBox(
             height: 5,
           ),
-          SizedBox(
+          const SizedBox(
             height: 40,
             child: TextField(
               decoration: InputDecoration(
@@ -122,14 +122,14 @@ class _AddNewVehicleState extends State<AddNewVehicle> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 14,
           ),
-          Text("Vehicle Type"),
-          SizedBox(
+          const Text("Vehicle Type"),
+          const SizedBox(
             height: 5,
           ),
-          SizedBox(
+          const SizedBox(
             height: 40,
             child: TextField(
               decoration: InputDecoration(
@@ -138,14 +138,14 @@ class _AddNewVehicleState extends State<AddNewVehicle> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 14,
           ),
-          Text("Vehicle Plate Number"),
-          SizedBox(
+          const Text("Vehicle Plate Number"),
+          const SizedBox(
             height: 5,
           ),
-          SizedBox(
+          const SizedBox(
             height: 40,
             child: TextField(
               decoration: InputDecoration(
@@ -154,10 +154,10 @@ class _AddNewVehicleState extends State<AddNewVehicle> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
-          Text(
+          const Text(
             "Upload Certificate*",
             style: TextStyle(fontSize: 20),
           ),
@@ -180,19 +180,19 @@ class _AddNewVehicleState extends State<AddNewVehicle> {
               ),
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                    primary: Color(0xFF00B74C),
+                    backgroundColor: const Color(0xFF00B74C),
                     padding:
-                        EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
                 onPressed: handleFileUpload,
-                icon: Icon(
+                icon: const Icon(
                   Icons.upload,
                   size: 15,
                 ),
-                label: Text("Upload"),
+                label: const Text("Upload"),
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 7,
           ),
           Row(
@@ -214,19 +214,19 @@ class _AddNewVehicleState extends State<AddNewVehicle> {
               ),
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                    primary: Color(0xFF00B74C),
+                    backgroundColor: const Color(0xFF00B74C),
                     padding:
-                        EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
                 onPressed: handleFileUpload,
-                icon: Icon(
+                icon: const Icon(
                   Icons.upload,
                   size: 15,
                 ),
-                label: Text("Upload"),
+                label: const Text("Upload"),
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 7,
           ),
           Row(
@@ -248,19 +248,19 @@ class _AddNewVehicleState extends State<AddNewVehicle> {
               ),
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                    primary: Color(0xFF00B74C),
+                    backgroundColor: const Color(0xFF00B74C),
                     padding:
-                        EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
                 onPressed: handleFileUpload,
-                icon: Icon(
+                icon: const Icon(
                   Icons.upload,
                   size: 15,
                 ),
-                label: Text("Upload"),
+                label: const Text("Upload"),
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 7,
           ),
           Row(
@@ -282,19 +282,19 @@ class _AddNewVehicleState extends State<AddNewVehicle> {
               ),
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                    primary: Color(0xFF00B74C),
+                    backgroundColor: const Color(0xFF00B74C),
                     padding:
-                        EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
                 onPressed: handleFileUpload,
-                icon: Icon(
+                icon: const Icon(
                   Icons.upload,
                   size: 15,
                 ),
-                label: Text("Upload"),
+                label: const Text("Upload"),
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 7,
           ),
           Row(
@@ -316,22 +316,22 @@ class _AddNewVehicleState extends State<AddNewVehicle> {
               ),
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                    primary: Color(0xFF00B74C),
+                    backgroundColor: const Color(0xFF00B74C),
                     padding:
-                        EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
                 onPressed: handleFileUpload,
-                icon: Icon(
+                icon: const Icon(
                   Icons.upload,
                   size: 15,
                 ),
-                label: Text("Upload"),
+                label: const Text("Upload"),
               ),
             ],
           ),
-          FractionallySizedBox(
+          const FractionallySizedBox(
             widthFactor: 0.48,
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(8.0),
               child: Card(
                 child: Row(
                   children: [
@@ -348,7 +348,7 @@ class _AddNewVehicleState extends State<AddNewVehicle> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           )
         ],

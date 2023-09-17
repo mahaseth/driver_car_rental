@@ -43,7 +43,7 @@ class _CreateNewPasswordState extends State<CreateNewPassword> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: Icon(Icons.arrow_back)),
+                  icon: const Icon(Icons.arrow_back)),
             ],
           ),
         ),
@@ -57,24 +57,24 @@ class _CreateNewPasswordState extends State<CreateNewPassword> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
-          Text("Change Password", style: AppTextStyle.changePassword),
-          SizedBox(
+          const Text("Change Password", style: AppTextStyle.changePassword),
+          const SizedBox(
             height: 10,
           ),
-          Text(
+          const Text(
               "Enter the email address you used when you joined and we’ll send you instructions to reset your password",
               style: AppTextStyle.changePasswordContent),
-          SizedBox(
+          const SizedBox(
             height: 40,
           ),
-          Text("Password"),
-          SizedBox(
+          const Text("Password"),
+          const SizedBox(
             height: 10,
           ),
-          SizedBox(
+          const SizedBox(
             height: 40,
             child: TextField(
               decoration: InputDecoration(
@@ -84,14 +84,14 @@ class _CreateNewPasswordState extends State<CreateNewPassword> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 40,
           ),
-          Text("Confirm Password"),
-          SizedBox(
+          const Text("Confirm Password"),
+          const SizedBox(
             height: 10,
           ),
-          SizedBox(
+          const SizedBox(
             height: 40,
             child: TextField(
               decoration: InputDecoration(
@@ -102,12 +102,12 @@ class _CreateNewPasswordState extends State<CreateNewPassword> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 40,
           ),
           Center(
             child: RichText(
-              text: TextSpan(
+              text: const TextSpan(
                 children: [
                   TextSpan(
                     text: "Must be at least 8 characters. ",
@@ -125,9 +125,9 @@ class _CreateNewPasswordState extends State<CreateNewPassword> {
                 width: MediaQuery.of(context).size.width * 0.9,
                 height: 44,
                 decoration: BoxDecoration(
-                    color: Color(0xFF00B74C),
+                    color: const Color(0xFF00B74C),
                     borderRadius: BorderRadius.circular(10)),
-                child: Center(
+                child: const Center(
                     child: Text(
                   "Reset Password",
                   style: TextStyle(fontSize: 14, color: Colors.white),

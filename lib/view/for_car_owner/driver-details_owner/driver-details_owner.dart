@@ -15,7 +15,7 @@ class DriverDetailsOwner extends StatefulWidget {
 }
 
 class _DriverDetailsOwnerState extends State<DriverDetailsOwner> {
-  TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
   String _uploadedFileName = '';
 
   void handleFileUpload() async {
@@ -23,7 +23,7 @@ class _DriverDetailsOwnerState extends State<DriverDetailsOwner> {
       FilePickerResult? result = await FilePicker.platform.pickFiles();
       if (result != null) {
         setState(() {
-          _uploadedFileName = result.files.single.name!;
+          _uploadedFileName = result.files.single.name;
         });
       }
     } on PlatformException catch (e) {
@@ -35,11 +35,11 @@ class _DriverDetailsOwnerState extends State<DriverDetailsOwner> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Color(0xFFFAFAFA),
+          backgroundColor: const Color(0xFFFAFAFA),
           elevation: 0,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            color: Color(0xFF333333),
+            icon: const Icon(Icons.arrow_back),
+            color: const Color(0xFF333333),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -54,10 +54,10 @@ class _DriverDetailsOwnerState extends State<DriverDetailsOwner> {
           children: [
             Container(
               height: AppSceenSize.getHeight(context) * 0.10,
-              color: Color(0xFFFAFAFA),
-              padding: EdgeInsets.symmetric(horizontal: 30),
-              child: Center(
-                  child: const Text(
+              color: const Color(0xFFFAFAFA),
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: const Center(
+                  child: Text(
                 "Enter your info exactly as it appears on your license so Kanan can verify your eligibility to route.",
                 style: AppTextStyle.drhsubheading,
                 textAlign: TextAlign.center,
@@ -66,8 +66,8 @@ class _DriverDetailsOwnerState extends State<DriverDetailsOwner> {
             Column(
               children: [
                 ListTile(
-                  title: Text("First Name"),
-                  trailing: SizedBox(
+                  title: const Text("First Name"),
+                  trailing: const SizedBox(
                     width: 100,
                     child: TextField(
                       decoration: InputDecoration(
@@ -139,10 +139,10 @@ class _DriverDetailsOwnerState extends State<DriverDetailsOwner> {
 
   customDivider() {
     return Container(
-        margin: EdgeInsets.symmetric(
+        margin: const EdgeInsets.symmetric(
           horizontal: 10,
         ),
-        child: Divider(
+        child: const Divider(
           color: Color.fromARGB(255, 206, 204, 204),
         ));
   }
@@ -151,11 +151,11 @@ class _DriverDetailsOwnerState extends State<DriverDetailsOwner> {
     return Column(
       children: [
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: DottedBorder(
-            color: Color(0xFFdddddd),
+            color: const Color(0xFFdddddd),
             strokeWidth: 1,
-            dashPattern: [5, 6],
+            dashPattern: const [5, 6],
             child: Container(
               child: Row(
                 children: [
@@ -176,15 +176,15 @@ class _DriverDetailsOwnerState extends State<DriverDetailsOwner> {
                   ),
                   ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
-                        primary: Color(0xFF00B74C),
+                        backgroundColor: const Color(0xFF00B74C),
                         padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
+                            const EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
                     onPressed: handleFileUpload,
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.upload,
                       size: 15,
                     ),
-                    label: Text("Upload"),
+                    label: const Text("Upload"),
                   ),
                 ],
               ),
@@ -192,11 +192,11 @@ class _DriverDetailsOwnerState extends State<DriverDetailsOwner> {
           ),
         ),
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: DottedBorder(
-            color: Color(0xFFdddddd),
+            color: const Color(0xFFdddddd),
             strokeWidth: 1,
-            dashPattern: [5, 6],
+            dashPattern: const [5, 6],
             child: Container(
               child: Row(
                 children: [
@@ -217,15 +217,15 @@ class _DriverDetailsOwnerState extends State<DriverDetailsOwner> {
                   ),
                   ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
-                        primary: Color(0xFF00B74C),
+                        backgroundColor: const Color(0xFF00B74C),
                         padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
+                            const EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
                     onPressed: handleFileUpload,
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.upload,
                       size: 15,
                     ),
-                    label: Text("Upload"),
+                    label: const Text("Upload"),
                   ),
                 ],
               ),
@@ -233,18 +233,18 @@ class _DriverDetailsOwnerState extends State<DriverDetailsOwner> {
           ),
         ),
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: Row(
+          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          child: const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [Text("Pan No *"), Text("83jue83-")],
           ),
         ),
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: DottedBorder(
-            color: Color(0xFFdddddd),
+            color: const Color(0xFFdddddd),
             strokeWidth: 1,
-            dashPattern: [5, 6],
+            dashPattern: const [5, 6],
             child: Container(
               child: Row(
                 children: [
@@ -265,15 +265,15 @@ class _DriverDetailsOwnerState extends State<DriverDetailsOwner> {
                   ),
                   ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
-                        primary: Color(0xFF00B74C),
+                        backgroundColor: const Color(0xFF00B74C),
                         padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
+                            const EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
                     onPressed: handleFileUpload,
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.upload,
                       size: 15,
                     ),
-                    label: Text("Upload"),
+                    label: const Text("Upload"),
                   ),
                 ],
               ),
@@ -281,18 +281,18 @@ class _DriverDetailsOwnerState extends State<DriverDetailsOwner> {
           ),
         ),
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: Row(
+          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          child: const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [Text("License No *"), Text("9876567887654")],
           ),
         ),
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: DottedBorder(
-            color: Color(0xFFdddddd),
+            color: const Color(0xFFdddddd),
             strokeWidth: 1,
-            dashPattern: [5, 6],
+            dashPattern: const [5, 6],
             child: Container(
               child: Row(
                 children: [
@@ -313,15 +313,15 @@ class _DriverDetailsOwnerState extends State<DriverDetailsOwner> {
                   ),
                   ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
-                        primary: Color(0xFF00B74C),
+                        backgroundColor: const Color(0xFF00B74C),
                         padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
+                            const EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
                     onPressed: handleFileUpload,
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.upload,
                       size: 15,
                     ),
-                    label: Text("Upload"),
+                    label: const Text("Upload"),
                   ),
                 ],
               ),
@@ -329,11 +329,11 @@ class _DriverDetailsOwnerState extends State<DriverDetailsOwner> {
           ),
         ),
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: DottedBorder(
-            color: Color(0xFFdddddd),
+            color: const Color(0xFFdddddd),
             strokeWidth: 1,
-            dashPattern: [5, 6],
+            dashPattern: const [5, 6],
             child: Container(
               child: Row(
                 children: [
@@ -354,15 +354,15 @@ class _DriverDetailsOwnerState extends State<DriverDetailsOwner> {
                   ),
                   ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
-                        primary: Color(0xFF00B74C),
+                        backgroundColor: const Color(0xFF00B74C),
                         padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
+                            const EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
                     onPressed: handleFileUpload,
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.upload,
                       size: 15,
                     ),
-                    label: Text("Upload"),
+                    label: const Text("Upload"),
                   ),
                 ],
               ),
@@ -370,18 +370,18 @@ class _DriverDetailsOwnerState extends State<DriverDetailsOwner> {
           ),
         ),
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: Row(
+          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          child: const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [Text("Photo Upload"), Text("")],
           ),
         ),
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: DottedBorder(
-            color: Color(0xFFdddddd),
+            color: const Color(0xFFdddddd),
             strokeWidth: 1,
-            dashPattern: [5, 6],
+            dashPattern: const [5, 6],
             child: Container(
               child: Row(
                 children: [
@@ -402,32 +402,31 @@ class _DriverDetailsOwnerState extends State<DriverDetailsOwner> {
                   ),
                   ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
-                        primary: Color(0xFF00B74C),
+                        backgroundColor: const Color(0xFF00B74C),
                         padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
+                            const EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
                     onPressed: handleFileUpload,
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.upload,
                       size: 15,
                     ),
-                    label: Text("Upload"),
+                    label: const Text("Upload"),
                   ),
                 ],
               ),
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 25,
         ),
         Container(
-            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
             width: AppSceenSize.getWidth(context),
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Appcolors.appgreen, // Background color
-                  onPrimary: Colors.white, // Text color
-                  padding: EdgeInsets.all(16), // Button padding
+                  foregroundColor: Colors.white, backgroundColor: Appcolors.appgreen, // Text color
+                  padding: const EdgeInsets.all(16), // Button padding
                   shape: RoundedRectangleBorder(
                     borderRadius:
                         BorderRadius.circular(8), // Button border radius
@@ -441,7 +440,7 @@ class _DriverDetailsOwnerState extends State<DriverDetailsOwner> {
                       ));
                   print("ccvbvb");
                 },
-                child: Text("SUBMIT ")))
+                child: const Text("SUBMIT ")))
       ],
     );
   }

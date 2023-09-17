@@ -3,7 +3,6 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:myride/constant/app_color.dart';
 import 'package:myride/constant/app_screen_size.dart';
 import 'package:myride/constant/app_text_style.dart';
-import 'package:myride/view/for_driver/verify/otp.dart';
 import 'package:myride/view_model/signIn_viewModel.dart';
 import 'package:provider/provider.dart';
 

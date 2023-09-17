@@ -21,7 +21,7 @@ class _RouteScreenState extends State<RouteScreen> {
     target: LatLng(22.5726, 88.3639),
     zoom: 14.4746,
   );
- 
+
   // @override
   // void initState() {
   //   super.initState();
@@ -62,7 +62,8 @@ class _RouteScreenState extends State<RouteScreen> {
                           child: Container(
                             height: 70,
                             width: AppSceenSize.getWidth(context) * 0.95,
-                            child: Row(
+                            color: const Color(0xFF00B74C),
+                            child: const Row(
                               children: [
                                 SizedBox(
                                   width: 10,
@@ -82,7 +83,6 @@ class _RouteScreenState extends State<RouteScreen> {
                                         'It will automatically transfer to other driver after time completed.')),
                               ],
                             ),
-                            color: Color(0xFF00B74C),
                           ),
                         )
                       ],
@@ -129,9 +129,8 @@ class _RouteScreenState extends State<RouteScreen> {
       height: MediaQuery.of(context).size.height * 0.4,
       decoration: BoxDecoration(
         color: Colors.grey[200],
-        borderRadius: BorderRadius.only(
-            topRight: Radius.circular(20.0),
-            topLeft: Radius.circular(20.0)),
+        borderRadius: const BorderRadius.only(
+            topRight: Radius.circular(20.0), topLeft: Radius.circular(20.0)),
       ),
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -152,8 +151,8 @@ class _RouteScreenState extends State<RouteScreen> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(Icons.location_on),
-                  SizedBox(
+                  const Icon(Icons.location_on),
+                  const SizedBox(
                     width: 10,
                   ),
                   Column(
@@ -163,7 +162,7 @@ class _RouteScreenState extends State<RouteScreen> {
                         "Pick-up",
                         style: TextStyle(color: Color(0xFFC8C7CC)),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       SizedBox(
@@ -193,8 +192,8 @@ class _RouteScreenState extends State<RouteScreen> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(Icons.location_on),
-                  SizedBox(
+                  const Icon(Icons.location_on),
+                  const SizedBox(
                     width: 10,
                   ),
                   Column(
@@ -204,7 +203,7 @@ class _RouteScreenState extends State<RouteScreen> {
                         "Drop-off",
                         style: TextStyle(color: Color(0xFFC8C7CC)),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       SizedBox(
@@ -227,7 +226,7 @@ class _RouteScreenState extends State<RouteScreen> {
               Image.asset('assets/icon/ic_Location.png')
             ],
           ),
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Row(
@@ -271,16 +270,16 @@ class _RouteScreenState extends State<RouteScreen> {
                   onTap: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return ConfirmingTrip();
+                      return const ConfirmingTrip();
                     }));
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.3,
                     height: 40,
                     decoration: BoxDecoration(
-                        color: Color(0xFF00B74C),
+                        color: const Color(0xFF00B74C),
                         borderRadius: BorderRadius.circular(30)),
-                    child: Center(
+                    child: const Center(
                         child: Text(
                       "Accept Ride",
                       style: TextStyle(fontSize: 14, color: Colors.white),
@@ -296,9 +295,9 @@ class _RouteScreenState extends State<RouteScreen> {
                     width: MediaQuery.of(context).size.width * 0.3,
                     height: 40,
                     decoration: BoxDecoration(
-                        color: Color(0xFFFC1010),
+                        color: const Color(0xFFFC1010),
                         borderRadius: BorderRadius.circular(30)),
-                    child: Center(
+                    child: const Center(
                         child: Text(
                       "Reject Ride",
                       style: TextStyle(fontSize: 14, color: Colors.white),

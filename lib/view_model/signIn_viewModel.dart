@@ -7,7 +7,6 @@ import 'package:myride/repository/signin_repo.dart';
 import 'package:myride/utils/utils.dart';
 import 'package:myride/view/for_driver/verify/email.dart';
 import 'package:myride/view/for_driver/verify/otp.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInViewModel extends ChangeNotifier {
   final _signInRepo = SignInRepo();

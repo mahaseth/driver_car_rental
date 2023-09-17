@@ -59,14 +59,16 @@ class _AdditionalScreenState extends State<AdditionalScreen>
                       children: [Image.asset("assets/images/headerbg.png")],
                     ),
                   ),
-                   IconButton(onPressed: (){
-                      Navigator.pop(context);
-                    }, icon: Icon(Icons.arrow_back)),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(Icons.arrow_back)),
                   Positioned(
                     top: MediaQuery.of(context).size.height * 0.10,
                     width: MediaQuery.of(context).size.width,
                     child: Container(
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                         horizontal: 20,
                       ),
                       child: Column(
@@ -84,23 +86,23 @@ class _AdditionalScreenState extends State<AdditionalScreen>
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
-                                                  PaymentScreen(),
+                                                  const PaymentScreen(),
                                             ));
                                       },
-                                      child: Text(
+                                      child: const Text(
                                         "Welcome, Manas",
                                         style: AppTextStyle.welcommehead,
                                       )),
-                                  Text(
+                                  const Text(
                                     "Kolkata | #837494",
                                     style: AppTextStyle.welcomesubheading,
                                   )
                                 ],
                               ),
-                              Icon(Icons.notifications_none)
+                              const Icon(Icons.notifications_none)
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 8,
                           ),
                         ],
@@ -110,7 +112,7 @@ class _AdditionalScreenState extends State<AdditionalScreen>
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             _buildBodySection()
@@ -135,7 +137,7 @@ class _AdditionalScreenState extends State<AdditionalScreen>
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
         selectedItemColor:
-            Color(0xFF058F2C), // Change this to your desired active color
+            const Color(0xFF058F2C), // Change this to your desired active color
       ),
     );
   }
@@ -146,7 +148,7 @@ class _AdditionalScreenState extends State<AdditionalScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Row(
+          const Row(
             children: [
               Text(
                 'Booking Date :-   ',
@@ -161,7 +163,7 @@ class _AdditionalScreenState extends State<AdditionalScreen>
               Row(
                 children: [
                   Image.asset('assets/icon/car.png'),
-                  Column(
+                  const Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -197,10 +199,10 @@ class _AdditionalScreenState extends State<AdditionalScreen>
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
@@ -225,10 +227,10 @@ class _AdditionalScreenState extends State<AdditionalScreen>
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
-          Row(
+          const Row(
             children: [
               Text(
                 'Pick-up Location :-',
@@ -240,10 +242,10 @@ class _AdditionalScreenState extends State<AdditionalScreen>
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
-          Row(
+          const Row(
             children: [
               Text(
                 'Drop-Off  Location :-',
@@ -255,7 +257,7 @@ class _AdditionalScreenState extends State<AdditionalScreen>
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Column(
@@ -266,8 +268,8 @@ class _AdditionalScreenState extends State<AdditionalScreen>
                 height: 50,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
-                    color: Color(0xFF127331).withOpacity(0.2)),
-                child: Center(
+                    color: const Color(0xFF127331).withOpacity(0.2)),
+                child: const Center(
                     child: Text(
                   'Download Tax Invoice ',
                   style: TextStyle(fontSize: 20),
@@ -281,8 +283,8 @@ class _AdditionalScreenState extends State<AdditionalScreen>
                 height: 50,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
-                    color: Color(0xFFED1212).withOpacity(0.2)),
-                child: Center(
+                    color: const Color(0xFFED1212).withOpacity(0.2)),
+                child: const Center(
                     child: Text(
                   'Report An Accident ',
                   style: TextStyle(fontSize: 20),

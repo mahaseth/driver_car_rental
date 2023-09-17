@@ -16,13 +16,13 @@ class ChooseVehicleViewModel extends ChangeNotifier {
   //Selected vehicle index
 
   int _selectedIndex = -1;
-  int get selectedIndex => this._selectedIndex;
+  int get selectedIndex => _selectedIndex;
 
   bool _isVehicleSelectedView = false;
-  bool get isVehicleSelectedView => this._isVehicleSelectedView;
+  bool get isVehicleSelectedView => _isVehicleSelectedView;
 
   setSelectedIndex(value) {
-    this._selectedIndex = value;
+    _selectedIndex = value;
 
     setIsRequest(false);
 
@@ -43,24 +43,24 @@ class ChooseVehicleViewModel extends ChangeNotifier {
   //is Package clicked
 
   bool _packageTapped = false;
-  bool get packageTapped => this._packageTapped;
+  bool get packageTapped => _packageTapped;
 
   setpackageTapped(value) {
-    Future.delayed(Duration(seconds: 05), () {
+    Future.delayed(const Duration(seconds: 05), () {
       _isVehicleSelectedView = false;
     });
-    this._packageTapped = value;
+    _packageTapped = value;
     notifyListeners();
 
     log("package tapped $_packageTapped");
     notifyListeners();
   }
 
-  List<bool> _isPackageclicked = [false, false, false];
-  List<bool> get isPackageclicked => this._isPackageclicked;
+  final List<bool> _isPackageclicked = [false, false, false];
+  List<bool> get isPackageclicked => _isPackageclicked;
 
   setIsPackageclicked(bool value, int index) {
-    this._isPackageclicked[index] = !value;
+    _isPackageclicked[index] = !value;
     notifyListeners();
   }
 

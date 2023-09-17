@@ -38,7 +38,7 @@ class _SubmitScreenOwnerState extends State<SubmitScreenOwner> {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+          margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,18 +47,18 @@ class _SubmitScreenOwnerState extends State<SubmitScreenOwner> {
                 height: MediaQuery.of(context).size.height * 0.05,
               ),
               Image.asset('assets/images/sumbit_icon.png'),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              Text(
+              const Text(
                 "Accept My Pride’s Terms & Review Privacy Policy",
                 style: AppTextStyle.sumbitheading,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
               RichText(
-                  text: TextSpan(
+                  text: const TextSpan(
                       text:
                           "By selecting “I Agree” Below, I have reviewed and agree to the ",
                       style: AppTextStyle.submitsubheading,
@@ -72,15 +72,15 @@ class _SubmitScreenOwnerState extends State<SubmitScreenOwner> {
                         style: TextStyle(color: Color(0xFF0A9EEB))),
                     TextSpan(text: 'I am at least 18 years of age.')
                   ])),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               DottedBorder(
-                color: Color(0xFFdddddd),
+                color: const Color(0xFFdddddd),
                 strokeWidth: 1,
-                dashPattern: [5, 6],
+                dashPattern: const [5, 6],
                 child: Container(
-                  color: Color(0xFFbF5F5F5),
+                  color: const Color(0xffbf5f5f5),
                   child: Row(
                     children: [
                       Checkbox(
@@ -92,22 +92,22 @@ class _SubmitScreenOwnerState extends State<SubmitScreenOwner> {
                           });
                         },
                       ),
-                      Text("I Agree")
+                      const Text("I Agree")
                     ],
                   ),
                 ),
               ),
-              Spacer(),
-              Text("Do you agree to register for My Ride insurance police"),
-              SizedBox(
+              const Spacer(),
+              const Text("Do you agree to register for My Ride insurance police"),
+              const SizedBox(
                 height: 50,
               ),
               DottedBorder(
                   strokeWidth: 1,
-                  dashPattern: [5, 6],
-                  color: Color(0xFFdddddd),
+                  dashPattern: const [5, 6],
+                  color: const Color(0xFFdddddd),
                   child: Container(
-                    color: Color(0xFFbF5F5F5),
+                    color: const Color(0xffbf5f5f5),
                     child: Row(
                       children: [
                         Checkbox(
@@ -119,11 +119,11 @@ class _SubmitScreenOwnerState extends State<SubmitScreenOwner> {
                             });
                           },
                         ),
-                        Text("I Agree")
+                        const Text("I Agree")
                       ],
                     ),
                   )),
-              Spacer(),
+              const Spacer(),
             ],
           ),
         ),
@@ -132,21 +132,17 @@ class _SubmitScreenOwnerState extends State<SubmitScreenOwner> {
         onTap: () {
           log("PRINT NAVIGATUO");
 
-          Navigator.push(context, MaterialPageRoute(builder: (context){
-            return SignScreenForOwner();
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return const SignScreenForOwner();
           }));
-
-
-
-
-               },
+        },
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           width: double.infinity,
           height: 50,
-          color: Color(0xFF00B74C),
-          padding: EdgeInsets.all(16),
-          child: Center(
+          color: const Color(0xFF00B74C),
+          padding: const EdgeInsets.all(16),
+          child: const Center(
             child: Text(
               'Submit',
               style: TextStyle(color: Colors.white),

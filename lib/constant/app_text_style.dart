@@ -4,12 +4,10 @@ class AppTextStyle {
   static const logotext = TextStyle(
       color: Color(0xFFF5EBEB), fontSize: 30, fontWeight: FontWeight.bold);
 
-
-
   static const phoneverifytext = TextStyle(
-      fontSize: 25, color: Color.fromARGB(255, 231, 231, 238), fontWeight: FontWeight.w700);
-
-
+      fontSize: 25,
+      color: Color.fromARGB(255, 231, 231, 238),
+      fontWeight: FontWeight.w700);
 
   // btnstyle
 

@@ -50,28 +50,29 @@ class _ConfirmingTripState extends State<ConfirmingTrip> {
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            icon: Icon(Icons.arrow_back))
+                            icon: const Icon(Icons.arrow_back))
                       ],
                     ),
                     GestureDetector(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context){
-                          return PickRideScreen();
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return const PickRideScreen();
                         }));
                       },
                       child: Container(
                         height: 70,
                         width: AppSceenSize.getWidth(context) * 0.95,
-                        child: Center(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: Colors.grey),
+                        child: const Center(
                           child: Text(
                             'Confirming Trip....',
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
                         ),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: Colors.grey),
                       ),
                     ),
                   ],

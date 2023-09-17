@@ -29,13 +29,13 @@ class _HomeScreenOwnerState extends State<HomeScreenOwner> {
                   const SizedBox(
                     width: 10,
                   ),
-                  Text(
+                  const Text(
                     "My Ride",
                     style: AppTextStyle.logotext,
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               TextButton(
@@ -43,7 +43,7 @@ class _HomeScreenOwnerState extends State<HomeScreenOwner> {
                   // Button click action
                 },
                 style: TextButton.styleFrom(
-                  backgroundColor: Color(0xFF1B6864), // No background color
+                  backgroundColor: const Color(0xFF1B6864), // No background color
                   padding:
                       const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                   shape: RoundedRectangleBorder(
@@ -52,12 +52,12 @@ class _HomeScreenOwnerState extends State<HomeScreenOwner> {
                     borderRadius: BorderRadius.circular(8), // Rounded corners
                   ),
                 ),
-                child: Text(
+                child: const Text(
                   'For Car Owner',
                   style: AppTextStyle.buttontext,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               TextButton(
@@ -65,7 +65,7 @@ class _HomeScreenOwnerState extends State<HomeScreenOwner> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => VerifyScreen(),
+                        builder: (context) => const VerifyScreen(),
                       ));
                 },
                 style: TextButton.styleFrom(
@@ -98,4 +98,3 @@ class _HomeScreenOwnerState extends State<HomeScreenOwner> {
     );
   }
 }
-  

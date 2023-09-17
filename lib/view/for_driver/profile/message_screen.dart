@@ -21,10 +21,10 @@ class _MessageScreenState extends State<MessageScreen> {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return WriteMessage();
+              return const WriteMessage();
             }));
           },
-          child: Icon(Icons.edit),
+          child: const Icon(Icons.edit),
         ),
       ),
     );
@@ -50,16 +50,18 @@ class _MessageScreenState extends State<MessageScreen> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: Icon(Icons.arrow_back)),
-                  SizedBox(height: 50,),
-              Padding(
-                padding: const EdgeInsets.only(left:20.0),
+                  icon: const Icon(Icons.arrow_back)),
+              const SizedBox(
+                height: 50,
+              ),
+              const Padding(
+                padding: EdgeInsets.only(left: 20.0),
                 child: Text(
                   "All Message",
                   style: TextStyle(fontSize: 20),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 40,
               ),
             ],
@@ -75,7 +77,7 @@ class _MessageScreenState extends State<MessageScreen> {
       child: ListView.separated(
           itemCount: 4,
           separatorBuilder: (context, index) {
-            return Divider(
+            return const Divider(
               color: Colors.grey,
             );
           },
@@ -84,11 +86,11 @@ class _MessageScreenState extends State<MessageScreen> {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                  CircleAvatar(
-                    child: Text('K'),
+                  const CircleAvatar(
                     radius: 30,
+                    child: Text('K'),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Column(
@@ -97,19 +99,19 @@ class _MessageScreenState extends State<MessageScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Admin"),
+                          const Text("Admin"),
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 0.5,
                           ),
-                          Text("1:58pm")
+                          const Text("1:58pm")
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.7,
-                        child: Text(
+                        child: const Text(
                             "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint."),
                       )
                     ],

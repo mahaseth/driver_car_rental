@@ -20,74 +20,104 @@ class MobileVerifyOwner extends StatefulWidget {
 }
 
 class _MobileVerifyOwnerState extends State<MobileVerifyOwner> {
-   final TextEditingController _phoneNumberController = TextEditingController();
-  PhoneNumber _selectedPhoneNumber = PhoneNumber(isoCode: 'US');
+  final TextEditingController _phoneNumberController = TextEditingController();
+  final PhoneNumber _selectedPhoneNumber = PhoneNumber(isoCode: 'US');
   @override
   Widget build(BuildContext context) {
-     
     return Scaffold(
-      appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0, leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          color: Color(0xFF333333),
-                    onPressed: () {
-           Navigator.pop(context);
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          color: const Color(0xFF333333),
+          onPressed: () {
+            Navigator.pop(context);
           },
-        ), centerTitle: true, title: Text("Phone Number", style: TextStyle(color:Color(0xFF333333) ),),),
-      body: Stack(children: [
+        ),
+        centerTitle: true,
+        title: const Text(
+          "Phone Number",
+          style: TextStyle(color: Color(0xFF333333)),
+        ),
+      ),
+      body: Stack(
+        children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                
-                SizedBox(height: 30,),
-
-                const Text("Enter your mobile number", style: AppTextStyle.otpheadingtext,),
-                SizedBox(height: 8,),
-               const Text("We will send you the 4 digit verification code", style: AppTextStyle.otpsubheading,),
-                SizedBox(height: 20,),
-             IntlPhoneField(
-            controller: _phoneNumberController,
-            decoration: InputDecoration(
-              enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xFFDDDDDD)), // Customize the border color here
-            borderRadius: BorderRadius.circular(8.0),
+                const SizedBox(
+                  height: 30,
+                ),
+                const Text(
+                  "Enter your mobile number",
+                  style: AppTextStyle.otpheadingtext,
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                const Text(
+                  "We will send you the 4 digit verification code",
+                  style: AppTextStyle.otpsubheading,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                IntlPhoneField(
+                  controller: _phoneNumberController,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                          color: Color(
+                              0xFFDDDDDD)), // Customize the border color here
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    border: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Color(0xFFDDDDDD)),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
                   ),
-              
-              border: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xFFDDDDDD)),  
-            borderRadius: BorderRadius.circular(8.0),
-                  ),
+                  initialCountryCode: 'IN',
+                ),
+              ],
             ),
-            initialCountryCode: 'IN',
-            
-                  ),
-          
-                  
-            ],),
           ),
-
-          
-
-
-          Positioned(height: AppSceenSize.getHeight(context)*0.30, width: AppSceenSize.getWidth(context)*1, bottom: 0, child: Image.asset("assets/images/whitebg.png", fit: BoxFit.cover,)),
-     
-      Positioned(bottom: 10, child: Container(padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10), width: AppSceenSize.getWidth(context), child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            primary: Appcolors.appgreen, // Background color
-            onPrimary: Colors.white, // Text color
-            padding: EdgeInsets.all(16), // Button padding
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8), // Button border radius
-            ),),
-          onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const OtpScreenOwner(),));
-            print("ccvbvb");
-          }, child: Text("Generate Otp ")))),
-
-     
-      ],),
+          Positioned(
+              height: AppSceenSize.getHeight(context) * 0.30,
+              width: AppSceenSize.getWidth(context) * 1,
+              bottom: 0,
+              child: Image.asset(
+                "assets/images/whitebg.png",
+                fit: BoxFit.cover,
+              )),
+          Positioned(
+              bottom: 10,
+              child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                  width: AppSceenSize.getWidth(context),
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white, backgroundColor: Appcolors.appgreen, // Text color
+                        padding: const EdgeInsets.all(16), // Button padding
+                        shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(8), // Button border radius
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const OtpScreenOwner(),
+                            ));
+                        print("ccvbvb");
+                      },
+                      child: const Text("Generate Otp ")))),
+        ],
+      ),
     );
   }
 }

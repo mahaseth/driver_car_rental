@@ -42,12 +42,12 @@ class _AddNewVehicleState extends State<AddNewVehicle> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: Icon(Icons.arrow_back)),
-              SizedBox(
+                  icon: const Icon(Icons.arrow_back)),
+              const SizedBox(
                 height: 50,
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+              const Padding(
+                padding: EdgeInsets.only(left: 20.0, right: 20.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -63,7 +63,7 @@ class _AddNewVehicleState extends State<AddNewVehicle> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 40,
               ),
             ],
@@ -74,8 +74,8 @@ class _AddNewVehicleState extends State<AddNewVehicle> {
   }
 
   _buildFormSection() {
-    return Padding(
-      padding: const EdgeInsets.only(right: 20.0, left: 20.0),
+    return const Padding(
+      padding: EdgeInsets.only(right: 20.0, left: 20.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -144,7 +144,7 @@ class _AddNewVehicleState extends State<AddNewVehicle> {
           FractionallySizedBox(
             widthFactor: 0.48,
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(8.0),
               child: Card(
                 child: Row(
                   children: [

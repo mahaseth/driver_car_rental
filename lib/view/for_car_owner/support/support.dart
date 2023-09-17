@@ -36,7 +36,7 @@ class _SupportScreenState extends State<SupportScreen>
     super.dispose();
   }
 
-  TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
   String _uploadedFileName = '';
 
   void handleFileUpload() async {
@@ -44,7 +44,7 @@ class _SupportScreenState extends State<SupportScreen>
       FilePickerResult? result = await FilePicker.platform.pickFiles();
       if (result != null) {
         setState(() {
-          _uploadedFileName = result.files.single.name!;
+          _uploadedFileName = result.files.single.name;
         });
       }
     } on PlatformException catch (e) {
@@ -81,12 +81,12 @@ class _SupportScreenState extends State<SupportScreen>
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon: Icon(Icons.arrow_back)),
+                      icon: const Icon(Icons.arrow_back)),
                   Positioned(
                     top: MediaQuery.of(context).size.height * 0.10,
                     width: MediaQuery.of(context).size.width,
                     child: Container(
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                         horizontal: 20,
                       ),
                       child: Column(
@@ -104,23 +104,23 @@ class _SupportScreenState extends State<SupportScreen>
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
-                                                  PaymentScreen(),
+                                                  const PaymentScreen(),
                                             ));
                                       },
-                                      child: Text(
+                                      child: const Text(
                                         "Welcome, Manas",
                                         style: AppTextStyle.welcommehead,
                                       )),
-                                  Text(
+                                  const Text(
                                     "Kolkata | #837494",
                                     style: AppTextStyle.welcomesubheading,
                                   )
                                 ],
                               ),
-                              Icon(Icons.notifications_none)
+                              const Icon(Icons.notifications_none)
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 8,
                           ),
                         ],
@@ -130,7 +130,7 @@ class _SupportScreenState extends State<SupportScreen>
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             _buildBodySection()
@@ -155,7 +155,7 @@ class _SupportScreenState extends State<SupportScreen>
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
         selectedItemColor:
-            Color(0xFF058F2C), // Change this to your desired active color
+            const Color(0xFF058F2C), // Change this to your desired active color
       ),
     );
   }
@@ -166,7 +166,7 @@ class _SupportScreenState extends State<SupportScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Row(
+          const Row(
             children: [
               Text(
                 'Booking Date :-   ',
@@ -175,7 +175,7 @@ class _SupportScreenState extends State<SupportScreen>
               Text("12/6/2023  to 13/06/2023"),
             ],
           ),
-          Row(
+          const Row(
             children: [
               Text(
                 'Reporting Date :-   ',
@@ -190,7 +190,7 @@ class _SupportScreenState extends State<SupportScreen>
               Row(
                 children: [
                   Image.asset('assets/icon/car.png'),
-                  Column(
+                  const Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -226,7 +226,7 @@ class _SupportScreenState extends State<SupportScreen>
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           Row(
@@ -248,21 +248,19 @@ class _SupportScreenState extends State<SupportScreen>
               ),
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                    primary: Color(0xFF00B74C),
+                    backgroundColor: const Color(0xFF00B74C),
                     padding:
-                        EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
                 onPressed: handleFileUpload,
-                icon: Icon(
+                icon: const Icon(
                   Icons.upload,
                   size: 15,
                 ),
-                label: Text("Upload"),
+                label: const Text("Upload"),
               ),
             ],
           ),
-            
-          
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Row(
@@ -284,19 +282,19 @@ class _SupportScreenState extends State<SupportScreen>
               ),
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                    primary: Color(0xFF00B74C),
+                    backgroundColor: const Color(0xFF00B74C),
                     padding:
-                        EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
                 onPressed: handleFileUpload,
-                icon: Icon(
+                icon: const Icon(
                   Icons.upload,
                   size: 15,
                 ),
-                label: Text("Upload"),
+                label: const Text("Upload"),
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 60,
           ),
           Container(
@@ -304,15 +302,13 @@ class _SupportScreenState extends State<SupportScreen>
             height: 50,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: Color(0xFF127331)),
-            child: Center(
+                color: const Color(0xFF127331)),
+            child: const Center(
                 child: Text(
               'Continue to Support',
               style: TextStyle(fontSize: 20, color: Colors.white),
             )),
           ),
-
-        
         ],
       ),
     );

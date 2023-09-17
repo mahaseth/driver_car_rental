@@ -65,12 +65,12 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon: Icon(Icons.arrow_back)),
+                      icon: const Icon(Icons.arrow_back)),
                   Positioned(
                     top: MediaQuery.of(context).size.height * 0.10,
                     width: MediaQuery.of(context).size.width,
                     child: Container(
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                         horizontal: 20,
                       ),
                       child: Column(
@@ -88,23 +88,23 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
-                                                  PaymentScreen(),
+                                                  const PaymentScreen(),
                                             ));
                                       },
-                                      child: Text(
+                                      child: const Text(
                                         "Welcome, Manas",
                                         style: AppTextStyle.welcommehead,
                                       )),
-                                  Text(
+                                  const Text(
                                     "Kolkata | #837494",
                                     style: AppTextStyle.welcomesubheading,
                                   )
                                 ],
                               ),
-                              Icon(Icons.notifications_none)
+                              const Icon(Icons.notifications_none)
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 8,
                           ),
                         ],
@@ -114,7 +114,7 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             TabBar(
@@ -165,22 +165,22 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
         selectedItemColor:
-            Color(0xFF058F2C), // Change this to your desired active color
+            const Color(0xFF058F2C), // Change this to your desired active color
       ),
     );
   }
 
   vehicleList() {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Column(
         children: [
           Container(
-            color: Color(0xFFF5F5F5),
-            padding: EdgeInsets.symmetric(vertical: 20),
+            color: const Color(0xFFF5F5F5),
+            padding: const EdgeInsets.symmetric(vertical: 20),
             child: Column(
               children: [
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
@@ -189,7 +189,7 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
                     Text('Detail')
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Row(
@@ -197,10 +197,10 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
                   children: [
                     Container(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 5, vertical: 20),
-                      margin: EdgeInsets.symmetric(horizontal: 5),
+                          const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
+                      margin: const EdgeInsets.symmetric(horizontal: 5),
                       color: Colors.white,
-                      child: Column(
+                      child: const Column(
                         children: [
                           Text("100", style: AppTextStyle.upperitemtmeemtext),
                           SizedBox(
@@ -216,10 +216,10 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
                     Container(
                       width: MediaQuery.of(context).size.width * 0.25,
                       padding:
-                          EdgeInsets.symmetric(horizontal: 5, vertical: 20),
-                      margin: EdgeInsets.symmetric(horizontal: 5),
+                          const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
+                      margin: const EdgeInsets.symmetric(horizontal: 5),
                       color: Colors.white,
-                      child: Column(
+                      child: const Column(
                         children: [
                           Text("1145.5",
                               style: AppTextStyle.upperitemtmeemtext),
@@ -235,10 +235,10 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
                     ),
                     Container(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 5, vertical: 20),
-                      margin: EdgeInsets.symmetric(horizontal: 5),
+                          const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
+                      margin: const EdgeInsets.symmetric(horizontal: 5),
                       color: Colors.white,
-                      child: Column(
+                      child: const Column(
                         children: [
                           Text("₹200", style: AppTextStyle.upperitemtmeemtext),
                           SizedBox(
@@ -277,7 +277,7 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
                     Row(
                       children: [
                         Image.asset('assets/icon/car.png'),
-                        Column(
+                        const Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -311,7 +311,7 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
                         )
                       ],
                     ),
-                    Icon(Icons.more_vert)
+                    const Icon(Icons.more_vert)
                   ],
                 ),
                 Container(
@@ -331,7 +331,7 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
                               width: 60,
                               height: 60,
                             ),
-                            Text("Insurance")
+                            const Text("Insurance")
                           ],
                         ),
                         Column(
@@ -341,14 +341,14 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
                               width: 60,
                               height: 60,
                             ),
-                            Text("Registration")
+                            const Text("Registration")
                           ],
                         ),
                         GestureDetector(
                           onTap: () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return SupportScreen();
+                              return const SupportScreen();
                             }));
                           },
                           child: Column(
@@ -358,7 +358,7 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
                                 width: 60,
                                 height: 60,
                               ),
-                              Text("Support")
+                              const Text("Support")
                             ],
                           ),
                         ),
@@ -366,7 +366,7 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
                           onTap: () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return AdditionalScreen();
+                              return const AdditionalScreen();
                             }));
                           },
                           child: Column(
@@ -376,7 +376,7 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
                                 width: 60,
                                 height: 60,
                               ),
-                              Text("Additional")
+                              const Text("Additional")
                             ],
                           ),
                         ),
@@ -395,21 +395,21 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
   inTransit() {
     return Column(
       children: [
-        SizedBox(
+        const SizedBox(
           height: 30,
         ),
         Image.asset('assets/icon/empty_image.png'),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
-        Text(
+        const Text(
           'Your Cars List',
           style: TextStyle(fontSize: 20),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
-        Text(
+        const Text(
             'Your request is currently being reviewed by our \n                      system administrators.')
       ],
     );
@@ -418,21 +418,21 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
   inComplete() {
     return Column(
       children: [
-        SizedBox(
+        const SizedBox(
           height: 30,
         ),
         Image.asset('assets/icon/empty_image.png'),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
-        Text(
+        const Text(
           'Your Cars List',
           style: TextStyle(fontSize: 20),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
-        Text(
+        const Text(
             'Your request is currently being reviewed by our \n                      system administrators.')
       ],
     );

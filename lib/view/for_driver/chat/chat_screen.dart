@@ -87,7 +87,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             )
           ],
@@ -101,22 +101,22 @@ class MessageBubble extends StatelessWidget {
   final String message;
   final bool isMe;
 
-  MessageBubble({required this.message, required this.isMe});
+  const MessageBubble({super.key, required this.message, required this.isMe});
 
   @override
   Widget build(BuildContext context) {
     return Align(
       alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
-        padding: EdgeInsets.all(8),
-        margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+        padding: const EdgeInsets.all(8),
+        margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
         decoration: BoxDecoration(
           color: isMe ? Colors.blue : Colors.grey,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Text(
           message,
-          style: TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white),
         ),
       ),
     );
@@ -126,7 +126,7 @@ class MessageBubble extends StatelessWidget {
 class MessageInput extends StatefulWidget {
   final Function(String, bool) onSendMessage;
 
-  MessageInput(this.onSendMessage);
+  const MessageInput(this.onSendMessage, {super.key});
 
   @override
   _MessageInputState createState() => _MessageInputState();

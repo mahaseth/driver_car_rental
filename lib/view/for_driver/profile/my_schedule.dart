@@ -62,12 +62,12 @@ class _MyScheduleState extends State<MySchedule>
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon: Icon(Icons.arrow_back)),
+                      icon: const Icon(Icons.arrow_back)),
                   Text(
                     _headerText,
-                    style: TextStyle(fontSize: 20),
+                    style: const TextStyle(fontSize: 20),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 40,
                   ),
                 ],
@@ -76,8 +76,8 @@ class _MyScheduleState extends State<MySchedule>
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
                   height: 40,
-                  color: Color(0xFF7676803D),
-                  child: TextField(
+                  color: const Color(0xff7676803d),
+                  child: const TextField(
                     decoration: InputDecoration(
                       hintText: 'Search...',
                       prefixIcon: Icon(Icons.search),
@@ -94,7 +94,7 @@ class _MyScheduleState extends State<MySchedule>
   }
 
   _buildTabSection() {
-    return Container(
+    return SizedBox(
       height: AppSceenSize.getHeight(context) * 0.7,
       child: Column(
         children: [
@@ -113,13 +113,13 @@ class _MyScheduleState extends State<MySchedule>
                 }
                 setState(() {});
               },
-              tabs: [
+              tabs: const [
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.0),
                   child: Text("Schduled Ride"),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.0),
                   child: Text("Completed"),
                 )
               ],
@@ -149,8 +149,8 @@ class _MyScheduleState extends State<MySchedule>
         children: [
           Row(
             children: [
-              Column(
-                children: const [
+              const Column(
+                children: [
                   Icon(Icons.location_on),
                   SizedBox(
                     height: 40,
@@ -184,9 +184,9 @@ class _MyScheduleState extends State<MySchedule>
                   GestureDetector(
                     behavior: HitTestBehavior.translucent,
                     onTap: () {},
-                    child: Column(
+                    child: const Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children: [
                         Text(
                           "Drop-off",
                           style: TextStyle(color: Color(0xFFC8C7CC)),
@@ -208,7 +208,7 @@ class _MyScheduleState extends State<MySchedule>
           const SizedBox(
             height: 20,
           ),
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Row(
@@ -247,9 +247,9 @@ class _MyScheduleState extends State<MySchedule>
             width: MediaQuery.of(context).size.width * 0.9,
             height: 50,
             decoration: BoxDecoration(
-                color: Color(0xFFFC1010),
+                color: const Color(0xFFFC1010),
                 borderRadius: BorderRadius.circular(30)),
-            child: Center(
+            child: const Center(
                 child: Text(
               "Reject ride",
               style: TextStyle(fontSize: 20, color: Colors.white),
@@ -287,16 +287,16 @@ class _MyScheduleState extends State<MySchedule>
                           "assets/icon/route.png",
                           width: 30,
                         ),
-                        Text("My Route", style: AppTextStyle.listCardProfile),
+                        const Text("My Route", style: AppTextStyle.listCardProfile),
                       ],
                     ),
-                    Icon(
+                    const Icon(
                       Icons.arrow_forward_ios,
                       color: Colors.grey,
                     )
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Row(
@@ -304,10 +304,10 @@ class _MyScheduleState extends State<MySchedule>
                   children: [
                     Row(
                       children: [
-                        Column(
+                        const Column(
                           children: [Text("Stop"), Text("100")],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Container(
@@ -319,10 +319,10 @@ class _MyScheduleState extends State<MySchedule>
                     ),
                     Row(
                       children: [
-                        Column(
+                        const Column(
                           children: [Text("Duration"), Text("5h:30 min")],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Container(
@@ -334,10 +334,10 @@ class _MyScheduleState extends State<MySchedule>
                     ),
                     Row(
                       children: [
-                        Column(
+                        const Column(
                           children: [Text("Distance"), Text("250mi")],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Container(
@@ -347,7 +347,7 @@ class _MyScheduleState extends State<MySchedule>
                         )
                       ],
                     ),
-                    Row(
+                    const Row(
                       children: [
                         Column(
                           children: [Text("Assign"), Text("Sandip")],
@@ -364,7 +364,7 @@ class _MyScheduleState extends State<MySchedule>
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
               ],

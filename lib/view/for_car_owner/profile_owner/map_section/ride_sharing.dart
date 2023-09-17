@@ -58,7 +58,7 @@ class _RideSharingScreenState extends State<RideSharingScreen> {
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            icon: Icon(Icons.arrow_back)),
+                            icon: const Icon(Icons.arrow_back)),
                         Positioned(
                           top: MediaQuery.of(context).size.height * 0.38,
                           right: 10,
@@ -72,7 +72,7 @@ class _RideSharingScreenState extends State<RideSharingScreen> {
                                     width: 90,
                                     height: 40,
                                     decoration: BoxDecoration(
-                                        color: Color(0xFF0D94CE),
+                                        color: const Color(0xFF0D94CE),
                                         borderRadius:
                                             BorderRadius.circular(30)),
                                     child: Center(
@@ -81,10 +81,10 @@ class _RideSharingScreenState extends State<RideSharingScreen> {
                                       child: Row(
                                         children: [
                                           Image.asset("assets/icon/call.png"),
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 10,
                                           ),
-                                          Text(
+                                          const Text(
                                             "Call",
                                             style: TextStyle(
                                                 fontSize: 14,
@@ -104,12 +104,12 @@ class _RideSharingScreenState extends State<RideSharingScreen> {
                                     width: 90,
                                     height: 40,
                                     decoration: BoxDecoration(
-                                        color: Color(0xFFF0C414),
+                                        color: const Color(0xFFF0C414),
                                         borderRadius:
                                             BorderRadius.circular(30)),
-                                    child: Center(
+                                    child: const Center(
                                         child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
+                                      padding: EdgeInsets.all(8.0),
                                       child: Row(
                                         children: [
                                           Icon(Icons.chat_outlined),
@@ -160,16 +160,16 @@ class _RideSharingScreenState extends State<RideSharingScreen> {
     return Container(
       height: MediaQuery.of(context).size.height * 0.4,
       padding: const EdgeInsets.all(16.0),
-       decoration: BoxDecoration(
+      decoration: BoxDecoration(
         color: Colors.grey[200],
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
             topRight: Radius.circular(20.0), topLeft: Radius.circular(20.0)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Current Rides"),
-          SizedBox(
+          const Text("Current Rides"),
+          const SizedBox(
             height: 10,
           ),
           SizedBox(
@@ -195,10 +195,10 @@ class _RideSharingScreenState extends State<RideSharingScreen> {
                               Row(
                                 children: [
                                   Image.asset("assets/icon/vehicle.png"),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 10,
                                   ),
-                                  Text("Ride 1"),
+                                  const Text("Ride 1"),
                                 ],
                               ),
                               Padding(
@@ -210,10 +210,10 @@ class _RideSharingScreenState extends State<RideSharingScreen> {
                                         0.33,
                                     height: 40,
                                     decoration: BoxDecoration(
-                                        color: Color(0xFFAC682A),
+                                        color: const Color(0xFFAC682A),
                                         borderRadius:
                                             BorderRadius.circular(30)),
-                                    child: Center(
+                                    child: const Center(
                                         child: Text(
                                       "End Trip",
                                       style: TextStyle(
@@ -225,7 +225,7 @@ class _RideSharingScreenState extends State<RideSharingScreen> {
                             ],
                           ),
                           RichText(
-                            text: TextSpan(
+                            text: const TextSpan(
                               style: TextStyle(
                                 color: Colors.black, // Default text color
                                 fontSize: 16.0, // Default font size
@@ -243,13 +243,13 @@ class _RideSharingScreenState extends State<RideSharingScreen> {
                               ],
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
+                              const Text(
                                 "Distance to reach : 1.2Km",
                                 style: TextStyle(fontSize: 10),
                               ),
@@ -258,14 +258,14 @@ class _RideSharingScreenState extends State<RideSharingScreen> {
                                 width: 2,
                                 color: Colors.grey,
                               ),
-                              Text("Timing: 7 mins",
+                              const Text("Timing: 7 mins",
                                   style: TextStyle(fontSize: 10)),
                               Container(
                                 height: 10,
                                 width: 2,
                                 color: Colors.grey,
                               ),
-                              Text("Ride.No :#0R080",
+                              const Text("Ride.No :#0R080",
                                   style: TextStyle(fontSize: 10)),
                             ],
                           ),

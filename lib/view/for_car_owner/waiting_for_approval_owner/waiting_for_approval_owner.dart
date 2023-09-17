@@ -7,7 +7,8 @@ class WaitingForApprovalOwner extends StatefulWidget {
   const WaitingForApprovalOwner({super.key});
 
   @override
-  State<WaitingForApprovalOwner> createState() => _WaitingForApprovalOwnerState();
+  State<WaitingForApprovalOwner> createState() =>
+      _WaitingForApprovalOwnerState();
 }
 
 class _WaitingForApprovalOwnerState extends State<WaitingForApprovalOwner> {
@@ -19,10 +20,10 @@ class _WaitingForApprovalOwnerState extends State<WaitingForApprovalOwner> {
     });
   }
 
-  List _listOfScreens = [
-    RouteScreen(),
-    PaymentScreen(),
-    Profile(),
+  final List _listOfScreens = [
+    const RouteScreen(),
+    const PaymentScreen(),
+    const Profile(),
   ];
 
   @override
@@ -47,7 +48,7 @@ class _WaitingForApprovalOwnerState extends State<WaitingForApprovalOwner> {
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
         selectedItemColor:
-            Color(0xFF058F2C), // Change this to your desired active color
+            const Color(0xFF058F2C), // Change this to your desired active color
       ),
     );
   }

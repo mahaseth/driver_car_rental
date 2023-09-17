@@ -19,8 +19,8 @@ class _VehicleListState extends State<VehicleList> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
                     child: Text("VEHICLE LIST"),
                   ),
                   _buildVehicleList(),
@@ -55,12 +55,12 @@ class _VehicleListState extends State<VehicleList> {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon: Icon(Icons.arrow_back)),
-                  Text(
+                      icon: const Icon(Icons.arrow_back)),
+                  const Text(
                     "Vehicle List",
                     style: TextStyle(fontSize: 20),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 40,
                   ),
                 ],
@@ -69,8 +69,8 @@ class _VehicleListState extends State<VehicleList> {
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
                   height: 40,
-                  color: Color(0xFF7676803D),
-                  child: Flexible(
+                  color: const Color(0xff7676803d),
+                  child: const Flexible(
                     child: TextField(
                       decoration: InputDecoration(
                         hintText: 'Search...',
@@ -109,7 +109,7 @@ class _VehicleListState extends State<VehicleList> {
                             "assets/icon/vehicle2.png",
                             fit: BoxFit.fill,
                           ),
-                          Row(
+                          const Row(
                             children: [
                               Text("Vehicle 1"),
                               Icon(Icons.more_vert)
@@ -117,30 +117,30 @@ class _VehicleListState extends State<VehicleList> {
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
-                      Text(
+                      const Text(
                         "Plate Number",
                         style: TextStyle(color: Colors.grey),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
-                      Text(
+                      const Text(
                         "wb58ax1264",
                         style: TextStyle(fontSize: 24),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Row(
                         children: [
-                          Text(
+                          const Text(
                             "Make:sandip",
                             style: TextStyle(color: Colors.grey),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 5,
                           ),
                           Container(
@@ -148,16 +148,16 @@ class _VehicleListState extends State<VehicleList> {
                             width: 2,
                             color: Colors.grey,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 5,
                           ),
-                          Text(
+                          const Text(
                             "Type:abc",
                             style: TextStyle(color: Colors.grey),
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Container(
@@ -177,7 +177,7 @@ class _VehicleListState extends State<VehicleList> {
                                     width: 60,
                                     height: 60,
                                   ),
-                                  Text("Insurance")
+                                  const Text("Insurance")
                                 ],
                               ),
                               Column(
@@ -187,7 +187,7 @@ class _VehicleListState extends State<VehicleList> {
                                     width: 60,
                                     height: 60,
                                   ),
-                                  Text("Registration")
+                                  const Text("Registration")
                                 ],
                               ),
                               Column(
@@ -197,7 +197,7 @@ class _VehicleListState extends State<VehicleList> {
                                     width: 60,
                                     height: 60,
                                   ),
-                                  Text("MOT")
+                                  const Text("MOT")
                                 ],
                               ),
                               Column(
@@ -207,16 +207,14 @@ class _VehicleListState extends State<VehicleList> {
                                     width: 60,
                                     height: 60,
                                   ),
-                                  Text("Additional")
+                                  const Text("Additional")
                                 ],
                               ),
                             ],
                           ),
                         ),
                       ),
-                    
-                    
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                     ],

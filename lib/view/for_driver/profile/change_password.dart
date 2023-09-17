@@ -16,7 +16,7 @@ class _ChangePasswordState extends State<ChangePassword> {
       child: Scaffold(
         body: Column(
           children: [
-           _buildTopSection(),
+            _buildTopSection(),
             _buildMessageSection(),
           ],
         ),
@@ -25,16 +25,16 @@ class _ChangePasswordState extends State<ChangePassword> {
           child: GestureDetector(
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return CreateNewPassword();
+                return const CreateNewPassword();
               }));
             },
             child: Container(
               width: MediaQuery.of(context).size.width * 0.9,
               height: 44,
               decoration: BoxDecoration(
-                  color: Color(0xFF00B74C),
+                  color: const Color(0xFF00B74C),
                   borderRadius: BorderRadius.circular(10)),
-              child: Center(
+              child: const Center(
                   child: Text(
                 "Request Password Change",
                 style: TextStyle(fontSize: 14, color: Colors.white),
@@ -46,7 +46,7 @@ class _ChangePasswordState extends State<ChangePassword> {
     );
   }
 
-   _buildTopSection() {
+  _buildTopSection() {
     return Stack(
       children: [
         SizedBox(
@@ -66,8 +66,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: Icon(Icons.arrow_back)),
-            
+                  icon: const Icon(Icons.arrow_back)),
             ],
           ),
         ),
@@ -75,34 +74,32 @@ class _ChangePasswordState extends State<ChangePassword> {
     );
   }
 
-
   _buildMessageSection() {
     return Padding(
       padding: const EdgeInsets.only(right: 20.0, left: 20.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
-          Text("Change Password", style: AppTextStyle.changePassword),
-           SizedBox(
+          const Text("Change Password", style: AppTextStyle.changePassword),
+          const SizedBox(
             height: 10,
           ),
-          Text(
+          const Text(
               "Enter the email address you used when you joined and we’ll send you instructions to reset your password",
               style: AppTextStyle.changePasswordContent),
-          SizedBox(
+          const SizedBox(
             height: 40,
           ),
-          Text("Email"),
-          SizedBox(
+          const Text("Email"),
+          const SizedBox(
             height: 10,
           ),
-          SizedBox(
+          const SizedBox(
             height: 40,
             child: TextField(
-              
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.mail),
                 labelText: 'Enter your Email',
@@ -115,7 +112,7 @@ class _ChangePasswordState extends State<ChangePassword> {
           ),
           Center(
             child: RichText(
-              text: TextSpan(
+              text: const TextSpan(
                 children: [
                   TextSpan(
                     text: "If you remember your password. ",

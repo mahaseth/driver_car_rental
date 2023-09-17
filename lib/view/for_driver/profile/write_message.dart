@@ -14,23 +14,21 @@ class _WriteMessageState extends State<WriteMessage> {
       child: Scaffold(
         body: Column(
           children: [
-           _buildTopSection(),
+            _buildTopSection(),
             _buildMessageSection(),
           ],
         ),
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(8.0),
           child: GestureDetector(
-            onTap: (){
-             
-            },
+            onTap: () {},
             child: Container(
               width: MediaQuery.of(context).size.width * 0.9,
               height: 44,
               decoration: BoxDecoration(
-                  color: Color(0xFF00B74C),
+                  color: const Color(0xFF00B74C),
                   borderRadius: BorderRadius.circular(10)),
-              child: Center(
+              child: const Center(
                   child: Text(
                 "Send Message",
                 style: TextStyle(fontSize: 14, color: Colors.white),
@@ -42,7 +40,7 @@ class _WriteMessageState extends State<WriteMessage> {
     );
   }
 
-    _buildTopSection() {
+  _buildTopSection() {
     return Stack(
       children: [
         SizedBox(
@@ -62,16 +60,18 @@ class _WriteMessageState extends State<WriteMessage> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: Icon(Icons.arrow_back)),
-                  SizedBox(height: 50,),
-              Padding(
-                padding: const EdgeInsets.only(left:20.0),
+                  icon: const Icon(Icons.arrow_back)),
+              const SizedBox(
+                height: 50,
+              ),
+              const Padding(
+                padding: EdgeInsets.only(left: 20.0),
                 child: Text(
                   "Write Message to Admin",
                   style: TextStyle(fontSize: 20),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 40,
               ),
             ],
@@ -81,10 +81,9 @@ class _WriteMessageState extends State<WriteMessage> {
     );
   }
 
-
   _buildMessageSection() {
-    return Padding(
-      padding: const EdgeInsets.only(right: 20.0, left: 20.0),
+    return const Padding(
+      padding: EdgeInsets.only(right: 20.0, left: 20.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

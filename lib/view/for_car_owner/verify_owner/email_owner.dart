@@ -24,13 +24,13 @@ class _EmailScreenOwnerState extends State<EmailScreenOwner> {
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          color: Color(0xFF333333),
+          color: const Color(0xFF333333),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         centerTitle: true,
-        title: Text(
+        title: const Text(
           "Email",
           style: TextStyle(color: Color(0xFF333333)),
         ),
@@ -43,21 +43,21 @@ class _EmailScreenOwnerState extends State<EmailScreenOwner> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 const Text(
                   "Enter your email address",
                   style: AppTextStyle.otpheadingtext,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
                 const Text(
                   "Enter your email address",
                   style: AppTextStyle.otpsubheading,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 TextField(
@@ -65,14 +65,14 @@ class _EmailScreenOwnerState extends State<EmailScreenOwner> {
                     labelText: 'demoemail@gmail.com',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
+                      borderSide: const BorderSide(
                         color: Colors.blue, // Border color
                         width: 2, // Border width
                       ),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
+                      borderSide: const BorderSide(
                         color: Colors.green, // Focused border color
                         width: 2, // Border width
                       ),
@@ -94,13 +94,12 @@ class _EmailScreenOwnerState extends State<EmailScreenOwner> {
           Positioned(
               bottom: 10,
               child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                   width: AppSceenSize.getWidth(context),
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Appcolors.appgreen, // Background color
-                        onPrimary: Colors.white, // Text color
-                        padding: EdgeInsets.all(16), // Button padding
+                        foregroundColor: Colors.white, backgroundColor: Appcolors.appgreen, // Text color
+                        padding: const EdgeInsets.all(16), // Button padding
                         shape: RoundedRectangleBorder(
                           borderRadius:
                               BorderRadius.circular(8), // Button border radius
@@ -114,7 +113,7 @@ class _EmailScreenOwnerState extends State<EmailScreenOwner> {
                             ));
                         print("ccvbvb");
                       },
-                      child: Text("Next ")))),
+                      child: const Text("Next ")))),
         ],
       ),
     );

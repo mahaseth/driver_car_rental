@@ -61,7 +61,7 @@ class _EndRideScreenState extends State<EndRideScreen> {
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            icon: Icon(Icons.arrow_back)),
+                            icon: const Icon(Icons.arrow_back)),
                         Positioned(
                           top: MediaQuery.of(context).size.height * 0.38,
                           right: 10,
@@ -75,7 +75,7 @@ class _EndRideScreenState extends State<EndRideScreen> {
                                     width: 90,
                                     height: 40,
                                     decoration: BoxDecoration(
-                                        color: Color(0xFF0D94CE),
+                                        color: const Color(0xFF0D94CE),
                                         borderRadius:
                                             BorderRadius.circular(30)),
                                     child: Center(
@@ -84,10 +84,10 @@ class _EndRideScreenState extends State<EndRideScreen> {
                                       child: Row(
                                         children: [
                                           Image.asset("assets/icon/call.png"),
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 10,
                                           ),
-                                          Text(
+                                          const Text(
                                             "Call",
                                             style: TextStyle(
                                                 fontSize: 14,
@@ -103,20 +103,21 @@ class _EndRideScreenState extends State<EndRideScreen> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: GestureDetector(
                                   onTap: () {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context){
-                                      return ChatScreen();
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) {
+                                      return const ChatScreen();
                                     }));
                                   },
                                   child: Container(
                                     width: 90,
                                     height: 40,
                                     decoration: BoxDecoration(
-                                        color: Color(0xFFF0C414),
+                                        color: const Color(0xFFF0C414),
                                         borderRadius:
                                             BorderRadius.circular(30)),
-                                    child: Center(
+                                    child: const Center(
                                         child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
+                                      padding: EdgeInsets.all(8.0),
                                       child: Row(
                                         children: [
                                           Icon(Icons.chat_outlined),
@@ -169,7 +170,7 @@ class _EndRideScreenState extends State<EndRideScreen> {
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         color: Colors.grey[200],
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
             topRight: Radius.circular(20.0), topLeft: Radius.circular(20.0)),
       ),
       child: Column(
@@ -190,8 +191,8 @@ class _EndRideScreenState extends State<EndRideScreen> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(Icons.location_on),
-                  SizedBox(
+                  const Icon(Icons.location_on),
+                  const SizedBox(
                     width: 10,
                   ),
                   Column(
@@ -201,7 +202,7 @@ class _EndRideScreenState extends State<EndRideScreen> {
                         "Pick-up",
                         style: TextStyle(color: Color(0xFFC8C7CC)),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       SizedBox(
@@ -231,8 +232,8 @@ class _EndRideScreenState extends State<EndRideScreen> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(Icons.location_on),
-                  SizedBox(
+                  const Icon(Icons.location_on),
+                  const SizedBox(
                     width: 10,
                   ),
                   Column(
@@ -242,7 +243,7 @@ class _EndRideScreenState extends State<EndRideScreen> {
                         "Drop-off",
                         style: TextStyle(color: Color(0xFFC8C7CC)),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       SizedBox(
@@ -270,16 +271,16 @@ class _EndRideScreenState extends State<EndRideScreen> {
             child: GestureDetector(
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return RideSharingScreen();
+                  return const RideSharingScreen();
                 }));
               },
               child: Container(
                 width: MediaQuery.of(context).size.width * 0.44,
                 height: 40,
                 decoration: BoxDecoration(
-                    color: Color(0xFFF0C414),
+                    color: const Color(0xFFF0C414),
                     borderRadius: BorderRadius.circular(30)),
-                child: Center(
+                child: const Center(
                     child: Text(
                   "End Ride",
                   style: TextStyle(fontSize: 14, color: Colors.black),
@@ -287,10 +288,10 @@ class _EndRideScreenState extends State<EndRideScreen> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
-          Text(
+          const Text(
             "Click Here For Ride Support",
             style: TextStyle(
               decoration: TextDecoration.underline,

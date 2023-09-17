@@ -44,9 +44,9 @@ class _EnterOtpScreenState extends State<EnterOtpScreen> {
   // Create a GlobalKey to access the Scaffold for the drawer.
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  List<TextEditingController> _otpControllers =
+  final List<TextEditingController> _otpControllers =
       List.generate(4, (_) => TextEditingController());
-  List<FocusNode> _focusNodes =
+  final List<FocusNode> _focusNodes =
       List.generate(4, (_) => FocusNode()); // Add this line
   bool _isKeyboardVisible = false;
 
@@ -55,7 +55,7 @@ class _EnterOtpScreenState extends State<EnterOtpScreen> {
       if (_otpControllers[index].text.isEmpty &&
           _otpControllers[index - 1].text.isNotEmpty) {
         // Add a slight delay before moving the focus
-        Future.delayed(Duration(milliseconds: 50), () {
+        Future.delayed(const Duration(milliseconds: 50), () {
           FocusScope.of(context).requestFocus(_focusNodes[index - 1]);
         });
         break;
@@ -97,7 +97,7 @@ class _EnterOtpScreenState extends State<EnterOtpScreen> {
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            icon: Icon(Icons.arrow_back)),
+                            icon: const Icon(Icons.arrow_back)),
                         Positioned(
                           top: MediaQuery.of(context).size.height * 0.45,
                           right: 10,
@@ -111,7 +111,7 @@ class _EnterOtpScreenState extends State<EnterOtpScreen> {
                                     width: 90,
                                     height: 40,
                                     decoration: BoxDecoration(
-                                        color: Color(0xFF0D94CE),
+                                        color: const Color(0xFF0D94CE),
                                         borderRadius:
                                             BorderRadius.circular(30)),
                                     child: Center(
@@ -120,10 +120,10 @@ class _EnterOtpScreenState extends State<EnterOtpScreen> {
                                       child: Row(
                                         children: [
                                           Image.asset("assets/icon/call.png"),
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 10,
                                           ),
-                                          Text(
+                                          const Text(
                                             "Call",
                                             style: TextStyle(
                                                 fontSize: 14,
@@ -139,20 +139,21 @@ class _EnterOtpScreenState extends State<EnterOtpScreen> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: GestureDetector(
                                   onTap: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context){
-                                      return ChatScreen();
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) {
+                                      return const ChatScreen();
                                     }));
                                   },
                                   child: Container(
                                     width: 90,
                                     height: 40,
                                     decoration: BoxDecoration(
-                                        color: Color(0xFFF0C414),
+                                        color: const Color(0xFFF0C414),
                                         borderRadius:
                                             BorderRadius.circular(30)),
-                                    child: Center(
+                                    child: const Center(
                                         child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
+                                      padding: EdgeInsets.all(8.0),
                                       child: Row(
                                         children: [
                                           Icon(Icons.chat_outlined),
@@ -216,7 +217,7 @@ class _EnterOtpScreenState extends State<EnterOtpScreen> {
   _buildBottomSection() {
     return Material(
       elevation: 10,
-      borderRadius: BorderRadius.only(
+      borderRadius: const BorderRadius.only(
           topRight: Radius.circular(20.0), topLeft: Radius.circular(20.0)),
       child: Container(
         height: MediaQuery.of(context).size.height * 0.3,
@@ -228,7 +229,7 @@ class _EnterOtpScreenState extends State<EnterOtpScreen> {
             const SizedBox(
               width: 12,
             ),
-            Text("Enter Ride OTP"),
+            const Text("Enter Ride OTP"),
             const SizedBox(
               height: 20,
             ),
@@ -246,23 +247,23 @@ class _EnterOtpScreenState extends State<EnterOtpScreen> {
                     keyboardType: TextInputType.number,
                     maxLength: 1,
                     onChanged: (value) => _onOTPDigitChanged(value, index),
-                    style: TextStyle(fontSize: 20),
+                    style: const TextStyle(fontSize: 20),
                     decoration: InputDecoration(
                       counterText: "",
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(color: Colors.grey),
+                        borderSide: const BorderSide(color: Colors.grey),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(color: Colors.blue),
+                        borderSide: const BorderSide(color: Colors.blue),
                       ),
                     ),
                   ),
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Padding(
@@ -270,16 +271,16 @@ class _EnterOtpScreenState extends State<EnterOtpScreen> {
               child: GestureDetector(
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return EndRideScreen();
+                    return const EndRideScreen();
                   }));
                 },
                 child: Container(
                   width: MediaQuery.of(context).size.width * 0.44,
                   height: 40,
                   decoration: BoxDecoration(
-                      color: Color(0xFFFC1010),
+                      color: const Color(0xFFFC1010),
                       borderRadius: BorderRadius.circular(30)),
-                  child: Center(
+                  child: const Center(
                       child: Text(
                     "Start Ride",
                     style: TextStyle(fontSize: 14, color: Colors.white),
@@ -287,10 +288,10 @@ class _EnterOtpScreenState extends State<EnterOtpScreen> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            Text(
+            const Text(
               "Click Here For Ride Support",
               style: TextStyle(
                 decoration: TextDecoration.underline,

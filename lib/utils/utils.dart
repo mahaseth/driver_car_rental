@@ -16,7 +16,7 @@ class Utils {
           content: SingleChildScrollView(
             child: ListBody(
               children: [
-                Text('${error.toString()}'),
+                Text(error.toString()),
               ],
             ),
           ),

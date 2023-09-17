@@ -14,7 +14,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   late TabController _tabController;
 
   int _selectedIndex = 0;
- bool light0 = false;
+  bool light0 = false;
 
   void _onItemTapped(int index) {
     setState(() {
@@ -36,15 +36,15 @@ class _WelcomeScreenState extends State<WelcomeScreen>
 
   @override
   Widget build(BuildContext context) {
-     final MaterialStateProperty<Icon?> thumbIcon =
-      MaterialStateProperty.resolveWith<Icon?>(
-    (Set<MaterialState> states) {
-      if (states.contains(MaterialState.selected)) {
-        return const Icon(Icons.check);
-      }
-      return const Icon(Icons.close);
-    },
-  );
+    final MaterialStateProperty<Icon?> thumbIcon =
+        MaterialStateProperty.resolveWith<Icon?>(
+      (Set<MaterialState> states) {
+        if (states.contains(MaterialState.selected)) {
+          return const Icon(Icons.check);
+        }
+        return const Icon(Icons.close);
+      },
+    );
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -60,11 +60,12 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                     ),
                   ),
                   Positioned(
-                    top: MediaQuery.of(context).size.height*0.10,
+                    top: MediaQuery.of(context).size.height * 0.10,
                     width: MediaQuery.of(context).size.width,
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 20,),
-                      
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                      ),
                       child: Column(
                         children: [
                           Row(
@@ -73,38 +74,53 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                             children: [
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children:  [
+                                children: [
                                   GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => PaymentScreen(),));
-                                    },
-                                     child: Text("Welcome, Manas", style: AppTextStyle.welcommehead,)),
-                                  Text("Kolkata | #837494", style: AppTextStyle.welcomesubheading,)
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const PaymentScreen(),
+                                            ));
+                                      },
+                                      child: const Text(
+                                        "Welcome, Manas",
+                                        style: AppTextStyle.welcommehead,
+                                      )),
+                                  const Text(
+                                    "Kolkata | #837494",
+                                    style: AppTextStyle.welcomesubheading,
+                                  )
                                 ],
                               ),
-                              Icon(Icons.notifications_none)
+                              const Icon(Icons.notifications_none)
                             ],
                           ),
-                          SizedBox(height: 8,),
+                          const SizedBox(
+                            height: 8,
+                          ),
                           Container(
                             decoration: BoxDecoration(
                               color: Colors.grey[400],
-
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                SizedBox(),
-                                Text("Off Duty", style: AppTextStyle.welcomesubheading,),
-                                 Switch(
-          value: light0,
-          onChanged: (bool value) {
-            setState(() {
-              light0 = value;
-            });
-          },
-        ),
+                                const SizedBox(),
+                                const Text(
+                                  "Off Duty",
+                                  style: AppTextStyle.welcomesubheading,
+                                ),
+                                Switch(
+                                  value: light0,
+                                  onChanged: (bool value) {
+                                    setState(() {
+                                      light0 = value;
+                                    });
+                                  },
+                                ),
                               ],
                             ),
                           )
@@ -115,7 +131,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             TabBar(
@@ -136,12 +152,8 @@ class _WelcomeScreenState extends State<WelcomeScreen>
               child: TabBarView(
                 controller: _tabController,
                 children: [
-
-                firstTabItem(),
-
-                 firstTabItem(),
-                 
-                
+                  firstTabItem(),
+                  firstTabItem(),
                 ],
               ),
             ),
@@ -166,136 +178,166 @@ class _WelcomeScreenState extends State<WelcomeScreen>
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
         selectedItemColor:
-            Color(0xFF058F2C), // Change this to your desired active color
+            const Color(0xFF058F2C), // Change this to your desired active color
       ),
     );
   }
 
-
-  firstTabItem(){
-    return   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 15),
-                    child: Column(children: [
-
-                      Container(
-                        color: Color(0xFFF5F5F5),
-                        padding: EdgeInsets.symmetric(vertical: 20),
-                        child: Column(
+  firstTabItem() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Column(
+        children: [
+          Container(
+            color: const Color(0xFFF5F5F5),
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: Column(
+              children: [
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Monday 23rd 04:25 PM...",
+                    ),
+                    Text('Detail')
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
+                      margin: const EdgeInsets.symmetric(horizontal: 5),
+                      color: Colors.white,
+                      child: const Column(
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                            Text("Monday 23rd 04:25 PM...", ),
-                            Text('Detail')
-                          ],),
-                          SizedBox(height: 10,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-
-                          Container(
-                             
-                            padding: EdgeInsets.symmetric(horizontal: 5,vertical: 20),
-                            margin: EdgeInsets.symmetric(horizontal: 5),
-                            color: Colors.white,
-                            child: Column(
-                            children: [
-                              Text("100", style: AppTextStyle.upperitemtmeemtext),
-                              SizedBox(height: 5,),
-                              Text("Complete Trips", style: AppTextStyle.upperitemtmeemspantext,)
-                            ],
-                          ),),
-
-                          Container(
-                             width: MediaQuery.of(context).size.width*0.25,
-                             padding: EdgeInsets.symmetric(horizontal: 5,vertical: 20),
-                            margin: EdgeInsets.symmetric(horizontal: 5),
-                            color: Colors.white,
-                            child: Column(
-                            children: [
-                              Text("1145.5", style: AppTextStyle.upperitemtmeemtext),
-                               SizedBox(height: 5,),
-                              Text("Kilometers", style: AppTextStyle.upperitemtmeemspantext,)
-                            ],
-                          ),),
-
-                          Container(
-                             
-                            padding: EdgeInsets.symmetric(horizontal: 5,vertical: 20),
-                            margin: EdgeInsets.symmetric(horizontal: 5),
-                            color: Colors.white,
-                            child: Column(
-                            children: [
-                              Text("₹200", style: AppTextStyle.upperitemtmeemtext),
-                              SizedBox(height: 5,),
-                              Text("Today’s  Earning", style: AppTextStyle.upperitemtmeemspantext,)
-                            ],
-                          ),),
-
-                           
-
-
-                        ],)
-
-                        ],
-                      ),),
-
-
-                     currentrideitem(),
-
-
-                    ],),
-                  );
-                 
-  }
-
-
-  currentrideitem(){
-    return Expanded(
-                       child: ListView.builder(
-                        itemCount: 5,
-                        itemBuilder: (context, index) {
-                         return  Container(
-                          margin: EdgeInsets.symmetric(vertical: 10),
-                          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                          decoration: BoxDecoration(
-                            
-                            border: Border.all(width: 1, color: Colors.grey, style: BorderStyle.solid),
-                            color: Colors.white
+                          Text("100", style: AppTextStyle.upperitemtmeemtext),
+                          SizedBox(
+                            height: 5,
                           ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                          Row(children: [
-                            Image.asset('assets/images/truck-fast.png'),
-                            SizedBox(width: 5,),
-                            Text("Ride 1", style: AppTextStyle.rideitemhead,),
-                            Spacer(),
-                            Icon(Icons.arrow_right_outlined)
-                          ],),
-                          SizedBox(height: 10,),
-                     
-                                   RichText(                
-                                     text: TextSpan(
-                                       style: TextStyle(color: Colors.black),
-                                       children: [
-                                     TextSpan(text: "Drop Point : ", style: AppTextStyle.dropitmeemtext),
-                                     TextSpan(text: " kolkata 70000001 ,newtown", style: AppTextStyle.dropitmeemspantext)
-                                   ])),
-                     SizedBox(height: 6,),
-                                   RichText(                
-                                     text: TextSpan(
-                                       style: TextStyle(color: Colors.black),
-                                       children: [
-                                     TextSpan(text: "Distance to reach : 1.2Km ",style: AppTextStyle.disitmeemtext),
-                                     TextSpan(text: "Timing: 7 mins Ride .No :#0R080", style: AppTextStyle.disitmeemspantext),
-                                     
-                                   ])),
-                     
-                        ],),);
-                       },),
-                     );
+                          Text(
+                            "Complete Trips",
+                            style: AppTextStyle.upperitemtmeemspantext,
+                          )
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.25,
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
+                      margin: const EdgeInsets.symmetric(horizontal: 5),
+                      color: Colors.white,
+                      child: const Column(
+                        children: [
+                          Text("1145.5",
+                              style: AppTextStyle.upperitemtmeemtext),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            "Kilometers",
+                            style: AppTextStyle.upperitemtmeemspantext,
+                          )
+                        ],
+                      ),
+                    ),
+                    Container(
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
+                      margin: const EdgeInsets.symmetric(horizontal: 5),
+                      color: Colors.white,
+                      child: const Column(
+                        children: [
+                          Text("₹200", style: AppTextStyle.upperitemtmeemtext),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            "Today’s  Earning",
+                            style: AppTextStyle.upperitemtmeemspantext,
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+          currentrideitem(),
+        ],
+      ),
+    );
   }
 
+  currentrideitem() {
+    return Expanded(
+      child: ListView.builder(
+        itemCount: 5,
+        itemBuilder: (context, index) {
+          return Container(
+            margin: const EdgeInsets.symmetric(vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+            decoration: BoxDecoration(
+                border: Border.all(
+                    width: 1, color: Colors.grey, style: BorderStyle.solid),
+                color: Colors.white),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Image.asset('assets/images/truck-fast.png'),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    const Text(
+                      "Ride 1",
+                      style: AppTextStyle.rideitemhead,
+                    ),
+                    const Spacer(),
+                    const Icon(Icons.arrow_right_outlined)
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                RichText(
+                    text: const TextSpan(
+                        style: TextStyle(color: Colors.black),
+                        children: [
+                      TextSpan(
+                          text: "Drop Point : ",
+                          style: AppTextStyle.dropitmeemtext),
+                      TextSpan(
+                          text: " kolkata 70000001 ,newtown",
+                          style: AppTextStyle.dropitmeemspantext)
+                    ])),
+                const SizedBox(
+                  height: 6,
+                ),
+                RichText(
+                    text: const TextSpan(
+                        style: TextStyle(color: Colors.black),
+                        children: [
+                      TextSpan(
+                          text: "Distance to reach : 1.2Km ",
+                          style: AppTextStyle.disitmeemtext),
+                      TextSpan(
+                          text: "Timing: 7 mins Ride .No :#0R080",
+                          style: AppTextStyle.disitmeemspantext),
+                    ])),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
 }
