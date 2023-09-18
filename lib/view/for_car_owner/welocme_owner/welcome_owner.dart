@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:myride/constant/app_color.dart';
 import 'package:myride/constant/app_screen_size.dart';
 import 'package:myride/constant/app_text_style.dart';
+import 'package:myride/model/driverprofile.dart';
 import 'package:myride/view/for_car_owner/additional/additional.dart';
 import 'package:myride/view/for_car_owner/support/support.dart';
 import 'package:myride/view/for_driver/driver-details/driver-details.dart';
 import 'package:myride/view/for_driver/payment-amount/payment.dart';
 import 'package:myride/view/for_driver/vehicle_info/vehicle_info.dart';
-
-bool profileUpdate = false;
+import 'package:myride/view_model/driverprofile_viewmodel.dart';
+import 'package:provider/provider.dart';
 
 class WelcomeScreenOwner extends StatefulWidget {
   const WelcomeScreenOwner({super.key});
@@ -20,11 +21,12 @@ class WelcomeScreenOwner extends StatefulWidget {
 class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-
+  DriverProfile? driverProfile;
   bool vehicleEmpty = true;
 
   int _selectedIndex = 0;
   bool light0 = false;
+  DriveProfileViewModel? _provider;
 
   void _onItemTapped(int index) {
     setState(() {
@@ -35,7 +37,17 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+    readData();
+    _tabController = TabController(length: 3, vsync: this);
+  }
+
+  void readData() async {
+    _provider = Provider.of<DriveProfileViewModel>(context, listen: false);
+    await _provider!.getProfile(context);
+    setState(() {
+      driverProfile = _provider!.currdriverProfile;
+    });
+    debugPrint("Updated values :- $driverProfile");
   }
 
   @override
@@ -476,7 +488,8 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
           height: 50,
           child: ElevatedButton(
             onPressed: () {
-              if (profileUpdate) {
+              if (driverProfile!.firstname != null ||
+                  driverProfile!.firstname!.isEmpty) {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -506,9 +519,6 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
                                   },
                                 ),
                               );
-                              setState(() {
-                                profileUpdate = true;
-                              });
                             },
                             child: Text(
                               "Go to Profile",

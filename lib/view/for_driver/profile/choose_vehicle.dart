@@ -13,11 +13,9 @@ class ChooseVehicleScreen extends StatefulWidget {
 }
 
 class _ChooseVehicleScreenState extends State<ChooseVehicleScreen> {
-  SignInViewModel? _provider;
 
   @override
   Widget build(BuildContext context) {
-    _provider = Provider.of<SignInViewModel>(context, listen: true);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -76,8 +74,8 @@ class _ChooseVehicleScreenState extends State<ChooseVehicleScreen> {
               width: AppSceenSize.getWidth(context),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white,
-                  backgroundColor: Appcolors.appgreen, // Text color
+                  foregroundColor: Colors.black,
+                  backgroundColor: Appcolors.appGrey, // Text color
                   padding: const EdgeInsets.all(16), // Button padding
                   shape: RoundedRectangleBorder(
                     borderRadius:

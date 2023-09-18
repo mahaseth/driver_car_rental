@@ -41,6 +41,8 @@ class _ProfileState extends State<Profile> {
   }
 
   _buildTopSection() {
+    String firstName = _provider!.currdriverProfile?.firstname! ?? "";
+    String lastName = _provider!.currdriverProfile?.lastname! ?? "";
     return Stack(
       children: [
         SizedBox(
@@ -59,18 +61,18 @@ class _ProfileState extends State<Profile> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    _provider!.currdriverProfile.firstname! +
-                        _provider!.currdriverProfile.lastname!,
+                    firstName + lastName,
                     style: const TextStyle(fontSize: 30),
                   ),
-                  Text(_provider!.currdriverProfile.email ?? "sandip@gmail.com")
+                  Text(
+                      _provider!.currdriverProfile?.email ?? "sandip@gmail.com")
                 ],
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.32,
               ),
               Image.network(
-                _provider!.currdriverProfile.photoupload!,
+                _provider!.currdriverProfile?.photoupload! ?? "",
                 width: 90,
                 height: 90,
               ),

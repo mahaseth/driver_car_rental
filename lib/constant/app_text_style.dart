@@ -34,7 +34,7 @@ class AppTextStyle {
   static const otpheadingtext = TextStyle(
       fontSize: 12, color: Color(0xFF666666), fontWeight: FontWeight.w400);
   static const otpsubheading = TextStyle(
-      color: Color(0xFF666666), fontSize: 13, fontWeight: FontWeight.w400);
+      color: Color(0xFF666666), fontSize: 21, fontWeight: FontWeight.w400);
   static const drhsubheading = TextStyle(
     color: Color(0xFF666666),
     fontSize: 13,

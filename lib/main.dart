@@ -29,8 +29,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
+        // home: const ChooseVehicleScreen(),
         home: const HomePageScreen(),
-        // home: const HomePageScreen(),
       ),
     );
   }

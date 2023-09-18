@@ -77,7 +77,9 @@ class SignInViewModel extends ChangeNotifier {
             context,
             MaterialPageRoute(
               builder: (context) {
-                return const OtpScreen();
+                return OtpScreen(
+                  phoneNumber: _mobileNumberController.text,
+                );
               },
             ),
           );

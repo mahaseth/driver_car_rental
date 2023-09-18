@@ -127,7 +127,6 @@ class _WaitingForApprovalState extends State<WaitingForApproval> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      profileUpdate = true;
                       Navigator.of(context).popUntil((route) => false);
                       Navigator.push(
                           context,

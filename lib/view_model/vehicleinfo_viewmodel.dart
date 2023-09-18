@@ -79,7 +79,7 @@ class VehicleInfoViewModel extends ChangeNotifier {
     loading = true;
     try {
       final response = await _vehicleInfoRepo.vehicleModel(context, id);
-      log("RESPONSE $response");
+      log("RESPONSE VehicleModel :- $response");
       vmo = List<VehicleModel>.from(
         response.map(
           (m) => VehicleModel.fromJson(m),

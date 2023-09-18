@@ -13,7 +13,7 @@ class DriveProfileViewModel extends ChangeNotifier {
   bool loading = false;
 
   late DriverProfile driverProfile;
-  late DriverProfile currdriverProfile;
+  DriverProfile? currdriverProfile;
 
   makeProfile(BuildContext context) async {
     loading = true;
@@ -29,7 +29,7 @@ class DriveProfileViewModel extends ChangeNotifier {
         loading = false;
         print(response);
         currdriverProfile = DriverProfile.fromJson(response);
-        print(currdriverProfile.aadharnumber);
+        print(currdriverProfile!.aadharnumber);
         notifyListeners();
         Navigator.push(
           context,
@@ -63,7 +63,7 @@ class DriveProfileViewModel extends ChangeNotifier {
     }
   }
 
-  getProfile(BuildContext context) async {
+  Future<void> getProfile(BuildContext context) async {
     loading = true;
     try {
       final response = await _driverProfileRepo.getProfile(context);

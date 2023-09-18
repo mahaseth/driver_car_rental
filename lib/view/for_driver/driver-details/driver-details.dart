@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
@@ -40,6 +41,9 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
   DriveProfileViewModel? _provider;
 
   void handleFileUpload(String type) async {
+    setState(() {
+      _provider!.loading = true;
+    });
     try {
       FilePickerResult? result = await FilePicker.platform.pickFiles();
       if (result != null) {
@@ -70,8 +74,11 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
             break;
           default:
         }
+      } else {
+        setState(() {
+          _provider!.loading = true;
+        });
       }
-      setState(() {});
     } on PlatformException catch (e) {
       showSnackbar("Error Uploading file $e");
     }
@@ -121,6 +128,9 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
     } else {
       showSnackbar("Error during connection to server, try again!");
     }
+    setState(() {
+      _provider!.loading = false;
+    });
   }
 
   @override
@@ -191,7 +201,7 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
                 ),
                 customDivider(),
                 ListTile(
-                  title: const Text("Full Adress"),
+                  title: const Text("Full Address"),
                   trailing: SizedBox(
                     width: 100,
                     child: TextField(
@@ -205,20 +215,6 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
                 ),
                 customDivider(),
                 ListTile(
-                  title: const Text("Alternate Phone Number"),
-                  trailing: SizedBox(
-                    width: 100,
-                    child: TextField(
-                      controller: altphone,
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "264728372",
-                      ),
-                    ),
-                  ),
-                ),
-                customDivider(),
-                ListTile(
                   title: const Text("Adhaar No. *"),
                   trailing: SizedBox(
                     width: 100,
@@ -226,7 +222,7 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
                       controller: aadhar,
                       decoration: const InputDecoration(
                         border: InputBorder.none,
-                        hintText: "348728372",
+                        hintText: "Number",
                       ),
                     ),
                   ),
@@ -276,10 +272,10 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
                 Expanded(
                   child: TextFormField(
                     readOnly: true,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       prefixIcon: Icon(
                         Icons.check_box,
-                        color: Colors.grey,
+                        color: afs != null ? Appcolors.appgreen : Colors.grey,
                       ),
                       hintText: 'Adhar Upload Front...',
                       hintStyle: TextStyle(
@@ -324,10 +320,10 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
                 Expanded(
                   child: TextFormField(
                     readOnly: true,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       prefixIcon: Icon(
                         Icons.check_box,
-                        color: Colors.grey,
+                        color: abs != null ? Appcolors.appgreen : Colors.grey,
                       ),
                       hintText: 'Adhar Upload Back...',
                       hintStyle:
@@ -383,10 +379,10 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
                 Expanded(
                   child: TextFormField(
                     readOnly: true,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       prefixIcon: Icon(
                         Icons.check_box,
-                        color: Colors.grey,
+                        color: ps != null ? Appcolors.appgreen : Colors.grey,
                       ),
                       hintText: 'Pan Upload...',
                       hintStyle:
@@ -418,117 +414,11 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
             ),
           ),
         ),
-        ListTile(
-          title: const Text("License No. *"),
-          trailing: SizedBox(
-            width: 100,
-            child: TextField(
-              controller: license,
-              decoration: const InputDecoration(
-                border: InputBorder.none,
-                hintText: "License-Number",
-              ),
-            ),
-          ),
-        ),
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: DottedBorder(
-            color: const Color(0xFFdddddd),
-            strokeWidth: 1,
-            dashPattern: const [5, 6],
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    readOnly: true,
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.check_box,
-                        color: Colors.grey,
-                      ),
-                      hintText: 'License Front',
-                      hintStyle: TextStyle(
-                        color: Color(0xFF999999),
-                        fontSize: 12,
-                      ),
-                      border: InputBorder.none,
-                    ),
-                  ),
-                ),
-                ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF00B74C),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 12,
-                    ),
-                  ),
-                  onPressed: () async {
-                    handleFileUpload("lf");
-                  },
-                  icon: const Icon(
-                    Icons.upload,
-                    size: 15,
-                  ),
-                  label: lfs != null
-                      ? const Text("Uploaded")
-                      : const Text("Upload"),
-                ),
-              ],
-            ),
-          ),
-        ),
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: DottedBorder(
-            color: const Color(0xFFdddddd),
-            strokeWidth: 1,
-            dashPattern: const [5, 6],
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    readOnly: true,
-                    decoration: const InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.check_box,
-                          color: Colors.grey,
-                        ),
-                        hintText: 'License Back',
-                        hintStyle:
-                            TextStyle(color: Color(0xFF999999), fontSize: 12),
-                        border: InputBorder.none),
-                  ),
-                ),
-                ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF00B74C),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 12,
-                    ),
-                  ),
-                  onPressed: () async {
-                    handleFileUpload("lb");
-                  },
-                  icon: const Icon(
-                    Icons.upload,
-                    size: 15,
-                  ),
-                  label: lbs != null
-                      ? const Text("Uploaded")
-                      : const Text("Upload"),
-                ),
-              ],
-            ),
-          ),
-        ),
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [Text("Photo Upload"), Text("")],
+            children: [Text("Car Owner Photo"), Text("")],
           ),
         ),
         Container(
@@ -542,12 +432,12 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
                 Expanded(
                   child: TextFormField(
                     readOnly: true,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       prefixIcon: Icon(
                         Icons.check_box,
-                        color: Colors.grey,
+                        color: pus != null ? Appcolors.appgreen : Colors.grey,
                       ),
-                      hintText: 'Driver Photo',
+                      hintText: 'Upload Photo',
                       hintStyle: TextStyle(
                         color: Color(0xFF999999),
                         fontSize: 12,
@@ -608,14 +498,11 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
     if (fName.text.isNotEmpty &&
         lName.text.isNotEmpty &&
         address.text.isNotEmpty &&
-        altphone.text.isNotEmpty &&
         aadhar.text.isNotEmpty &&
-        pan.text.isNotEmpty & license.text.isNotEmpty &&
+        pan.text.isNotEmpty &&
         afs != null &&
         abs != null &&
         ps != null &&
-        lfs != null &&
-        lbs != null &&
         pus != null) {
       return true;
     }

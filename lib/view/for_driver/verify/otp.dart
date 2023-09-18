@@ -8,7 +8,9 @@ import 'package:otp_text_field/style.dart';
 import 'package:provider/provider.dart';
 
 class OtpScreen extends StatefulWidget {
-  const OtpScreen({super.key});
+  final String phoneNumber;
+
+  const OtpScreen({super.key, required this.phoneNumber});
 
   @override
   State<OtpScreen> createState() => _OtpScreenState();
@@ -55,14 +57,14 @@ class _OtpScreenState extends State<OtpScreen> {
                 ),
                 const Text(
                   "OTP Verification",
-                  style: AppTextStyle.otpheadingtext,
+                  style: AppTextStyle.otpsubheading,
                 ),
                 const SizedBox(
                   height: 8,
                 ),
-                const Text(
-                  "Enter the OTP sent to +91",
-                  style: AppTextStyle.otpsubheading,
+                Text(
+                  "Enter the OTP sent to +91${widget.phoneNumber}",
+                  style: AppTextStyle.otpheadingtext,
                 ),
                 const SizedBox(
                   height: 20,
@@ -87,6 +89,23 @@ class _OtpScreenState extends State<OtpScreen> {
                           }),
                     ),
                     const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Didn’t receive OTP?"),
+                        TextButton(
+                            onPressed: () {},
+                            child: const Text(
+                              "Resend",
+                              style: TextStyle(
+                                color: Colors.red,
+                                decoration: TextDecoration.underline,
+                                decorationColor: Colors.red,
+                                decorationThickness: 2.0,
+                              ),
+                            ))
+                      ],
+                    )
                   ],
                 ),
               ],
@@ -108,8 +127,8 @@ class _OtpScreenState extends State<OtpScreen> {
               width: AppSceenSize.getWidth(context),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white,
-                  backgroundColor: Appcolors.appgreen, // Text color
+                  foregroundColor: Colors.black,
+                  backgroundColor: Appcolors.appGrey, // Text color
                   padding: const EdgeInsets.all(16), // Button padding
                   shape: RoundedRectangleBorder(
                     borderRadius:
@@ -125,7 +144,7 @@ class _OtpScreenState extends State<OtpScreen> {
                   //   ),
                   // );
                 },
-                child: const Text("Continue"),
+                child: const Text("Verify & Continue"),
               ),
             ),
           ),
