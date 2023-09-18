@@ -46,7 +46,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   }));
                 },
                 style: TextButton.styleFrom(
-                  backgroundColor: const Color(0xFF1B6864), // No background color
+                  backgroundColor:
+                      const Color(0xFF1B6864), // No background color
                   padding:
                       const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                   shape: RoundedRectangleBorder(

@@ -1,11 +1,11 @@
 // ignore_for_file: use_build_context_synchronously, prefer_interpolation_to_compose_strings, file_names, prefer_const_constructors
 
-import 'dart:async';
 import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:myride/model/driverprofile.dart';
 import 'package:myride/repository/driverprofile_repo.dart';
-import 'package:myride/view/for_car_owner/vehicle_info_owner/vehicle_info_owner.dart';
+import 'package:myride/view/for_driver/vehicle_info/vehicle_info.dart';
 
 class DriveProfileViewModel extends ChangeNotifier {
   final _driverProfileRepo = DriverProfileRepo();
@@ -35,7 +35,7 @@ class DriveProfileViewModel extends ChangeNotifier {
           context,
           MaterialPageRoute(
             builder: (context) {
-              return const VehicleInfoOwner();
+              return const VehicleInfo();
             },
           ),
         );

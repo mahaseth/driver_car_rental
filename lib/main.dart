@@ -6,6 +6,7 @@ import 'package:myride/view_model/signIn_viewModel.dart';
 import 'package:myride/view_model/vehicleinfo_viewmodel.dart';
 import 'package:provider/provider.dart';
 
+
 void main() {
   runApp(const MyApp());
 }

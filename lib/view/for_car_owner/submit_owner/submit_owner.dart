@@ -98,7 +98,8 @@ class _SubmitScreenOwnerState extends State<SubmitScreenOwner> {
                 ),
               ),
               const Spacer(),
-              const Text("Do you agree to register for My Ride insurance police"),
+              const Text(
+                  "Do you agree to register for My Ride insurance police"),
               const SizedBox(
                 height: 50,
               ),

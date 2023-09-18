@@ -249,8 +249,8 @@ class _SupportScreenState extends State<SupportScreen>
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF00B74C),
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 12)),
                 onPressed: handleFileUpload,
                 icon: const Icon(
                   Icons.upload,
@@ -283,8 +283,8 @@ class _SupportScreenState extends State<SupportScreen>
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF00B74C),
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 12)),
                 onPressed: handleFileUpload,
                 icon: const Icon(
                   Icons.upload,

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:myride/constant/app_color.dart';
 import 'package:myride/constant/app_screen_size.dart';
 import 'package:myride/constant/app_text_style.dart';
-import 'package:myride/view/for_driver/verify/email.dart';
 import 'package:myride/view_model/signIn_viewModel.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
@@ -119,12 +118,12 @@ class _OtpScreenState extends State<OtpScreen> {
                 ),
                 onPressed: () {
                   _provider!.loginOtpVerificationDriver(context, otpText);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const EmailScreen(),
-                    ),
-                  );
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => const ChooseVehicleScreen(),
+                  //   ),
+                  // );
                 },
                 child: const Text("Continue"),
               ),

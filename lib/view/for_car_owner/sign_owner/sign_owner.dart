@@ -68,7 +68,8 @@ class _SignScreenForOwnerState extends State<SignScreenForOwner>
                 controller: _tabController,
                 children: [
                   Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -103,7 +104,8 @@ class _SignScreenForOwnerState extends State<SignScreenForOwner>
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const WelcomeScreenOwner(),
+                                  builder: (context) =>
+                                      const WelcomeScreenOwner(),
                                 ));
                           },
                           child: Container(

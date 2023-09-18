@@ -13,6 +13,7 @@ class SubmitScreen extends StatefulWidget {
 class _SubmitScreenState extends State<SubmitScreen> {
   bool _isChecked = true;
   bool _registerChecked = true;
+
   @override
   Widget build(BuildContext context) {
     Color getColor(Set<MaterialState> states) {

@@ -177,8 +177,8 @@ class _DriverDetailsOwnerState extends State<DriverDetailsOwner> {
                   ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF00B74C),
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 12)),
                     onPressed: handleFileUpload,
                     icon: const Icon(
                       Icons.upload,
@@ -218,8 +218,8 @@ class _DriverDetailsOwnerState extends State<DriverDetailsOwner> {
                   ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF00B74C),
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 12)),
                     onPressed: handleFileUpload,
                     icon: const Icon(
                       Icons.upload,
@@ -266,8 +266,8 @@ class _DriverDetailsOwnerState extends State<DriverDetailsOwner> {
                   ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF00B74C),
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 12)),
                     onPressed: handleFileUpload,
                     icon: const Icon(
                       Icons.upload,
@@ -314,8 +314,8 @@ class _DriverDetailsOwnerState extends State<DriverDetailsOwner> {
                   ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF00B74C),
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 12)),
                     onPressed: handleFileUpload,
                     icon: const Icon(
                       Icons.upload,
@@ -355,8 +355,8 @@ class _DriverDetailsOwnerState extends State<DriverDetailsOwner> {
                   ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF00B74C),
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 12)),
                     onPressed: handleFileUpload,
                     icon: const Icon(
                       Icons.upload,
@@ -403,8 +403,8 @@ class _DriverDetailsOwnerState extends State<DriverDetailsOwner> {
                   ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF00B74C),
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 12)),
                     onPressed: handleFileUpload,
                     icon: const Icon(
                       Icons.upload,
@@ -425,7 +425,8 @@ class _DriverDetailsOwnerState extends State<DriverDetailsOwner> {
             width: AppSceenSize.getWidth(context),
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white, backgroundColor: Appcolors.appgreen, // Text color
+                  foregroundColor: Colors.white,
+                  backgroundColor: Appcolors.appgreen, // Text color
                   padding: const EdgeInsets.all(16), // Button padding
                   shape: RoundedRectangleBorder(
                     borderRadius:

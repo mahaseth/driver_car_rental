@@ -5,7 +5,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:myride/repository/signin_repo.dart';
 import 'package:myride/utils/utils.dart';
-import 'package:myride/view/for_driver/verify/email.dart';
+import 'package:myride/view/for_driver/profile/choose_vehicle.dart';
 import 'package:myride/view/for_driver/verify/otp.dart';
 
 class SignInViewModel extends ChangeNotifier {
@@ -16,6 +16,7 @@ class SignInViewModel extends ChangeNotifier {
   String phone = '';
 
   final _mobileNumberController = TextEditingController();
+
   get mobileNumberController => _mobileNumberController;
 
   String token = '';
@@ -117,7 +118,7 @@ class SignInViewModel extends ChangeNotifier {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const EmailScreen(),
+            builder: (context) => const ChooseVehicleScreen(),
           ),
         );
       } else {

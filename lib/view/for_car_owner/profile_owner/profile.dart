@@ -130,7 +130,8 @@ class _ProfileState extends State<Profile> {
                         "assets/icon/route.png",
                         width: 30,
                       ),
-                      const Text("My Route", style: AppTextStyle.listCardProfile),
+                      const Text("My Route",
+                          style: AppTextStyle.listCardProfile),
                     ],
                   ),
                   const Icon(
@@ -161,7 +162,8 @@ class _ProfileState extends State<Profile> {
                         "assets/icon/notification.png",
                         width: 30,
                       ),
-                      const Text("Message", style: AppTextStyle.listCardProfile),
+                      const Text("Message",
+                          style: AppTextStyle.listCardProfile),
                     ],
                   ),
                   const Icon(
@@ -192,7 +194,8 @@ class _ProfileState extends State<Profile> {
                         "assets/icon/vehicle.png",
                         width: 30,
                       ),
-                      const Text("Vehicle", style: AppTextStyle.listCardProfile),
+                      const Text("Vehicle",
+                          style: AppTextStyle.listCardProfile),
                     ],
                   ),
                   const Icon(
@@ -287,7 +290,8 @@ class _ProfileState extends State<Profile> {
                         "assets/icon/call.png",
                         width: 30,
                       ),
-                      const Text("Contact", style: AppTextStyle.listCardProfile),
+                      const Text("Contact",
+                          style: AppTextStyle.listCardProfile),
                     ],
                   ),
                   const Icon(

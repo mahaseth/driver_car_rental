@@ -289,7 +289,8 @@ class _MyScheduleState extends State<MySchedule>
                           "assets/icon/route.png",
                           width: 30,
                         ),
-                        const Text("My Route", style: AppTextStyle.listCardProfile),
+                        const Text("My Route",
+                            style: AppTextStyle.listCardProfile),
                       ],
                     ),
                     const Icon(

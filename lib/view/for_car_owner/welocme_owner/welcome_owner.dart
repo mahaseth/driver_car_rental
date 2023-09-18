@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:myride/constant/app_color.dart';
+import 'package:myride/constant/app_screen_size.dart';
 import 'package:myride/constant/app_text_style.dart';
 import 'package:myride/view/for_car_owner/additional/additional.dart';
 import 'package:myride/view/for_car_owner/support/support.dart';
+import 'package:myride/view/for_driver/driver-details/driver-details.dart';
 import 'package:myride/view/for_driver/payment-amount/payment.dart';
+import 'package:myride/view/for_driver/vehicle_info/vehicle_info.dart';
+
+bool profileUpdate = false;
 
 class WelcomeScreenOwner extends StatefulWidget {
   const WelcomeScreenOwner({super.key});
@@ -14,6 +20,8 @@ class WelcomeScreenOwner extends StatefulWidget {
 class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+
+  bool vehicleEmpty = true;
 
   int _selectedIndex = 0;
   bool light0 = false;
@@ -171,6 +179,10 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
   }
 
   vehicleList() {
+    if (vehicleEmpty) {
+      return showEmptyVehicleList();
+    }
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Column(
@@ -196,8 +208,8 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Container(
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 5, vertical: 20),
                       margin: const EdgeInsets.symmetric(horizontal: 5),
                       color: Colors.white,
                       child: const Column(
@@ -215,8 +227,8 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width * 0.25,
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 5, vertical: 20),
                       margin: const EdgeInsets.symmetric(horizontal: 5),
                       color: Colors.white,
                       child: const Column(
@@ -234,8 +246,8 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
                       ),
                     ),
                     Container(
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 5, vertical: 20),
                       margin: const EdgeInsets.symmetric(horizontal: 5),
                       color: Colors.white,
                       child: const Column(
@@ -434,6 +446,90 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
         ),
         const Text(
             'Your request is currently being reviewed by our \n                      system administrators.')
+      ],
+    );
+  }
+
+  showEmptyVehicleList() {
+    return Column(
+      children: [
+        const SizedBox(
+          height: 30,
+        ),
+        Image.asset('assets/icon/empty_image.png'),
+        const SizedBox(
+          height: 10,
+        ),
+        const Text(
+          'Your Vehicles List',
+          style: TextStyle(fontSize: 20),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        const Text('You don\'t have any vehicles added'),
+        const SizedBox(
+          height: 10,
+        ),
+        SizedBox(
+          width: AppSceenSize.getWidth(context) * 0.7,
+          height: 50,
+          child: ElevatedButton(
+            onPressed: () {
+              if (profileUpdate) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const VehicleInfo();
+                    },
+                  ),
+                );
+                return;
+              }
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: const Text("Your profile is incomplete"),
+                      content: const Text(
+                          "In order to add Vehicles,please fill in the profile details."),
+                      actions: [
+                        TextButton(
+                            onPressed: () async {
+                              Navigator.of(context).pop();
+                              await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return const DriverDetailsScreen();
+                                  },
+                                ),
+                              );
+                              setState(() {
+                                profileUpdate = true;
+                              });
+                            },
+                            child: Text(
+                              "Go to Profile",
+                              style: TextStyle(color: Appcolors.appgreen),
+                            ))
+                      ],
+                    );
+                  });
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Appcolors.primaryGreen,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+            ),
+            child: const Text(
+              "ADD Vehicle",
+              style: TextStyle(color: Colors.black),
+            ),
+          ),
+        )
       ],
     );
   }
