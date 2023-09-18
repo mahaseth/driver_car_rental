@@ -3,7 +3,7 @@ import 'package:myride/constant/app_color.dart';
 import 'package:myride/constant/app_screen_size.dart';
 import 'package:myride/constant/app_text_style.dart';
 import 'package:myride/view/for_car_owner/verify_owner/verify_owner.dart';
-import 'package:myride/view/for_driver/verify/verify.dart';
+import 'package:myride/view/for_driver/verify/mobile.dart';
 
 class HomePageScreen extends StatefulWidget {
   const HomePageScreen({super.key});
@@ -69,7 +69,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const VerifyScreen(),
+                        builder: (context) => const MobileVerify(),
                       ));
                 },
                 style: TextButton.styleFrom(
