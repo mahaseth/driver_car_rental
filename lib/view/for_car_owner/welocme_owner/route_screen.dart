@@ -865,7 +865,7 @@ class DriverOverViewScreenState extends State<DriverOverViewScreen>
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Monday 22nd 04:25 PM (+01:00)..."),
+                    const Text("Monday 22nd 04:25 PM (+01:00)..."),
                     Text(
                       "Completed",
                       style: TextStyle(color: Appcolors.appgreen),
@@ -892,7 +892,7 @@ class DriverOverViewScreenState extends State<DriverOverViewScreen>
                         )
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 15,
                     ),
                     Row(
@@ -910,7 +910,7 @@ class DriverOverViewScreenState extends State<DriverOverViewScreen>
                         )
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 15,
                     ),
                     const Column(

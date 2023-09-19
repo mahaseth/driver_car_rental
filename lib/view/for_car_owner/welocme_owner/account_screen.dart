@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:myride/constant/app_text_style.dart';
 import 'package:myride/model/driverprofile.dart';
 import 'package:myride/utils/rating_stars.dart';
+import 'package:myride/view/for_driver/profile/message_screen.dart';
+import 'package:myride/view/for_driver/profile/write_message.dart';
 import 'package:myride/view_model/driverprofile_viewmodel.dart';
 import 'package:provider/provider.dart';
 
@@ -29,13 +31,23 @@ class _AccountScreenState extends State<AccountScreen> {
   ];
 
   List<Icon> tileIcons = [
-    Icon(Icons.fire_truck),
-    Icon(Icons.contact_page),
-    Icon(Icons.book),
-    Icon(Icons.book),
-    Icon(Icons.book),
-    Icon(Icons.book),
-    Icon(Icons.phone),
+    const Icon(Icons.fire_truck),
+    const Icon(Icons.contact_page),
+    const Icon(Icons.book),
+    const Icon(Icons.book),
+    const Icon(Icons.book),
+    const Icon(Icons.book),
+    const Icon(Icons.phone),
+  ];
+
+  List<dynamic> tileOnClick = [
+    null,
+    null,
+    null,
+    null,
+    const MessageScreen(),
+    const WriteMessage(),
+    null,
   ];
 
   @override
@@ -82,10 +94,10 @@ class _AccountScreenState extends State<AccountScreen> {
                           name,
                           style: AppTextStyle.welcommehead,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
-                        StarRating(rating: 4, size: 24)
+                        const StarRating(rating: 4, size: 24)
                       ],
                     ),
                   ],
@@ -188,21 +200,28 @@ class _AccountScreenState extends State<AccountScreen> {
               ],
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("MENU"),
+                  const Text("MENU"),
                   ListView.builder(
                       shrinkWrap: true,
                       primary: false,
                       itemCount: 7,
                       itemBuilder: (context, index) {
-                        return Card(
-                          child: ListTile(
-                            leading: tileIcons[index],
-                            title: Text(tileTitle[index]),
-                            trailing: Icon(Icons.arrow_forward_ios),
+                        return GestureDetector(
+                          onTap: () {
+                            if (tileOnClick[index] == null) return;
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => tileOnClick[index]));
+                          },
+                          child: Card(
+                            child: ListTile(
+                              leading: tileIcons[index],
+                              title: Text(tileTitle[index]),
+                              trailing: const Icon(Icons.arrow_forward_ios),
+                            ),
                           ),
                         );
                       })

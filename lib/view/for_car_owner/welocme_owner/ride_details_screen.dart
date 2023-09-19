@@ -37,7 +37,7 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
                             icon: const Icon(Icons.arrow_back)),
                         SizedBox(
                           width: AppSceenSize.getWidth(context) * 0.8,
-                          child: Text(
+                          child: const Text(
                             "My Rides",
                             style: AppTextStyle.welcommehead,
                           ),
@@ -48,16 +48,16 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Row(
               children: [
-                SizedBox(
+                const SizedBox(
                   width: 25,
                 ),
                 Image.asset("assets/images/truck-fast.png"),
-                SizedBox(
+                const SizedBox(
                   width: 100,
                 ),
                 Text(
@@ -67,11 +67,11 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
                 )
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             customDivider(),
-            Center(
+            const Center(
               child: Text(
                 "Ride 1",
                 style: TextStyle(color: Colors.black, fontSize: 18),
@@ -83,8 +83,8 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("PICK-UP"),
-                  SizedBox(
+                  const Text("PICK-UP"),
+                  const SizedBox(
                     height: 15,
                   ),
                   Row(
@@ -93,12 +93,12 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
                         "assets/icon/pick_up.png",
                         scale: 2,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 15,
                       ),
                       SizedBox(
                         width: AppSceenSize.getWidth(context) * 0.7,
-                        child: Text(
+                        child: const Text(
                           "PALLADIUM MALL, 462, a-nuch ate muf, alar a2a, yad, retay 400013, India",
                           overflow: TextOverflow.clip,
                           style: TextStyle(fontSize: 12),
@@ -110,8 +110,8 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
                     height: 25,
                     color: Appcolors.appGrey,
                   ),
-                  Text("DROP-OFF"),
-                  SizedBox(
+                  const Text("DROP-OFF"),
+                  const SizedBox(
                     height: 15,
                   ),
                   Row(
@@ -120,12 +120,12 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
                         "assets/icon/drop_off.png",
                         scale: 2,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 15,
                       ),
                       SizedBox(
                         width: AppSceenSize.getWidth(context) * 0.7,
-                        child: Text(
+                        child: const Text(
                           "PALLADIUM MALL, 462, a-nuch ate muf, alar a2a, yad, retay 400013, India",
                           overflow: TextOverflow.clip,
                           style: TextStyle(fontSize: 12),
@@ -133,7 +133,7 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
                       )
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 25,
                   ),
                   Row(
@@ -144,7 +144,7 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
                       rowTextView("Trip Distance", "20.3 KMs"),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 25,
                   ),
                   GestureDetector(
@@ -198,11 +198,11 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
       children: [
         Text(
           title,
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
         ),
         Text(
           value,
-          style: TextStyle(fontSize: 12),
+          style: const TextStyle(fontSize: 12),
         ),
       ],
     );

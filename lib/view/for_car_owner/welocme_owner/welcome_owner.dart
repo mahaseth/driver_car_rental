@@ -13,10 +13,10 @@ class WelcomeScreenOwner extends StatefulWidget {
 class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
     with SingleTickerProviderStateMixin {
   int _selectedIndex = 0;
-  List _screens = [
-    DriverOverViewScreen(),
-    DriverOverViewScreen(),
-    AccountScreen()
+  final List _screens = [
+    const DriverOverViewScreen(),
+    const DriverOverViewScreen(),
+    const AccountScreen()
   ];
 
   void _onItemTapped(int index) {
