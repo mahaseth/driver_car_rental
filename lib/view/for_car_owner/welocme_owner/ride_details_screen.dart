@@ -1,0 +1,210 @@
+import 'package:flutter/material.dart';
+import 'package:myride/constant/app_color.dart';
+import 'package:myride/constant/app_screen_size.dart';
+import 'package:myride/constant/app_text_style.dart';
+
+class RideDetailScreen extends StatefulWidget {
+  final String title;
+
+  const RideDetailScreen({super.key, required this.title});
+
+  @override
+  State<RideDetailScreen> createState() => _RideDetailScreenState();
+}
+
+class _RideDetailScreenState extends State<RideDetailScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              child: Stack(
+                children: [
+                  Image.asset("assets/images/headerbg.png"),
+                  Positioned(
+                    top: MediaQuery.of(context).size.height * 0.1,
+                    width: MediaQuery.of(context).size.width * 1,
+                    child: Row(
+                      children: [
+                        IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: const Icon(Icons.arrow_back)),
+                        SizedBox(
+                          width: AppSceenSize.getWidth(context) * 0.8,
+                          child: Text(
+                            "My Rides",
+                            style: AppTextStyle.welcommehead,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              children: [
+                SizedBox(
+                  width: 25,
+                ),
+                Image.asset("assets/images/truck-fast.png"),
+                SizedBox(
+                  width: 100,
+                ),
+                Text(
+                  widget.title,
+                  style: TextStyle(color: Appcolors.appgreen, fontSize: 18),
+                  textAlign: TextAlign.start,
+                )
+              ],
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            customDivider(),
+            Center(
+              child: Text(
+                "Ride 1",
+                style: TextStyle(color: Colors.black, fontSize: 18),
+                textAlign: TextAlign.start,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("PICK-UP"),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Row(
+                    children: [
+                      Image.asset(
+                        "assets/icon/pick_up.png",
+                        scale: 2,
+                      ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      SizedBox(
+                        width: AppSceenSize.getWidth(context) * 0.7,
+                        child: Text(
+                          "PALLADIUM MALL, 462, a-nuch ate muf, alar a2a, yad, retay 400013, India",
+                          overflow: TextOverflow.clip,
+                          style: TextStyle(fontSize: 12),
+                        ),
+                      )
+                    ],
+                  ),
+                  Divider(
+                    height: 25,
+                    color: Appcolors.appGrey,
+                  ),
+                  Text("DROP-OFF"),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Row(
+                    children: [
+                      Image.asset(
+                        "assets/icon/drop_off.png",
+                        scale: 2,
+                      ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      SizedBox(
+                        width: AppSceenSize.getWidth(context) * 0.7,
+                        child: Text(
+                          "PALLADIUM MALL, 462, a-nuch ate muf, alar a2a, yad, retay 400013, India",
+                          overflow: TextOverflow.clip,
+                          style: TextStyle(fontSize: 12),
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      rowTextView("Ride Type:", "Comfort"),
+                      rowTextView("Ride Duration:", "51 Mins"),
+                      rowTextView("Trip Distance", "20.3 KMs"),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      // Navigator.of(context).popUntil((route) => false);
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //       builder: (context) => const WelcomeScreenOwner(),
+                      //     ));
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
+                      width: double.infinity,
+                      height: 50,
+                      decoration: BoxDecoration(
+                          color: const Color(0xFF00B74C),
+                          borderRadius: BorderRadius.circular(15)),
+                      padding: const EdgeInsets.all(16),
+                      child: const Center(
+                        child: Text(
+                          'Lets Go',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  customDivider() {
+    return Container(
+      margin: const EdgeInsets.symmetric(
+        horizontal: 10,
+      ),
+      child: Divider(
+        color: Appcolors.appgreen,
+      ),
+    );
+  }
+
+  rowTextView(String title, String value) {
+    return Row(
+      children: [
+        Text(
+          title,
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+        ),
+        Text(
+          value,
+          style: TextStyle(fontSize: 12),
+        ),
+      ],
+    );
+  }
+}

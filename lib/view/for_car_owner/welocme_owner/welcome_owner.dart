@@ -6,8 +6,8 @@ import 'package:myride/model/driverprofile.dart';
 import 'package:myride/model/vehicleinfo.dart';
 import 'package:myride/view/for_car_owner/additional/additional.dart';
 import 'package:myride/view/for_car_owner/support/support.dart';
+import 'package:myride/view/for_car_owner/welocme_owner/ride_details_screen.dart';
 import 'package:myride/view/for_driver/driver-details/driver-details.dart';
-import 'package:myride/view/for_driver/driver-details/vehicle_extra_document.dart';
 import 'package:myride/view/for_driver/payment-amount/payment.dart';
 import 'package:myride/view/for_driver/vehicle_info/vehicle_info.dart';
 import 'package:myride/view_model/driverprofile_viewmodel.dart';
@@ -596,65 +596,86 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
     );
   }
 
+  String ridesTile() {
+    if (ridesIndex == 1) {
+      return "Current Rides";
+    } else if (ridesIndex == 2) {
+      return "Schedule Ride";
+    } else {
+      return "Share Rides";
+    }
+  }
+
   currentRideItem() {
     return Expanded(
       child: ListView.builder(
         itemCount: 5,
         itemBuilder: (context, index) {
-          return Container(
-            margin: const EdgeInsets.symmetric(vertical: 10),
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-            decoration: BoxDecoration(
-                border: Border.all(
-                    width: 1, color: Colors.green, style: BorderStyle.solid),
-                color: Colors.white),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Image.asset('assets/images/truck-fast.png'),
-                    const SizedBox(
-                      width: 5,
+          return InkWell(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => RideDetailScreen(
+                      title: ridesTile(),
                     ),
-                    const Text(
-                      "Ride 1",
-                      style: AppTextStyle.rideitemhead,
-                    ),
-                    const Spacer(),
-                    const Icon(Icons.arrow_right_outlined)
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                RichText(
-                    text: const TextSpan(
-                        style: TextStyle(color: Colors.black),
-                        children: [
-                      TextSpan(
-                          text: "Drop Point : ",
-                          style: AppTextStyle.dropitmeemtext),
-                      TextSpan(
-                          text: " kolkata 70000001 ,newtown",
-                          style: AppTextStyle.dropitmeemspantext)
-                    ])),
-                const SizedBox(
-                  height: 6,
-                ),
-                RichText(
-                    text: const TextSpan(
-                        style: TextStyle(color: Colors.black),
-                        children: [
-                      TextSpan(
-                          text: "Distance to reach : 1.2Km ",
-                          style: AppTextStyle.disitmeemtext),
-                      TextSpan(
-                          text: "Timing: 7 mins Ride .No :#0R080",
-                          style: AppTextStyle.disitmeemspantext),
-                    ])),
-              ],
+                  ));
+            },
+            child: Container(
+              margin: const EdgeInsets.symmetric(vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              decoration: BoxDecoration(
+                  border: Border.all(
+                      width: 1, color: Colors.green, style: BorderStyle.solid),
+                  color: Colors.white),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Image.asset('assets/images/truck-fast.png'),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      const Text(
+                        "Ride 1",
+                        style: AppTextStyle.rideitemhead,
+                      ),
+                      const Spacer(),
+                      const Icon(Icons.arrow_right_outlined)
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  RichText(
+                      text: const TextSpan(
+                          style: TextStyle(color: Colors.black),
+                          children: [
+                        TextSpan(
+                            text: "Drop Point : ",
+                            style: AppTextStyle.dropitmeemtext),
+                        TextSpan(
+                            text: " kolkata 70000001 ,newtown",
+                            style: AppTextStyle.dropitmeemspantext)
+                      ])),
+                  const SizedBox(
+                    height: 6,
+                  ),
+                  RichText(
+                      text: const TextSpan(
+                          style: TextStyle(color: Colors.black),
+                          children: [
+                        TextSpan(
+                            text: "Distance to reach : 1.2Km ",
+                            style: AppTextStyle.disitmeemtext),
+                        TextSpan(
+                            text: "Timing: 7 mins Ride .No :#0R080",
+                            style: AppTextStyle.disitmeemspantext),
+                      ])),
+                ],
+              ),
             ),
           );
         },
