@@ -95,6 +95,10 @@ class VehicleInfoo {
   int? model;
   int? cabtype;
   int? cabclass;
+  String? makerText;
+  String? modelText;
+  String? cabTypeText;
+  String? cabClassText;
   String? front;
   String? back;
   String? right;
@@ -134,10 +138,10 @@ class VehicleInfoo {
     numberplate = json['number_plate'];
     lastlocation = json['last_location'];
     driver = json['driver'];
-    maker = json['maker'];
-    model = json['model'];
-    cabtype = json['cab_type'];
-    cabclass = json['cab_class'];
+    // maker = json['maker'];
+    // model = json['model'];
+    // cabtype = json['cab_type'];
+    // cabclass = json['cab_class'];
     back = json["back"];
     front = json["front"];
     right = json["right"];
@@ -150,6 +154,10 @@ class VehicleInfoo {
     registrationcertiifcate = json["registration_certiifcate"];
     motcertiifcate = json["mot_certiifcate"];
     addtionaldocument = json["addtional_document"];
+    makerText = json['maker']['maker'];
+    modelText = json['model']['model'];
+    cabTypeText = json['cab_type']['cab_type'];
+    cabClassText = json['cab_class']['cab_class'];
     // pollution = json[""];
     // sound = json[""];
   }

@@ -179,9 +179,11 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
             const SizedBox(
               height: 5,
             ),
-            Center(
-              child: addVehicleButton(),
-            ),
+            vehicleList.isNotEmpty
+                ? Center(
+                    child: addVehicleButton(),
+                  )
+                : const SizedBox.shrink(),
             const SizedBox(
               height: 10,
             ),
@@ -358,7 +360,7 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
                               height: 10,
                             ),
                             Text(
-                              vehicleDetail.model.toString(),
+                              vehicleDetail.modelText ?? "",
                               style: const TextStyle(fontSize: 16),
                             ),
                             const SizedBox(
@@ -366,7 +368,7 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
                             ),
                             Row(
                               children: [
-                                Text(vehicleDetail.cabtype.toString()),
+                                Text(vehicleDetail.cabTypeText ?? ""),
                                 const SizedBox(
                                   width: 70,
                                 ),
