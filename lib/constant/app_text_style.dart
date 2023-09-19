@@ -65,6 +65,8 @@ class AppTextStyle {
       fontSize: 16, fontWeight: FontWeight.w300, color: Color(0xFF333333));
 
 // welcome ride item
+  static const boldUpperText = TextStyle(
+      fontSize: 15, fontWeight: FontWeight.bold, color: Color(0xFF333333));
   static const upperitemtmeemtext = TextStyle(
       fontSize: 15, fontWeight: FontWeight.w500, color: Color(0xFF333333));
   static const upperitemtmeemspantext = TextStyle(

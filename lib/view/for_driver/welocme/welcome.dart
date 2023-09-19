@@ -285,7 +285,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             decoration: BoxDecoration(
                 border: Border.all(
-                    width: 1, color: Colors.grey, style: BorderStyle.solid),
+                    width: 1, color: Colors.green, style: BorderStyle.solid),
                 color: Colors.white),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,

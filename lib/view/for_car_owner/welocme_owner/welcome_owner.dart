@@ -32,6 +32,8 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
   DriveProfileViewModel? _provider;
   VehicleInfoViewModel? _providerVehicle;
 
+  int ridesIndex = 1;
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -190,7 +192,7 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
                   text: 'My Vehicles',
                 ),
                 Tab(
-                  text: 'In Transit',
+                  text: 'Your Rides',
                 ),
                 Tab(
                   text: 'Complete',
@@ -202,7 +204,7 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
                 controller: _tabController,
                 children: [
                   vehicleListView(),
-                  inTransit(),
+                  yourRideView(),
                   inComplete(),
                 ],
               ),
@@ -474,7 +476,217 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
     );
   }
 
-  inTransit() {
+  bool conditionForYourRide() {
+    return false;
+  }
+
+  yourRideView() {
+    if (conditionForYourRide()) {
+      return yourRideEmptyView();
+    }
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Column(
+        children: [
+          Container(
+            color: const Color(0xFFF5F5F5),
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: Column(
+              children: [
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Monday 23rd 04:25 PM...",
+                    ),
+                    Text('Detail')
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 5, vertical: 20),
+                      margin: const EdgeInsets.symmetric(horizontal: 5),
+                      color: Colors.white,
+                      child: const Column(
+                        children: [
+                          Text("100", style: AppTextStyle.upperitemtmeemtext),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            "Complete Trips",
+                            style: AppTextStyle.upperitemtmeemspantext,
+                          )
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.25,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 5, vertical: 20),
+                      margin: const EdgeInsets.symmetric(horizontal: 5),
+                      color: Colors.white,
+                      child: const Column(
+                        children: [
+                          Text("1145.5",
+                              style: AppTextStyle.upperitemtmeemtext),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            "Kilometers",
+                            style: AppTextStyle.upperitemtmeemspantext,
+                          )
+                        ],
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 5, vertical: 20),
+                      margin: const EdgeInsets.symmetric(horizontal: 5),
+                      color: Colors.white,
+                      child: const Column(
+                        children: [
+                          Text("₹200", style: AppTextStyle.upperitemtmeemtext),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            "Today’s  Earning",
+                            style: AppTextStyle.upperitemtmeemspantext,
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ridesCardView(
+                "Current Rides",
+                1,
+              ),
+              ridesCardView(
+                "Schedule Rides",
+                2,
+              ),
+              ridesCardView(
+                "Share Rides",
+                3,
+              ),
+            ],
+          ),
+          currentRideItem()
+        ],
+      ),
+    );
+  }
+
+  currentRideItem() {
+    return Expanded(
+      child: ListView.builder(
+        itemCount: 5,
+        itemBuilder: (context, index) {
+          return Container(
+            margin: const EdgeInsets.symmetric(vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+            decoration: BoxDecoration(
+                border: Border.all(
+                    width: 1, color: Colors.green, style: BorderStyle.solid),
+                color: Colors.white),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Image.asset('assets/images/truck-fast.png'),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    const Text(
+                      "Ride 1",
+                      style: AppTextStyle.rideitemhead,
+                    ),
+                    const Spacer(),
+                    const Icon(Icons.arrow_right_outlined)
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                RichText(
+                    text: const TextSpan(
+                        style: TextStyle(color: Colors.black),
+                        children: [
+                      TextSpan(
+                          text: "Drop Point : ",
+                          style: AppTextStyle.dropitmeemtext),
+                      TextSpan(
+                          text: " kolkata 70000001 ,newtown",
+                          style: AppTextStyle.dropitmeemspantext)
+                    ])),
+                const SizedBox(
+                  height: 6,
+                ),
+                RichText(
+                    text: const TextSpan(
+                        style: TextStyle(color: Colors.black),
+                        children: [
+                      TextSpan(
+                          text: "Distance to reach : 1.2Km ",
+                          style: AppTextStyle.disitmeemtext),
+                      TextSpan(
+                          text: "Timing: 7 mins Ride .No :#0R080",
+                          style: AppTextStyle.disitmeemspantext),
+                    ])),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  ridesCardView(String title, int index) {
+    return Expanded(
+      flex: 1,
+      child: InkWell(
+        onTap: () {
+          setState(() {
+            ridesIndex = index;
+          });
+        },
+        child: Container(
+            decoration: BoxDecoration(
+                color:
+                    index == ridesIndex ? Appcolors.primaryGreen : Colors.white,
+                borderRadius: BorderRadius.circular(15)),
+            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
+            margin: const EdgeInsets.symmetric(horizontal: 5),
+            height: 100,
+            child: Center(
+              child: Text(
+                title,
+                style: AppTextStyle.boldUpperText,
+              ),
+            )),
+      ),
+    );
+  }
+
+  yourRideEmptyView() {
     return Column(
       children: [
         const SizedBox(
