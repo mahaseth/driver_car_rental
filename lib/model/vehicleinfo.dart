@@ -84,6 +84,12 @@ class VehicleInfoo {
   bool? isactive;
   String? numberplate;
   String? lastlocation;
+  String? insurancecertiifcate;
+  String? registrationcertiifcate;
+  String? motcertiifcate;
+  String? addtionaldocument;
+  String? pollution;
+  String? sound;
   int? driver;
   int? maker;
   int? model;
@@ -115,6 +121,12 @@ class VehicleInfoo {
     this.frontHeadLight,
     this.backHeadLight,
     this.insidePassangerSeat,
+    this.insurancecertiifcate,
+    this.registrationcertiifcate,
+    this.motcertiifcate,
+    this.addtionaldocument,
+    this.pollution,
+    this.sound,
   });
 
   VehicleInfoo.fromJson(Map<String, dynamic> json) {
@@ -134,6 +146,12 @@ class VehicleInfoo {
     frontHeadLight = json["front_head_light"];
     backHeadLight = json["back_head_light"];
     insidePassangerSeat = json["inside_passanger_seat"];
+    insurancecertiifcate = json["insurance_certiifcate"];
+    registrationcertiifcate = json["registration_certiifcate"];
+    motcertiifcate = json["mot_certiifcate"];
+    addtionaldocument = json["addtional_document"];
+    // pollution = json[""];
+    // sound = json[""];
   }
 
   Map<String, dynamic> toJson() {
@@ -154,6 +172,12 @@ class VehicleInfoo {
     data['back_head_light'] = backHeadLight;
     data['inside_passanger_seat'] = insidePassangerSeat;
     data['front'] = front;
+    data['insurance_certiifcate'] = insurancecertiifcate;
+    data['registration_certiifcate'] = registrationcertiifcate;
+    data['mot_certiifcate'] = motcertiifcate;
+    data['addtional_document'] = addtionaldocument;
+    // data[''] = pollution;
+    // data[''] = sound;
     return data;
   }
 }

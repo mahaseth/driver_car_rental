@@ -11,6 +11,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:myride/constant/app_screen_size.dart';
 import 'package:myride/constant/app_text_style.dart';
 import 'package:myride/model/vehicleinfo.dart';
+import 'package:myride/view/for_driver/driver-details/vehicle_extra_document.dart';
 import 'package:myride/view_model/vehicleinfo_viewmodel.dart';
 import 'package:provider/provider.dart';
 
@@ -369,7 +370,16 @@ class _VehicleInfoState extends State<VehicleInfo> {
       cabtype: _provider!.currct!.id,
       cabclass: _provider!.currcc!.id,
     );
-    _provider!.submit(context);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return VehicleExtraDocument(
+            vehicleDetail: _provider!.vi,
+          );
+        },
+      ),
+    );
   }
 
   customDivider() {

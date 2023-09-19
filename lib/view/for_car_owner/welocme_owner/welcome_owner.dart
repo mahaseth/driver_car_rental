@@ -7,6 +7,7 @@ import 'package:myride/model/vehicleinfo.dart';
 import 'package:myride/view/for_car_owner/additional/additional.dart';
 import 'package:myride/view/for_car_owner/support/support.dart';
 import 'package:myride/view/for_driver/driver-details/driver-details.dart';
+import 'package:myride/view/for_driver/driver-details/vehicle_extra_document.dart';
 import 'package:myride/view/for_driver/payment-amount/payment.dart';
 import 'package:myride/view/for_driver/vehicle_info/vehicle_info.dart';
 import 'package:myride/view_model/driverprofile_viewmodel.dart';
@@ -97,18 +98,14 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
             Container(
               child: Stack(
                 children: [
-                  Container(
-                    child: Column(
-                      children: [Image.asset("assets/images/headerbg.png")],
-                    ),
-                  ),
+                  Image.asset("assets/images/headerbg.png"),
                   IconButton(
                       onPressed: () {
                         Navigator.pop(context);
                       },
                       icon: const Icon(Icons.arrow_back)),
                   Positioned(
-                    top: MediaQuery.of(context).size.height * 0.10,
+                    top: MediaQuery.of(context).size.height * 0.1,
                     width: MediaQuery.of(context).size.width,
                     child: Container(
                       padding: const EdgeInsets.symmetric(
@@ -171,7 +168,7 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
                                 )
                               ],
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -180,7 +177,13 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: 5,
+            ),
+            Center(
+              child: addVehicleButton(),
+            ),
+            const SizedBox(
+              height: 10,
             ),
             TabBar(
               controller: _tabController,
@@ -753,64 +756,68 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
         const SizedBox(
           height: 10,
         ),
-        SizedBox(
-          width: AppSceenSize.getWidth(context) * 0.7,
-          height: 50,
-          child: ElevatedButton(
-            onPressed: () {
-              if (driverProfile!.firstname != null ||
-                  driverProfile!.firstname!.isEmpty) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return const VehicleInfo();
-                    },
-                  ),
-                );
-                return;
-              }
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: const Text("Your profile is incomplete"),
-                      content: const Text(
-                          "In order to add Vehicles,please fill in the profile details."),
-                      actions: [
-                        TextButton(
-                            onPressed: () async {
-                              Navigator.of(context).pop();
-                              await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return const DriverDetailsScreen();
-                                  },
-                                ),
-                              );
-                            },
-                            child: Text(
-                              "Go to Profile",
-                              style: TextStyle(color: Appcolors.appgreen),
-                            ))
-                      ],
-                    );
-                  });
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Appcolors.primaryGreen,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0),
-              ),
-            ),
-            child: const Text(
-              "ADD Vehicle",
-              style: TextStyle(color: Colors.black),
-            ),
-          ),
-        )
+        addVehicleButton(),
       ],
+    );
+  }
+
+  addVehicleButton() {
+    return SizedBox(
+      width: AppSceenSize.getWidth(context) * 0.7,
+      height: 50,
+      child: ElevatedButton(
+        onPressed: () {
+          if (driverProfile!.firstname != null ||
+              driverProfile!.firstname!.isEmpty) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return const VehicleInfo();
+                },
+              ),
+            );
+            return;
+          }
+          showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: const Text("Your profile is incomplete"),
+                  content: const Text(
+                      "In order to add Vehicles,please fill in the profile details."),
+                  actions: [
+                    TextButton(
+                        onPressed: () async {
+                          Navigator.of(context).pop();
+                          await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return const DriverDetailsScreen();
+                              },
+                            ),
+                          );
+                        },
+                        child: Text(
+                          "Go to Profile",
+                          style: TextStyle(color: Appcolors.appgreen),
+                        ))
+                  ],
+                );
+              });
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Appcolors.primaryGreen,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+        ),
+        child: const Text(
+          "ADD Vehicle",
+          style: TextStyle(color: Colors.black),
+        ),
+      ),
     );
   }
 }
