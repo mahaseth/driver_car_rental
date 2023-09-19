@@ -76,4 +76,18 @@ class VehicleInfoRepo {
       rethrow;
     }
   }
+
+  vehicleFetchUser(context) async {
+    try {
+      final response = await _networkService
+          .getGetApiResponse("http://3.109.183.75/cab/details/",
+              Provider.of<SignInViewModel>(context, listen: false).token)
+          .catchError((error, stackTrace) {
+        Utils.showMyDialog(error.toString(), context);
+      });
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

@@ -3,12 +3,14 @@ import 'package:myride/constant/app_color.dart';
 import 'package:myride/constant/app_screen_size.dart';
 import 'package:myride/constant/app_text_style.dart';
 import 'package:myride/model/driverprofile.dart';
+import 'package:myride/model/vehicleinfo.dart';
 import 'package:myride/view/for_car_owner/additional/additional.dart';
 import 'package:myride/view/for_car_owner/support/support.dart';
 import 'package:myride/view/for_driver/driver-details/driver-details.dart';
 import 'package:myride/view/for_driver/payment-amount/payment.dart';
 import 'package:myride/view/for_driver/vehicle_info/vehicle_info.dart';
 import 'package:myride/view_model/driverprofile_viewmodel.dart';
+import 'package:myride/view_model/vehicleinfo_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 class WelcomeScreenOwner extends StatefulWidget {
@@ -22,11 +24,13 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   DriverProfile? driverProfile;
-  bool vehicleEmpty = true;
+  List<VehicleInfoo> vehicleList = [];
 
+  bool onDuty = false;
   int _selectedIndex = 0;
   bool light0 = false;
   DriveProfileViewModel? _provider;
+  VehicleInfoViewModel? _providerVehicle;
 
   void _onItemTapped(int index) {
     setState(() {
@@ -43,11 +47,26 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
 
   void readData() async {
     _provider = Provider.of<DriveProfileViewModel>(context, listen: false);
+    setState(() {
+      _provider!.loading;
+    });
     await _provider!.getProfile(context);
     setState(() {
       driverProfile = _provider!.currdriverProfile;
     });
     debugPrint("Updated values :- $driverProfile");
+    if (context.mounted) {
+      _providerVehicle =
+          Provider.of<VehicleInfoViewModel>(context, listen: false);
+      await _providerVehicle!.vehicleListUser(context);
+      setState(() {
+        vehicleList = _providerVehicle!.vehicleList;
+      });
+      debugPrint("${vehicleList.length}");
+    }
+    setState(() {
+      _provider!.loading;
+    });
   }
 
   @override
@@ -127,6 +146,30 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
                           const SizedBox(
                             height: 8,
                           ),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Color(0xFFD2D2D2),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Row(
+                              children: [
+                                const Expanded(
+                                    flex: 3,
+                                    child: Center(child: Text("ON DUTY"))),
+                                Expanded(
+                                  flex: 1,
+                                  child: Switch(
+                                      value: onDuty,
+                                      activeColor: Appcolors.appgreen,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          onDuty = value;
+                                        });
+                                      }),
+                                )
+                              ],
+                            ),
+                          )
                         ],
                       ),
                     ),
@@ -158,7 +201,7 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
               child: TabBarView(
                 controller: _tabController,
                 children: [
-                  vehicleList(),
+                  vehicleListView(),
                   inTransit(),
                   inComplete(),
                 ],
@@ -190,8 +233,8 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
     );
   }
 
-  vehicleList() {
-    if (vehicleEmpty) {
+  vehicleListView() {
+    if (vehicleList.isEmpty) {
       return showEmptyVehicleList();
     }
 
@@ -289,8 +332,9 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
   vehicles() {
     return Expanded(
       child: ListView.builder(
-        itemCount: 2,
+        itemCount: vehicleList.length,
         itemBuilder: (context, index) {
+          VehicleInfoo vehicleDetail = vehicleList[index];
           return Padding(
             padding: const EdgeInsets.only(top: 8.0),
             child: Column(
@@ -301,7 +345,7 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
                     Row(
                       children: [
                         Image.asset('assets/icon/car.png'),
-                        const Column(
+                        Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -309,7 +353,7 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
                               height: 10,
                             ),
                             Text(
-                              'MARUTI SUZUKI',
+                              vehicleDetail.model.toString(),
                               style: TextStyle(fontSize: 16),
                             ),
                             SizedBox(
@@ -317,7 +361,7 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
                             ),
                             Row(
                               children: [
-                                Text("sWIFT vDI"),
+                                Text(vehicleDetail.cabtype.toString()),
                                 SizedBox(
                                   width: 70,
                                 ),
@@ -327,7 +371,7 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
                             SizedBox(
                               height: 5,
                             ),
-                            Text('Veh.No :   WB 21 DV 1264'),
+                            Text('Veh.No :   ${vehicleDetail.numberplate}'),
                             SizedBox(
                               height: 10,
                             )
@@ -335,7 +379,21 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
                         )
                       ],
                     ),
-                    const Icon(Icons.more_vert)
+                    Row(
+                      children: [
+                        Switch(
+                            value: vehicleDetail.isactive ?? false,
+                            activeColor: Appcolors.appgreen,
+                            inactiveTrackColor: Appcolors.lightRed,
+                            inactiveThumbColor: Colors.red,
+                            onChanged: (value) {
+                              setState(() {
+                                vehicleDetail.isactive = value;
+                              });
+                            }),
+                        const Icon(Icons.more_vert)
+                      ],
+                    )
                   ],
                 ),
                 Container(

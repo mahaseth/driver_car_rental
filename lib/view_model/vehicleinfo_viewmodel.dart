@@ -16,11 +16,13 @@ class VehicleInfoViewModel extends ChangeNotifier {
   List<VehicleMaker> vma = [];
   List<VehicleModel> vmo = [];
   List<CabClass> cc = [];
+  List<VehicleInfoo> vehicleList = [];
 
   CabType? currct;
   VehicleMaker? currvma;
   VehicleModel? currvmo;
   CabClass? currcc;
+  VehicleInfoo? currentVehicle;
 
   late VehicleInfoo vi;
 
@@ -90,6 +92,24 @@ class VehicleInfoViewModel extends ChangeNotifier {
     } catch (e) {
       log('Erroer $e');
     }
+  }
+
+  Future<List<VehicleInfoo>> vehicleListUser(BuildContext context) async {
+    loading = true;
+    try {
+      final response = await _vehicleInfoRepo.vehicleFetchUser(context);
+      log("RESPONSE Vehicle List :- $response");
+      vehicleList = List<VehicleInfoo>.from(
+        response.map(
+          (m) => VehicleInfoo.fromJson(m),
+        ),
+      );
+      loading = false;
+      notifyListeners();
+    } catch (e) {
+      log('Erroer $e');
+    }
+    return vehicleList;
   }
 
   submit(BuildContext context) async {
