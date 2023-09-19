@@ -32,7 +32,7 @@ class DriverOverViewScreenState extends State<DriverOverViewScreen>
   bool light0 = false;
   DriveProfileViewModel? _provider;
   VehicleInfoViewModel? _providerVehicle;
-
+  String name = "", location = "", id = "";
   int ridesIndex = 1;
 
   @override
@@ -74,6 +74,11 @@ class DriverOverViewScreenState extends State<DriverOverViewScreen>
 
   @override
   Widget build(BuildContext context) {
+    if (driverProfile != null) {
+      name = driverProfile!.firstname ?? "";
+      location = driverProfile!.fulladdress ?? "";
+      id = driverProfile!.id.toString() ?? "";
+    }
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -115,11 +120,11 @@ class DriverOverViewScreenState extends State<DriverOverViewScreen>
                                             ));
                                       },
                                       child: Text(
-                                        "Welcome, ${driverProfile!.firstname ?? ""}",
+                                        "Welcome, $name",
                                         style: AppTextStyle.welcommehead,
                                       )),
                                   Text(
-                                    "${driverProfile!.fulladdress} | #${driverProfile!.id}",
+                                    "$location | #$id",
                                     style: AppTextStyle.welcomesubheading,
                                   )
                                 ],
