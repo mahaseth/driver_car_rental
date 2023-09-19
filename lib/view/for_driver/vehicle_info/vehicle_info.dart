@@ -387,8 +387,8 @@ class _VehicleInfoState extends State<VehicleInfo> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ListTile(
-          title: const Text("Upload Car Photos*"),
+        const ListTile(
+          title: Text("Upload Car Photos*"),
         ),
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -409,8 +409,8 @@ class _VehicleInfoState extends State<VehicleInfo> {
                               : Colors.grey,
                         ),
                         hintText: 'Front',
-                        hintStyle:
-                            TextStyle(color: Color(0xFF999999), fontSize: 12),
+                        hintStyle: const TextStyle(
+                            color: Color(0xFF999999), fontSize: 12),
                         border: InputBorder.none),
                   ),
                 ),
@@ -453,8 +453,8 @@ class _VehicleInfoState extends State<VehicleInfo> {
                               : Colors.grey,
                         ),
                         hintText: 'Back',
-                        hintStyle:
-                            TextStyle(color: Color(0xFF999999), fontSize: 12),
+                        hintStyle: const TextStyle(
+                            color: Color(0xFF999999), fontSize: 12),
                         border: InputBorder.none),
                   ),
                 ),
@@ -497,8 +497,8 @@ class _VehicleInfoState extends State<VehicleInfo> {
                               : Colors.grey,
                         ),
                         hintText: 'Right Side',
-                        hintStyle:
-                            TextStyle(color: Color(0xFF999999), fontSize: 12),
+                        hintStyle: const TextStyle(
+                            color: Color(0xFF999999), fontSize: 12),
                         border: InputBorder.none),
                   ),
                 ),
@@ -541,8 +541,8 @@ class _VehicleInfoState extends State<VehicleInfo> {
                               : Colors.grey,
                         ),
                         hintText: 'Left Side',
-                        hintStyle:
-                            TextStyle(color: Color(0xFF999999), fontSize: 12),
+                        hintStyle: const TextStyle(
+                            color: Color(0xFF999999), fontSize: 12),
                         border: InputBorder.none),
                   ),
                 ),
@@ -585,8 +585,8 @@ class _VehicleInfoState extends State<VehicleInfo> {
                               : Colors.grey,
                         ),
                         hintText: 'Inside the driver Seat',
-                        hintStyle:
-                            TextStyle(color: Color(0xFF999999), fontSize: 12),
+                        hintStyle: const TextStyle(
+                            color: Color(0xFF999999), fontSize: 12),
                         border: InputBorder.none),
                   ),
                 ),
@@ -629,8 +629,8 @@ class _VehicleInfoState extends State<VehicleInfo> {
                               : Colors.grey,
                         ),
                         hintText: 'Inside the passanger seat',
-                        hintStyle:
-                            TextStyle(color: Color(0xFF999999), fontSize: 12),
+                        hintStyle: const TextStyle(
+                            color: Color(0xFF999999), fontSize: 12),
                         border: InputBorder.none),
                   ),
                 ),
@@ -673,8 +673,8 @@ class _VehicleInfoState extends State<VehicleInfo> {
                               : Colors.grey,
                         ),
                         hintText: 'Front Head Lights',
-                        hintStyle:
-                            TextStyle(color: Color(0xFF999999), fontSize: 12),
+                        hintStyle: const TextStyle(
+                            color: Color(0xFF999999), fontSize: 12),
                         border: InputBorder.none),
                   ),
                 ),
@@ -717,8 +717,8 @@ class _VehicleInfoState extends State<VehicleInfo> {
                               : Colors.grey,
                         ),
                         hintText: 'Back head Lights',
-                        hintStyle:
-                            TextStyle(color: Color(0xFF999999), fontSize: 12),
+                        hintStyle: const TextStyle(
+                            color: Color(0xFF999999), fontSize: 12),
                         border: InputBorder.none),
                   ),
                 ),

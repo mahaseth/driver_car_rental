@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myride/view/for_driver/home/home.dart';
+import 'package:myride/view/for_driver/welocme/welcome.dart';
 import 'package:myride/view_model/choose_vehicle_type.dart';
 import 'package:myride/view_model/driverprofile_viewmodel.dart';
 import 'package:myride/view_model/signIn_viewModel.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        // home: const ChooseVehicleScreen(),
+        // home: const WelcomeScreen(),
         home: const HomePageScreen(),
       ),
     );

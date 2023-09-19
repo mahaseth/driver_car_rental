@@ -92,7 +92,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("Didn’t receive OTP?"),
+                        const Text("Didn’t receive OTP?"),
                         TextButton(
                             onPressed: () {},
                             child: const Text(

@@ -13,12 +13,14 @@ class SignInViewModel extends ChangeNotifier {
 
   bool loading = false;
 
+  // String phone = '9068616413';
   String phone = '';
 
   final _mobileNumberController = TextEditingController();
 
   get mobileNumberController => _mobileNumberController;
 
+  // String token = 'a770037cf76ebd324e77ef3f124b04ef4a42edc3';
   String token = '';
 
   registerDriver(BuildContext context) async {

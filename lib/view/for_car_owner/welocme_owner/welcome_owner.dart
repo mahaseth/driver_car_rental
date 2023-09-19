@@ -148,7 +148,7 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
                           ),
                           Container(
                             decoration: BoxDecoration(
-                              color: Color(0xFFD2D2D2),
+                              color: const Color(0xFFD2D2D2),
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: Row(
@@ -349,30 +349,30 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Text(
                               vehicleDetail.model.toString(),
-                              style: TextStyle(fontSize: 16),
+                              style: const TextStyle(fontSize: 16),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             Row(
                               children: [
                                 Text(vehicleDetail.cabtype.toString()),
-                                SizedBox(
+                                const SizedBox(
                                   width: 70,
                                 ),
-                                Text("₹160/hr"),
+                                const Text("₹160/hr"),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             Text('Veh.No :   ${vehicleDetail.numberplate}'),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             )
                           ],

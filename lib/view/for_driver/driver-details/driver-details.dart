@@ -278,7 +278,7 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
                         color: afs != null ? Appcolors.appgreen : Colors.grey,
                       ),
                       hintText: 'Adhar Upload Front...',
-                      hintStyle: TextStyle(
+                      hintStyle: const TextStyle(
                         color: Color(0xFF999999),
                         fontSize: 12,
                       ),
@@ -326,8 +326,8 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
                         color: abs != null ? Appcolors.appgreen : Colors.grey,
                       ),
                       hintText: 'Adhar Upload Back...',
-                      hintStyle:
-                          TextStyle(color: Color(0xFF999999), fontSize: 12),
+                      hintStyle: const TextStyle(
+                          color: Color(0xFF999999), fontSize: 12),
                       border: InputBorder.none,
                     ),
                   ),
@@ -385,8 +385,8 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
                         color: ps != null ? Appcolors.appgreen : Colors.grey,
                       ),
                       hintText: 'Pan Upload...',
-                      hintStyle:
-                          TextStyle(color: Color(0xFF999999), fontSize: 12),
+                      hintStyle: const TextStyle(
+                          color: Color(0xFF999999), fontSize: 12),
                       border: InputBorder.none,
                     ),
                   ),
@@ -438,7 +438,7 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
                         color: pus != null ? Appcolors.appgreen : Colors.grey,
                       ),
                       hintText: 'Upload Photo',
-                      hintStyle: TextStyle(
+                      hintStyle: const TextStyle(
                         color: Color(0xFF999999),
                         fontSize: 12,
                       ),

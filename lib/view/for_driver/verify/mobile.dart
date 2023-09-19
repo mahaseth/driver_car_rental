@@ -23,7 +23,7 @@ class _MobileVerifyState extends State<MobileVerify> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
             SizedBox(
@@ -39,8 +39,8 @@ class _MobileVerifyState extends State<MobileVerify> {
                   const SizedBox(
                     height: 25,
                   ),
-                  Center(
-                    child: const Text(
+                  const Center(
+                    child: Text(
                       "ENTER YOUR MOBILE NUMBER TO CONTINUE",
                       style: AppTextStyle.otpheadingtext,
                     ),
@@ -95,14 +95,14 @@ class _MobileVerifyState extends State<MobileVerify> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 100,
             ),
-            Text(
+            const Text(
               "OR LOGIN USING YOUR FAVOURITE SOCIAL ACCOUNT",
               style: TextStyle(fontSize: 12, color: Colors.grey),
             ),
-            SizedBox(
+            const SizedBox(
               height: 25,
             ),
             SizedBox(
@@ -125,7 +125,7 @@ class _MobileVerifyState extends State<MobileVerify> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset("assets/icon/google.png"),
-                        Text(
+                        const Text(
                           "Continue With Google",
                           style: AppTextStyle.otpheadingtext,
                         ),

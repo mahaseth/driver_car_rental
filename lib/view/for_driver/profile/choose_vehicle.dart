@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:myride/constant/app_color.dart';
 import 'package:myride/constant/app_screen_size.dart';
 import 'package:myride/view/for_car_owner/welocme_owner/welcome_owner.dart';
-import 'package:myride/view_model/signIn_viewModel.dart';
-import 'package:provider/provider.dart';
 
 class ChooseVehicleScreen extends StatefulWidget {
   const ChooseVehicleScreen({super.key});
@@ -13,7 +11,6 @@ class ChooseVehicleScreen extends StatefulWidget {
 }
 
 class _ChooseVehicleScreenState extends State<ChooseVehicleScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -108,8 +105,8 @@ class _ChooseVehicleScreenState extends State<ChooseVehicleScreen> {
     return InkWell(
       onTap: () {
         debugPrint(name);
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => const WelcomeScreenOwner()));
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => const WelcomeScreenOwner()));
       },
       child: Container(
         height: AppSceenSize.getHeight(context) * 0.1,
