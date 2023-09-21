@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myride/constant/app_color.dart';
 import 'package:myride/constant/app_screen_size.dart';
 import 'package:myride/constant/app_text_style.dart';
+import 'package:myride/view/for_driver/map_section/pickup_ride.dart';
 
 class RideDetailScreen extends StatefulWidget {
   final String title;
@@ -150,11 +151,11 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
                   GestureDetector(
                     onTap: () {
                       // Navigator.of(context).popUntil((route) => false);
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //       builder: (context) => const WelcomeScreenOwner(),
-                      //     ));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const PickRideScreen(),
+                          ));
                     },
                     child: Container(
                       margin: const EdgeInsets.symmetric(

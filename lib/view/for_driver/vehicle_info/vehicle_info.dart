@@ -230,10 +230,21 @@ class _VehicleInfoState extends State<VehicleInfo> {
                 ),
               ),
             ),
+            ListTile(
+              title: const Text("Vehicle Type"),
+              trailing: _provider!.currct == null
+                  ? const Text("Select")
+                  : Text(_provider!.currct!.cabtype!),
+              onTap: () async {
+                await _provider!.cabType(context);
+                cabtypeBottomSheet();
+              },
+            ),
+            customDivider(),
             Column(
               children: [
                 ListTile(
-                  title: const Text("Vehicle Maker"),
+                  title: const Text("Vehicle Make"),
                   trailing: _provider!.currvma == null
                       ? const Text("Select")
                       : Text(_provider!.currvma!.maker!),
@@ -243,50 +254,37 @@ class _VehicleInfoState extends State<VehicleInfo> {
                   },
                 ),
                 customDivider(),
-                ListTile(
-                  title: const Text("Cab Type"),
-                  trailing: _provider!.currct == null
-                      ? const Text("Select")
-                      : Text(_provider!.currct!.cabtype!),
-                  onTap: () async {
-                    await _provider!.cabType(context);
-                    cabtypeBottomSheet();
-                  },
+
+                Column(
+                  children: [
+                    customDivider(),
+                    ListTile(
+                      title: const Text("Vehicle Model"),
+                      trailing: _provider!.currvmo == null
+                          ? const Text("Select")
+                          : Text(_provider!.currvmo!.model!),
+                      onTap: () async {
+                        await _provider!.vehicleModel(context, val1! + 1);
+                        vehiclemodelBottomSheet();
+                      },
+                    ),
+                  ],
                 ),
-                _provider!.currvma != null
-                    ? Column(
-                        children: [
-                          customDivider(),
-                          ListTile(
-                            title: const Text("Vehicle Model"),
-                            trailing: _provider!.currvmo == null
-                                ? const Text("Select")
-                                : Text(_provider!.currvmo!.model!),
-                            onTap: () async {
-                              await _provider!.vehicleModel(context, val1! + 1);
-                              vehiclemodelBottomSheet();
-                            },
-                          ),
-                        ],
-                      )
-                    : const SizedBox.shrink(),
-                _provider!.currct != null
-                    ? Column(
-                        children: [
-                          customDivider(),
-                          ListTile(
-                            title: const Text("Cab Class"),
-                            trailing: _provider!.currcc == null
-                                ? const Text("Select")
-                                : Text(_provider!.currcc!.cabclass!),
-                            onTap: () async {
-                              await _provider!.cabClass(context, val2! + 1);
-                              cabclassBottomSheet();
-                            },
-                          ),
-                        ],
-                      )
-                    : const SizedBox.shrink(),
+                // Column(
+                //         children: [
+                //           customDivider(),
+                //           ListTile(
+                //             title: const Text("Cab Class"),
+                //             trailing: _provider!.currcc == null
+                //                 ? const Text("Select")
+                //                 : Text(_provider!.currcc!.cabclass!),
+                //             onTap: () async {
+                //               await _provider!.cabClass(context, val2! + 1);
+                //               cabclassBottomSheet();
+                //             },
+                //           ),
+                //         ],
+                // ),
                 customDivider(),
                 ListTile(
                   title: const Text("Vehicle Plate Number"),
@@ -368,7 +366,6 @@ class _VehicleInfoState extends State<VehicleInfo> {
       maker: _provider!.currvma!.id,
       model: _provider!.currvmo!.id,
       cabtype: _provider!.currct!.id,
-      cabclass: _provider!.currcc!.id,
     );
     Navigator.push(
       context,
@@ -393,6 +390,56 @@ class _VehicleInfoState extends State<VehicleInfo> {
     );
   }
 
+  uploadImageBoxView(String hint, String? file, String uploadText) {
+    return Container(
+        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        child: DottedBorder(
+          color: const Color(0xFFdddddd),
+          strokeWidth: 1,
+          dashPattern: const [5, 6],
+          child: Row(
+            children: [
+              Expanded(
+                child: TextFormField(
+                  readOnly: true,
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(
+                      Icons.check_box,
+                      color: file != null ? Appcolors.appgreen : Colors.grey,
+                    ),
+                    hintText: hint,
+                    hintStyle: const TextStyle(
+                      color: Color(0xFF999999),
+                      fontSize: 12,
+                    ),
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
+              ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF00B74C),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 12,
+                  ),
+                ),
+                onPressed: () async {
+                  handleFileUpload(uploadText);
+                },
+                icon: const Icon(
+                  Icons.upload,
+                  size: 15,
+                ),
+                label: file != null
+                    ? const Text("Uploaded")
+                    : const Text("Upload"),
+              ),
+            ],
+          ),
+        ));
+  }
+
   selectbox() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -400,358 +447,16 @@ class _VehicleInfoState extends State<VehicleInfo> {
         const ListTile(
           title: Text("Upload Car Photos*"),
         ),
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: DottedBorder(
-            color: const Color(0xFFdddddd),
-            strokeWidth: 1,
-            dashPattern: const [5, 6],
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    readOnly: true,
-                    decoration: InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.check_box,
-                          color: frontCarPhotoUrl != null
-                              ? Appcolors.appgreen
-                              : Colors.grey,
-                        ),
-                        hintText: 'Front',
-                        hintStyle: const TextStyle(
-                            color: Color(0xFF999999), fontSize: 12),
-                        border: InputBorder.none),
-                  ),
-                ),
-                ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Appcolors.appgreen,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 12)),
-                  onPressed: () async {
-                    handleFileUpload("ic");
-                  },
-                  icon: const Icon(
-                    Icons.upload,
-                    size: 15,
-                  ),
-                  label: frontCarPhotoUrl != null
-                      ? const Text("Uploaded")
-                      : const Text("Upload"),
-                ),
-              ],
-            ),
-          ),
-        ),
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: DottedBorder(
-            color: const Color(0xFFdddddd),
-            strokeWidth: 1,
-            dashPattern: const [5, 6],
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    readOnly: true,
-                    decoration: InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.check_box,
-                          color: backPhotoUrl != null
-                              ? Appcolors.appgreen
-                              : Colors.grey,
-                        ),
-                        hintText: 'Back',
-                        hintStyle: const TextStyle(
-                            color: Color(0xFF999999), fontSize: 12),
-                        border: InputBorder.none),
-                  ),
-                ),
-                ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Appcolors.appgreen,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 12)),
-                  onPressed: () async {
-                    handleFileUpload("rc");
-                  },
-                  icon: const Icon(
-                    Icons.upload,
-                    size: 15,
-                  ),
-                  label: backPhotoUrl != null
-                      ? const Text("Uploaded")
-                      : const Text("Upload"),
-                ),
-              ],
-            ),
-          ),
-        ),
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: DottedBorder(
-            color: const Color(0xFFdddddd),
-            strokeWidth: 1,
-            dashPattern: const [5, 6],
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    readOnly: true,
-                    decoration: InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.check_box,
-                          color: rightSideUrl != null
-                              ? Appcolors.appgreen
-                              : Colors.grey,
-                        ),
-                        hintText: 'Right Side',
-                        hintStyle: const TextStyle(
-                            color: Color(0xFF999999), fontSize: 12),
-                        border: InputBorder.none),
-                  ),
-                ),
-                ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Appcolors.appgreen,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 12)),
-                  onPressed: () async {
-                    handleFileUpload("mc");
-                  },
-                  icon: const Icon(
-                    Icons.upload,
-                    size: 15,
-                  ),
-                  label: rightSideUrl != null
-                      ? const Text("Uploaded")
-                      : const Text("Upload"),
-                ),
-              ],
-            ),
-          ),
-        ),
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: DottedBorder(
-            color: const Color(0xFFdddddd),
-            strokeWidth: 1,
-            dashPattern: const [5, 6],
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    readOnly: true,
-                    decoration: InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.check_box,
-                          color: leftSideUrl != null
-                              ? Appcolors.appgreen
-                              : Colors.grey,
-                        ),
-                        hintText: 'Left Side',
-                        hintStyle: const TextStyle(
-                            color: Color(0xFF999999), fontSize: 12),
-                        border: InputBorder.none),
-                  ),
-                ),
-                ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Appcolors.appgreen,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 12)),
-                  onPressed: () async {
-                    handleFileUpload("ad");
-                  },
-                  icon: const Icon(
-                    Icons.upload,
-                    size: 15,
-                  ),
-                  label: leftSideUrl != null
-                      ? const Text("Uploaded")
-                      : const Text("Upload"),
-                ),
-              ],
-            ),
-          ),
-        ),
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: DottedBorder(
-            color: const Color(0xFFdddddd),
-            strokeWidth: 1,
-            dashPattern: const [5, 6],
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    readOnly: true,
-                    decoration: InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.check_box,
-                          color: driverSideUrl != null
-                              ? Appcolors.appgreen
-                              : Colors.grey,
-                        ),
-                        hintText: 'Inside the driver Seat',
-                        hintStyle: const TextStyle(
-                            color: Color(0xFF999999), fontSize: 12),
-                        border: InputBorder.none),
-                  ),
-                ),
-                ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Appcolors.appgreen,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 12)),
-                  onPressed: () async {
-                    handleFileUpload("driverSeat");
-                  },
-                  icon: const Icon(
-                    Icons.upload,
-                    size: 15,
-                  ),
-                  label: driverSideUrl != null
-                      ? const Text("Uploaded")
-                      : const Text("Upload"),
-                ),
-              ],
-            ),
-          ),
-        ),
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: DottedBorder(
-            color: const Color(0xFFdddddd),
-            strokeWidth: 1,
-            dashPattern: const [5, 6],
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    readOnly: true,
-                    decoration: InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.check_box,
-                          color: passengerSeatUrl != null
-                              ? Appcolors.appgreen
-                              : Colors.grey,
-                        ),
-                        hintText: 'Inside the passanger seat',
-                        hintStyle: const TextStyle(
-                            color: Color(0xFF999999), fontSize: 12),
-                        border: InputBorder.none),
-                  ),
-                ),
-                ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Appcolors.appgreen,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 12)),
-                  onPressed: () async {
-                    handleFileUpload("passangerSeat");
-                  },
-                  icon: const Icon(
-                    Icons.upload,
-                    size: 15,
-                  ),
-                  label: passengerSeatUrl != null
-                      ? const Text("Uploaded")
-                      : const Text("Upload"),
-                ),
-              ],
-            ),
-          ),
-        ),
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: DottedBorder(
-            color: const Color(0xFFdddddd),
-            strokeWidth: 1,
-            dashPattern: const [5, 6],
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    readOnly: true,
-                    decoration: InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.check_box,
-                          color: frontheadLightUrl != null
-                              ? Appcolors.appgreen
-                              : Colors.grey,
-                        ),
-                        hintText: 'Front Head Lights',
-                        hintStyle: const TextStyle(
-                            color: Color(0xFF999999), fontSize: 12),
-                        border: InputBorder.none),
-                  ),
-                ),
-                ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Appcolors.appgreen,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 12)),
-                  onPressed: () async {
-                    handleFileUpload("frontHead");
-                  },
-                  icon: const Icon(
-                    Icons.upload,
-                    size: 15,
-                  ),
-                  label: frontheadLightUrl != null
-                      ? const Text("Uploaded")
-                      : const Text("Upload"),
-                ),
-              ],
-            ),
-          ),
-        ),
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: DottedBorder(
-            color: const Color(0xFFdddddd),
-            strokeWidth: 1,
-            dashPattern: const [5, 6],
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    readOnly: true,
-                    decoration: InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.check_box,
-                          color: backHeadUrl != null
-                              ? Appcolors.appgreen
-                              : Colors.grey,
-                        ),
-                        hintText: 'Back head Lights',
-                        hintStyle: const TextStyle(
-                            color: Color(0xFF999999), fontSize: 12),
-                        border: InputBorder.none),
-                  ),
-                ),
-                ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Appcolors.appgreen,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 12)),
-                  onPressed: () async {
-                    handleFileUpload("backHead");
-                  },
-                  icon: const Icon(
-                    Icons.upload,
-                    size: 15,
-                  ),
-                  label: backHeadUrl != null
-                      ? const Text("Uploaded")
-                      : const Text("Upload"),
-                ),
-              ],
-            ),
-          ),
-        ),
+        uploadImageBoxView('Front', frontCarPhotoUrl, "ic"),
+        uploadImageBoxView('Back', backPhotoUrl, "rc"),
+        uploadImageBoxView('Right Side', rightSideUrl, "mc"),
+        uploadImageBoxView('Left Side', leftSideUrl, "ad"),
+        uploadImageBoxView(
+            'Inside the driver Seat', driverSideUrl, "driverSeat"),
+        uploadImageBoxView(
+            'Inside the passanger seat', passengerSeatUrl, "passangerSeat"),
+        uploadImageBoxView('Front Head Lights', frontheadLightUrl, "frontHead"),
+        uploadImageBoxView('Back Head Lights', backHeadUrl, "backHead"),
         const SizedBox(
           height: 25,
         )
@@ -816,8 +521,9 @@ class _VehicleInfoState extends State<VehicleInfo> {
                           onChanged: (curr) {
                             setState(() {
                               val1 = curr;
+                              _provider!.currvma = _provider!.vma[index];
                             });
-                            _provider!.currvma = _provider!.vma[index];
+
                             _provider!.vehicleModel(context, index + 1);
                           },
                         );
@@ -844,7 +550,7 @@ class _VehicleInfoState extends State<VehicleInfo> {
       context: context,
       builder: (BuildContext context) {
         return StatefulBuilder(
-          builder: (context, setState) {
+          builder: (context, changeState) {
             return SizedBox(
               height: MediaQuery.of(context).size.height * 0.75,
               child: Column(
@@ -869,33 +575,105 @@ class _VehicleInfoState extends State<VehicleInfo> {
                       ],
                     ),
                   ),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: _provider!.ct.length,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return RadioListTile(
-                          title: Text(_provider!.ct[index].cabtype!),
-                          value: index,
-                          activeColor: Appcolors.appgreen,
-                          groupValue: val2,
-                          onChanged: (curr) {
-                            setState(() {
-                              val2 = curr;
-                            });
-                            _provider!.currct = _provider!.ct[index];
-                            _provider!.cabClass(context, index + 1);
-                          },
-                        );
-                      },
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            selectVehicleWidget("Cab", 0, changeState),
+                            const SizedBox(
+                              width: 25,
+                            ),
+                            selectVehicleWidget("Taxi", 1, changeState),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            selectVehicleWidget("Auto", 2, changeState),
+                            const SizedBox(
+                              width: 25,
+                            ),
+                            selectVehicleWidget("Bike", 3, changeState),
+                          ],
+                        )
+                      ],
                     ),
                   ),
+                  // Expanded(
+                  //   child: ListView.builder(
+                  //     itemCount: _provider!.ct.length,
+                  //     shrinkWrap: true,
+                  //     itemBuilder: (context, index) {
+                  //       return RadioListTile(
+                  //         title: Text(_provider!.ct[index].cabtype!),
+                  //         value: index,
+                  //         activeColor: Appcolors.appgreen,
+                  //         groupValue: val2,
+                  //         onChanged: (curr) {
+                  //           changeState(() {
+                  //             val2 = curr;
+                  //           });
+                  //           setState(() {
+                  //             _provider!.currct = _provider!.ct[index];
+                  //           });
+                  //
+                  //           // _provider!.cabClass(context, index + 1);
+                  //         },
+                  //       );
+                  //     },
+                  //   ),
+                  // ),
                 ],
               ),
             );
           },
         );
       },
+    );
+  }
+
+  Widget selectVehicleWidget(String name, int index, changeState) {
+    return InkWell(
+      onTap: () {
+        debugPrint(name);
+        changeState(() {
+          val2 = index;
+        });
+        setState(() {
+          _provider!.currct = _provider!.ct[index];
+        });
+        Navigator.pop(context);
+      },
+      child: Container(
+        height: AppSceenSize.getHeight(context) * 0.1,
+        width: AppSceenSize.getWidth(context) * 0.35,
+        decoration: BoxDecoration(
+            color: Appcolors.primaryGreen,
+            borderRadius: BorderRadius.circular(10.0)),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                "assets/icon/${name}_choose.png",
+                height: 35,
+                width: 35,
+              ),
+              Text(name)
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -910,7 +688,7 @@ class _VehicleInfoState extends State<VehicleInfo> {
       context: context,
       builder: (BuildContext context) {
         return StatefulBuilder(
-          builder: (context, setState) {
+          builder: (context, changeState) {
             return SizedBox(
               height: MediaQuery.of(context).size.height * 0.75,
               child: Column(
@@ -948,10 +726,12 @@ class _VehicleInfoState extends State<VehicleInfo> {
                           groupValue: val3,
                           activeColor: Appcolors.appgreen,
                           onChanged: (curr) {
-                            setState(() {
+                            changeState(() {
                               val3 = curr;
                             });
-                            _provider!.currvmo = _provider!.vmo[index];
+                            setState(() {
+                              _provider!.currvmo = _provider!.vmo[index];
+                            });
                           },
                         );
                       },
@@ -966,70 +746,70 @@ class _VehicleInfoState extends State<VehicleInfo> {
     );
   }
 
-  cabclassBottomSheet() {
-    Future.delayed(const Duration(seconds: 1));
-    showModalBottomSheet<void>(
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(30),
-        ),
-      ),
-      context: context,
-      builder: (BuildContext context) {
-        return StatefulBuilder(
-          builder: (context, setState) {
-            return SizedBox(
-              height: MediaQuery.of(context).size.height * 0.75,
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 15,
-                      vertical: 15,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Text(
-                          "Cab Class",
-                          style: AppTextStyle.vehicleheading,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Icon(Icons.cancel_rounded),
-                        )
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: _provider!.cc.length,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return RadioListTile(
-                          title: Text(_provider!.cc[index].cabclass!),
-                          value: index,
-                          activeColor: Appcolors.appgreen,
-                          groupValue: val4,
-                          onChanged: (curr) {
-                            setState(() {
-                              val4 = curr;
-                            });
-                            _provider!.currcc = _provider!.cc[index];
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-        );
-      },
-    );
-  }
+// cabclassBottomSheet() {
+//   Future.delayed(const Duration(seconds: 1));
+//   showModalBottomSheet<void>(
+//     shape: const RoundedRectangleBorder(
+//       borderRadius: BorderRadius.vertical(
+//         top: Radius.circular(30),
+//       ),
+//     ),
+//     context: context,
+//     builder: (BuildContext context) {
+//       return StatefulBuilder(
+//         builder: (context, setState) {
+//           return SizedBox(
+//             height: MediaQuery.of(context).size.height * 0.75,
+//             child: Column(
+//               children: [
+//                 Padding(
+//                   padding: const EdgeInsets.symmetric(
+//                     horizontal: 15,
+//                     vertical: 15,
+//                   ),
+//                   child: Row(
+//                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                     crossAxisAlignment: CrossAxisAlignment.center,
+//                     children: [
+//                       const Text(
+//                         "Cab Class",
+//                         style: AppTextStyle.vehicleheading,
+//                       ),
+//                       GestureDetector(
+//                         onTap: () {
+//                           Navigator.pop(context);
+//                         },
+//                         child: const Icon(Icons.cancel_rounded),
+//                       )
+//                     ],
+//                   ),
+//                 ),
+//                 Expanded(
+//                   child: ListView.builder(
+//                     itemCount: _provider!.cc.length,
+//                     shrinkWrap: true,
+//                     itemBuilder: (context, index) {
+//                       return RadioListTile(
+//                         title: Text(_provider!.cc[index].cabclass!),
+//                         value: index,
+//                         activeColor: Appcolors.appgreen,
+//                         groupValue: val4,
+//                         onChanged: (curr) {
+//                           setState(() {
+//                             val4 = curr;
+//                           });
+//                           _provider!.currcc = _provider!.cc[index];
+//                         },
+//                       );
+//                     },
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           );
+//         },
+//       );
+//     },
+//   );
+// }
 }

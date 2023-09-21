@@ -105,8 +105,8 @@ class _ChooseVehicleScreenState extends State<ChooseVehicleScreen> {
     return InkWell(
       onTap: () {
         debugPrint(name);
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => const WelcomeScreenOwner()));
+        // Navigator.of(context).push(MaterialPageRoute(
+        //     builder: (context) => const WelcomeScreenOwner()));
       },
       child: Container(
         height: AppSceenSize.getHeight(context) * 0.1,

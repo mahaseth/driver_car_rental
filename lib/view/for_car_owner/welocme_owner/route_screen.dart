@@ -556,10 +556,6 @@ class DriverOverViewScreenState extends State<DriverOverViewScreen>
                 "Schedule Rides",
                 2,
               ),
-              ridesCardView(
-                "Share Rides",
-                3,
-              ),
             ],
           ),
           currentRideItem()
@@ -571,10 +567,8 @@ class DriverOverViewScreenState extends State<DriverOverViewScreen>
   String ridesTile() {
     if (ridesIndex == 1) {
       return "Current Rides";
-    } else if (ridesIndex == 2) {
-      return "Schedule Ride";
     } else {
-      return "Share Rides";
+      return "Schedule Ride";
     }
   }
 
@@ -656,6 +650,8 @@ class DriverOverViewScreenState extends State<DriverOverViewScreen>
   }
 
   ridesCardView(String title, int index) {
+    Color background =
+        index == ridesIndex ? Appcolors.primaryGreen : Colors.white;
     return Expanded(
       flex: 1,
       child: InkWell(
@@ -666,9 +662,7 @@ class DriverOverViewScreenState extends State<DriverOverViewScreen>
         },
         child: Container(
             decoration: BoxDecoration(
-                color:
-                    index == ridesIndex ? Appcolors.primaryGreen : Colors.white,
-                borderRadius: BorderRadius.circular(15)),
+                color: background, borderRadius: BorderRadius.circular(15)),
             padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
             margin: const EdgeInsets.symmetric(horizontal: 5),
             height: 100,

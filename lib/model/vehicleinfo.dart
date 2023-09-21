@@ -67,7 +67,7 @@ class VehicleModel {
 
   VehicleModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    maker = json['maker'];
+    maker = json['maker']['id'];
     model = json['model'];
   }
 
@@ -138,10 +138,6 @@ class VehicleInfoo {
     numberplate = json['number_plate'];
     lastlocation = json['last_location'];
     driver = json['driver'];
-    // maker = json['maker'];
-    // model = json['model'];
-    // cabtype = json['cab_type'];
-    // cabclass = json['cab_class'];
     back = json["back"];
     front = json["front"];
     right = json["right"];
@@ -158,8 +154,8 @@ class VehicleInfoo {
     modelText = json['model']['model'];
     cabTypeText = json['cab_type']['cab_type'];
     cabClassText = json['cab_class']['cab_class'];
-    // pollution = json[""];
-    // sound = json[""];
+    pollution = json["pollution"];
+    sound = json["sound"];
   }
 
   Map<String, dynamic> toJson() {
@@ -184,8 +180,8 @@ class VehicleInfoo {
     data['registration_certiifcate'] = registrationcertiifcate;
     data['mot_certiifcate'] = motcertiifcate;
     data['addtional_document'] = addtionaldocument;
-    // data[''] = pollution;
-    // data[''] = sound;
+    data['pollution'] = pollution;
+    data['sound'] = sound;
     return data;
   }
 }
