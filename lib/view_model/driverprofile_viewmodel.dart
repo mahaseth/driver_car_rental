@@ -45,16 +45,15 @@ class DriveProfileViewModel extends ChangeNotifier {
     }
   }
 
-  updateProfile(BuildContext context) async {
+  updateProfile(BuildContext context, bodyTosend) async {
     loading = true;
-    var bodyTosend = driverProfile.toJson();
     log("PARAMS TO SEND $bodyTosend");
     try {
       final response = await _driverProfileRepo.updateProfile(
         context,
         bodyTosend,
       );
-      log("RESPONSE $response");
+      log("RESPONSE Update $response");
       loading = false;
       currdriverProfile = DriverProfile.fromJson(response);
       notifyListeners();

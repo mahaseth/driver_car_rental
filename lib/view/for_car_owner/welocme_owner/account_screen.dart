@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myride/constant/app_text_style.dart';
 import 'package:myride/model/driverprofile.dart';
 import 'package:myride/utils/rating_stars.dart';
+import 'package:myride/view/for_car_owner/welocme_owner/view_document_screen.dart';
 import 'package:myride/view/for_driver/profile/message_screen.dart';
 import 'package:myride/view/for_driver/profile/write_message.dart';
 import 'package:myride/view_model/driverprofile_viewmodel.dart';
@@ -42,9 +43,9 @@ class _AccountScreenState extends State<AccountScreen> {
 
   List<dynamic> tileOnClick = [
     null,
-    null,
-    null,
-    null,
+    "license_number",
+    "aadhar_number",
+    "pan_number",
     const MessageScreen(),
     const WriteMessage(),
     null,
@@ -113,12 +114,17 @@ class _AccountScreenState extends State<AccountScreen> {
             right: 0,
             bottom: 0,
             child: ClipOval(
-              child: Image.network(
-                url,
-                fit: BoxFit.fill,
-                width: 150,
-                height: 150,
-              ),
+              child: url.isEmpty
+                  ? const Icon(
+                      Icons.person,
+                      size: 75,
+                    )
+                  : Image.network(
+                      url,
+                      fit: BoxFit.fill,
+                      width: 150,
+                      height: 150,
+                    ),
             )),
       ],
     );
@@ -213,6 +219,15 @@ class _AccountScreenState extends State<AccountScreen> {
                         return GestureDetector(
                           onTap: () {
                             if (tileOnClick[index] == null) return;
+
+                            if (tileOnClick[index] is String) {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => ViewDocumentScreen(
+                                      driverProfile: driverProfile!,
+                                      documentType: tileOnClick[index])));
+                              return;
+                            }
+
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => tileOnClick[index]));
                           },
