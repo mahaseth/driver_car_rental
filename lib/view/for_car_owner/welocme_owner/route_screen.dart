@@ -7,6 +7,7 @@ import 'package:myride/model/vehicleinfo.dart';
 import 'package:myride/view/for_car_owner/additional/additional.dart';
 import 'package:myride/view/for_car_owner/support/support.dart';
 import 'package:myride/view/for_car_owner/welocme_owner/ride_details_screen.dart';
+import 'package:myride/view/for_car_owner/welocme_owner/view_document_screen.dart';
 import 'package:myride/view/for_driver/driver-details/driver-details.dart';
 import 'package:myride/view/for_driver/payment-amount/payment.dart';
 import 'package:myride/view/for_driver/vehicle_info/vehicle_info.dart';
@@ -383,62 +384,36 @@ class DriverOverViewScreenState extends State<DriverOverViewScreen>
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Column(
-                          children: [
-                            Image.asset(
-                              "assets/icon/frame1.png",
-                              width: 60,
-                              height: 60,
-                            ),
-                            const Text("Insurance")
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Image.asset(
-                              "assets/icon/frame2.png",
-                              width: 60,
-                              height: 60,
-                            ),
-                            const Text("Registration")
-                          ],
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return const SupportScreen();
-                            }));
-                          },
-                          child: Column(
-                            children: [
-                              Image.asset(
-                                "assets/icon/frame3.png",
-                                width: 60,
-                                height: 60,
-                              ),
-                              const Text("Support")
-                            ],
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return const AdditionalScreen();
-                            }));
-                          },
-                          child: Column(
-                            children: [
-                              Image.asset(
-                                "assets/icon/frame4.png",
-                                width: 60,
-                                height: 60,
-                              ),
-                              const Text("Additional")
-                            ],
-                          ),
-                        ),
+                        carOptionTile(() {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return ViewDocumentScreen(
+                              vehicleDetail: vehicleDetail,
+                              documentType: "insurance_certiifcate",
+                            );
+                          }));
+                        }, "Insurance", "assets/icon/frame1.png"),
+                        carOptionTile(() {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return ViewDocumentScreen(
+                              vehicleDetail: vehicleDetail,
+                              documentType: "registration_certiifcate",
+                            );
+                          }));
+                        }, "Registration", "assets/icon/frame2.png"),
+                        carOptionTile(() {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return const SupportScreen();
+                          }));
+                        }, "Support", "assets/icon/frame3.png"),
+                        carOptionTile(() {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return const AdditionalScreen();
+                          }));
+                        }, "Additional", "assets/icon/frame4.png")
                       ],
                     ),
                   ),
@@ -447,6 +422,24 @@ class DriverOverViewScreenState extends State<DriverOverViewScreen>
             ),
           );
         },
+      ),
+    );
+  }
+
+  Widget carOptionTile(Function onTap, String title, String imageLocation) {
+    return GestureDetector(
+      onTap: () {
+        onTap();
+      },
+      child: Column(
+        children: [
+          Image.asset(
+            imageLocation,
+            width: 60,
+            height: 60,
+          ),
+          Text(title)
+        ],
       ),
     );
   }

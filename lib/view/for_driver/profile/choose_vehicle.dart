@@ -65,6 +65,15 @@ class _ChooseVehicleScreenState extends State<ChooseVehicleScreen> {
             ),
           ),
           Positioned(
+            height: AppSceenSize.getHeight(context) * 0.30,
+            width: AppSceenSize.getWidth(context) * 1,
+            bottom: 0,
+            child: Image.asset(
+              "assets/images/whitebg.png",
+              fit: BoxFit.cover,
+            ),
+          ),
+          Positioned(
             bottom: 10,
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
@@ -85,15 +94,6 @@ class _ChooseVehicleScreenState extends State<ChooseVehicleScreen> {
                 },
                 child: const Text("Click & Continue"),
               ),
-            ),
-          ),
-          Positioned(
-            height: AppSceenSize.getHeight(context) * 0.30,
-            width: AppSceenSize.getWidth(context) * 1,
-            bottom: 0,
-            child: Image.asset(
-              "assets/images/whitebg.png",
-              fit: BoxFit.cover,
             ),
           ),
         ],

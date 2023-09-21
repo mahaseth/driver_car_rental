@@ -134,4 +134,19 @@ class VehicleInfoViewModel extends ChangeNotifier {
       log('Erroer $e');
     }
   }
+
+  updateVehicle(BuildContext context, var bodyToSend) async {
+    loading = true;
+    try {
+      final response =
+          await _vehicleInfoRepo.updateVehicle(context, bodyToSend);
+      Future.delayed(Duration(seconds: 2), () {
+        loading = false;
+        notifyListeners();
+        print(response);
+      });
+    } catch (e) {
+      log('Erroer $e');
+    }
+  }
 }

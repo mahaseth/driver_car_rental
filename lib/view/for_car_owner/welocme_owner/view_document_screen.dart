@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -8,8 +7,8 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:myride/constant/app_color.dart';
 import 'package:myride/constant/app_text_style.dart';
 import 'package:myride/model/driverprofile.dart';
+import 'package:myride/model/vehicleinfo.dart';
 import 'package:myride/repository/driverprofile_repo.dart';
-import 'package:myride/view_model/driverprofile_viewmodel.dart';
 
 class ImageNameKey {
   String name = "";
@@ -20,27 +19,75 @@ class ImageNameKey {
 }
 
 class ViewDocumentScreen extends StatefulWidget {
-  final DriverProfile driverProfile;
+  DriverProfile? driverProfile;
+  VehicleInfoo? vehicleDetail;
   final String documentType;
 
-  const ViewDocumentScreen(
-      {super.key, required this.driverProfile, required this.documentType});
+  ViewDocumentScreen(
+      {super.key,
+      this.driverProfile,
+      required this.documentType,
+      this.vehicleDetail});
 
   @override
   State<ViewDocumentScreen> createState() => _ViewDocumentScreenState();
 }
 
 class _ViewDocumentScreenState extends State<ViewDocumentScreen> {
-  DriverProfile get profile => widget.driverProfile;
+  DriverProfile? profile;
+  VehicleInfoo? vehicleDetail;
   bool isLoading = false;
   List<ImageNameKey> list = [];
   Dio dio = Dio();
+
+  @override
+  void initState() {
+    super.initState();
+    ImageNameKey? first, second;
+    if (widget.driverProfile != null) {
+      profile = widget.driverProfile;
+    }
+    if (widget.vehicleDetail != null) {
+      vehicleDetail = widget.vehicleDetail;
+    }
+    switch (widget.documentType) {
+      case "aadhar_number":
+        first = ImageNameKey("Aadhar Front", profile!.aadharuploadfront ?? "",
+            "aadhar_upload_front");
+        second = ImageNameKey("Aadhar back", profile!.aadharuploadback ?? "",
+            "aadhar_upload_back");
+        break;
+      case "license_number":
+        first = ImageNameKey("License Front", profile!.licenseuploadfront ?? "",
+            "license_upload_front");
+
+        second = ImageNameKey("License back", profile!.licenseuploadback ?? "",
+            "license_upload_back");
+        break;
+      case "pan_number":
+        first =
+            ImageNameKey("Pan Card", profile!.panupload ?? "", "pan_upload");
+        break;
+      case "registration_certiifcate":
+        first = ImageNameKey(
+            "Registration Certiifcate",
+            vehicleDetail!.registrationcertiifcate ?? "",
+            "registration_certiifcate");
+        break;
+      case "insurance_certiifcate":
+        first = ImageNameKey("Insurance",
+            vehicleDetail!.insurancecertiifcate ?? "", "insurance_certiifcate");
+        break;
+    }
+    list.add(first!);
+    if (second != null) list.add(second);
+  }
 
   void toggleLoading() {
     isLoading = !isLoading;
   }
 
-  void handelPhotoUpload(int index, String type) async {
+  void handelPhotoUpload(int index) async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
 
     if (result != null) {
@@ -67,10 +114,17 @@ class _ViewDocumentScreenState extends State<ViewDocumentScreen> {
         setState(() {
           list[index].link = response.data['url'];
         });
-        debugPrint("Link is ${list[index].link}");
-        Map<String, dynamic> map = {list[index].key: list[index].link};
-        DriveProfileViewModel().updateProfile(context, map);
 
+        Map<String, dynamic> map = {list[index].key: list[index].link};
+        if (profile != null) {
+          DriverProfileRepo().updateProfile(context, map);
+        } else {
+          //TODO After patch is made by bidyut on this. Also in the bottom...!!! <----
+
+          // VehicleInfoViewModel _provider =
+          //     Provider.of<VehicleInfoViewModel>(context, listen: false);
+          // _provider.updateVehicle(context, map);
+        }
         toggleLoading();
       } else {
         showSnackbar("Error during connection to server, try again!");
@@ -87,32 +141,6 @@ class _ViewDocumentScreenState extends State<ViewDocumentScreen> {
         duration: const Duration(seconds: 1),
       ),
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    ImageNameKey? first, second;
-    switch (widget.documentType) {
-      case "aadhar_number":
-        first = ImageNameKey("Aadhar Front", profile.aadharuploadfront ?? "",
-            "aadhar_upload_front");
-        second = ImageNameKey("Aadhar back", profile.aadharuploadback ?? "",
-            "aadhar_upload_back");
-        break;
-      case "license_number":
-        first = ImageNameKey("License Front", profile.licenseuploadfront ?? "",
-            "license_upload_front");
-
-        second = ImageNameKey("License back", profile.licenseuploadback ?? "",
-            "license_upload_back");
-        break;
-      case "pan_number":
-        first = ImageNameKey("Pan Card", profile.panupload ?? "", "pan_upload");
-        break;
-    }
-    list.add(first!);
-    if (second != null) list.add(second);
   }
 
   @override
@@ -170,8 +198,8 @@ class _ViewDocumentScreenState extends State<ViewDocumentScreen> {
 
   Widget showDocumentView(int index) {
     return Container(
-      margin: EdgeInsets.all(25),
-      padding: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(25),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
@@ -187,7 +215,7 @@ class _ViewDocumentScreenState extends State<ViewDocumentScreen> {
             style: AppTextStyle.vehicleheading,
           ),
           list[index].link.isEmpty
-              ? Icon(
+              ? const Icon(
                   Icons.photo_camera_back,
                   size: 150,
                 )
@@ -214,7 +242,7 @@ class _ViewDocumentScreenState extends State<ViewDocumentScreen> {
           backgroundColor: Appcolors.appgreen,
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
       onPressed: () async {
-        handelPhotoUpload(index, "");
+        handelPhotoUpload(index);
       },
       icon: const Icon(
         Icons.upload,
@@ -234,7 +262,15 @@ class _ViewDocumentScreenState extends State<ViewDocumentScreen> {
       onPressed: () async {
         // handleFileUpload("ic");
         Map<String, dynamic> map = {list[index].key: ""};
-        DriverProfileRepo().updateProfile(context, json.encode(map));
+        if (profile != null) {
+          DriverProfileRepo().updateProfile(context, map);
+        } else {
+          //TODO HERE <----------
+
+          // VehicleInfoViewModel _provider =
+          //     Provider.of<VehicleInfoViewModel>(context, listen: false);
+          // _provider.updateVehicle(context, map);
+        }
       },
       icon: const Icon(
         Icons.close,
