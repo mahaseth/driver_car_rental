@@ -297,7 +297,12 @@ class _PickRideScreenState extends State<PickRideScreen> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context)
+                      ..pop()
+                      ..pop()
+                      ..pop();
+                  },
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.44,
                     height: 40,
@@ -319,16 +324,16 @@ class _PickRideScreenState extends State<PickRideScreen> {
     );
   }
 
-  // void _showBottomSheet(BuildContext context) {
-  //   showModalBottomSheet(
-  //     isDismissible: false,
-  //     context: context,
-  //     shape: const RoundedRectangleBorder(
-  //         borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
-  //     builder: (BuildContext context) {
-  //       return
+// void _showBottomSheet(BuildContext context) {
+//   showModalBottomSheet(
+//     isDismissible: false,
+//     context: context,
+//     shape: const RoundedRectangleBorder(
+//         borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+//     builder: (BuildContext context) {
+//       return
 
-  //     },
-  //   );
-  // }
+//     },
+//   );
+// }
 }

@@ -49,7 +49,7 @@ class _RouteScreenState extends State<RouteScreen> {
                       children: [
                         SizedBox(
                           width: AppSceenSize.getWidth(context),
-                          height: AppSceenSize.getHeight(context) * 0.47,
+                          height: AppSceenSize.getHeight(context) * 0.55,
                           child: GoogleMap(
                               initialCameraPosition: _kGooglePlex,
                               onMapCreated: (GoogleMapController controller) {
@@ -290,7 +290,9 @@ class _RouteScreenState extends State<RouteScreen> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.3,
                     height: 40,
