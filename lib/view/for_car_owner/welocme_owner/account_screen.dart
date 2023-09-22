@@ -9,7 +9,9 @@ import 'package:myride/view_model/driverprofile_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 class AccountScreen extends StatefulWidget {
-  const AccountScreen({super.key});
+  final Function onItemTapped;
+
+  const AccountScreen({super.key, required this.onItemTapped});
 
   @override
   State<AccountScreen> createState() => _AccountScreenState();
@@ -42,7 +44,7 @@ class _AccountScreenState extends State<AccountScreen> {
   ];
 
   List<dynamic> tileOnClick = [
-    null,
+    1,
     "license_number",
     "aadhar_number",
     "pan_number",
@@ -135,7 +137,7 @@ class _AccountScreenState extends State<AccountScreen> {
     if (driverProfile != null) {
       name = driverProfile!.firstname ?? "";
       location = driverProfile!.fulladdress ?? "";
-      id = driverProfile!.id.toString() ?? "";
+      id = (driverProfile!.id ?? 0).toString();
       url = driverProfile!.photoupload ?? "";
     }
 
@@ -219,7 +221,12 @@ class _AccountScreenState extends State<AccountScreen> {
                         return GestureDetector(
                           onTap: () {
                             if (tileOnClick[index] == null) return;
-
+                            if (tileOnClick[index] is int) {
+                              if (tileOnClick[index] == 1) {
+                                widget.onItemTapped(0);
+                              }
+                              return;
+                            }
                             if (tileOnClick[index] is String) {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => ViewDocumentScreen(

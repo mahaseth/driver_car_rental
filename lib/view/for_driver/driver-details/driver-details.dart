@@ -10,6 +10,7 @@ import 'package:myride/constant/app_color.dart';
 import 'package:myride/constant/app_screen_size.dart';
 import 'package:myride/constant/app_text_style.dart';
 import 'package:myride/model/driverprofile.dart';
+import 'package:myride/utils/utils.dart';
 import 'package:myride/view_model/driverprofile_viewmodel.dart';
 import 'package:myride/view_model/signIn_viewModel.dart';
 import 'package:provider/provider.dart';
@@ -213,17 +214,6 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
             )
           ],
         ),
-      ),
-    );
-  }
-
-  customDivider() {
-    return Container(
-      margin: const EdgeInsets.symmetric(
-        horizontal: 10,
-      ),
-      child: const Divider(
-        color: Color.fromARGB(255, 206, 204, 204),
       ),
     );
   }

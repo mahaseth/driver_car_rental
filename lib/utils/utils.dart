@@ -25,3 +25,14 @@ class Utils {
     );
   }
 }
+
+customDivider() {
+  return Container(
+    margin: const EdgeInsets.symmetric(
+      horizontal: 10,
+    ),
+    child: const Divider(
+      color: Color.fromARGB(255, 206, 204, 204),
+    ),
+  );
+}

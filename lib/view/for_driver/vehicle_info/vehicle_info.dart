@@ -11,6 +11,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:myride/constant/app_screen_size.dart';
 import 'package:myride/constant/app_text_style.dart';
 import 'package:myride/model/vehicleinfo.dart';
+import 'package:myride/utils/utils.dart';
 import 'package:myride/view/for_driver/driver-details/vehicle_extra_document.dart';
 import 'package:myride/view_model/vehicleinfo_viewmodel.dart';
 import 'package:provider/provider.dart';
@@ -254,7 +255,6 @@ class _VehicleInfoState extends State<VehicleInfo> {
                   },
                 ),
                 customDivider(),
-
                 Column(
                   children: [
                     customDivider(),
@@ -270,21 +270,6 @@ class _VehicleInfoState extends State<VehicleInfo> {
                     ),
                   ],
                 ),
-                // Column(
-                //         children: [
-                //           customDivider(),
-                //           ListTile(
-                //             title: const Text("Cab Class"),
-                //             trailing: _provider!.currcc == null
-                //                 ? const Text("Select")
-                //                 : Text(_provider!.currcc!.cabclass!),
-                //             onTap: () async {
-                //               await _provider!.cabClass(context, val2! + 1);
-                //               cabclassBottomSheet();
-                //             },
-                //           ),
-                //         ],
-                // ),
                 customDivider(),
                 ListTile(
                   title: const Text("Vehicle Plate Number"),
@@ -330,7 +315,6 @@ class _VehicleInfoState extends State<VehicleInfo> {
     if (_provider!.currvma != null &&
         _provider!.currct != null &&
         _provider!.currvmo != null &&
-        _provider!.currcc != null &&
         _controller.text.isNotEmpty &&
         frontCarPhotoUrl != null &&
         backPhotoUrl != null &&
@@ -375,17 +359,6 @@ class _VehicleInfoState extends State<VehicleInfo> {
             vehicleDetail: _provider!.vi,
           );
         },
-      ),
-    );
-  }
-
-  customDivider() {
-    return Container(
-      margin: const EdgeInsets.symmetric(
-        horizontal: 10,
-      ),
-      child: const Divider(
-        color: Color.fromARGB(255, 206, 204, 204),
       ),
     );
   }

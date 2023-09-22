@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myride/constant/app_color.dart';
 import 'package:myride/constant/app_screen_size.dart';
 import 'package:myride/constant/app_text_style.dart';
-import 'package:myride/view/for_driver/map_section/pickup_ride.dart';
+import 'package:myride/utils/utils.dart';
 import 'package:myride/view/for_driver/map_section/route_screen.dart';
 
 class RideDetailScreen extends StatefulWidget {
@@ -179,17 +179,6 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  customDivider() {
-    return Container(
-      margin: const EdgeInsets.symmetric(
-        horizontal: 10,
-      ),
-      child: Divider(
-        color: Appcolors.appgreen,
       ),
     );
   }

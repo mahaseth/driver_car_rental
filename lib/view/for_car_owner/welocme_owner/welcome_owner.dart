@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myride/constant/app_color.dart';
 import 'package:myride/view/for_car_owner/welocme_owner/account_screen.dart';
 import 'package:myride/view/for_car_owner/welocme_owner/route_screen.dart';
+import 'package:myride/view/for_car_owner/welocme_owner/wallet_screen.dart';
 
 class WelcomeScreenOwner extends StatefulWidget {
   const WelcomeScreenOwner({super.key});
@@ -13,11 +14,6 @@ class WelcomeScreenOwner extends StatefulWidget {
 class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
     with SingleTickerProviderStateMixin {
   int _selectedIndex = 0;
-  final List _screens = [
-    const DriverOverViewScreen(),
-    const DriverOverViewScreen(),
-    const AccountScreen()
-  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -28,7 +24,13 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _screens[_selectedIndex],
+      body: [
+        const DriverOverViewScreen(),
+        const WalletScreen(),
+        AccountScreen(
+          onItemTapped: _onItemTapped,
+        )
+      ][_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(

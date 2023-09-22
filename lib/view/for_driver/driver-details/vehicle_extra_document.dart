@@ -257,17 +257,6 @@ class _VehicleExtraDocument extends State<VehicleExtraDocument> {
     _provider!.submit(context);
   }
 
-  customDivider() {
-    return Container(
-      margin: const EdgeInsets.symmetric(
-        horizontal: 10,
-      ),
-      child: const Divider(
-        color: Color.fromARGB(255, 206, 204, 204),
-      ),
-    );
-  }
-
   selectbox() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
