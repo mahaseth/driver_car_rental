@@ -754,45 +754,46 @@ class DriverOverViewScreenState extends State<DriverOverViewScreen>
       height: 50,
       child: ElevatedButton(
         onPressed: () {
-          if (driverProfile!.firstname != null ||
+          if (driverProfile!.firstname == null ||
               driverProfile!.firstname!.isEmpty) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
+            showDialog(
+                context: context,
                 builder: (context) {
-                  return const VehicleInfo();
-                },
-              ),
-            );
+                  return AlertDialog(
+                    title: const Text("Your profile is incomplete"),
+                    content: const Text(
+                        "In order to add Vehicles,please fill in the profile details."),
+                    actions: [
+                      TextButton(
+                          onPressed: () async {
+                            Navigator.of(context).pop();
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return const DriverDetailsScreen();
+                                },
+                              ),
+                            );
+                          },
+                          child: Text(
+                            "Go to Profile",
+                            style: TextStyle(color: Appcolors.appgreen),
+                          ))
+                    ],
+                  );
+                });
+
             return;
           }
-          showDialog(
-              context: context,
+          Navigator.push(
+            context,
+            MaterialPageRoute(
               builder: (context) {
-                return AlertDialog(
-                  title: const Text("Your profile is incomplete"),
-                  content: const Text(
-                      "In order to add Vehicles,please fill in the profile details."),
-                  actions: [
-                    TextButton(
-                        onPressed: () async {
-                          Navigator.of(context).pop();
-                          await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return const DriverDetailsScreen();
-                              },
-                            ),
-                          );
-                        },
-                        child: Text(
-                          "Go to Profile",
-                          style: TextStyle(color: Appcolors.appgreen),
-                        ))
-                  ],
-                );
-              });
+                return const VehicleInfo();
+              },
+            ),
+          );
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: Appcolors.primaryGreen,

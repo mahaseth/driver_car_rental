@@ -21,10 +21,10 @@ class VehicleInfoRepo {
     }
   }
 
-  vehicleMaker(context) async {
+  vehicleMaker(context, id) async {
     try {
       final response = await _networkService
-          .getGetApiResponse("http://3.109.183.75/cab/vehicle-maker/",
+          .getGetApiResponse("http://3.109.183.75/cab/$id/vehicle-maker/",
               Provider.of<SignInViewModel>(context, listen: false).token)
           .catchError((error, stackTrace) {
         Utils.showMyDialog(error.toString(), context);

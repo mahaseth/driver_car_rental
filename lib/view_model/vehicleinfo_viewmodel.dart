@@ -43,10 +43,10 @@ class VehicleInfoViewModel extends ChangeNotifier {
     }
   }
 
-  vehicleMaker(BuildContext context) async {
+  vehicleMaker(BuildContext context,int id) async {
     loading = true;
     try {
-      final response = await _vehicleInfoRepo.vehicleMaker(context);
+      final response = await _vehicleInfoRepo.vehicleMaker(context,id);
       log("RESPONSE $response");
       vma = List<VehicleMaker>.from(
         response.map(

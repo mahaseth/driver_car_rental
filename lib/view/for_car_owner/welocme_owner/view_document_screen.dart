@@ -9,6 +9,8 @@ import 'package:myride/constant/app_text_style.dart';
 import 'package:myride/model/driverprofile.dart';
 import 'package:myride/model/vehicleinfo.dart';
 import 'package:myride/repository/driverprofile_repo.dart';
+import 'package:myride/view_model/vehicleinfo_viewmodel.dart';
+import 'package:provider/provider.dart';
 
 class ImageNameKey {
   String name = "";
@@ -119,11 +121,9 @@ class _ViewDocumentScreenState extends State<ViewDocumentScreen> {
         if (profile != null) {
           DriverProfileRepo().updateProfile(context, map);
         } else {
-          //TODO After patch is made by bidyut on this. Also in the bottom...!!! <----
-
-          // VehicleInfoViewModel _provider =
-          //     Provider.of<VehicleInfoViewModel>(context, listen: false);
-          // _provider.updateVehicle(context, map);
+          VehicleInfoViewModel _provider =
+              Provider.of<VehicleInfoViewModel>(context, listen: false);
+          _provider.updateVehicle(context, map);
         }
         toggleLoading();
       } else {
@@ -265,12 +265,13 @@ class _ViewDocumentScreenState extends State<ViewDocumentScreen> {
         if (profile != null) {
           DriverProfileRepo().updateProfile(context, map);
         } else {
-          //TODO HERE <----------
-
-          // VehicleInfoViewModel _provider =
-          //     Provider.of<VehicleInfoViewModel>(context, listen: false);
-          // _provider.updateVehicle(context, map);
+          VehicleInfoViewModel _provider =
+              Provider.of<VehicleInfoViewModel>(context, listen: false);
+          _provider.updateVehicle(context, map);
         }
+        setState(() {
+          list[index].link = "";
+        });
       },
       icon: const Icon(
         Icons.close,

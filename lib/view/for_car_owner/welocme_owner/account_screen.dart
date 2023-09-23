@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:myride/constant/app_text_style.dart';
 import 'package:myride/model/driverprofile.dart';
@@ -22,6 +26,7 @@ class _AccountScreenState extends State<AccountScreen> {
 
   DriveProfileViewModel? _provider;
   String name = "", location = "", id = "", url = "";
+  bool isLoading = false;
 
   List<String> tileTitle = [
     "My Vehicle",
@@ -70,7 +75,53 @@ class _AccountScreenState extends State<AccountScreen> {
     });
     setState(() {
       _provider!.loading;
+      name = driverProfile!.firstname ?? "";
+      location = driverProfile!.fulladdress ?? "";
+      id = (driverProfile!.id ?? 0).toString();
+      url = driverProfile!.photoupload ?? "";
     });
+  }
+
+  showSnackbar(String message) {
+    return ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          message,
+        ),
+        duration: const Duration(seconds: 1),
+      ),
+    );
+  }
+
+  uploadFile(File f) async {
+    setState(() {
+      isLoading = true;
+    });
+    FormData formdata =
+        FormData.fromMap({"file": await MultipartFile.fromFile(f.path)});
+    Dio dio = Dio();
+    dio.options.headers['Content-Type'] = 'application/json';
+    dio.options.headers["Authorization"] =
+        "Token 51fbe6e9f6755a819d29c48f644f1160b49de2ee";
+    var response = await dio.post(
+      "http://3.109.183.75/account/upload/",
+      data: formdata,
+      onSendProgress: (int sent, int total) {
+        String percentage = (sent / total * 100).toStringAsFixed(2);
+        print("$sent Bytes of $total Bytes - $percentage % uploaded");
+      },
+    );
+    if (response.statusCode == 200) {
+      showSnackbar("File Uploaded");
+    } else {
+      showSnackbar("Error during connection to server, try again!");
+    }
+    setState(() {
+      isLoading = false;
+      url = response.data['url'];
+    });
+    Map<String, dynamic> map = {"photo_upload": url};
+    _provider!.updateProfile(context, map);
   }
 
   topProfileView() {
@@ -115,32 +166,37 @@ class _AccountScreenState extends State<AccountScreen> {
         Positioned(
             right: 0,
             bottom: 0,
-            child: ClipOval(
-              child: url.isEmpty
-                  ? const Icon(
-                      Icons.person,
-                      size: 75,
-                    )
-                  : Image.network(
-                      url,
-                      fit: BoxFit.fill,
-                      width: 150,
-                      height: 150,
+            child: isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : GestureDetector(
+                    onTap: () async {
+                      FilePickerResult? result =
+                          await FilePicker.platform.pickFiles();
+                      if (result != null) {
+                        File file = File(result.files.single.path.toString());
+                        uploadFile(file);
+                      }
+                    },
+                    child: ClipOval(
+                      child: url.isEmpty
+                          ? const Icon(
+                              Icons.person,
+                              size: 75,
+                            )
+                          : Image.network(
+                              url,
+                              fit: BoxFit.fill,
+                              width: 150,
+                              height: 150,
+                            ),
                     ),
-            )),
+                  )),
       ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    if (driverProfile != null) {
-      name = driverProfile!.firstname ?? "";
-      location = driverProfile!.fulladdress ?? "";
-      id = (driverProfile!.id ?? 0).toString();
-      url = driverProfile!.photoupload ?? "";
-    }
-
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(

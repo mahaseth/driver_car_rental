@@ -39,10 +39,9 @@ class _VehicleInfoState extends State<VehicleInfo> {
 
   final TextEditingController _controller = TextEditingController();
 
-  int? val1;
-  int? val2;
-  int? val3;
-  int? val4;
+  int? vehicleType;
+  int? vehicleMaker;
+  int? vehicleModel;
 
   late File? ic, rc, mc, ad;
   String? frontCarPhotoUrl,
@@ -245,12 +244,16 @@ class _VehicleInfoState extends State<VehicleInfo> {
             Column(
               children: [
                 ListTile(
-                  title: const Text("Vehicle Make"),
+                  title: const Text("Vehicle Maker"),
                   trailing: _provider!.currvma == null
                       ? const Text("Select")
                       : Text(_provider!.currvma!.maker!),
                   onTap: () async {
-                    await _provider!.vehicleMaker(context);
+                    if (vehicleType == null) {
+                      showSnackbar("Please select Vehicle Type First");
+                      return;
+                    }
+                    await _provider!.vehicleMaker(context, vehicleType! + 1);
                     vehiclemakeBottomSheet();
                   },
                 ),
@@ -264,7 +267,12 @@ class _VehicleInfoState extends State<VehicleInfo> {
                           ? const Text("Select")
                           : Text(_provider!.currvmo!.model!),
                       onTap: () async {
-                        await _provider!.vehicleModel(context, val1! + 1);
+                        if (vehicleMaker == null) {
+                          showSnackbar("Please select Vehicle Maker First");
+                          return;
+                        }
+                        await _provider!
+                            .vehicleModel(context, vehicleMaker! + 1);
                         vehiclemodelBottomSheet();
                       },
                     ),
@@ -490,10 +498,10 @@ class _VehicleInfoState extends State<VehicleInfo> {
                           activeColor: Appcolors.appgreen,
                           title: Text(_provider!.vma[index].maker!),
                           value: index,
-                          groupValue: val1,
+                          groupValue: vehicleMaker,
                           onChanged: (curr) {
                             setState(() {
-                              val1 = curr;
+                              vehicleMaker = curr;
                               _provider!.currvma = _provider!.vma[index];
                             });
 
@@ -618,7 +626,7 @@ class _VehicleInfoState extends State<VehicleInfo> {
       onTap: () {
         debugPrint(name);
         changeState(() {
-          val2 = index;
+          vehicleType = index;
         });
         setState(() {
           _provider!.currct = _provider!.ct[index];
@@ -696,11 +704,11 @@ class _VehicleInfoState extends State<VehicleInfo> {
                         return RadioListTile(
                           title: Text(_provider!.vmo[index].model!),
                           value: index,
-                          groupValue: val3,
+                          groupValue: vehicleModel,
                           activeColor: Appcolors.appgreen,
                           onChanged: (curr) {
                             changeState(() {
-                              val3 = curr;
+                              vehicleModel = curr;
                             });
                             setState(() {
                               _provider!.currvmo = _provider!.vmo[index];
