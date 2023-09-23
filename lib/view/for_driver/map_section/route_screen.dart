@@ -1,130 +1,17 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:myride/constant/app_screen_size.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:myride/constant/app_text_style.dart';
 import 'package:myride/view/for_driver/map_section/confirming_trip.dart';
 
-class RouteScreen extends StatefulWidget {
-  const RouteScreen({super.key});
+class RouteScreenOwner extends StatelessWidget {
 
-  @override
-  State<RouteScreen> createState() => _RouteScreenState();
-}
+  final Function onSubmit;
 
-class _RouteScreenState extends State<RouteScreen> {
-  final Completer<GoogleMapController> _controller =
-      Completer<GoogleMapController>();
-
-  static const CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(22.5726, 88.3639),
-    zoom: 14.4746,
-  );
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   // Add a delay to give time for the widget tree to render before showing the bottom sheet.
-  //   Future.delayed(const Duration(milliseconds: 2), () {
-  //     _showBottomSheet(context);
-  //   });
-  // }
-
-  // Create a GlobalKey to access the Scaffold for the drawer.
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  const RouteScreenOwner(
+      {super.key, required this.onSubmit});
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          key: _scaffoldKey,
-          body: Stack(
-            children: [
-              SizedBox(
-                height: AppSceenSize.getHeight(context),
-                child: Column(
-                  children: [
-                    Stack(
-                      children: [
-                        SizedBox(
-                          width: AppSceenSize.getWidth(context),
-                          height: AppSceenSize.getHeight(context) * 0.55,
-                          child: GoogleMap(
-                              initialCameraPosition: _kGooglePlex,
-                              onMapCreated: (GoogleMapController controller) {
-                                _controller.complete(controller);
-                              }),
-                        ),
-                        Positioned(
-                          left: 10,
-                          top: 10,
-                          child: Container(
-                            height: 70,
-                            width: AppSceenSize.getWidth(context) * 0.95,
-                            color: const Color(0xFF00B74C),
-                            child: const Row(
-                              children: [
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                CircleAvatar(
-                                  radius: 20,
-                                  child: Text(
-                                    ' 30\nsec',
-                                    style: TextStyle(fontSize: 12),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Expanded(
-                                    child: Text(
-                                        'It will automatically transfer to other driver after time completed.')),
-                              ],
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-
-                    _buildBottomSection()
-                    // GestureDetector(
-                    //   onVerticalDragEnd: (details) {
-                    //     // Detect the swipe up gesture and show the bottom sheet.
-                    //     if (details.primaryVelocity! < 0) {
-                    //       _showBottomSheet(context);
-                    //     }
-                    //   },
-                    //   child: const Center(
-                    //     child: Text(
-                    //       'swipe up!',
-                    //       style: TextStyle(fontSize: 24.0),
-                    //     ),
-                    //   ),
-                    // ),
-                  ],
-                ),
-              ),
-            ],
-          )),
-    );
-  }
-
-  // void _showBottomSheet(BuildContext context) {
-  //   // showModalBottomSheet(
-  //   //   isDismissible: false,
-  //   //   context: context,
-  //   //   shape: const RoundedRectangleBorder(
-  //   //       borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
-  //   //   builder: (BuildContext context) {
-  //   //     return
-
-  //     // },
-  //   // );
-  // }
-
-  _buildBottomSection() {
     return Container(
       height: MediaQuery.of(context).size.height * 0.4,
       decoration: BoxDecoration(
@@ -268,10 +155,7 @@ class _RouteScreenState extends State<RouteScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return const ConfirmingTrip();
-                    }));
+                    onSubmit(1);
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.3,

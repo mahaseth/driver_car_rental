@@ -268,10 +268,10 @@ class _RouteScreenState extends State<RouteScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return const ConfirmingTrip();
-                    }));
+                    // Navigator.push(context,
+                    //     MaterialPageRoute(builder: (context) {
+                    //   return const ConfirmingTrip();
+                    // }));
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.3,

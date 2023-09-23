@@ -48,7 +48,7 @@ class _RideSharingScreenState extends State<RideSharingScreen> {
                       children: [
                         SizedBox(
                           width: AppSceenSize.getWidth(context),
-                          height: AppSceenSize.getHeight(context) * 0.53,
+                          height: AppSceenSize.getHeight(context) * 0.6,
                           child: GoogleMap(
                               initialCameraPosition: _kGooglePlex,
                               onMapCreated: (GoogleMapController controller) {

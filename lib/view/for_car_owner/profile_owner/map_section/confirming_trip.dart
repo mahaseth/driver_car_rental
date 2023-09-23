@@ -55,10 +55,10 @@ class _ConfirmingTripState extends State<ConfirmingTrip> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return const PickRideScreen();
-                        }));
+                        // Navigator.push(context,
+                        //     MaterialPageRoute(builder: (context) {
+                        //   return const PickRideScreen();
+                        // }));
                       },
                       child: Container(
                         height: 70,

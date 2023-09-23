@@ -269,10 +269,10 @@ class _PickRideScreenState extends State<PickRideScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return const EnterOtpScreen();
-                    }));
+                    // Navigator.push(context,
+                    //     MaterialPageRoute(builder: (context) {
+                    //   return const EnterOtpScreen();
+                    // }));
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.44,

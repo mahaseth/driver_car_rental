@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:myride/view/for_driver/map_section/route_screen.dart';
 import 'package:myride/view/for_driver/payment-amount/payment.dart';
 import 'package:myride/view/for_driver/profile/profile.dart';
+
+import '../profile_owner/map_section/route_screen.dart';
 
 class WaitingForApprovalOwner extends StatefulWidget {
   const WaitingForApprovalOwner({super.key});
