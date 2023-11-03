@@ -10,6 +10,7 @@ import 'package:myride/view/for_car_owner/welocme_owner/view_document_screen.dar
 import 'package:myride/view/for_driver/profile/message_screen.dart';
 import 'package:myride/view/for_driver/profile/write_message.dart';
 import 'package:myride/view_model/driverprofile_viewmodel.dart';
+import 'package:myride/view_model/signIn_viewModel.dart';
 import 'package:provider/provider.dart';
 
 class AccountScreen extends StatefulWidget {
@@ -97,12 +98,12 @@ class _AccountScreenState extends State<AccountScreen> {
     setState(() {
       isLoading = true;
     });
+    String token = Provider.of<SignInViewModel>(context, listen: false).token;
     FormData formdata =
         FormData.fromMap({"file": await MultipartFile.fromFile(f.path)});
     Dio dio = Dio();
     dio.options.headers['Content-Type'] = 'application/json';
-    dio.options.headers["Authorization"] =
-        "Token 51fbe6e9f6755a819d29c48f644f1160b49de2ee";
+    dio.options.headers["Authorization"] = "Token $token";
     var response = await dio.post(
       "http://3.109.183.75/account/upload/",
       data: formdata,

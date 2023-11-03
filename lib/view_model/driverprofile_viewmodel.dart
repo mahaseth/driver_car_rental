@@ -27,9 +27,7 @@ class DriveProfileViewModel extends ChangeNotifier {
       log("RESPONSE $response");
       Future.delayed(Duration(seconds: 2), () {
         loading = false;
-        print(response);
         currdriverProfile = DriverProfile.fromJson(response);
-        print(currdriverProfile!.aadharnumber);
         notifyListeners();
         Navigator.push(
           context,
