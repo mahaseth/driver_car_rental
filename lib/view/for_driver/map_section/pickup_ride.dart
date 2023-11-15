@@ -1,10 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:myride/constant/app_text_style.dart';
+import 'package:myride/model/location_model.dart';
 
-class PickUpScreenDriver extends StatelessWidget {
+class PickUpScreenDriver extends StatefulWidget {
   final Function onSubmit;
+  final Map map;
 
-  const PickUpScreenDriver({super.key, required this.onSubmit});
+  const PickUpScreenDriver(
+      {super.key, required this.onSubmit, required this.map});
+
+  @override
+  State<PickUpScreenDriver> createState() => _PickUpScreenDriverState();
+}
+
+class _PickUpScreenDriverState extends State<PickUpScreenDriver> {
+  String startLocation = "";
+  String endingLocation = "";
+
+  @override
+  void initState() {
+    super.initState();
+    LocationData start = parseLocationString(widget.map["source"]);
+    LocationData end = parseLocationString(widget.map["destination"]);
+    startLocation = start.location;
+    endingLocation = end.location;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,8 +70,8 @@ class PickUpScreenDriver extends StatelessWidget {
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.5,
-                        child: const Text(
-                          "PALLADIUM MALL, 462, a-nuch ate muf, alar a2a, yad, retay 400013, India",
+                        child: Text(
+                          startLocation,
                           style: AppTextStyle.addressText,
                         ),
                       ),
@@ -91,8 +111,8 @@ class PickUpScreenDriver extends StatelessWidget {
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.5,
-                        child: const Text(
-                          "Star MALL, 462, a-nuch ate muf, alar a2a, yad, retay 400013, India",
+                        child: Text(
+                          endingLocation,
                           style: AppTextStyle.addressText,
                         ),
                       ),
@@ -116,7 +136,7 @@ class PickUpScreenDriver extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: GestureDetector(
                   onTap: () {
-                    onSubmit(3);
+                    widget.onSubmit(3);
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.44,

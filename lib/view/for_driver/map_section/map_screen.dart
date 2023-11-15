@@ -9,6 +9,7 @@ import 'package:myride/view/for_driver/map_section/end_ride.dart';
 import 'package:myride/view/for_driver/map_section/enter_otp_screen.dart';
 import 'package:myride/view/for_driver/map_section/pickup_ride.dart';
 import 'package:myride/view/for_driver/map_section/route_screen.dart';
+import 'package:myride/web_socket/payment_socket.dart';
 
 class MapScreenDriver extends StatefulWidget {
   final Map map;
@@ -36,6 +37,8 @@ class _MapScreenDriverState extends State<MapScreenDriver> {
   @override
   void initState() {
     super.initState();
+    PaymentWebSocket().webSocketInit();
+    PaymentWebSocket().listenSocket(context);
     readData();
   }
 
@@ -136,12 +139,14 @@ class _MapScreenDriverState extends State<MapScreenDriver> {
       ),
       PickUpScreenDriver(
         onSubmit: changeIndex,
+        map: widget.map,
       ),
       EnterOtpScreen(
         onSubmit: changeIndex,
       ),
       EndRideScreenOwner(
         onSubmit: changeIndex,
+        map: widget.map,
       ),
     ][currentIndex];
   }

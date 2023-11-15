@@ -20,7 +20,7 @@ class _MobileVerifyState extends State<MobileVerify> {
   @override
   void initState() {
     TripWebSocket().webSocketInit();
-    TripWebSocket().listenSocket(() {}, context);
+    TripWebSocket().listenSocket(context);
     super.initState();
   }
 

@@ -15,7 +15,7 @@ class TripWebSocket {
     );
   }
 
-  void listenSocket(callbackMethod, context) {
+  void listenSocket(context) {
     debugPrint("Listen");
     channel!.stream.listen((message) {
       debugPrint("Received $message");
