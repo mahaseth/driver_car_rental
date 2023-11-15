@@ -11,7 +11,9 @@ import 'package:myride/view/for_driver/map_section/pickup_ride.dart';
 import 'package:myride/view/for_driver/map_section/route_screen.dart';
 
 class MapScreenDriver extends StatefulWidget {
-  const MapScreenDriver({super.key});
+  final Map map;
+
+  const MapScreenDriver({super.key, required this.map});
 
   @override
   State<MapScreenDriver> createState() => _MapScreenDriverState();
@@ -127,6 +129,7 @@ class _MapScreenDriverState extends State<MapScreenDriver> {
     return [
       RouteScreenOwner(
         onSubmit: changeIndex,
+        map: widget.map,
       ),
       ConfirmTripScreen(
         onSubmit: changeIndex,

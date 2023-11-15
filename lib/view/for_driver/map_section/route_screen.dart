@@ -1,14 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:myride/constant/app_text_style.dart';
-import 'package:myride/view/for_driver/map_section/confirming_trip.dart';
+import 'package:myride/model/location_model.dart';
 
-class RouteScreenOwner extends StatelessWidget {
-
+class RouteScreenOwner extends StatefulWidget {
   final Function onSubmit;
+  final Map map;
 
   const RouteScreenOwner(
-      {super.key, required this.onSubmit});
+      {super.key, required this.onSubmit, required this.map});
+
+  @override
+  State<RouteScreenOwner> createState() => _RouteScreenOwnerState();
+}
+
+class _RouteScreenOwnerState extends State<RouteScreenOwner> {
+  String startLocation = "";
+  String endingLocation = "";
+
+  @override
+  void initState() {
+    super.initState();
+    LocationData start = parseLocationString(widget.map["source"]);
+    LocationData end = parseLocationString(widget.map["destination"]);
+    startLocation = start.location;
+    endingLocation = end.location;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,8 +70,8 @@ class RouteScreenOwner extends StatelessWidget {
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.5,
-                        child: const Text(
-                          "PALLADIUM MALL, 462, a-nuch ate muf, alar a2a, yad, retay 400013, India",
+                        child: Text(
+                          startLocation,
                           style: AppTextStyle.addressText,
                         ),
                       ),
@@ -95,8 +111,8 @@ class RouteScreenOwner extends StatelessWidget {
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.5,
-                        child: const Text(
-                          "Star MALL, 462, a-nuch ate muf, alar a2a, yad, retay 400013, India",
+                        child: Text(
+                          endingLocation,
                           style: AppTextStyle.addressText,
                         ),
                       ),
@@ -155,7 +171,7 @@ class RouteScreenOwner extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: GestureDetector(
                   onTap: () {
-                    onSubmit(1);
+                    widget.onSubmit(1);
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.3,

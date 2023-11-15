@@ -155,7 +155,7 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const MapScreenDriver(),
+                            builder: (context) => const MapScreenDriver(map:{}),
                           ));
                     },
                     child: Container(

@@ -4,6 +4,7 @@ import 'package:myride/constant/app_color.dart';
 import 'package:myride/constant/app_screen_size.dart';
 import 'package:myride/constant/app_text_style.dart';
 import 'package:myride/view_model/signIn_viewModel.dart';
+import 'package:myride/web_socket/trip_socket.dart';
 import 'package:provider/provider.dart';
 
 class MobileVerify extends StatefulWidget {
@@ -15,6 +16,13 @@ class MobileVerify extends StatefulWidget {
 
 class _MobileVerifyState extends State<MobileVerify> {
   SignInViewModel? _provider;
+
+  @override
+  void initState() {
+    TripWebSocket().webSocketInit();
+    TripWebSocket().listenSocket(() {}, context);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
