@@ -32,16 +32,12 @@ class VehicleInfo extends StatefulWidget {
 }
 
 class _VehicleInfoState extends State<VehicleInfo> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
   final TextEditingController _controller = TextEditingController();
 
   int? vehicleType;
   int? vehicleMaker;
   int? vehicleModel;
+  bool isLoading = false;
 
   late File? ic, rc, mc, ad;
   String? frontCarPhotoUrl,
@@ -61,7 +57,7 @@ class _VehicleInfoState extends State<VehicleInfo> {
 
   void handleFileUpload(String type) async {
     setState(() {
-      _provider!.loading = true;
+      isLoading = true;
     });
     try {
       FilePickerResult? result = await FilePicker.platform.pickFiles();
@@ -103,7 +99,7 @@ class _VehicleInfoState extends State<VehicleInfo> {
         }
       } else {
         setState(() {
-          _provider!.loading = false;
+          isLoading = false;
         });
       }
     } on PlatformException catch (e) {
@@ -159,7 +155,7 @@ class _VehicleInfoState extends State<VehicleInfo> {
       }
 
       setState(() {
-        _provider!.loading = false;
+        isLoading = false;
       });
     } else {
       showSnackbar("Error during connection to server, try again!");
@@ -180,8 +176,9 @@ class _VehicleInfoState extends State<VehicleInfo> {
   @override
   Widget build(BuildContext context) {
     _provider = Provider.of<VehicleInfoViewModel>(context, listen: true);
+
     return ModalProgressHUD(
-      inAsyncCall: _provider!.loading,
+      inAsyncCall: isLoading,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: const Color(0xFFFAFAFA),
@@ -339,7 +336,7 @@ class _VehicleInfoState extends State<VehicleInfo> {
 
   submit() async {
     setState(() {
-      _provider!.loading = true;
+      isLoading = true;
     });
 
     _provider!.vi = VehicleInfoo(

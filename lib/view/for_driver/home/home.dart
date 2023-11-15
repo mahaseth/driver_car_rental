@@ -3,6 +3,7 @@ import 'package:myride/constant/app_color.dart';
 import 'package:myride/constant/app_screen_size.dart';
 import 'package:myride/constant/app_text_style.dart';
 import 'package:myride/view/for_car_owner/verify_owner/verify_owner.dart';
+import 'package:myride/view/for_car_owner/welocme_owner/welcome_owner.dart';
 import 'package:myride/view/for_driver/verify/mobile.dart';
 
 class HomePageScreen extends StatefulWidget {
@@ -71,6 +72,11 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       MaterialPageRoute(
                         builder: (context) => const MobileVerify(),
                       ));
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //       builder: (context) => const WelcomeScreenOwner(),
+                  //     ));
                 },
                 style: TextButton.styleFrom(
                   backgroundColor: Colors.transparent, // No background color

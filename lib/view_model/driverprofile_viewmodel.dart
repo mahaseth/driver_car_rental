@@ -5,6 +5,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:myride/model/driverprofile.dart';
 import 'package:myride/repository/driverprofile_repo.dart';
+import 'package:myride/utils/utils.dart';
 import 'package:myride/view/for_driver/vehicle_info/vehicle_info.dart';
 
 class DriveProfileViewModel extends ChangeNotifier {
@@ -40,6 +41,10 @@ class DriveProfileViewModel extends ChangeNotifier {
       });
     } catch (e) {
       log('Erroer $e');
+      Utils.showMyDialog(
+          "There are some error please try again later", context);
+    } finally {
+      loading = false;
     }
   }
 

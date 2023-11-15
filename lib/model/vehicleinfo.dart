@@ -150,10 +150,10 @@ class VehicleInfoo {
     registrationcertiifcate = json["registration_certiifcate"];
     motcertiifcate = json["mot_certiifcate"];
     addtionaldocument = json["addtional_document"];
-    makerText = json['maker']['maker'];
-    modelText = json['model']['model'];
-    cabTypeText = json['cab_type']['cab_type'];
-    cabClassText = json['cab_class']['cab_class'];
+    makerText = json['maker']?['maker'] ?? "";
+    modelText = json['model']?['model'] ?? "";
+    cabTypeText = json['cab_type']?['cab_type'] ?? "";
+    cabClassText = json['cab_class']?['cab_class'] ?? "";
     pollution = json["pollution"];
     sound = json["sound"];
   }
