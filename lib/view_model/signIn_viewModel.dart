@@ -7,6 +7,7 @@ import 'package:myride/repository/signin_repo.dart';
 import 'package:myride/utils/utils.dart';
 import 'package:myride/view/for_driver/profile/choose_vehicle.dart';
 import 'package:myride/view/for_driver/verify/otp.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInViewModel extends ChangeNotifier {
   final _signInRepo = SignInRepo();
@@ -21,7 +22,7 @@ class SignInViewModel extends ChangeNotifier {
   get mobileNumberController => _mobileNumberController;
 
   // String token = 'ad2d45807fbec23b121b86bcfed4ce525731744c';
-  String token = '';
+  static String token = '';
 
   registerDriver(BuildContext context) async {
     if (_mobileNumberController.text.length != 10) {
@@ -116,7 +117,10 @@ class SignInViewModel extends ChangeNotifier {
 
       if (response['status'] == true) {
         debugPrint("Token : " + response['token']);
-        token = response['token'].toString();
+        token = response['token'];
+        SharedPreferences sharedPreferences =
+            await SharedPreferences.getInstance();
+        sharedPreferences.setString("token", token);
         loading = false;
         notifyListeners();
         Navigator.push(

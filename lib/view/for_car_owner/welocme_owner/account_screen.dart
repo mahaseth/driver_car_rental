@@ -98,7 +98,7 @@ class _AccountScreenState extends State<AccountScreen> {
     setState(() {
       isLoading = true;
     });
-    String token = Provider.of<SignInViewModel>(context, listen: false).token;
+    String token = SignInViewModel.token;
     FormData formdata =
         FormData.fromMap({"file": await MultipartFile.fromFile(f.path)});
     Dio dio = Dio();

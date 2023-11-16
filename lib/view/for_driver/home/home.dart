@@ -5,6 +5,8 @@ import 'package:myride/constant/app_text_style.dart';
 import 'package:myride/view/for_car_owner/verify_owner/verify_owner.dart';
 import 'package:myride/view/for_car_owner/welocme_owner/welcome_owner.dart';
 import 'package:myride/view/for_driver/verify/mobile.dart';
+import 'package:myride/view_model/signIn_viewModel.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePageScreen extends StatefulWidget {
   const HomePageScreen({super.key});
@@ -66,17 +68,25 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 height: 20,
               ),
               TextButton(
-                onPressed: () {
-                  Navigator.push(
+                onPressed: () async {
+                  SharedPreferences sharedPreferences =
+                      await SharedPreferences.getInstance();
+                  if (sharedPreferences.containsKey('token')) {
+                    SignInViewModel.token =
+                        sharedPreferences.getString('token') ?? "";
+                    Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const MobileVerify(),
-                      ));
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //       builder: (context) => const WelcomeScreenOwner(),
-                  //     ));
+                        builder: (context) => WelcomeScreenOwner(),
+                      ),
+                    );
+                  } else {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const MobileVerify(),
+                        ));
+                  }
                 },
                 style: TextButton.styleFrom(
                   backgroundColor: Colors.transparent, // No background color
