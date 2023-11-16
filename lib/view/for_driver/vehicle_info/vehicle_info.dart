@@ -562,11 +562,11 @@ class _VehicleInfoState extends State<VehicleInfo> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            selectVehicleWidget("Cab", 0, changeState),
+                            selectVehicleWidget("Auto", 0, changeState),
                             const SizedBox(
                               width: 25,
                             ),
-                            selectVehicleWidget("Taxi", 1, changeState),
+                            selectVehicleWidget("Bike", 1, changeState),
                           ],
                         ),
                         const SizedBox(
@@ -575,11 +575,11 @@ class _VehicleInfoState extends State<VehicleInfo> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            selectVehicleWidget("Auto", 2, changeState),
+                            selectVehicleWidget("Cab", 2, changeState),
                             const SizedBox(
                               width: 25,
                             ),
-                            selectVehicleWidget("Bike", 3, changeState),
+                            selectVehicleWidget("Taxi", 3, changeState),
                           ],
                         )
                       ],
