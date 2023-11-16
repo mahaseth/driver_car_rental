@@ -18,12 +18,6 @@ class MobileVerify extends StatefulWidget {
 class _MobileVerifyState extends State<MobileVerify> {
   SignInViewModel? _provider;
 
-  @override
-  void initState() {
-    TripWebSocket().webSocketInit();
-    TripWebSocket().listenSocket(context);
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
