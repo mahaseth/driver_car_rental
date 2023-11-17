@@ -18,7 +18,6 @@ class TripWebSocket {
   void listenSocket(context) {
     debugPrint("Listen");
     channel!.stream.listen((message) {
-      debugPrint("Received $message");
       Map map = jsonDecode(message);
       Utils.showMyDialog("Trip started", context);
       Navigator.push(
@@ -30,9 +29,10 @@ class TripWebSocket {
     });
   }
 
-  void _addMessage(String text, bool isMe) {
+  void addMessage(int id) {
     Map data = {
-      "message": text,
+      "driver_id": id,
+      "vehicle_id": 2,
     };
     channel!.sink.add(json.encode(data));
   }

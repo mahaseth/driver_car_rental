@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:myride/constant/app_text_style.dart';
 import 'package:myride/model/location_model.dart';
-import 'package:myride/utils/distance_utils.dart';
-import 'package:myride/utils/utils.dart';
 
 class RouteScreenOwner extends StatefulWidget {
   final Function onSubmit;
@@ -174,22 +171,23 @@ class _RouteScreenOwnerState extends State<RouteScreenOwner> {
                 padding: const EdgeInsets.all(8.0),
                 child: GestureDetector(
                   onTap: () async {
-                    var start = await getCurrentLocation();
-                    LocationData startData =
-                        parseLocationString(widget.map["source"]);
-                    LocationData end =
-                        parseLocationString(widget.map["destination"]);
-                    var destination = LatLng(end.latitude, end.longitude);
-                    final double distance =
-                        calculateDistance(start, destination) / 1000.0;
-                    if (distance > 10.0) {
-                      Utils.showMyDialog(
-                          "You cannot accept this ride as customer are far from you.",
-                          context);
-                      Navigator.of(context).pop();
-                      return;
-                    }
+                    // var start = await getCurrentLocation();
+                    // LocationData end =
+                    //     parseLocationString(widget.map["destination"]);
+                    // var destination = LatLng(end.latitude, end.longitude);
+                    // final double distance =
+                    //     calculateDistance(start, destination) / 1000.0;
+                    // if (distance > 10.0) {
+                    //   Utils.showMyDialog(
+                    //       "You cannot accept this ride as customer are far from you.",
+                    //       context);
+                    //   Navigator.of(context).pop();
+                    //   return;
+                    // }
                     widget.onSubmit(1);
+                    // DriveProfileViewModel provider =
+                    //     Provider.of<DriveProfileViewModel>(context, listen: false);
+                    // TripWebSocket().addMessage(provider.driverProfile.id ?? 96);
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.3,
