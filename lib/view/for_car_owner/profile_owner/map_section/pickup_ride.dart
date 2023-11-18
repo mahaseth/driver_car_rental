@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:myride/constant/app_screen_size.dart';
 import 'package:myride/constant/app_text_style.dart';
-import 'package:myride/view/for_driver/map_section/enter_otp_screen.dart';
 
 class PickRideScreen extends StatefulWidget {
   const PickRideScreen({super.key});

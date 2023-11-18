@@ -121,9 +121,9 @@ class _ViewDocumentScreenState extends State<ViewDocumentScreen> {
         if (profile != null) {
           DriverProfileRepo().updateProfile(context, map);
         } else {
-          VehicleInfoViewModel _provider =
+          VehicleInfoViewModel provider =
               Provider.of<VehicleInfoViewModel>(context, listen: false);
-          _provider.updateVehicle(context, map);
+          provider.updateVehicle(context, map);
         }
         toggleLoading();
       } else {
@@ -265,9 +265,9 @@ class _ViewDocumentScreenState extends State<ViewDocumentScreen> {
         if (profile != null) {
           DriverProfileRepo().updateProfile(context, map);
         } else {
-          VehicleInfoViewModel _provider =
+          VehicleInfoViewModel provider =
               Provider.of<VehicleInfoViewModel>(context, listen: false);
-          _provider.updateVehicle(context, map);
+          provider.updateVehicle(context, map);
         }
         setState(() {
           list[index].link = "";

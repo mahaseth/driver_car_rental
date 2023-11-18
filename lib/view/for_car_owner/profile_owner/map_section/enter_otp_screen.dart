@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:myride/constant/app_screen_size.dart';
-import 'package:myride/view/for_driver/map_section/end_ride.dart';
 
 class EnterOtpScreen extends StatefulWidget {
   const EnterOtpScreen({super.key});

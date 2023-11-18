@@ -4,7 +4,6 @@ import 'package:myride/constant/app_screen_size.dart';
 import 'package:myride/constant/app_text_style.dart';
 import 'package:myride/utils/utils.dart';
 import 'package:myride/view/for_driver/map_section/map_screen.dart';
-import 'package:myride/view/for_driver/map_section/route_screen.dart';
 
 class RideDetailScreen extends StatefulWidget {
   final String title;

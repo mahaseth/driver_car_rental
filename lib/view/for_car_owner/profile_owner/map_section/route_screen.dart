@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:myride/constant/app_screen_size.dart';
 import 'package:myride/constant/app_text_style.dart';
-import 'package:myride/view/for_driver/map_section/confirming_trip.dart';
 
 class RouteScreen extends StatefulWidget {
   const RouteScreen({super.key});
