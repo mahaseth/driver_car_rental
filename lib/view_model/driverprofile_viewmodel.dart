@@ -13,12 +13,13 @@ class DriveProfileViewModel extends ChangeNotifier {
 
   bool loading = false;
 
-  late DriverProfile driverProfile;
+  DriverProfile? driverProfile;
   DriverProfile? currdriverProfile;
 
   makeProfile(BuildContext context) async {
     loading = true;
-    var bodyTosend = driverProfile.toJson();
+    if (driverProfile == null) return;
+    var bodyTosend = driverProfile!.toJson();
     log("PARAMS TO SEND $bodyTosend");
     try {
       final response = await _driverProfileRepo.makeProfile(

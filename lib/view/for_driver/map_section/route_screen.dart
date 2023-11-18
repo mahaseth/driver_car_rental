@@ -185,9 +185,6 @@ class _RouteScreenOwnerState extends State<RouteScreenOwner> {
                     //   return;
                     // }
                     widget.onSubmit(1);
-                    // DriveProfileViewModel provider =
-                    //     Provider.of<DriveProfileViewModel>(context, listen: false);
-                    // TripWebSocket().addMessage(provider.driverProfile.id ?? 96);
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.3,

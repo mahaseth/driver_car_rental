@@ -81,6 +81,7 @@ class VehicleModel {
 }
 
 class VehicleInfoo {
+  int? id;
   bool? isactive;
   String? numberplate;
   String? lastlocation;
@@ -109,6 +110,7 @@ class VehicleInfoo {
   String? insidePassangerSeat;
 
   VehicleInfoo({
+    this.id,
     this.isactive,
     this.numberplate,
     this.lastlocation,
@@ -134,6 +136,7 @@ class VehicleInfoo {
   });
 
   VehicleInfoo.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     isactive = json['is_active'];
     numberplate = json['number_plate'];
     lastlocation = json['last_location'];
