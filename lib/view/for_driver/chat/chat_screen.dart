@@ -1,18 +1,21 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:myride/constant/app_screen_size.dart';
 import 'package:myride/constant/app_text_style.dart';
-
-class Message {
-  final String text;
-  final bool isMe;
-
-  Message({required this.text, required this.isMe});
-}
+import 'package:myride/message_ui/message_bubble.dart';
+import 'package:myride/message_ui/message_input_box.dart';
+import 'package:myride/model/message_model.dart';
+import 'package:myride/view_model/driverprofile_viewmodel.dart';
+import 'package:provider/provider.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 class ChatScreen extends StatefulWidget {
-  const ChatScreen({super.key});
+  final Map map;
+
+  const ChatScreen({super.key, required this.map});
 
   @override
   _ChatScreenState createState() => _ChatScreenState();
@@ -21,9 +24,43 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final List<Message> _messages = [];
 
+  Map get data => widget.map;
+
+  final channel = WebSocketChannel.connect(
+    Uri.parse('ws://3.109.183.75:7401/ws/chat/odbmowjgfsh82odqtm'),
+  );
+
   void _addMessage(String text, bool isMe) {
-    setState(() {
-      _messages.add(Message(text: text, isMe: isMe));
+    DriveProfileViewModel driverProvider =
+        Provider.of<DriveProfileViewModel>(context, listen: false);
+    Map msgData = {
+      "message": text,
+      "sender": driverProvider.currdriverProfile?.id ?? 96,
+      "receiver": data["customer_id"] ?? 96,
+    };
+    channel.sink.add(json.encode(msgData));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    webSocketInit();
+  }
+
+  void webSocketInit() {
+    DriveProfileViewModel driverProvider =
+        Provider.of<DriveProfileViewModel>(context, listen: false);
+    int? id = driverProvider.currdriverProfile?.id ?? 96;
+
+    channel.stream.listen((message) {
+      Map data = jsonDecode(message);
+      debugPrint("Received $message");
+      if (id == data["sender"] || id == data["receiver"]) {
+        setState(() {
+          _messages.add(
+              Message(text: data["message"], isMe: (id == data["sender"])));
+        });
+      }
     });
   }
 
@@ -79,97 +116,23 @@ class _ChatScreenState extends State<ChatScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text("Mrinmay", style: AppTextStyle.phoneverifytext),
-                Image.asset(
-                  'assets/icon/profile_avatar.png',
-                  width: 60,
-                  height: 60,
-                ),
+                Text(data["name"], style: AppTextStyle.phoneverifytext),
+                CircleAvatar(
+                  backgroundColor: Colors.black,
+                  radius: 25,
+                  child: Icon(
+                    Icons.person,
+                    size: 45,
+                    color: Colors.white,
+                  ),
+                )
               ],
             ),
-            const SizedBox(
+            SizedBox(
               height: 20,
             )
           ],
         ),
-      ),
-    );
-  }
-}
-
-class MessageBubble extends StatelessWidget {
-  final String message;
-  final bool isMe;
-
-  const MessageBubble({super.key, required this.message, required this.isMe});
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
-      child: Container(
-        padding: const EdgeInsets.all(8),
-        margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-        decoration: BoxDecoration(
-          color: isMe ? Colors.blue : Colors.grey,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Text(
-          message,
-          style: const TextStyle(color: Colors.white),
-        ),
-      ),
-    );
-  }
-}
-
-class MessageInput extends StatefulWidget {
-  final Function(String, bool) onSendMessage;
-
-  const MessageInput(this.onSendMessage, {super.key});
-
-  @override
-  _MessageInputState createState() => _MessageInputState();
-}
-
-class _MessageInputState extends State<MessageInput> {
-  final TextEditingController _controller = TextEditingController();
-
-  void _sendMessage() {
-    final text = _controller.text;
-    if (text.isNotEmpty) {
-      widget.onSendMessage(text, true); // Assuming it's sent by the user
-      _controller.clear();
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(8),
-      child: Row(
-        children: [
-          Expanded(
-            child: Container(
-              height: 40,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.grey.withOpacity(0.2)),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: TextField(
-                  controller: _controller,
-                  decoration: const InputDecoration(
-                      border: InputBorder.none, hintText: 'Type a message...'),
-                ),
-              ),
-            ),
-          ),
-          IconButton(
-            icon: Image.asset('assets/icon/send.png'),
-            onPressed: _sendMessage,
-          ),
-        ],
       ),
     );
   }

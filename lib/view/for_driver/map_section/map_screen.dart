@@ -4,12 +4,14 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:myride/constant/app_screen_size.dart';
 import 'package:myride/services/location_service.dart';
 import 'package:myride/view/for_car_owner/welocme_owner/welcome_owner.dart';
+import 'package:myride/view/for_driver/chat/chat_screen.dart';
 import 'package:myride/view/for_driver/map_section/confirming_trip.dart';
 import 'package:myride/view/for_driver/map_section/end_ride.dart';
 import 'package:myride/view/for_driver/map_section/enter_otp_screen.dart';
 import 'package:myride/view/for_driver/map_section/pickup_ride.dart';
 import 'package:myride/view/for_driver/map_section/route_screen.dart';
 import 'package:myride/web_socket/payment_socket.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MapScreenDriver extends StatefulWidget {
   final Map map;
@@ -85,6 +87,88 @@ class _MapScreenDriverState extends State<MapScreenDriver> {
                               onMapCreated: (GoogleMapController controller) {
                                 _controller = controller;
                               }),
+                        ),
+                        Positioned(
+                          top: MediaQuery.of(context).size.height * 0.38,
+                          right: 10,
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: GestureDetector(
+                                  onTap: () async {
+                                    Uri phoneNumber = Uri.parse(
+                                        'tel:${widget.map["phone_number"]}');
+                                    await launchUrl(phoneNumber);
+                                  },
+                                  child: Container(
+                                    width: 90,
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                        color: const Color(0xFF0D94CE),
+                                        borderRadius:
+                                            BorderRadius.circular(30)),
+                                    child: Center(
+                                        child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        children: [
+                                          Image.asset("assets/icon/call.png"),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          const Text(
+                                            "Call",
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.white),
+                                          ),
+                                        ],
+                                      ),
+                                    )),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ChatScreen(map: widget.map)));
+                                  },
+                                  child: Container(
+                                    width: 90,
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                        color: const Color(0xFFF0C414),
+                                        borderRadius:
+                                            BorderRadius.circular(30)),
+                                    child: const Center(
+                                        child: Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: Row(
+                                        children: [
+                                          Icon(Icons.chat_outlined),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                            "Chat",
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.white),
+                                          ),
+                                        ],
+                                      ),
+                                    )),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                         currentIndex == 0
                             ? Positioned(

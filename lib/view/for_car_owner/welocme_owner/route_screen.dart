@@ -128,6 +128,23 @@ class DriverOverViewScreenState extends State<DriverOverViewScreen>
                                               builder: (context) =>
                                                   const PaymentScreen(),
                                             ));
+
+                                        // Map map = {
+                                        //   "source":
+                                        //       "Rispana Pull, Dehradun, Uttarakhand#30.2940767#30.2940767",
+                                        //   "destination":
+                                        //       "Jogiwala, Dehradun, Uttarakhan#30.2857815#30.2857815",
+                                        //   "phone_number": "8449269235",
+                                        //   "customer_id": 96,
+                                        //   "name": "Aryan",
+                                        // };
+                                        // Navigator.push(
+                                        //     context,
+                                        //     MaterialPageRoute(
+                                        //         builder: (context) =>
+                                        //             MapScreenDriver(
+                                        //               map: map,
+                                        //             )));
                                       },
                                       child: Text(
                                         "Welcome, $name",

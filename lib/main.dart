@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myride/view/for_driver/home/home.dart';
 import 'package:myride/view_model/choose_vehicle_type.dart';
+import 'package:myride/view_model/customerprofile_viewmodel.dart';
 import 'package:myride/view_model/driverprofile_viewmodel.dart';
 import 'package:myride/view_model/signIn_viewModel.dart';
 import 'package:myride/view_model/vehicleinfo_viewmodel.dart';
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => SignInViewModel()),
         ChangeNotifierProvider(create: (context) => DriveProfileViewModel()),
         ChangeNotifierProvider(create: (context) => VehicleInfoViewModel()),
+        ChangeNotifierProvider(create: (context) => CustomerProfile()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

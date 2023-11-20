@@ -29,10 +29,11 @@ class TripWebSocket {
     });
   }
 
-  void addMessage(int id, int vehicleId) async {
+  void addMessage(int id, int vehicleId, String name) async {
     Map data = {
       "driver_id": id,
       "vehicle_id": vehicleId,
+      "name": name,
     };
     channel!.sink.add(json.encode(data));
   }

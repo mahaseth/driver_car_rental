@@ -220,7 +220,8 @@ class _RouteScreenOwnerState extends State<RouteScreenOwner> {
                           vehicleList.isEmpty) return;
                       TripWebSocket().addMessage(
                           provider.currdriverProfile?.id ?? 96,
-                          vehicleList[0].id ?? 2);
+                          vehicleList[0].id ?? 2,
+                          provider.currdriverProfile?.firstname ?? "No Name");
 
                       widget.onSubmit(1);
                     },
