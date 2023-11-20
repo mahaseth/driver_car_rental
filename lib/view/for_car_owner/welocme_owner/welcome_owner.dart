@@ -3,7 +3,6 @@ import 'package:myride/constant/app_color.dart';
 import 'package:myride/view/for_car_owner/welocme_owner/account_screen.dart';
 import 'package:myride/view/for_car_owner/welocme_owner/route_screen.dart';
 import 'package:myride/view/for_car_owner/welocme_owner/wallet_screen.dart';
-import 'package:myride/web_socket/trip_socket.dart';
 
 class WelcomeScreenOwner extends StatefulWidget {
   const WelcomeScreenOwner({super.key});
@@ -15,13 +14,6 @@ class WelcomeScreenOwner extends StatefulWidget {
 class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
     with SingleTickerProviderStateMixin {
   int _selectedIndex = 0;
-
-  @override
-  void initState() {
-    TripWebSocket().webSocketInit();
-    TripWebSocket().listenSocket(context);
-    super.initState();
-  }
 
   void _onItemTapped(int index) {
     setState(() {

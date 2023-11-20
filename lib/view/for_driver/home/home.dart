@@ -17,6 +17,19 @@ class HomePageScreen extends StatefulWidget {
 
 class _HomePageScreenState extends State<HomePageScreen> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // readData();
+  }
+
+  void readData() async {
+    String token = 'ad2d45807fbec23b121b86bcfed4ce525731744c';
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setString("token", token);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Appcolors.mainbg,

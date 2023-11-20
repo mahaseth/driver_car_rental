@@ -43,7 +43,7 @@ class DriverProfile {
     firstname = json['first_name'];
     lastname = json['last_name'];
     phone = json['phone'];
-    // email = json['email'];
+    email = json['email'];
     fulladdress = json['full_address'];
     alternatenumber = json['alternate_number'];
     aadharnumber = json['aadhar_number'];

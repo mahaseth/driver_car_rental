@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:myride/constant/app_text_style.dart';
 import 'package:myride/model/location_model.dart';
+import 'package:myride/model/vehicleinfo.dart';
+import 'package:myride/utils/distance_utils.dart';
+import 'package:myride/view_model/driverprofile_viewmodel.dart';
+import 'package:myride/view_model/vehicleinfo_viewmodel.dart';
+import 'package:myride/web_socket/trip_socket.dart';
+import 'package:provider/provider.dart';
 
 class RouteScreenOwner extends StatefulWidget {
   final Function onSubmit;
@@ -16,14 +23,29 @@ class RouteScreenOwner extends StatefulWidget {
 class _RouteScreenOwnerState extends State<RouteScreenOwner> {
   String startLocation = "";
   String endingLocation = "";
+  String distance = "0.0 Km";
+  String time = "0 Min.";
 
   @override
   void initState() {
     super.initState();
+    readData();
+  }
+
+  void setDistance(String distanceText, String timeText) {
+    setState(() {
+      distance = distanceText;
+      time = timeText;
+    });
+  }
+
+  void readData() async {
     LocationData start = parseLocationString(widget.map["source"]);
     LocationData end = parseLocationString(widget.map["destination"]);
     startLocation = start.location;
     endingLocation = end.location;
+    getDistance(LatLng(start.latitude, start.longitude),
+        LatLng(end.latitude, end.longitude), setDistance);
   }
 
   @override
@@ -36,193 +58,210 @@ class _RouteScreenOwnerState extends State<RouteScreenOwner> {
             topRight: Radius.circular(20.0), topLeft: Radius.circular(20.0)),
       ),
       padding: const EdgeInsets.all(16.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            height: 4,
-            color: Colors.grey,
-            width: 80,
-          ),
-          const SizedBox(
-            width: 12,
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Icon(Icons.location_on),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        "Pick-up",
-                        style: TextStyle(color: Color(0xFFC8C7CC)),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.5,
-                        child: Text(
-                          startLocation,
-                          style: AppTextStyle.addressText,
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              height: 4,
+              color: Colors.grey,
+              width: 80,
+            ),
+            const SizedBox(
+              width: 12,
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Icon(Icons.location_on),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Pick-up",
+                          style: TextStyle(color: Color(0xFFC8C7CC)),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 40,
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Image.asset('assets/icon/ic_Location.png')
-            ],
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Icon(Icons.location_on),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        "Drop-off",
-                        style: TextStyle(color: Color(0xFFC8C7CC)),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.5,
-                        child: Text(
-                          endingLocation,
-                          style: AppTextStyle.addressText,
+                        const SizedBox(
+                          height: 5,
                         ),
-                      ),
-                      const SizedBox(
-                        width: 40,
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Image.asset('assets/icon/ic_Location.png')
-            ],
-          ),
-          const Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Row(
-                children: [
-                  Text("Ride Type:", style: AppTextStyle.rideBold),
-                  Text(
-                    "Comfort",
-                    style: AppTextStyle.rideNormal,
-                  )
-                ],
-              ),
-              Row(
-                children: [
-                  Text("Ride Duration:", style: AppTextStyle.rideBold),
-                  Text(
-                    "51 mins",
-                    style: AppTextStyle.rideNormal,
-                  )
-                ],
-              ),
-              Row(
-                children: [
-                  Text("Trip Distance", style: AppTextStyle.rideBold),
-                  Text(
-                    "20.3kms",
-                    style: AppTextStyle.rideNormal,
-                  )
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: GestureDetector(
-                  onTap: () async {
-                    // var start = await getCurrentLocation();
-                    // LocationData end =
-                    //     parseLocationString(widget.map["destination"]);
-                    // var destination = LatLng(end.latitude, end.longitude);
-                    // final double distance =
-                    //     calculateDistance(start, destination) / 1000.0;
-                    // if (distance > 10.0) {
-                    //   Utils.showMyDialog(
-                    //       "You cannot accept this ride as customer are far from you.",
-                    //       context);
-                    //   Navigator.of(context).pop();
-                    //   return;
-                    // }
-                    widget.onSubmit(1);
-                  },
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * 0.3,
-                    height: 40,
-                    decoration: BoxDecoration(
-                        color: const Color(0xFF00B74C),
-                        borderRadius: BorderRadius.circular(30)),
-                    child: const Center(
-                        child: Text(
-                      "Accept Ride",
-                      style: TextStyle(fontSize: 14, color: Colors.white),
-                    )),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          child: Text(
+                            startLocation,
+                            style: AppTextStyle.addressText,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 40,
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Image.asset('assets/icon/ic_Location.png')
+              ],
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Icon(Icons.location_on),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Drop-off",
+                          style: TextStyle(color: Color(0xFFC8C7CC)),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          child: Text(
+                            endingLocation,
+                            style: AppTextStyle.addressText,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 40,
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Image.asset('assets/icon/ic_Location.png')
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                // Row(
+                //   children: [
+                //     Text("Ride Type:", style: AppTextStyle.rideBold),
+                //     Text(
+                //       "Comfort",
+                //       style: AppTextStyle.rideNormal,
+                //     )
+                //   ],
+                // ),
+                Row(
+                  children: [
+                    const Text("Ride Duration:", style: AppTextStyle.rideBold),
+                    Text(
+                      time,
+                      style: AppTextStyle.rideNormal,
+                    )
+                  ],
+                ),
+                Row(
+                  children: [
+                    const Text("Trip Distance", style: AppTextStyle.rideBold),
+                    Text(
+                      distance,
+                      style: AppTextStyle.rideNormal,
+                    )
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GestureDetector(
+                    onTap: () async {
+                      // var start = await getCurrentLocation();
+                      // LocationData end =
+                      //     parseLocationString(widget.map["destination"]);
+                      // var destination = LatLng(end.latitude, end.longitude);
+                      // final double distance =
+                      //     calculateDistance(start, destination) / 1000.0;
+                      // if (distance > 10.0) {
+                      //   Utils.showMyDialog(
+                      //       "You cannot accept this ride as customer are far from you.",
+                      //       context);
+                      //   Navigator.of(context).pop();
+                      //   return;
+                      // }
+                      DriveProfileViewModel provider =
+                          Provider.of<DriveProfileViewModel>(context,
+                              listen: false);
+                      VehicleInfoViewModel providerVehicle =
+                          Provider.of<VehicleInfoViewModel>(context,
+                              listen: false);
+
+                      List<VehicleInfoo> vehicleList =
+                          providerVehicle.vehicleList;
+                      if (provider.currdriverProfile == null ||
+                          vehicleList.isEmpty) return;
+                      TripWebSocket().addMessage(
+                          provider.currdriverProfile?.id ?? 96,
+                          vehicleList[0].id ?? 2);
+
+                      widget.onSubmit(1);
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.3,
+                      height: 40,
+                      decoration: BoxDecoration(
+                          color: const Color(0xFF00B74C),
+                          borderRadius: BorderRadius.circular(30)),
+                      child: const Center(
+                          child: Text(
+                        "Accept Ride",
+                        style: TextStyle(fontSize: 14, color: Colors.white),
+                      )),
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * 0.3,
-                    height: 40,
-                    decoration: BoxDecoration(
-                        color: const Color(0xFFFC1010),
-                        borderRadius: BorderRadius.circular(30)),
-                    child: const Center(
-                        child: Text(
-                      "Reject Ride",
-                      style: TextStyle(fontSize: 14, color: Colors.white),
-                    )),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.3,
+                      height: 40,
+                      decoration: BoxDecoration(
+                          color: const Color(0xFFFC1010),
+                          borderRadius: BorderRadius.circular(30)),
+                      child: const Center(
+                          child: Text(
+                        "Reject Ride",
+                        style: TextStyle(fontSize: 14, color: Colors.white),
+                      )),
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

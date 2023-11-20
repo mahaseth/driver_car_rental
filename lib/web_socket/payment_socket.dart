@@ -19,6 +19,7 @@ class PaymentWebSocket {
     channel!.stream.listen((message) {
       debugPrint("Received $message");
       Utils.showMyDialog("Payment Recieved", context);
+      channel!.sink.close();
     });
   }
 

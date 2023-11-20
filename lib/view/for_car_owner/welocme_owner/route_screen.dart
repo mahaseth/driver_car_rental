@@ -13,6 +13,7 @@ import 'package:myride/view/for_driver/payment-amount/payment.dart';
 import 'package:myride/view/for_driver/vehicle_info/vehicle_info.dart';
 import 'package:myride/view_model/driverprofile_viewmodel.dart';
 import 'package:myride/view_model/vehicleinfo_viewmodel.dart';
+import 'package:myride/web_socket/trip_socket.dart';
 import 'package:provider/provider.dart';
 
 class DriverOverViewScreen extends StatefulWidget {
@@ -61,6 +62,14 @@ class DriverOverViewScreenState extends State<DriverOverViewScreen>
         vehicleList = _providerVehicle!.vehicleList;
       });
       debugPrint("${vehicleList.length}");
+    }
+
+    if (vehicleList.isNotEmpty) {
+      TripWebSocket().webSocketInit(vehicleList[0].cabtype!);
+      // TripWebSocket().webSocketInit(2);
+      debugPrint(
+          "Cab-Class ${vehicleList[0].cabclass} ${vehicleList[0].cabClassText} Cab-Type ${vehicleList[0].cabtype} ${vehicleList[0].cabTypeText}");
+      TripWebSocket().listenSocket(context);
     }
     setState(() {
       _provider!.loading;
@@ -170,11 +179,11 @@ class DriverOverViewScreenState extends State<DriverOverViewScreen>
             const SizedBox(
               height: 5,
             ),
-            vehicleList.isNotEmpty
-                ? Center(
-                    child: addVehicleButton(),
-                  )
-                : const SizedBox.shrink(),
+            // vehicleList.isNotEmpty
+            //     ? Center(
+            //         child: addVehicleButton(),
+            //       )
+            //     : const SizedBox.shrink(),
             const SizedBox(
               height: 10,
             ),
