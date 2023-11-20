@@ -117,7 +117,7 @@ class _ChatScreenState extends State<ChatScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(data["name"], style: AppTextStyle.phoneverifytext),
-                CircleAvatar(
+                const CircleAvatar(
                   backgroundColor: Colors.black,
                   radius: 25,
                   child: Icon(
@@ -128,7 +128,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 )
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             )
           ],
