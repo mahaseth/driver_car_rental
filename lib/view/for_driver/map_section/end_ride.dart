@@ -36,129 +36,131 @@ class _EndRideScreenOwnerState extends State<EndRideScreenOwner> {
         borderRadius: const BorderRadius.only(
             topRight: Radius.circular(20.0), topLeft: Radius.circular(20.0)),
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            height: 4,
-            color: Colors.grey,
-            width: 80,
-          ),
-          const SizedBox(
-            width: 12,
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Icon(Icons.location_on),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        "Pick-up",
-                        style: TextStyle(color: Color(0xFFC8C7CC)),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.5,
-                        child: Text(
-                          startLocation,
-                          style: AppTextStyle.addressText,
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              height: 4,
+              color: Colors.grey,
+              width: 80,
+            ),
+            const SizedBox(
+              width: 12,
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Icon(Icons.location_on),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Pick-up",
+                          style: TextStyle(color: Color(0xFFC8C7CC)),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 40,
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Image.asset('assets/icon/ic_Location.png')
-            ],
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Icon(Icons.location_on),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        "Drop-off",
-                        style: TextStyle(color: Color(0xFFC8C7CC)),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.5,
-                        child: Text(
-                          endingLocation,
-                          style: AppTextStyle.addressText,
+                        const SizedBox(
+                          height: 5,
                         ),
-                      ),
-                      const SizedBox(
-                        width: 40,
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Image.asset('assets/icon/ic_Location.png')
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: GestureDetector(
-              onTap: () {
-                widget.onSubmit(5);
-              },
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.44,
-                height: 40,
-                decoration: BoxDecoration(
-                    color: const Color(0xFFF0C414),
-                    borderRadius: BorderRadius.circular(30)),
-                child: const Center(
-                    child: Text(
-                  "End Ride",
-                  style: TextStyle(fontSize: 14, color: Colors.black),
-                )),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          child: Text(
+                            startLocation,
+                            style: AppTextStyle.addressText,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 40,
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Image.asset('assets/icon/ic_Location.png')
+              ],
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Icon(Icons.location_on),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Drop-off",
+                          style: TextStyle(color: Color(0xFFC8C7CC)),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          child: Text(
+                            endingLocation,
+                            style: AppTextStyle.addressText,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 40,
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Image.asset('assets/icon/ic_Location.png')
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                onTap: () {
+                  widget.onSubmit(5);
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.44,
+                  height: 40,
+                  decoration: BoxDecoration(
+                      color: const Color(0xFFF0C414),
+                      borderRadius: BorderRadius.circular(30)),
+                  child: const Center(
+                      child: Text(
+                    "End Ride",
+                    style: TextStyle(fontSize: 14, color: Colors.black),
+                  )),
+                ),
               ),
             ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          const Text(
-            "Click Here For Ride Support",
-            style: TextStyle(
-              decoration: TextDecoration.underline,
+            const SizedBox(
+              height: 10,
             ),
-          )
-        ],
+            const Text(
+              "Click Here For Ride Support",
+              style: TextStyle(
+                decoration: TextDecoration.underline,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

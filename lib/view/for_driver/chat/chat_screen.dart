@@ -12,6 +12,8 @@ import 'package:myride/view_model/driverprofile_viewmodel.dart';
 import 'package:provider/provider.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
+import '../../../view_model/message_viewmodel.dart';
+
 class ChatScreen extends StatefulWidget {
   final Map map;
 
@@ -22,13 +24,11 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  final List<Message> _messages = [];
+  List<Message> _messages = [];
+  final ScrollController scrollController = ScrollController();
+  WebSocketChannel? channel;
 
   Map get data => widget.map;
-
-  final channel = WebSocketChannel.connect(
-    Uri.parse('ws://3.109.183.75:7401/ws/chat/odbmowjgfsh82odqtm'),
-  );
 
   void _addMessage(String text, bool isMe) {
     DriveProfileViewModel driverProvider =
@@ -38,30 +38,64 @@ class _ChatScreenState extends State<ChatScreen> {
       "sender": driverProvider.currdriverProfile?.id ?? 96,
       "receiver": data["customer_id"] ?? 96,
     };
-    channel.sink.add(json.encode(msgData));
+    channel!.sink.add(json.encode(msgData));
   }
 
   @override
   void initState() {
     super.initState();
     webSocketInit();
+    getMessagesView();
   }
 
-  void webSocketInit() {
+  void webSocketInit() async {
     DriveProfileViewModel driverProvider =
         Provider.of<DriveProfileViewModel>(context, listen: false);
     int? id = driverProvider.currdriverProfile?.id ?? 96;
 
-    channel.stream.listen((message) {
+    MessageViewModel provider =
+        Provider.of<MessageViewModel>(context, listen: false);
+    await provider.getMessageRoom(context, id, data["customer_id"]);
+
+    debugPrint(provider.roomKey);
+    channel = WebSocketChannel.connect(
+      Uri.parse('ws://3.109.183.75:7401/ws/chat/${provider.roomKey}'),
+    );
+
+    channel!.stream.listen((message) {
       Map data = jsonDecode(message);
       debugPrint("Received $message");
       if (id == data["sender"] || id == data["receiver"]) {
         setState(() {
-          _messages.add(
-              Message(text: data["message"], isMe: (id == data["sender"])));
+          _messages.add(Message(
+              text: data["message"],
+              isMe: (id == data["sender"]),
+              receiver: data["receiver"] ?? 96));
         });
+        scrollController.jumpTo(scrollController.position.maxScrollExtent);
       }
     });
+  }
+
+  void getMessagesView() async {
+    DriveProfileViewModel driverProvider =
+        Provider.of<DriveProfileViewModel>(context, listen: false);
+    int? id = driverProvider.currdriverProfile?.id ?? 96;
+
+    MessageViewModel messageRoom =
+        Provider.of<MessageViewModel>(context, listen: false);
+    await messageRoom.getMessageRoom(context, id, data["customer_id"]);
+
+    debugPrint(messageRoom.roomKey);
+    MessageViewModel provider =
+        Provider.of<MessageViewModel>(context, listen: false);
+    await provider.getMessages(
+        context, id, data["customer_id"], messageRoom.roomKey);
+    List<Message> list = provider.messageList;
+    setState(() {
+      _messages = list;
+    });
+    scrollController.jumpTo(scrollController.position.maxScrollExtent);
   }
 
   @override
@@ -73,6 +107,7 @@ class _ChatScreenState extends State<ChatScreen> {
             _buildUserHeaderSection(),
             Expanded(
               child: ListView.builder(
+                controller: scrollController,
                 itemCount: _messages.length,
                 itemBuilder: (ctx, index) {
                   final message = _messages[index];

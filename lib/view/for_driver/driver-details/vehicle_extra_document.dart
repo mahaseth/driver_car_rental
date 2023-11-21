@@ -209,6 +209,7 @@ class _VehicleExtraDocument extends State<VehicleExtraDocument> {
         bottomNavigationBar: GestureDetector(
           onTap: () {
             check() ? submit() : showSnackbar("All fields required");
+            // submit();
           },
           child: Container(
             margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
