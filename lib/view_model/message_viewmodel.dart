@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:myride/repository/message_repo.dart';
+import 'package:myride/utils/utils.dart';
 
 import '../model/message_model.dart';
 
@@ -21,6 +22,8 @@ class MessageViewModel extends ChangeNotifier {
       roomKey = response["room"]["room"];
       notifyListeners();
     } catch (e) {
+      Utils.showMyDialog(
+          "Error in fetching Room details ${e.toString()}", context);
       log('Error GET room Message $e');
     }
   }
@@ -29,7 +32,9 @@ class MessageViewModel extends ChangeNotifier {
       BuildContext context, int senderId, int specificId, String room) async {
     try {
       final response = await _messageRepo.getMessages(context, room);
+
       log("RESPONSE Cab-Class $response");
+      if (response == null) return;
 
       messageList = List<Message>.from(
         response.map(
@@ -39,6 +44,8 @@ class MessageViewModel extends ChangeNotifier {
       // messageList.removeWhere((message) => message.receiver != specificId);
       notifyListeners();
     } catch (e) {
+      Utils.showMyDialog(
+          "Error in while fetching the msg ${e.toString()}", context);
       log('Error cab-class $e');
     }
   }

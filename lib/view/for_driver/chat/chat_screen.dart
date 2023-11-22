@@ -45,7 +45,6 @@ class _ChatScreenState extends State<ChatScreen> {
   void initState() {
     super.initState();
     webSocketInit();
-    getMessagesView();
   }
 
   void webSocketInit() async {
@@ -58,6 +57,7 @@ class _ChatScreenState extends State<ChatScreen> {
     await provider.getMessageRoom(context, id, data["customer_id"]);
 
     debugPrint(provider.roomKey);
+    getMessagesView();
     channel = WebSocketChannel.connect(
       Uri.parse('ws://3.109.183.75:7401/ws/chat/${provider.roomKey}'),
     );
@@ -87,11 +87,9 @@ class _ChatScreenState extends State<ChatScreen> {
     await messageRoom.getMessageRoom(context, id, data["customer_id"]);
 
     debugPrint(messageRoom.roomKey);
-    MessageViewModel provider =
-        Provider.of<MessageViewModel>(context, listen: false);
-    await provider.getMessages(
+    await messageRoom.getMessages(
         context, id, data["customer_id"], messageRoom.roomKey);
-    List<Message> list = provider.messageList;
+    List<Message> list = messageRoom.messageList;
     setState(() {
       _messages = list;
     });

@@ -28,10 +28,7 @@ class MessageRepo {
     }
   }
 
-  getMessages(
-    context,
-      room
-  ) async {
+  getMessages(context, room) async {
     try {
       final response = await _networkService
           .getGetApiResponse(

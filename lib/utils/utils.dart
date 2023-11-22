@@ -24,7 +24,50 @@ class Utils {
       },
     );
   }
+
+  static show(String error, BuildContext context) {
+    return showDialog(
+      context: context,
+      // barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          // title: const Text(''),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: [
+                Text(error.toString()),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 }
+
+extension ShowSnackBar on BuildContext {
+  void showSnackBar({
+    required String message,
+    Color backgroundColor = Colors.green,
+    Color textColor = Colors.white,
+  }) {
+    ScaffoldMessenger.of(this)
+      ..removeCurrentSnackBar()
+      ..showSnackBar(SnackBar(
+        content: Text(
+          message,
+          style: TextStyle(color: textColor),
+          maxLines: 2,
+        ),
+        backgroundColor: backgroundColor,
+      ));
+  }
+
+  void showErrorSnackBar({required String message}) {
+    showSnackBar(message: message, backgroundColor: Colors.red);
+  }
+}
+
 
 customDivider() {
   return Container(
