@@ -7,7 +7,6 @@ import 'package:myride/view/for_car_owner/welocme_owner/route_screens/vehicle_sc
 import 'package:myride/view/for_car_owner/welocme_owner/route_screens/your_rides_screen.dart';
 import 'package:myride/view/for_driver/payment-amount/payment.dart';
 import 'package:myride/view_model/driverprofile_viewmodel.dart';
-import 'package:myride/view_model/vehicleinfo_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 class DriverOverViewScreen extends StatefulWidget {
@@ -197,7 +196,7 @@ class DriverOverViewScreenState extends State<DriverOverViewScreen>
             Expanded(
               child: TabBarView(
                 controller: _tabController,
-                children: [
+                children: const [
                   VehicleScreen(),
                   YourRideScreen(),
                   CompleteRideScreen(),

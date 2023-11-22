@@ -104,10 +104,10 @@ class _YourRideScreenState extends State<YourRideScreen> {
                         children: [
                           Text("${tripList.length}",
                               style: AppTextStyle.upperitemtmeemtext),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
-                          Text(
+                          const Text(
                             "Complete Trips",
                             style: AppTextStyle.upperitemtmeemspantext,
                           )
@@ -257,9 +257,9 @@ class _YourRideScreenState extends State<YourRideScreen> {
                   ),
                   RichText(
                       text: TextSpan(
-                          style: TextStyle(color: Colors.black),
+                          style: const TextStyle(color: Colors.black),
                           children: [
-                        TextSpan(
+                        const TextSpan(
                             text: "Drop Point : ",
                             style: AppTextStyle.dropitmeemtext),
                         TextSpan(
@@ -271,7 +271,7 @@ class _YourRideScreenState extends State<YourRideScreen> {
                   ),
                   RichText(
                       text: TextSpan(
-                          style: TextStyle(color: Colors.black),
+                          style: const TextStyle(color: Colors.black),
                           children: [
                         TextSpan(
                             text:
