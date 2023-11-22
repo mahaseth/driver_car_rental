@@ -137,7 +137,7 @@ class NetworkApiService {
         throw UnauthorisedException(response.body.toString());
       default:
         throw FetchDataException(
-            'Error accured while communicating with serverwith status code${response.statusCode}');
+            'Error accured while communicating with server with status code${response.statusCode}');
     }
   }
 }

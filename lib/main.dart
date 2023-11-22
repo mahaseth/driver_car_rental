@@ -5,6 +5,7 @@ import 'package:myride/view_model/customerprofile_viewmodel.dart';
 import 'package:myride/view_model/driverprofile_viewmodel.dart';
 import 'package:myride/view_model/message_viewmodel.dart';
 import 'package:myride/view_model/signIn_viewModel.dart';
+import 'package:myride/view_model/trip_viewModel.dart';
 import 'package:myride/view_model/vehicleinfo_viewmodel.dart';
 import 'package:provider/provider.dart';
 
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => VehicleInfoViewModel()),
         ChangeNotifierProvider(create: (context) => CustomerProfile()),
         ChangeNotifierProvider(create: (context) => MessageViewModel()),
+        ChangeNotifierProvider(create: (context) => TripViewModel()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

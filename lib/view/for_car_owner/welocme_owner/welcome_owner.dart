@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myride/constant/app_color.dart';
 import 'package:myride/view/for_car_owner/welocme_owner/account_screen.dart';
-import 'package:myride/view/for_car_owner/welocme_owner/route_screen.dart';
+import 'package:myride/view/for_car_owner/welocme_owner/route_screens/route_screen.dart';
 import 'package:myride/view/for_car_owner/welocme_owner/wallet_screen.dart';
 
 class WelcomeScreenOwner extends StatefulWidget {
