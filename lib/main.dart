@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myride/utils/NavigationService.dart';
 import 'package:myride/view/for_driver/home/home.dart';
 import 'package:myride/view_model/choose_vehicle_type.dart';
 import 'package:myride/view_model/customerprofile_viewmodel.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => TripViewModel()),
       ],
       child: MaterialApp(
+        navigatorKey: NavigationService.navigatorKey,
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(

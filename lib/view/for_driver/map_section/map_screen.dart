@@ -9,7 +9,7 @@ import 'package:myride/view/for_driver/map_section/confirming_trip.dart';
 import 'package:myride/view/for_driver/map_section/end_ride.dart';
 import 'package:myride/view/for_driver/map_section/enter_otp_screen.dart';
 import 'package:myride/view/for_driver/map_section/pickup_ride.dart';
-import 'package:myride/view/for_driver/map_section/route_screen.dart';
+import 'package:myride/view/for_driver/map_section/trip_accpet_screen.dart';
 import 'package:myride/web_socket/payment_socket.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -214,7 +214,7 @@ class _MapScreenDriverState extends State<MapScreenDriver> {
 
   _buildBottomSection() {
     return [
-      RouteScreenOwner(
+      TripAcceptScreen(
         onSubmit: changeIndex,
         map: widget.map,
       ),

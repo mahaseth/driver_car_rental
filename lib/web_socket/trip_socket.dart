@@ -8,24 +8,31 @@ import '../view/for_driver/map_section/map_screen.dart';
 class TripWebSocket {
   static WebSocketChannel? channel;
 
-  webSocketInit(int id) {
+  webSocketInit(int id, BuildContext context) {
     debugPrint("Started $id");
+    if (channel != null) return;
     channel = WebSocketChannel.connect(
       Uri.parse('ws://3.109.183.75:7401/ws/trip-notify/$id'),
     );
+    TripWebSocket().listenSocket(context);
   }
 
   void listenSocket(context) {
     debugPrint("Listen");
+
     channel!.stream.listen((message) {
-      Map map = jsonDecode(message);
-      if (map["driver_id"] != null) return;
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => MapScreenDriver(
-                    map: map,
-                  )));
+      try {
+        Map map = jsonDecode(message);
+        if (map["driver_id"] != null) return;
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => MapScreenDriver(
+                      map: map,
+                    )));
+      } catch (e, stack) {
+        debugPrint("There is a error in accpeting $e");
+      }
     });
   }
 
@@ -36,5 +43,6 @@ class TripWebSocket {
       "name": name,
     };
     channel!.sink.add(json.encode(data));
+    // channel!.sink.close();
   }
 }

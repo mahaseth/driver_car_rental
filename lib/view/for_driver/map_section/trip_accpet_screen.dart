@@ -9,18 +9,18 @@ import 'package:myride/view_model/vehicleinfo_viewmodel.dart';
 import 'package:myride/web_socket/trip_socket.dart';
 import 'package:provider/provider.dart';
 
-class RouteScreenOwner extends StatefulWidget {
+class TripAcceptScreen extends StatefulWidget {
   final Function onSubmit;
   final Map map;
 
-  const RouteScreenOwner(
+  const TripAcceptScreen(
       {super.key, required this.onSubmit, required this.map});
 
   @override
-  State<RouteScreenOwner> createState() => _RouteScreenOwnerState();
+  State<TripAcceptScreen> createState() => _TripAcceptScreenState();
 }
 
-class _RouteScreenOwnerState extends State<RouteScreenOwner> {
+class _TripAcceptScreenState extends State<TripAcceptScreen> {
   String startLocation = "";
   String endingLocation = "";
   String distance = "0.0 Km";

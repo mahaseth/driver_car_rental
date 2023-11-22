@@ -4,6 +4,7 @@ import 'package:myride/constant/app_screen_size.dart';
 import 'package:myride/constant/app_text_style.dart';
 import 'package:myride/model/driverprofile.dart';
 import 'package:myride/model/vehicleinfo.dart';
+import 'package:myride/utils/NavigationService.dart';
 import 'package:myride/view/for_car_owner/additional/additional.dart';
 import 'package:myride/view/for_car_owner/support/support.dart';
 import 'package:myride/view/for_car_owner/welocme_owner/view_document_screen.dart';
@@ -46,11 +47,11 @@ class _VehicleScreenState extends State<VehicleScreen> {
     debugPrint("${vehicleList.length}");
 
     if (vehicleList.isNotEmpty) {
-      TripWebSocket().webSocketInit(vehicleList[0].cabtype!);
+      TripWebSocket().webSocketInit(vehicleList[0].cabtype!,
+          NavigationService.navigatorKey.currentContext ?? context);
       // TripWebSocket().webSocketInit(2);
       debugPrint(
           "Cab-Class ${vehicleList[0].cabclass} ${vehicleList[0].cabClassText} Cab-Type ${vehicleList[0].cabtype} ${vehicleList[0].cabTypeText}");
-      TripWebSocket().listenSocket(context);
     }
     setState(() {
       _providerVehicle!.loading;
