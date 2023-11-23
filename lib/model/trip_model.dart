@@ -45,14 +45,13 @@ class TripModel {
       destination: destinationText,
       distance: json['distance'] ?? "",
       timing: json['timing'] ?? "",
-      otpCount: json['otp_count'] ?? 0,
+      otpCount: json['otp'] ?? 0,
       customer: json['customer'] ?? 0,
       driver: json['driver'] ?? 0,
       cab: json['cab'] ?? 0,
-      rideType: json['ride_type'] ?? 0,
+      rideType: json['ride_type']?["cab_type"]?["id"] ?? 0,
       id: json['id'] ?? 0,
     );
-
     try {
       model.sourceLat = double.tryParse(source[1]) ?? 0.0;
       model.sourceLong = double.tryParse(source[2]) ?? 0.0;
@@ -62,7 +61,6 @@ class TripModel {
     } catch (e) {
       print("Formating issue in location in model class");
     }
-
     return model;
   }
 

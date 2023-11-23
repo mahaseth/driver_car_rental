@@ -224,6 +224,8 @@ class _TripAcceptScreenState extends State<TripAcceptScreen> {
                                 vehicleList.isEmpty) return;
 
                             Map tripData = {
+                              "driver": provider.currDriverProfile?.id ?? 96,
+                              "cab": vehicleList[0].id ?? 2,
                               "status": "ACCEPTED",
                             };
                             setState(() {
