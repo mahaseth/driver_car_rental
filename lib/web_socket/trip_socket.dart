@@ -24,6 +24,7 @@ class TripWebSocket {
       try {
         Map map = jsonDecode(message);
         if (map["driver_id"] != null) return;
+
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -40,7 +41,6 @@ class TripWebSocket {
     Map data = {
       "driver_id": id,
       "vehicle_id": vehicleId,
-      "name": name,
     };
     channel!.sink.add(json.encode(data));
     // channel!.sink.close();

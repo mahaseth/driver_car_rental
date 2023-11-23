@@ -5,6 +5,7 @@ import 'package:myride/model/location_model.dart';
 import 'package:myride/model/vehicleinfo.dart';
 import 'package:myride/utils/distance_utils.dart';
 import 'package:myride/view_model/driverprofile_viewmodel.dart';
+import 'package:myride/view_model/trip_viewModel.dart';
 import 'package:myride/view_model/vehicleinfo_viewmodel.dart';
 import 'package:myride/web_socket/trip_socket.dart';
 import 'package:provider/provider.dart';
@@ -25,6 +26,7 @@ class _TripAcceptScreenState extends State<TripAcceptScreen> {
   String endingLocation = "";
   String distance = "0.0 Km";
   String time = "0 Min.";
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -187,80 +189,122 @@ class _TripAcceptScreenState extends State<TripAcceptScreen> {
             const SizedBox(
               height: 20,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GestureDetector(
-                    onTap: () async {
-                      // var start = await getCurrentLocation();
-                      // LocationData end =
-                      //     parseLocationString(widget.map["destination"]);
-                      // var destination = LatLng(end.latitude, end.longitude);
-                      // final double distance =
-                      //     calculateDistance(start, destination) / 1000.0;
-                      // if (distance > 10.0) {
-                      //   Utils.showMyDialog(
-                      //       "You cannot accept this ride as customer are far from you.",
-                      //       context);
-                      //   Navigator.of(context).pop();
-                      //   return;
-                      // }
-                      DriveProfileViewModel provider =
-                          Provider.of<DriveProfileViewModel>(context,
-                              listen: false);
-                      VehicleInfoViewModel providerVehicle =
-                          Provider.of<VehicleInfoViewModel>(context,
-                              listen: false);
+            isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: GestureDetector(
+                          onTap: () async {
+                            // var start = await getCurrentLocation();
+                            // LocationData end =
+                            //     parseLocationString(widget.map["destination"]);
+                            // var destination = LatLng(end.latitude, end.longitude);
+                            // final double distance =
+                            //     calculateDistance(start, destination) / 1000.0;
+                            // if (distance > 10.0) {
+                            //   Utils.showMyDialog(
+                            //       "You cannot accept this ride as customer are far from you.",
+                            //       context);
+                            //   Navigator.of(context).pop();
+                            //   return;
+                            // }
+                            DriveProfileViewModel provider =
+                                Provider.of<DriveProfileViewModel>(context,
+                                    listen: false);
+                            VehicleInfoViewModel providerVehicle =
+                                Provider.of<VehicleInfoViewModel>(context,
+                                    listen: false);
 
-                      List<VehicleInfoo> vehicleList =
-                          providerVehicle.vehicleList;
-                      if (provider.currDriverProfile == null ||
-                          vehicleList.isEmpty) return;
-                      TripWebSocket().addMessage(
-                          provider.currDriverProfile?.id ?? 96,
-                          vehicleList[0].id ?? 2,
-                          provider.currDriverProfile?.firstname ?? "No Name");
+                            List<VehicleInfoo> vehicleList =
+                                providerVehicle.vehicleList;
+                            if (provider.currDriverProfile == null ||
+                                vehicleList.isEmpty) return;
 
-                      widget.onSubmit(1);
-                    },
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.3,
-                      height: 40,
-                      decoration: BoxDecoration(
-                          color: const Color(0xFF00B74C),
-                          borderRadius: BorderRadius.circular(30)),
-                      child: const Center(
-                          child: Text(
-                        "Accept Ride",
-                        style: TextStyle(fontSize: 14, color: Colors.white),
-                      )),
-                    ),
+                            Map tripData = {
+                              "status": "ACCEPTED",
+                            };
+                            setState(() {
+                              isLoading = true;
+                            });
+                            TripViewModel viewModel =
+                                Provider.of<TripViewModel>(context,
+                                    listen: false);
+
+                            await viewModel.getCurrentTrip(
+                                context, widget.map["trip_id"]);
+                            await viewModel.editTrip(
+                                context, tripData, viewModel.currentTrip!.id);
+
+                            setState(() {
+                              isLoading = false;
+                            });
+                            TripWebSocket().addMessage(
+                                provider.currDriverProfile?.id ?? 96,
+                                vehicleList[0].id ?? 2,
+                                provider.currDriverProfile?.firstname ??
+                                    "No Name");
+
+                            widget.onSubmit(1);
+                          },
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.3,
+                            height: 40,
+                            decoration: BoxDecoration(
+                                color: const Color(0xFF00B74C),
+                                borderRadius: BorderRadius.circular(30)),
+                            child: const Center(
+                                child: Text(
+                              "Accept Ride",
+                              style:
+                                  TextStyle(fontSize: 14, color: Colors.white),
+                            )),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: GestureDetector(
+                          onTap: () async {
+                            setState(() {
+                              isLoading = true;
+                            });
+                            Map tripData = {
+                              "status": "REJECTED",
+                            };
+                            TripViewModel viewModel =
+                                Provider.of<TripViewModel>(context,
+                                    listen: false);
+
+                            await viewModel.getCurrentTrip(
+                                context, widget.map["trip_id"]);
+                            await viewModel.editTrip(
+                                context, tripData, viewModel.currentTrip!.id);
+
+                            setState(() {
+                              isLoading = false;
+                            });
+                            Navigator.of(context).pop();
+                          },
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.3,
+                            height: 40,
+                            decoration: BoxDecoration(
+                                color: const Color(0xFFFC1010),
+                                borderRadius: BorderRadius.circular(30)),
+                            child: const Center(
+                                child: Text(
+                              "Reject Ride",
+                              style:
+                                  TextStyle(fontSize: 14, color: Colors.white),
+                            )),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.3,
-                      height: 40,
-                      decoration: BoxDecoration(
-                          color: const Color(0xFFFC1010),
-                          borderRadius: BorderRadius.circular(30)),
-                      child: const Center(
-                          child: Text(
-                        "Reject Ride",
-                        style: TextStyle(fontSize: 14, color: Colors.white),
-                      )),
-                    ),
-                  ),
-                ),
-              ],
-            ),
           ],
         ),
       ),
