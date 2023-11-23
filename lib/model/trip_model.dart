@@ -1,5 +1,4 @@
 class TripModel {
-  int id;
   bool isActive;
   String status;
   String source;
@@ -15,6 +14,7 @@ class TripModel {
   double sourceLong = 0.0;
   double destinationLat = 0.0;
   double destinationLong = 0.0;
+  int id;
 
   TripModel({
     required this.isActive,
@@ -46,18 +46,23 @@ class TripModel {
       distance: json['distance'] ?? "",
       timing: json['timing'] ?? "",
       otpCount: json['otp_count'] ?? 0,
-      id: json['id'] ?? 0,
       customer: json['customer'] ?? 0,
       driver: json['driver'] ?? 0,
       cab: json['cab'] ?? 0,
       rideType: json['ride_type'] ?? 0,
+      id: json['id'] ?? 0,
     );
 
-    model.sourceLat = double.tryParse(source[1]) ?? 0.0;
-    model.sourceLong = double.tryParse(source[2]) ?? 0.0;
+    try {
+      model.sourceLat = double.tryParse(source[1]) ?? 0.0;
+      model.sourceLong = double.tryParse(source[2]) ?? 0.0;
 
-    model.destinationLat = double.tryParse(destination[1]) ?? 0.0;
-    model.destinationLong = double.tryParse(destination[2]) ?? 0.0;
+      model.destinationLat = double.tryParse(destination[1]) ?? 0.0;
+      model.destinationLong = double.tryParse(destination[2]) ?? 0.0;
+    } catch (e) {
+      print("Formating issue in location in model class");
+    }
+
     return model;
   }
 

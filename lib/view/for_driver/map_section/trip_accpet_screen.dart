@@ -216,12 +216,12 @@ class _TripAcceptScreenState extends State<TripAcceptScreen> {
 
                       List<VehicleInfoo> vehicleList =
                           providerVehicle.vehicleList;
-                      if (provider.currdriverProfile == null ||
+                      if (provider.currDriverProfile == null ||
                           vehicleList.isEmpty) return;
                       TripWebSocket().addMessage(
-                          provider.currdriverProfile?.id ?? 96,
+                          provider.currDriverProfile?.id ?? 96,
                           vehicleList[0].id ?? 2,
-                          provider.currdriverProfile?.firstname ?? "No Name");
+                          provider.currDriverProfile?.firstname ?? "No Name");
 
                       widget.onSubmit(1);
                     },

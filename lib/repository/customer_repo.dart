@@ -9,7 +9,8 @@ class CustomerProfileRepo {
   Future getProfile(context, id) async {
     try {
       final response = await _networkService
-          .getGetApiResponse("http://3.109.183.75/account/customer-profile/",
+          .getGetApiResponse(
+              "http://3.109.183.75/account/$id/get-customer-profile/",
               SignInViewModel.token)
           .catchError(
         (error, stackTrace) {

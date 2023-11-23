@@ -41,8 +41,8 @@ class _ProfileState extends State<Profile> {
   }
 
   _buildTopSection() {
-    String firstName = _provider!.currdriverProfile?.firstname! ?? "";
-    String lastName = _provider!.currdriverProfile?.lastname! ?? "";
+    String firstName = _provider!.currDriverProfile?.firstname! ?? "";
+    String lastName = _provider!.currDriverProfile?.lastname! ?? "";
     return Stack(
       children: [
         SizedBox(
@@ -65,14 +65,14 @@ class _ProfileState extends State<Profile> {
                     style: const TextStyle(fontSize: 30),
                   ),
                   Text(
-                      _provider!.currdriverProfile?.email ?? "sandip@gmail.com")
+                      _provider!.currDriverProfile?.email ?? "sandip@gmail.com")
                 ],
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.32,
               ),
               Image.network(
-                _provider!.currdriverProfile?.photoupload! ?? "",
+                _provider!.currDriverProfile?.photoupload! ?? "",
                 width: 90,
                 height: 90,
               ),

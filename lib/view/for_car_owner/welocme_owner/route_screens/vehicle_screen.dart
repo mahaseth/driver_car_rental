@@ -191,7 +191,7 @@ class _VehicleScreenState extends State<VehicleScreen> {
     DriveProfileViewModel? provider =
         Provider.of<DriveProfileViewModel>(context, listen: true);
     setState(() {
-      driverProfile = provider.currdriverProfile;
+      driverProfile = provider.currDriverProfile;
     });
 
     return SizedBox(

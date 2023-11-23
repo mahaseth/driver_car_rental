@@ -14,7 +14,7 @@ class DriveProfileViewModel extends ChangeNotifier {
   bool loading = false;
 
   DriverProfile? driverProfile;
-  DriverProfile? currdriverProfile;
+  DriverProfile? currDriverProfile;
 
   makeProfile(BuildContext context) async {
     loading = true;
@@ -29,7 +29,7 @@ class DriveProfileViewModel extends ChangeNotifier {
       log("RESPONSE $response");
       Future.delayed(Duration(seconds: 2), () {
         loading = false;
-        currdriverProfile = DriverProfile.fromJson(response);
+        currDriverProfile = DriverProfile.fromJson(response);
         notifyListeners();
         Navigator.push(
           context,
@@ -59,7 +59,7 @@ class DriveProfileViewModel extends ChangeNotifier {
       );
       log("RESPONSE Update $response");
       loading = false;
-      currdriverProfile = DriverProfile.fromJson(response);
+      currDriverProfile = DriverProfile.fromJson(response);
       notifyListeners();
     } catch (e) {
       log('Erroer $e');
@@ -72,7 +72,7 @@ class DriveProfileViewModel extends ChangeNotifier {
       final response = await _driverProfileRepo.getProfile(context);
       log("RESPONSE $response");
       loading = false;
-      currdriverProfile = DriverProfile.fromJson(response);
+      currDriverProfile = DriverProfile.fromJson(response);
       notifyListeners();
     } catch (e) {
       log('Erroer $e');

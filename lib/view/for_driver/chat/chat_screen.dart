@@ -35,7 +35,7 @@ class _ChatScreenState extends State<ChatScreen> {
         Provider.of<DriveProfileViewModel>(context, listen: false);
     Map msgData = {
       "message": text,
-      "sender": driverProvider.currdriverProfile?.id ?? 96,
+      "sender": driverProvider.currDriverProfile?.id ?? 96,
       "receiver": data["customer_id"] ?? 96,
     };
     channel!.sink.add(json.encode(msgData));
@@ -50,7 +50,7 @@ class _ChatScreenState extends State<ChatScreen> {
   void webSocketInit() async {
     DriveProfileViewModel driverProvider =
         Provider.of<DriveProfileViewModel>(context, listen: false);
-    int? id = driverProvider.currdriverProfile?.id ?? 96;
+    int? id = driverProvider.currDriverProfile?.id ?? 96;
 
     MessageViewModel provider =
         Provider.of<MessageViewModel>(context, listen: false);
@@ -80,7 +80,7 @@ class _ChatScreenState extends State<ChatScreen> {
   void getMessagesView() async {
     DriveProfileViewModel driverProvider =
         Provider.of<DriveProfileViewModel>(context, listen: false);
-    int? id = driverProvider.currdriverProfile?.id ?? 96;
+    int? id = driverProvider.currDriverProfile?.id ?? 96;
 
     MessageViewModel messageRoom =
         Provider.of<MessageViewModel>(context, listen: false);

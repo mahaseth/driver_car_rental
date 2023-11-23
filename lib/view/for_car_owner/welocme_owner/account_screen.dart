@@ -72,7 +72,7 @@ class _AccountScreenState extends State<AccountScreen> {
     });
     await _provider!.getProfile(context);
     setState(() {
-      driverProfile = _provider!.currdriverProfile;
+      driverProfile = _provider!.currDriverProfile;
     });
     setState(() {
       _provider!.loading;

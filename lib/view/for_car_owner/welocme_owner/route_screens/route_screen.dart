@@ -39,7 +39,7 @@ class DriverOverViewScreenState extends State<DriverOverViewScreen>
     });
     await _provider!.getProfile(context);
     setState(() {
-      driverProfile = _provider!.currdriverProfile;
+      driverProfile = _provider!.currDriverProfile;
     });
     debugPrint("Updated values :- $driverProfile");
 
