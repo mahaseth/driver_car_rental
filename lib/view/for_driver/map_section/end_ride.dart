@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:myride/constant/app_text_style.dart';
 import 'package:myride/model/location_model.dart';
+import 'package:myride/view_model/trip_viewModel.dart';
+import 'package:provider/provider.dart';
 
 class EndRideScreenOwner extends StatefulWidget {
   final Function onSubmit;
@@ -16,6 +18,8 @@ class EndRideScreenOwner extends StatefulWidget {
 class _EndRideScreenOwnerState extends State<EndRideScreenOwner> {
   String startLocation = "";
   String endingLocation = "";
+
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -130,26 +134,43 @@ class _EndRideScreenOwnerState extends State<EndRideScreenOwner> {
                 Image.asset('assets/icon/ic_Location.png')
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: GestureDetector(
-                onTap: () {
-                  widget.onSubmit(5);
-                },
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.44,
-                  height: 40,
-                  decoration: BoxDecoration(
-                      color: const Color(0xFFF0C414),
-                      borderRadius: BorderRadius.circular(30)),
-                  child: const Center(
-                      child: Text(
-                    "End Ride",
-                    style: TextStyle(fontSize: 14, color: Colors.black),
-                  )),
-                ),
-              ),
-            ),
+            isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GestureDetector(
+                      onTap: () async {
+                        Map tripData = {
+                          "status": "COMPLETED",
+                        };
+                        setState(() {
+                          isLoading = true;
+                        });
+                        TripViewModel viewModel =
+                            Provider.of<TripViewModel>(context, listen: false);
+
+                        await viewModel.editTrip(
+                            context, tripData, viewModel.currentTrip!.id);
+
+                        setState(() {
+                          isLoading = false;
+                        });
+                        widget.onSubmit(5);
+                      },
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.44,
+                        height: 40,
+                        decoration: BoxDecoration(
+                            color: const Color(0xFFF0C414),
+                            borderRadius: BorderRadius.circular(30)),
+                        child: const Center(
+                            child: Text(
+                          "End Ride",
+                          style: TextStyle(fontSize: 14, color: Colors.black),
+                        )),
+                      ),
+                    ),
+                  ),
             const SizedBox(
               height: 10,
             ),

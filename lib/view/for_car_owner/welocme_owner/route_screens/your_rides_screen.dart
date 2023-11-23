@@ -274,8 +274,7 @@ class _YourRideScreenState extends State<YourRideScreen> {
                           style: const TextStyle(color: Colors.black),
                           children: [
                         TextSpan(
-                            text:
-                                "Distance to reach : ${tripModel.distance} Km ",
+                            text: "Distance to reach : ${tripModel.distance}",
                             style: AppTextStyle.disitmeemtext),
                         TextSpan(
                             text: "Ride .No :#${tripModel.id}",

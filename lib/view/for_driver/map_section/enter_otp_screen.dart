@@ -2,11 +2,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:myride/view_model/trip_viewModel.dart';
+import 'package:provider/provider.dart';
 
 class EnterOtpScreen extends StatefulWidget {
   final Function onSubmit;
+  final Map map;
 
-  const EnterOtpScreen({super.key, required this.onSubmit});
+  const EnterOtpScreen({super.key, required this.onSubmit, required this.map});
 
   @override
   State<EnterOtpScreen> createState() => _EnterOtpScreenState();
@@ -106,7 +109,17 @@ class _EnterOtpScreenState extends State<EnterOtpScreen> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
-                onTap: () {
+                onTap: () async {
+                  Map tripData = {
+                    "status": "ON_TRIP",
+                  };
+
+                  TripViewModel viewModel =
+                      Provider.of<TripViewModel>(context, listen: false);
+
+                  viewModel.editTrip(
+                      context, tripData, viewModel.currentTrip!.id);
+
                   widget.onSubmit(4);
                 },
                 child: Container(

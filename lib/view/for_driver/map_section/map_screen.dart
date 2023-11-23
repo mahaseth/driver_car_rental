@@ -227,6 +227,7 @@ class _MapScreenDriverState extends State<MapScreenDriver> {
       ),
       EnterOtpScreen(
         onSubmit: changeIndex,
+        map: widget.map,
       ),
       EndRideScreenOwner(
         onSubmit: changeIndex,

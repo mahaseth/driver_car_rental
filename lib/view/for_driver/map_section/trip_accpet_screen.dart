@@ -223,31 +223,18 @@ class _TripAcceptScreenState extends State<TripAcceptScreen> {
                             if (provider.currDriverProfile == null ||
                                 vehicleList.isEmpty) return;
 
-                            Map tripData = {
-                              "driver": provider.currDriverProfile?.id ?? 96,
-                              "cab": vehicleList[0].id ?? 2,
-                              "status": "ACCEPTED",
-                            };
-                            setState(() {
-                              isLoading = true;
-                            });
-                            TripViewModel viewModel =
-                                Provider.of<TripViewModel>(context,
-                                    listen: false);
-
-                            await viewModel.getCurrentTrip(
-                                context, widget.map["trip_id"]);
-                            await viewModel.editTrip(
-                                context, tripData, viewModel.currentTrip!.id);
-
-                            setState(() {
-                              isLoading = false;
-                            });
                             TripWebSocket().addMessage(
                                 provider.currDriverProfile?.id ?? 96,
                                 vehicleList[0].id ?? 2,
                                 provider.currDriverProfile?.firstname ??
                                     "No Name");
+
+                            Map tripData = {
+                              "driver": provider.currDriverProfile?.id ?? 96,
+                              "cab": vehicleList[0].id ?? 2,
+                              "status": "ACCEPTED",
+                            };
+                            rideSelection(tripData);
 
                             widget.onSubmit(1);
                           },
@@ -270,24 +257,10 @@ class _TripAcceptScreenState extends State<TripAcceptScreen> {
                         padding: const EdgeInsets.all(8.0),
                         child: GestureDetector(
                           onTap: () async {
-                            setState(() {
-                              isLoading = true;
-                            });
                             Map tripData = {
                               "status": "REJECTED",
                             };
-                            TripViewModel viewModel =
-                                Provider.of<TripViewModel>(context,
-                                    listen: false);
-
-                            await viewModel.getCurrentTrip(
-                                context, widget.map["trip_id"]);
-                            await viewModel.editTrip(
-                                context, tripData, viewModel.currentTrip!.id);
-
-                            setState(() {
-                              isLoading = false;
-                            });
+                            rideSelection(tripData);
                             Navigator.of(context).pop();
                           },
                           child: Container(
@@ -311,5 +284,21 @@ class _TripAcceptScreenState extends State<TripAcceptScreen> {
         ),
       ),
     );
+  }
+
+  void rideSelection(Map tripData) async {
+    setState(() {
+      isLoading = true;
+    });
+
+    TripViewModel viewModel =
+        Provider.of<TripViewModel>(context, listen: false);
+
+    await viewModel.getCurrentTrip(context, widget.map["trip_id"]);
+    await viewModel.editTrip(context, tripData, viewModel.currentTrip!.id);
+
+    setState(() {
+      isLoading = false;
+    });
   }
 }
