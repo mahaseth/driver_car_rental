@@ -2,19 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:myride/constant/app_color.dart';
 import 'package:myride/constant/app_screen_size.dart';
 import 'package:myride/constant/app_text_style.dart';
+import 'package:myride/model/trip_model.dart';
 import 'package:myride/utils/utils.dart';
 import 'package:myride/view/for_driver/map_section/map_screen.dart';
+import 'package:provider/provider.dart';
+
+import '../../../view_model/customerprofile_viewmodel.dart';
 
 class RideDetailScreen extends StatefulWidget {
   final String title;
+  final TripModel tripData;
 
-  const RideDetailScreen({super.key, required this.title});
+  const RideDetailScreen(
+      {super.key, required this.title, required this.tripData});
 
   @override
   State<RideDetailScreen> createState() => _RideDetailScreenState();
 }
 
 class _RideDetailScreenState extends State<RideDetailScreen> {
+  TripModel get tripData => widget.tripData;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,8 +108,8 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
                       ),
                       SizedBox(
                         width: AppSceenSize.getWidth(context) * 0.7,
-                        child: const Text(
-                          "PALLADIUM MALL, 462, a-nuch ate muf, alar a2a, yad, retay 400013, India",
+                        child: Text(
+                          tripData.source,
                           overflow: TextOverflow.clip,
                           style: TextStyle(fontSize: 12),
                         ),
@@ -127,8 +135,8 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
                       ),
                       SizedBox(
                         width: AppSceenSize.getWidth(context) * 0.7,
-                        child: const Text(
-                          "PALLADIUM MALL, 462, a-nuch ate muf, alar a2a, yad, retay 400013, India",
+                        child: Text(
+                          tripData.destination,
                           overflow: TextOverflow.clip,
                           style: TextStyle(fontSize: 12),
                         ),
@@ -141,21 +149,41 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      rowTextView("Ride Type:", "Comfort"),
-                      rowTextView("Ride Duration:", "51 Mins"),
-                      rowTextView("Trip Distance", "20.3 KMs"),
+                      rowTextView("Ride Type: ",
+                          tripData.cabData.cabTypeText ?? "Vehicle"),
+                      rowTextView("Trip Distance: ", tripData.distance),
                     ],
                   ),
                   const SizedBox(
                     height: 25,
                   ),
                   GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const MapScreenDriver(map:{}),
-                          ));
+                    onTap: () async {
+                      CustomerProfile provider =
+                          Provider.of<CustomerProfile>(context, listen: false);
+                      await provider.getProfile(context, tripData.customer);
+                      String sourceAddress =
+                          "${tripData.source}#${tripData.sourceLat}#${tripData.sourceLong}";
+                      String destinationAddress =
+                          "${tripData.destination}#${tripData.destinationLat}#${tripData.destinationLong}";
+                      Map socketData = {
+                        "source": sourceAddress,
+                        "destination": destinationAddress,
+                        "phone_number":
+                            provider.customerProfile?.phone ?? "100",
+                        "name":
+                            provider.customerProfile?.firstName ?? "No Name",
+                        "trip_id": tripData.id,
+                        "customer_id": tripData.customer,
+                      };
+                      if (context.mounted) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  MapScreenDriver(map: socketData),
+                            ));
+                      }
                     },
                     child: Container(
                       margin: const EdgeInsets.symmetric(

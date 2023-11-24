@@ -225,6 +225,7 @@ class _YourRideScreenState extends State<YourRideScreen> {
                   MaterialPageRoute(
                     builder: (context) => RideDetailScreen(
                       title: ridesTile(),
+                      tripData: tripModel
                     ),
                   ));
             },
