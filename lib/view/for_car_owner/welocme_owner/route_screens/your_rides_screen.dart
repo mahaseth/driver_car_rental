@@ -22,13 +22,13 @@ class _YourRideScreenState extends State<YourRideScreen> {
   @override
   void initState() {
     super.initState();
-    readData();
   }
 
   void readData() async {
-    TripViewModel provider = Provider.of<TripViewModel>(context, listen: false);
-    await provider.getTrips(context);
-    List<TripModel> list = provider.activeTripList;
+    TripViewModel provider = Provider.of<TripViewModel>(context, listen: true);
+
+    List<TripModel> list =
+        ridesIndex == 1 ? provider.activeTripList : provider.scheduledTripList;
     setState(() {
       tripList = list;
     });
@@ -36,6 +36,7 @@ class _YourRideScreenState extends State<YourRideScreen> {
 
   @override
   Widget build(BuildContext context) {
+    readData();
     return yourRideView();
   }
 

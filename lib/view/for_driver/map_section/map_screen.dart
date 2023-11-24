@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:myride/constant/app_screen_size.dart';
@@ -42,6 +43,11 @@ class _MapScreenDriverState extends State<MapScreenDriver> {
     PaymentWebSocket().webSocketInit();
     PaymentWebSocket().listenSocket(context);
     readData();
+    KeyboardVisibilityController().onChange.listen((bool visible) {
+      setState(() {
+        height = visible ? 0.25 : 0.55;
+      });
+    });
   }
 
   void readData() async {

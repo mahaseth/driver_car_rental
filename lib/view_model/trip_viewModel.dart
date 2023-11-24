@@ -56,17 +56,22 @@ class TripViewModel extends ChangeNotifier {
     try {
       final response = await _tripRepo.getTrips(context);
       log("Trip RESPONSE");
-
+      completedTripList.clear();
+      activeTripList.clear();
+      scheduledTripList.clear();
       List<dynamic> jsonList = response as List;
       List<TripModel> tripList =
           jsonList.map((jsonItem) => TripModel.fromJson(jsonItem)).toList();
       for (var values in tripList) {
-        if (values.status == "COMPLETED") {
+        if (values.status == "COMPLETED" || values.status == "REJECTED") {
           completedTripList.add(values);
+        } else if (values.status == "SCHEDULED") {
+          scheduledTripList.add(values);
         } else {
           activeTripList.add(values);
         }
       }
+      log("Trip RESPONSE ${completedTripList.length} ${activeTripList.length}");
       notifyListeners();
     } catch (e) {
       log('Error in trip response $e');

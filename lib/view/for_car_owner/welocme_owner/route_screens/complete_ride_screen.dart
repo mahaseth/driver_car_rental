@@ -18,13 +18,12 @@ class _CompleteRideScreenState extends State<CompleteRideScreen> {
   @override
   void initState() {
     super.initState();
-    readData();
   }
 
   void readData() async {
-    TripViewModel provider = Provider.of<TripViewModel>(context, listen: false);
-    await provider.getTrips(context);
-    List<TripModel> list = provider.activeTripList;
+    TripViewModel provider = Provider.of<TripViewModel>(context, listen: true);
+
+    List<TripModel> list = provider.completedTripList;
     setState(() {
       tripList = list;
     });
@@ -32,12 +31,12 @@ class _CompleteRideScreenState extends State<CompleteRideScreen> {
 
   @override
   Widget build(BuildContext context) {
+    readData();
     return inComplete();
   }
 
   bool conditionForYourRide() {
-    return false;
-    // return tripList.isEmpty;
+    return tripList.isNotEmpty;
   }
 
   inComplete() {
