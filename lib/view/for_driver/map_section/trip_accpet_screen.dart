@@ -190,76 +190,81 @@ class _TripAcceptScreenState extends State<TripAcceptScreen> {
             const SizedBox(
               height: 20,
             ),
-            isLoading
-                ? const Center(child: CircularProgressIndicator())
-                : Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: GestureDetector(
-                          onTap: () async {
-                            // var start = await getCurrentLocation();
-                            // LocationData end =
-                            //     parseLocationString(widget.map["destination"]);
-                            // var destination = LatLng(end.latitude, end.longitude);
-                            // final double distance =
-                            //     calculateDistance(start, destination) / 1000.0;
-                            // if (distance > 10.0) {
-                            //   Utils.showMyDialog(
-                            //       "You cannot accept this ride as customer are far from you.",
-                            //       context);
-                            //   Navigator.of(context).pop();
-                            //   return;
-                            // }
+            if (isLoading)
+              const Center(child: CircularProgressIndicator())
+            else
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GestureDetector(
+                      onTap: () async {
+                        // var start = await getCurrentLocation();
+                        // LocationData end =
+                        //     parseLocationString(widget.map["destination"]);
+                        // var destination = LatLng(end.latitude, end.longitude);
+                        // final double distance =
+                        //     calculateDistance(start, destination) / 1000.0;
+                        // if (distance > 10.0) {
+                        //   Utils.showMyDialog(
+                        //       "You cannot accept this ride as customer are far from you.",
+                        //       context);
+                        //   Navigator.of(context).pop();
+                        //   return;
+                        // }
 
-                            await rideSelection();
-                            widget.onSubmit(1);
-                          },
-                          child: Container(
-                            width: MediaQuery.of(context).size.width * 0.3,
-                            height: 40,
-                            decoration: BoxDecoration(
-                                color: const Color(0xFF00B74C),
-                                borderRadius: BorderRadius.circular(30)),
-                            child: const Center(
-                                child: Text(
-                              "Accept Ride",
-                              style:
-                                  TextStyle(fontSize: 14, color: Colors.white),
-                            )),
-                          ),
-                        ),
+                        await rideSelection();
+                        widget.onSubmit(1);
+                      },
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.3,
+                        height: 40,
+                        decoration: BoxDecoration(
+                            color: const Color(0xFF00B74C),
+                            borderRadius: BorderRadius.circular(30)),
+                        child: const Center(
+                            child: Text(
+                          "Accept Ride",
+                          style: TextStyle(fontSize: 14, color: Colors.white),
+                        )),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: GestureDetector(
-                          onTap: () async {
-                            Navigator.of(context).popUntil((route) {
-                              return false;
-                            });
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => HomePageScreen()));
-                          },
-                          child: Container(
-                            width: MediaQuery.of(context).size.width * 0.3,
-                            height: 40,
-                            decoration: BoxDecoration(
-                                color: const Color(0xFFFC1010),
-                                borderRadius: BorderRadius.circular(30)),
-                            child: const Center(
-                                child: Text(
-                              "Reject Ride",
-                              style:
-                                  TextStyle(fontSize: 14, color: Colors.white),
-                            )),
-                          ),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GestureDetector(
+                      onTap: () async {
+                        Navigator.of(context).popUntil((route) {
+                          if (route is MaterialPageRoute) {
+                            debugPrint("Route :- ${route.builder.runtimeType}");
+                            String screenName =
+                                "(BuildContext) => WelcomeScreenOwner";
+
+                            bool condition =
+                                ("${route.builder.runtimeType}" == screenName);
+                            return condition;
+                          }
+                          return false;
+                        });
+
+                      },
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.3,
+                        height: 40,
+                        decoration: BoxDecoration(
+                            color: const Color(0xFFFC1010),
+                            borderRadius: BorderRadius.circular(30)),
+                        child: const Center(
+                            child: Text(
+                          "Reject Ride",
+                          style: TextStyle(fontSize: 14, color: Colors.white),
+                        )),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
           ],
         ),
       ),

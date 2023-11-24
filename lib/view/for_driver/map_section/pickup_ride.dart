@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myride/constant/app_text_style.dart';
 import 'package:myride/model/location_model.dart';
-import 'package:myride/utils/utils.dart';
-import 'package:myride/view/for_driver/home/home.dart';
 import 'package:myride/view_model/trip_viewModel.dart';
 import 'package:provider/provider.dart';
 
@@ -163,16 +161,17 @@ class _PickUpScreenDriverState extends State<PickUpScreenDriver> {
                     onTap: () async {
                       await rideSelection();
                       Navigator.of(context).popUntil((route) {
+                        if (route is MaterialPageRoute) {
+                          debugPrint("Route :- ${route.builder.runtimeType}");
+                          String screenName =
+                              "(BuildContext) => WelcomeScreenOwner";
+
+                          bool condition =
+                              ("${route.builder.runtimeType}" == screenName);
+                          return condition;
+                        }
                         return false;
                       });
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => HomePageScreen()));
-                      // Navigator.of(context)
-                      //   ..pop()
-                      //   ..pop()
-                      //   ..pop();
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.44,
