@@ -1,3 +1,5 @@
+import 'package:myride/model/vehicleinfo.dart';
+
 class TripModel {
   bool isActive;
   String status;
@@ -8,13 +10,14 @@ class TripModel {
   int otpCount;
   int customer;
   int driver;
-  int cab;
+  VehicleInfoo cabData;
   int rideType;
   double sourceLat = 0.0;
   double sourceLong = 0.0;
   double destinationLat = 0.0;
   double destinationLong = 0.0;
   int id;
+  String driverProfilePic;
 
   TripModel({
     required this.isActive,
@@ -27,8 +30,9 @@ class TripModel {
     required this.otpCount,
     required this.customer,
     required this.driver,
-    required this.cab,
+    required this.cabData,
     required this.rideType,
+    required this.driverProfilePic,
   });
 
   factory TripModel.fromJson(Map<String, dynamic> json) {
@@ -37,10 +41,11 @@ class TripModel {
 
     String destinationText = destination[0];
     String sourceText = source[0];
-
+    print(json['cab']?.toString() ?? "He");
     TripModel model = TripModel(
       isActive: json['is_active'] ?? false,
       status: json['status'] ?? "",
+      driverProfilePic: json['driver_profile_pic'] ?? "",
       source: sourceText,
       destination: destinationText,
       distance: json['distance'] ?? "",
@@ -48,7 +53,9 @@ class TripModel {
       otpCount: json['otp'] ?? 0,
       customer: json['customer'] ?? 0,
       driver: json['driver'] ?? 0,
-      cab: json['cab'] ?? 0,
+      cabData: json['cab'] == null
+          ? VehicleInfoo()
+          : VehicleInfoo.fromJson(json['cab']),
       rideType: json['ride_type']?["cab_type"]?["id"] ?? 0,
       id: json['id'] ?? 0,
     );
@@ -75,7 +82,6 @@ class TripModel {
       'otp_count': otpCount,
       'customer': customer,
       'driver': driver,
-      'cab': cab,
       'ride_type': rideType,
     };
   }

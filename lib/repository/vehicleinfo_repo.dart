@@ -34,6 +34,20 @@ class VehicleInfoRepo {
     }
   }
 
+  getVehicleDetail(context, id) async {
+    try {
+      final response = await _networkService
+          .getGetApiResponse("http://3.109.183.75/cab/$id/get-vehicle/",
+              SignInViewModel.token)
+          .catchError((error, stackTrace) {
+        Utils.showMyDialog(error.toString(), context);
+      });
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   cabClass(context, int id) async {
     try {
       final response = await _networkService

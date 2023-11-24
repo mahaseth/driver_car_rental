@@ -231,10 +231,12 @@ class _TripAcceptScreenState extends State<TripAcceptScreen> {
 
                             Map tripData = {
                               "driver": provider.currDriverProfile?.id ?? 96,
-                              "cab": vehicleList[0].id ?? 2,
+                              "driver_profile_pic":
+                                  provider.currDriverProfile?.photoupload ?? "",
                               "status": "ACCEPTED",
+                              "cab": vehicleList[0].id ?? 2,
                             };
-                            rideSelection(tripData);
+                            await rideSelection(tripData);
 
                             widget.onSubmit(1);
                           },
@@ -260,7 +262,7 @@ class _TripAcceptScreenState extends State<TripAcceptScreen> {
                             Map tripData = {
                               "status": "REJECTED",
                             };
-                            rideSelection(tripData);
+                            await rideSelection(tripData);
                             Navigator.of(context).pop();
                           },
                           child: Container(
@@ -286,7 +288,7 @@ class _TripAcceptScreenState extends State<TripAcceptScreen> {
     );
   }
 
-  void rideSelection(Map tripData) async {
+  Future rideSelection(Map tripData) async {
     setState(() {
       isLoading = true;
     });

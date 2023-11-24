@@ -235,7 +235,8 @@ class _EnterOtpScreenState extends State<EnterOtpScreen> {
                   height: 40,
                   child: TextField(
                     controller: _otpControllers[index],
-                    focusNode: _focusNodes[index], // Add this line
+                    focusNode: _focusNodes[index],
+                    // Add this line
                     textAlign: TextAlign.center,
                     keyboardType: TextInputType.number,
                     maxLength: 1,

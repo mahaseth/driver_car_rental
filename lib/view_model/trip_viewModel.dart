@@ -43,7 +43,7 @@ class TripViewModel extends ChangeNotifier {
   Future<void> getCurrentTrip(BuildContext context, int id) async {
     try {
       final response = await _tripRepo.getCurrentTrip(context, id);
-      log("Trip RESPONSE");
+      log("Trip RESPONSE $response");
 
       currentTrip = TripModel.fromJson(response);
       notifyListeners();
