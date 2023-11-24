@@ -22,6 +22,13 @@ class _YourRideScreenState extends State<YourRideScreen> {
   @override
   void initState() {
     super.initState();
+    fetchData();
+  }
+
+  void fetchData() {
+    TripViewModel tripViewModel =
+        Provider.of<TripViewModel>(context, listen: false);
+    tripViewModel.getTrips(context);
   }
 
   void readData() async {
@@ -41,8 +48,8 @@ class _YourRideScreenState extends State<YourRideScreen> {
   }
 
   bool conditionForYourRide() {
-    return false;
-    // return tripList.isEmpty;
+    // return false;
+    return tripList.isEmpty;
   }
 
   yourRideEmptyView() {
@@ -249,6 +256,10 @@ class _YourRideScreenState extends State<YourRideScreen> {
                         style: AppTextStyle.rideitemhead,
                       ),
                       const Spacer(),
+                      Text(
+                        tripModel.status,
+                        style: AppTextStyle.rideitemhead,
+                      ),
                       const Icon(Icons.arrow_right_outlined)
                     ],
                   ),

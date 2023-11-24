@@ -24,14 +24,26 @@ class TripWebSocket {
       try {
         Map map = jsonDecode(message);
         if (map["driver_id"] != null) return;
+        if (map["status"] != null) {
+          context.showSnackBar(message: "Ride has been cancelled by driver");
+          Navigator.of(context).popUntil((route) {
+            if (route is MaterialPageRoute) {
+              String screenName = "(BuildContext) => WelcomeScreenOwner";
 
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => MapScreenDriver(
-                      map: map,
-                      screenIndex: 0,
-                    )));
+              bool condition = ("${route.builder.runtimeType}" == screenName);
+              return condition;
+            }
+            return false;
+          });
+        } else {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => MapScreenDriver(
+                        map: map,
+                        screenIndex: 0,
+                      )));
+        }
       } catch (e, stack) {
         debugPrint("There is a error in accpeting $e");
       }
@@ -44,6 +56,13 @@ class TripWebSocket {
       "vehicle_id": vehicleId,
     };
     channel!.sink.add(json.encode(data));
-    // channel!.sink.close();
+  }
+
+  void cancelRideMessage() {
+    Map map = {
+      "status": "CANCELLED",
+    };
+
+    channel!.sink.add(json.encode(map));
   }
 }

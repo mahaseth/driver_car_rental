@@ -195,7 +195,7 @@ class _VehicleInfoOwnerState extends State<VehicleInfoOwner> {
                       Icons.cancel,
                       size: 15,
                     ),
-                    label: const Text("Cancle"),
+                    label: const Text("Cancel"),
                   ),
                 ],
               ),
