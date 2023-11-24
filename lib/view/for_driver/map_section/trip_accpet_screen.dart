@@ -4,6 +4,7 @@ import 'package:myride/constant/app_text_style.dart';
 import 'package:myride/model/location_model.dart';
 import 'package:myride/model/vehicleinfo.dart';
 import 'package:myride/utils/distance_utils.dart';
+import 'package:myride/view/for_driver/home/home.dart';
 import 'package:myride/view_model/driverprofile_viewmodel.dart';
 import 'package:myride/view_model/trip_viewModel.dart';
 import 'package:myride/view_model/vehicleinfo_viewmodel.dart';
@@ -211,33 +212,8 @@ class _TripAcceptScreenState extends State<TripAcceptScreen> {
                             //   Navigator.of(context).pop();
                             //   return;
                             // }
-                            DriveProfileViewModel provider =
-                                Provider.of<DriveProfileViewModel>(context,
-                                    listen: false);
-                            VehicleInfoViewModel providerVehicle =
-                                Provider.of<VehicleInfoViewModel>(context,
-                                    listen: false);
 
-                            List<VehicleInfoo> vehicleList =
-                                providerVehicle.vehicleList;
-                            if (provider.currDriverProfile == null ||
-                                vehicleList.isEmpty) return;
-
-                            TripWebSocket().addMessage(
-                                provider.currDriverProfile?.id ?? 96,
-                                vehicleList[0].id ?? 2,
-                                provider.currDriverProfile?.firstname ??
-                                    "No Name");
-
-                            Map tripData = {
-                              "driver": provider.currDriverProfile?.id ?? 96,
-                              "driver_profile_pic":
-                                  provider.currDriverProfile?.photoupload ?? "",
-                              "status": "ACCEPTED",
-                              "cab": vehicleList[0].id ?? 2,
-                            };
-                            await rideSelection(tripData);
-
+                            await rideSelection();
                             widget.onSubmit(1);
                           },
                           child: Container(
@@ -259,11 +235,13 @@ class _TripAcceptScreenState extends State<TripAcceptScreen> {
                         padding: const EdgeInsets.all(8.0),
                         child: GestureDetector(
                           onTap: () async {
-                            Map tripData = {
-                              "status": "REJECTED",
-                            };
-                            await rideSelection(tripData);
-                            Navigator.of(context).pop();
+                            Navigator.of(context).popUntil((route) {
+                              return false;
+                            });
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HomePageScreen()));
                           },
                           child: Container(
                             width: MediaQuery.of(context).size.width * 0.3,
@@ -288,10 +266,30 @@ class _TripAcceptScreenState extends State<TripAcceptScreen> {
     );
   }
 
-  Future rideSelection(Map tripData) async {
+  Future rideSelection() async {
     setState(() {
       isLoading = true;
     });
+
+    DriveProfileViewModel provider =
+        Provider.of<DriveProfileViewModel>(context, listen: false);
+    VehicleInfoViewModel providerVehicle =
+        Provider.of<VehicleInfoViewModel>(context, listen: false);
+
+    List<VehicleInfoo> vehicleList = providerVehicle.vehicleList;
+    if (provider.currDriverProfile == null || vehicleList.isEmpty) return;
+
+    TripWebSocket().addMessage(
+        provider.currDriverProfile?.id ?? 96,
+        vehicleList[0].id ?? 2,
+        provider.currDriverProfile?.firstname ?? "No Name");
+
+    Map tripData = {
+      "driver": provider.currDriverProfile?.id ?? 96,
+      "driver_profile_pic": provider.currDriverProfile?.photoupload ?? "",
+      "status": "ACCEPTED",
+      "cab": vehicleList[0].id ?? 2,
+    };
 
     TripViewModel viewModel =
         Provider.of<TripViewModel>(context, listen: false);

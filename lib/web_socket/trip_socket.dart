@@ -30,6 +30,7 @@ class TripWebSocket {
             MaterialPageRoute(
                 builder: (context) => MapScreenDriver(
                       map: map,
+                      screenIndex: 0,
                     )));
       } catch (e, stack) {
         debugPrint("There is a error in accpeting $e");

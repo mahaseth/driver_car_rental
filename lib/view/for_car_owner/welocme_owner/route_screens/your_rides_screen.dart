@@ -224,9 +224,7 @@ class _YourRideScreenState extends State<YourRideScreen> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => RideDetailScreen(
-                      title: ridesTile(),
-                      tripData: tripModel
-                    ),
+                        title: ridesTile(), tripData: tripModel),
                   ));
             },
             child: Container(
@@ -247,7 +245,7 @@ class _YourRideScreenState extends State<YourRideScreen> {
                         width: 5,
                       ),
                       Text(
-                        "Ride $index",
+                        "Ride ${tripModel.id}",
                         style: AppTextStyle.rideitemhead,
                       ),
                       const Spacer(),

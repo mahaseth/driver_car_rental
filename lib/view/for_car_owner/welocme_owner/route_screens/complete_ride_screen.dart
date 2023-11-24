@@ -111,8 +111,11 @@ class _CompleteRideScreenState extends State<CompleteRideScreen> {
                   children: [
                     // const Text("Monday 22nd 04:25 PM (+01:00)..."),
                     Text(
-                      "Completed",
-                      style: TextStyle(color: Appcolors.appgreen),
+                      tripModel.status,
+                      style: TextStyle(
+                          color: tripModel.status == "COMPLETED"
+                              ? Appcolors.appgreen
+                              : Colors.red),
                     )
                   ],
                 ),

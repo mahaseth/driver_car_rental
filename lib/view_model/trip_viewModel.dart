@@ -63,9 +63,11 @@ class TripViewModel extends ChangeNotifier {
       List<TripModel> tripList =
           jsonList.map((jsonItem) => TripModel.fromJson(jsonItem)).toList();
       for (var values in tripList) {
-        if (values.status == "COMPLETED" || values.status == "REJECTED") {
+        if (values.status == "COMPLETED" ||
+            values.status == "REJECTED" ||
+            values.status == "CANCELLED") {
           completedTripList.add(values);
-        } else if (values.status == "SCHEDULED") {
+        } else if (values.status == "BOOKED") {
           scheduledTripList.add(values);
         } else {
           activeTripList.add(values);

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:myride/constant/app_text_style.dart';
 import 'package:myride/model/location_model.dart';
+import 'package:myride/utils/utils.dart';
+import 'package:myride/view/for_driver/home/home.dart';
+import 'package:myride/view_model/trip_viewModel.dart';
+import 'package:provider/provider.dart';
 
 class PickUpScreenDriver extends StatefulWidget {
   final Function onSubmit;
@@ -156,11 +160,19 @@ class _PickUpScreenDriverState extends State<PickUpScreenDriver> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: GestureDetector(
-                    onTap: () {
-                      Navigator.of(context)
-                        ..pop()
-                        ..pop()
-                        ..pop();
+                    onTap: () async {
+                      await rideSelection();
+                      Navigator.of(context).popUntil((route) {
+                        return false;
+                      });
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HomePageScreen()));
+                      // Navigator.of(context)
+                      //   ..pop()
+                      //   ..pop()
+                      //   ..pop();
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.44,
@@ -182,5 +194,15 @@ class _PickUpScreenDriverState extends State<PickUpScreenDriver> {
         ),
       ),
     );
+  }
+
+  Future rideSelection() async {
+    Map tripData = {
+      "status": "REJECTED",
+    };
+    TripViewModel viewModel =
+        Provider.of<TripViewModel>(context, listen: false);
+
+    await viewModel.editTrip(context, tripData, viewModel.currentTrip!.id);
   }
 }

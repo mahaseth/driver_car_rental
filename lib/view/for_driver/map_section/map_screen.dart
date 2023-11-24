@@ -16,8 +16,10 @@ import 'package:url_launcher/url_launcher.dart';
 
 class MapScreenDriver extends StatefulWidget {
   final Map map;
+  final int screenIndex;
 
-  const MapScreenDriver({super.key, required this.map});
+  const MapScreenDriver(
+      {super.key, required this.map, required this.screenIndex});
 
   @override
   State<MapScreenDriver> createState() => _MapScreenDriverState();
@@ -40,6 +42,7 @@ class _MapScreenDriverState extends State<MapScreenDriver> {
   @override
   void initState() {
     super.initState();
+    currentIndex = widget.screenIndex;
     PaymentWebSocket().webSocketInit();
     PaymentWebSocket().listenSocket(context);
     readData();

@@ -177,11 +177,15 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
                         "customer_id": tripData.customer,
                       };
                       if (context.mounted) {
+                        int index = 2;
+                        if (tripData.status == "ON_TRIP") index = 4;
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  MapScreenDriver(map: socketData),
+                              builder: (context) => MapScreenDriver(
+                                map: socketData,
+                                screenIndex: index,
+                              ),
                             ));
                       }
                     },
