@@ -26,6 +26,7 @@ class TripRepo {
           .patchApiResponse("http://3.109.183.75/trip/$id/driver-trip/",
               bodyTosend, SignInViewModel.token)
           .catchError((error, stackTrace) {
+        print("Error in editTrip ");
         Utils.showMyDialog(error.toString(), context);
       });
       return response;

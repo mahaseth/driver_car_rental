@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:myride/utils/utils.dart';
 import 'package:myride/view_model/trip_viewModel.dart';
 import 'package:provider/provider.dart';
 
@@ -110,12 +111,26 @@ class _EnterOtpScreenState extends State<EnterOtpScreen> {
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
                 onTap: () async {
+                  String otpValue = "";
+                  for (var values in _otpControllers) {
+                    otpValue += values.text;
+                  }
+                  debugPrint("OTP VALUES is $otpValue");
+                  if (otpValue.length < 4) {
+                    context.showErrorSnackBar(message: "Enter 4 digit OTP");
+                    return;
+                  }
+                  TripViewModel viewModel =
+                      Provider.of<TripViewModel>(context, listen: false);
+
+                  if (int.parse(otpValue) != viewModel.currentTrip!.otpCount) {
+                    context.showErrorSnackBar(
+                        message: "OTP is in-correct. Please enter correct OTP");
+                    return;
+                  }
                   Map tripData = {
                     "status": "ON_TRIP",
                   };
-
-                  TripViewModel viewModel =
-                      Provider.of<TripViewModel>(context, listen: false);
 
                   viewModel.editTrip(
                       context, tripData, viewModel.currentTrip!.id);

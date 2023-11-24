@@ -24,7 +24,7 @@ class _CompleteRideScreenState extends State<CompleteRideScreen> {
   void readData() async {
     TripViewModel provider = Provider.of<TripViewModel>(context, listen: false);
     await provider.getTrips(context);
-    List<TripModel> list = provider.tripList;
+    List<TripModel> list = provider.activeTripList;
     setState(() {
       tripList = list;
     });

@@ -28,7 +28,7 @@ class _YourRideScreenState extends State<YourRideScreen> {
   void readData() async {
     TripViewModel provider = Provider.of<TripViewModel>(context, listen: false);
     await provider.getTrips(context);
-    List<TripModel> list = provider.tripList;
+    List<TripModel> list = provider.activeTripList;
     setState(() {
       tripList = list;
     });
@@ -108,7 +108,7 @@ class _YourRideScreenState extends State<YourRideScreen> {
                             height: 5,
                           ),
                           const Text(
-                            "Complete Trips",
+                            "Active Trips",
                             style: AppTextStyle.upperitemtmeemspantext,
                           )
                         ],

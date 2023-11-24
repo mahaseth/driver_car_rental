@@ -6,6 +6,7 @@ import 'package:myride/view/for_car_owner/welocme_owner/route_screens/complete_r
 import 'package:myride/view/for_car_owner/welocme_owner/route_screens/vehicle_screen.dart';
 import 'package:myride/view/for_car_owner/welocme_owner/route_screens/your_rides_screen.dart';
 import 'package:myride/view/for_driver/payment-amount/payment.dart';
+import 'package:myride/view/for_driver/map_section/map_screen.dart';
 import 'package:myride/view_model/driverprofile_viewmodel.dart';
 import 'package:provider/provider.dart';
 
@@ -109,6 +110,7 @@ class DriverOverViewScreenState extends State<DriverOverViewScreen>
                                         //   "phone_number": "8449269235",
                                         //   "customer_id": 96,
                                         //   "name": "Aryan",
+                                        //   "trip_id": 88,
                                         // };
                                         // Navigator.push(
                                         //     context,

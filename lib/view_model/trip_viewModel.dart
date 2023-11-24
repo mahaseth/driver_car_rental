@@ -7,7 +7,9 @@ import 'package:myride/repository/trip_repo.dart';
 class TripViewModel extends ChangeNotifier {
   final _tripRepo = TripRepo();
 
-  List<TripModel> tripList = [];
+  List<TripModel> activeTripList = [];
+  List<TripModel> completedTripList = [];
+  List<TripModel> scheduledTripList = [];
   TripModel? currentTrip;
 
   // Future startTrip(BuildContext context, var bodyTosend) async {
@@ -34,7 +36,7 @@ class TripViewModel extends ChangeNotifier {
       log("RESPONSE $response");
       notifyListeners();
     } catch (e) {
-      log('Erroer $e');
+      log('Error for editTrip $e');
     }
   }
 
@@ -56,8 +58,15 @@ class TripViewModel extends ChangeNotifier {
       log("Trip RESPONSE");
 
       List<dynamic> jsonList = response as List;
-      tripList =
+      List<TripModel> tripList =
           jsonList.map((jsonItem) => TripModel.fromJson(jsonItem)).toList();
+      for (var values in tripList) {
+        if (values.status == "COMPLETED") {
+          completedTripList.add(values);
+        } else {
+          activeTripList.add(values);
+        }
+      }
       notifyListeners();
     } catch (e) {
       log('Error in trip response $e');
