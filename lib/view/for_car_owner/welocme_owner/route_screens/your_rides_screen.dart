@@ -75,10 +75,6 @@ class _YourRideScreenState extends State<YourRideScreen> {
   }
 
   yourRideView() {
-    if (conditionForYourRide()) {
-      return yourRideEmptyView();
-    }
-
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Column(
@@ -220,6 +216,10 @@ class _YourRideScreenState extends State<YourRideScreen> {
   }
 
   currentRideItem() {
+    if (conditionForYourRide()) {
+      return yourRideEmptyView();
+    }
+
     return Expanded(
       child: ListView.builder(
         itemCount: tripList.length,

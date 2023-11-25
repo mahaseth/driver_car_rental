@@ -30,7 +30,7 @@ class TripWebSocket {
         if (map["status"] == "CANCELLED") {
           ScaffoldMessenger.of(context)
             ..removeCurrentSnackBar()
-            ..showSnackBar(SnackBar(
+            ..showSnackBar(const SnackBar(
               content: Text(
                 "Ride has been cancelled by customer",
                 style: TextStyle(color: Colors.white),
