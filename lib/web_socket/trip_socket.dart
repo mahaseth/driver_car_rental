@@ -23,9 +23,21 @@ class TripWebSocket {
     channel!.stream.listen((message) {
       try {
         Map map = jsonDecode(message);
-        if (map["driver_id"] != null) return;
-        if (map["status"] != null) {
-          context.showSnackBar(message: "Ride has been cancelled by driver");
+        debugPrint("Message $map");
+        if (map["driver_id"] != null || map["status"] == "DRIVER_REJECTED") {
+          return;
+        }
+        if (map["status"] == "CANCELLED") {
+          ScaffoldMessenger.of(context)
+            ..removeCurrentSnackBar()
+            ..showSnackBar(SnackBar(
+              content: Text(
+                "Ride has been cancelled by customer",
+                style: TextStyle(color: Colors.white),
+                maxLines: 2,
+              ),
+              backgroundColor: Colors.red,
+            ));
           Navigator.of(context).popUntil((route) {
             if (route is MaterialPageRoute) {
               String screenName = "(BuildContext) => WelcomeScreenOwner";
@@ -60,7 +72,7 @@ class TripWebSocket {
 
   void cancelRideMessage() {
     Map map = {
-      "status": "CANCELLED",
+      "status": "DRIVER_REJECTED",
     };
 
     channel!.sink.add(json.encode(map));
