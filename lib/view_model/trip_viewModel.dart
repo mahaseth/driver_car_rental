@@ -62,6 +62,11 @@ class TripViewModel extends ChangeNotifier {
       List<dynamic> jsonList = response as List;
       List<TripModel> tripList =
           jsonList.map((jsonItem) => TripModel.fromJson(jsonItem)).toList();
+      tripList.sort((a, b) {
+        DateTime A = DateTime.parse(a.timing);
+        DateTime B = DateTime.parse(b.timing);
+        return B.compareTo(A);
+      });
       for (var values in tripList) {
         if (values.status == "COMPLETED" ||
             values.status == "REJECTED" ||

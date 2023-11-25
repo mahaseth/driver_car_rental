@@ -4,7 +4,7 @@ import 'package:myride/constant/app_text_style.dart';
 import 'package:myride/model/location_model.dart';
 import 'package:myride/model/vehicleinfo.dart';
 import 'package:myride/utils/distance_utils.dart';
-import 'package:myride/view/for_driver/home/home.dart';
+import 'package:myride/utils/utils.dart';
 import 'package:myride/view_model/driverprofile_viewmodel.dart';
 import 'package:myride/view_model/trip_viewModel.dart';
 import 'package:myride/view_model/vehicleinfo_viewmodel.dart';
@@ -72,6 +72,20 @@ class _TripAcceptScreenState extends State<TripAcceptScreen> {
             ),
             const SizedBox(
               width: 12,
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.5,
+              height: 40,
+              decoration: BoxDecoration(
+                  color: const Color(0xFF00B74C),
+                  borderRadius: BorderRadius.circular(30)),
+              child: Center(
+                  child: Text(
+                widget.map["status"] == "BOOKED"
+                    ? "This is Schedule Ride"
+                    : "This is Current Ride",
+                style: const TextStyle(fontSize: 14, color: Colors.white),
+              )),
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -215,7 +229,6 @@ class _TripAcceptScreenState extends State<TripAcceptScreen> {
                         // }
 
                         await rideSelection();
-                        widget.onSubmit(1);
                       },
                       child: Container(
                         width: MediaQuery.of(context).size.width * 0.3,
@@ -247,7 +260,6 @@ class _TripAcceptScreenState extends State<TripAcceptScreen> {
                           }
                           return false;
                         });
-
                       },
                       child: Container(
                         width: MediaQuery.of(context).size.width * 0.3,
@@ -292,7 +304,7 @@ class _TripAcceptScreenState extends State<TripAcceptScreen> {
     Map tripData = {
       "driver": provider.currDriverProfile?.id ?? 96,
       "driver_profile_pic": provider.currDriverProfile?.photoupload ?? "",
-      "status": "ACCEPTED",
+      "status": widget.map["status"],
       "cab": vehicleList[0].id ?? 2,
     };
 
@@ -302,6 +314,12 @@ class _TripAcceptScreenState extends State<TripAcceptScreen> {
     await viewModel.getCurrentTrip(context, widget.map["trip_id"]);
     await viewModel.editTrip(context, tripData, viewModel.currentTrip!.id);
 
+    if (viewModel.currentTrip!.status == "BOOKED") {
+      context.showSnackBar(message: "This is Scheduled ride");
+      Navigator.of(context).pop();
+    } else {
+      widget.onSubmit(1);
+    }
     setState(() {
       isLoading = false;
     });

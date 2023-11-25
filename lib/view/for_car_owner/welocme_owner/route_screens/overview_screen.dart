@@ -5,7 +5,6 @@ import 'package:myride/model/driverprofile.dart';
 import 'package:myride/view/for_car_owner/welocme_owner/route_screens/complete_ride_screen.dart';
 import 'package:myride/view/for_car_owner/welocme_owner/route_screens/vehicle_screen.dart';
 import 'package:myride/view/for_car_owner/welocme_owner/route_screens/your_rides_screen.dart';
-import 'package:myride/view/for_driver/map_section/map_screen.dart';
 import 'package:myride/view/for_driver/payment-amount/payment.dart';
 import 'package:myride/view_model/driverprofile_viewmodel.dart';
 import 'package:myride/view_model/trip_viewModel.dart';
@@ -107,24 +106,25 @@ class DriverOverViewScreenState extends State<DriverOverViewScreen>
                                                   const PaymentScreen(),
                                             ));
 
-                                      //   Map map = {
-                                      //     "source":
-                                      //         "Rispana Pull, Dehradun, Uttarakhand#30.2940767#30.2940767",
-                                      //     "destination":
-                                      //         "Jogiwala, Dehradun, Uttarakhan#30.2857815#30.2857815",
-                                      //     "phone_number": "8449269235",
-                                      //     "customer_id": 96,
-                                      //     "name": "Aryan",
-                                      //     "trip_id": 109,
-                                      //   };
-                                      //   Navigator.push(
-                                      //       context,
-                                      //       MaterialPageRoute(
-                                      //           builder: (context) =>
-                                      //               MapScreenDriver(
-                                      //                 map: map,
-                                      //                 screenIndex: 0,
-                                      //               )));
+                                        //   Map map = {
+                                        //     "source":
+                                        //         "Rispana Pull, Dehradun, Uttarakhand#30.2940767#30.2940767",
+                                        //     "destination":
+                                        //         "Jogiwala, Dehradun, Uttarakhan#30.2857815#30.2857815",
+                                        //     "phone_number": "8449269235",
+                                        //     "customer_id": 96,
+                                        //     "name": "Aryan",
+                                        //     "trip_id": 109,
+                                        //   "status": "BOOKED"
+                                        //   };
+                                        //   Navigator.push(
+                                        //       context,
+                                        //       MaterialPageRoute(
+                                        //           builder: (context) =>
+                                        //               MapScreenDriver(
+                                        //                 map: map,
+                                        //                 screenIndex: 0,
+                                        //               )));
                                       },
                                       child: Text(
                                         "Welcome, $name",
