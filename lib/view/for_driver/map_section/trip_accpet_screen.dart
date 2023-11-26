@@ -81,7 +81,7 @@ class _TripAcceptScreenState extends State<TripAcceptScreen> {
                   borderRadius: BorderRadius.circular(30)),
               child: Center(
                   child: Text(
-                widget.map["status"] == "BOOKED"
+                widget.map["status"] == "SCHEDULED"
                     ? "This is Schedule Ride"
                     : "This is Current Ride",
                 style: const TextStyle(fontSize: 14, color: Colors.white),
@@ -296,10 +296,8 @@ class _TripAcceptScreenState extends State<TripAcceptScreen> {
     List<VehicleInfoo> vehicleList = providerVehicle.vehicleList;
     if (provider.currDriverProfile == null || vehicleList.isEmpty) return;
 
-    TripWebSocket().addMessage(
-        provider.currDriverProfile?.id ?? 96,
-        vehicleList[0].id ?? 2,
-        provider.currDriverProfile?.firstname ?? "No Name");
+    TripWebSocket().addMessage(provider.currDriverProfile?.id ?? 96,
+        vehicleList[0].id ?? 2, widget.map["status"]);
 
     Map tripData = {
       "driver": provider.currDriverProfile?.id ?? 96,
@@ -314,7 +312,8 @@ class _TripAcceptScreenState extends State<TripAcceptScreen> {
     await viewModel.getCurrentTrip(context, widget.map["trip_id"]);
     await viewModel.editTrip(context, tripData, viewModel.currentTrip!.id);
 
-    if (viewModel.currentTrip!.status == "BOOKED") {
+    if (viewModel.currentTrip!.status == "SCHEDULED" ||
+        viewModel.currentTrip!.status == "BOOKED") {
       context.showSnackBar(message: "This is Scheduled ride");
       Navigator.of(context).pop();
     } else {

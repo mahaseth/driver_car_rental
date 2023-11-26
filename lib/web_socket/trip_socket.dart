@@ -62,10 +62,11 @@ class TripWebSocket {
     });
   }
 
-  void addMessage(int id, int vehicleId, String name) async {
+  void addMessage(int id, int vehicleId, String status) async {
     Map data = {
       "driver_id": id,
       "vehicle_id": vehicleId,
+      "status": "SCHEDULED",
     };
     channel!.sink.add(json.encode(data));
   }
