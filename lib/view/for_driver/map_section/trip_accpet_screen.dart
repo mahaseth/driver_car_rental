@@ -80,12 +80,15 @@ class _TripAcceptScreenState extends State<TripAcceptScreen> {
                   color: const Color(0xFF00B74C),
                   borderRadius: BorderRadius.circular(30)),
               child: Center(
-                  child: Text(
-                widget.map["status"] == "SCHEDULED"
-                    ? "This is Schedule Ride"
-                    : "This is Current Ride",
-                style: const TextStyle(fontSize: 14, color: Colors.white),
-              )),
+                  child: Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Text(
+                                    widget.map["status"] == "SCHEDULED"
+                      ? "This is Schedule Ride \n ${widget.map['timing']}"
+                      : "This is Current Ride",
+                                    style: const TextStyle(fontSize: 14, color: Colors.white),
+                                  ),
+                  )),
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,

@@ -72,7 +72,7 @@ class TripViewModel extends ChangeNotifier {
             values.status == "REJECTED" ||
             values.status == "CANCELLED") {
           completedTripList.add(values);
-        } else if (values.status == "BOOKED") {
+        } else if (values.status == "BOOKED" || values.status == "SCHEDULED") {
           scheduledTripList.add(values);
         } else {
           activeTripList.add(values);

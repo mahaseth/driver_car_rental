@@ -66,7 +66,7 @@ class TripWebSocket {
     Map data = {
       "driver_id": id,
       "vehicle_id": vehicleId,
-      "status": "SCHEDULED",
+      "status": status,
     };
     channel!.sink.add(json.encode(data));
   }
