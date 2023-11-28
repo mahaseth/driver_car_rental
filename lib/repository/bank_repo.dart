@@ -27,18 +27,17 @@ class BankAccountRepo {
 
   deleteBankDetail(context, id) async {
     try {
-      // final response = await _networkService
-      //     .putApiResponse(
-      //         "http://3.109.183.75/account/$id/driver-bank-details/",
-      //         SignInViewModel.token)
-      //     .catchError((error, stackTrace) {
-      //   Utils.showMyDialog(error.toString(), context);
-      //   if (kDebugMode) {
-      //     print(error.toString());
-      //   }
-      // });
-      //Work on this..
-      // return response;
+      final response = await _networkService
+          .deleteApiResponse(
+              "http://3.109.183.75/account/$id/driver-bank-delete/",
+              SignInViewModel.token)
+          .catchError((error, stackTrace) {
+        debugPrint("Delete Succesfull $error");
+        if (kDebugMode) {
+          print(error.toString());
+        }
+      });
+      return response;
     } catch (e) {
       rethrow;
     }
@@ -47,10 +46,8 @@ class BankAccountRepo {
   editBankDetail(context, map, id) async {
     try {
       final response = await _networkService
-          .putApiResponse(
-              "http://3.109.183.75/account/$id/driver-bank-details/",
-              map,
-              SignInViewModel.token)
+          .putApiResponse("http://3.109.183.75/account/$id/driver-bank-delete/",
+              map, SignInViewModel.token)
           .catchError((error, stackTrace) {
         Utils.showMyDialog(error.toString(), context);
         if (kDebugMode) {

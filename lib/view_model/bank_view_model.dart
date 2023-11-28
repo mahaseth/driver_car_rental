@@ -39,13 +39,13 @@ class BankViewModel extends ChangeNotifier {
   Future<void> deleteBankDetail(BuildContext context, int id) async {
     try {
       final response = await _bankRepo.deleteBankDetail(context, id);
-      log("RESPONSE GET Bank $response");
+      log("RESPONSE delete Bank $response");
       bankModel = null;
       notifyListeners();
     } catch (e) {
       Utils.showMyDialog(
           "Error in fetching Bank details ${e.toString()}", context);
-      log('Error GET Bank $e');
+      log('Error delete Bank $e');
     }
   }
 

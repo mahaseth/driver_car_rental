@@ -19,7 +19,6 @@ class _EmptyBankScreenState extends State<EmptyBankScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     fetchData();
   }

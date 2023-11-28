@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:myride/constant/app_color.dart';
 import 'package:myride/constant/app_screen_size.dart';
 import 'package:myride/model/bank_model.dart';
-import 'package:myride/utils/utils.dart';
 import 'package:myride/view/bank_details/add_bank_detail.dart';
 import 'package:myride/view_model/bank_view_model.dart';
 import 'package:provider/provider.dart';
@@ -33,8 +32,19 @@ class _BankAccountDetailScreenState extends State<BankAccountDetailScreen> {
     bankHolderName.text = bankData?.name ?? "";
   }
 
+  void readData() {
+    BankViewModel bankViewModel =
+        Provider.of<BankViewModel>(context, listen: true);
+    setState(() {
+      accountNumber.text = bankViewModel.bankModel?.account ?? "";
+      ifscCode.text = bankViewModel.bankModel?.ifsc ?? "";
+      bankHolderName.text = bankViewModel.bankModel?.name ?? "";
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    readData();
     return SafeArea(
       child: Scaffold(
         body: Center(
@@ -73,14 +83,18 @@ class _BankAccountDetailScreenState extends State<BankAccountDetailScreen> {
                                           ),
                                           TextButton(
                                             onPressed: () {
-                                              // BankViewModel bankViewModel =
-                                              //     Provider.of<BankViewModel>(context,
-                                              //         listen: false);
-                                              // bankViewModel.deleteBankDetail(
-                                              //     context, bankViewModel.bankModel?.id ?? 1);
-                                              context.showErrorSnackBar(
-                                                  message:
-                                                      "Bidyut working on it");
+                                              BankViewModel bankViewModel =
+                                                  Provider.of<BankViewModel>(
+                                                      context,
+                                                      listen: false);
+
+                                              bankViewModel.deleteBankDetail(
+                                                  context,
+                                                  bankViewModel.bankModel?.id ??
+                                                      1);
+                                              // context.showErrorSnackBar(
+                                              //     message:
+                                              //         "Bidyut working on it");
 
                                               Navigator.of(context).pop();
                                             },

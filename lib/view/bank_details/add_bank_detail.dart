@@ -23,7 +23,6 @@ class _AddBankAccountScreenState extends State<AddBankAccountScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     if (widget.map != null) {
       accountNumber.text = widget.map?["account"];
