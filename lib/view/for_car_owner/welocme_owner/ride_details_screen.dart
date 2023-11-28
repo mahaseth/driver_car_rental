@@ -155,7 +155,7 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
                     children: [
                       rowTextView("Ride Type: ",
                           tripData.cabData.cabTypeText ?? "Vehicle"),
-                      rowTextView("Trip Distance: ", tripData.distance),
+                      rowTextView("Trip Distance: ", "${tripData.distance} KM"),
                     ],
                   ),
                   const SizedBox(

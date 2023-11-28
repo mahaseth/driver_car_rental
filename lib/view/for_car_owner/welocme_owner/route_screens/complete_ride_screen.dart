@@ -163,7 +163,7 @@ class _CompleteRideScreenState extends State<CompleteRideScreen> {
                     Column(
                       children: [
                         const Text("Distance"),
-                        Text(tripModel.distance)
+                        Text("${tripModel.distance} KM")
                       ],
                     ),
                   ],

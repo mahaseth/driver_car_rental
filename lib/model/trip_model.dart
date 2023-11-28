@@ -5,7 +5,7 @@ class TripModel {
   String status;
   String source;
   String destination;
-  String distance;
+  double distance;
   String timing;
   int otpCount;
   int customer;
@@ -48,7 +48,7 @@ class TripModel {
       driverProfilePic: json['driver_profile_pic'] ?? "",
       source: sourceText,
       destination: destinationText,
-      distance: json['distance'] ?? "",
+      distance: json['distance'] ?? 0.0,
       timing: json['timing'] ?? "",
       otpCount: json['otp'] ?? 0,
       customer: json['customer'] ?? 0,

@@ -17,26 +17,35 @@ class DriverProfile {
   String? photoupload;
   bool? termspolicy;
   bool? myrideinsurance;
+  double? walletBalance;
+  bool? driverDuty;
+  double? totalTrip;
+  double? totalDistanceKm;
 
-  DriverProfile(
-      {this.id,
-      this.firstname,
-      this.lastname,
-      this.phone,
-      this.email,
-      this.fulladdress,
-      this.alternatenumber,
-      this.aadharnumber,
-      this.aadharuploadfront,
-      this.aadharuploadback,
-      this.pannumber,
-      this.panupload,
-      this.licensenumber,
-      this.licenseuploadfront,
-      this.licenseuploadback,
-      this.photoupload,
-      this.termspolicy,
-      this.myrideinsurance});
+  DriverProfile({
+    this.id,
+    this.firstname,
+    this.lastname,
+    this.phone,
+    this.email,
+    this.fulladdress,
+    this.alternatenumber,
+    this.aadharnumber,
+    this.aadharuploadfront,
+    this.aadharuploadback,
+    this.pannumber,
+    this.panupload,
+    this.licensenumber,
+    this.licenseuploadfront,
+    this.licenseuploadback,
+    this.photoupload,
+    this.termspolicy,
+    this.myrideinsurance,
+    this.walletBalance,
+    this.driverDuty,
+    this.totalTrip,
+    this.totalDistanceKm,
+  });
 
   DriverProfile.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -57,6 +66,10 @@ class DriverProfile {
     photoupload = json['photo_upload'];
     termspolicy = json['terms_policy'];
     myrideinsurance = json['myride_insurance'];
+    walletBalance = json['wallet_balance'] ?? 0.0;
+    driverDuty = json['driver_duty'] ?? false;
+    totalTrip = json['total_trip'] ?? 0.0;
+    totalDistanceKm = json['total_distance_km'] ?? 0.0;
   }
 
   Map<String, dynamic> toJson() {
@@ -79,6 +92,10 @@ class DriverProfile {
     data['photo_upload'] = photoupload;
     data['terms_policy'] = termspolicy;
     data['myride_insurance'] = myrideinsurance;
+    data['wallet_balance'] = walletBalance;
+    data['driver_duty'] = driverDuty;
+    data['total_trip'] = totalTrip;
+    data['total_distance_km'] = totalDistanceKm;
     return data;
   }
 }
