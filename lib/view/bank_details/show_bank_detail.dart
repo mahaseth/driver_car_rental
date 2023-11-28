@@ -92,10 +92,6 @@ class _BankAccountDetailScreenState extends State<BankAccountDetailScreen> {
                                                   context,
                                                   bankViewModel.bankModel?.id ??
                                                       1);
-                                              // context.showErrorSnackBar(
-                                              //     message:
-                                              //         "Bidyut working on it");
-
                                               Navigator.of(context).pop();
                                             },
                                             child: const Text('Delete'),

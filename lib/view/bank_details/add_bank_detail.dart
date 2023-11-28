@@ -42,19 +42,19 @@ class _AddBankAccountScreenState extends State<AddBankAccountScreen> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 customTextField(accountNumber, "Account Number"),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 customTextField(ifscCode, "IFSC Code"),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                customTextField(bankHolderName, "Bank Account holder\'s Name"),
-                SizedBox(
+                customTextField(bankHolderName, "Bank Account holder's Name"),
+                const SizedBox(
                   height: 25,
                 ),
                 isLoading
-                    ? Center(child: CircularProgressIndicator())
+                    ? const Center(child: CircularProgressIndicator())
                     : SizedBox(
                         width: AppSceenSize.getWidth(context) * 0.7,
                         height: 50,
@@ -95,9 +95,9 @@ class _AddBankAccountScreenState extends State<AddBankAccountScreen> {
                               borderRadius: BorderRadius.circular(20.0),
                             ),
                           ),
-                          child: const Text(
-                            "Add Bank Account",
-                            style: TextStyle(color: Colors.black),
+                          child: Text(
+                            widget.map != null ? "Save" : "Add Bank Account",
+                            style: const TextStyle(color: Colors.black),
                           ),
                         ),
                       ),
@@ -121,8 +121,8 @@ class _AddBankAccountScreenState extends State<AddBankAccountScreen> {
       decoration: InputDecoration(
         labelText: label,
         // hintText: hintText,
-        labelStyle: TextStyle(color: Colors.black),
-        hintStyle: TextStyle(color: Colors.black),
+        labelStyle: const TextStyle(color: Colors.black),
+        hintStyle: const TextStyle(color: Colors.black),
 
         enabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(

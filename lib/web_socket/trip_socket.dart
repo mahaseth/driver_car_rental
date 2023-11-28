@@ -63,7 +63,7 @@ class TripWebSocket {
                         screenIndex: 0,
                       )));
         }
-      } catch (e, stack) {
+      } catch (e) {
         debugPrint("There is a error in accpeting $e");
       }
     });
