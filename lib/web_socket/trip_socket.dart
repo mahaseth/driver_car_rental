@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:myride/view_model/driver_status_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../view/for_driver/map_section/map_screen.dart';
@@ -48,6 +50,11 @@ class TripWebSocket {
             return false;
           });
         } else {
+          DriverStatusProvider driverStatus =
+              Provider.of<DriverStatusProvider>(context, listen: false);
+          if (driverStatus.isRidingValue) {
+            return;
+          }
           Navigator.push(
               context,
               MaterialPageRoute(

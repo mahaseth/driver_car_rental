@@ -7,7 +7,9 @@ import 'package:myride/view_model/driverprofile_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 class AddBankAccountScreen extends StatefulWidget {
-  const AddBankAccountScreen({super.key});
+  final Map? map;
+
+  const AddBankAccountScreen({super.key, this.map});
 
   @override
   State<AddBankAccountScreen> createState() => _AddBankAccountScreenState();
@@ -18,6 +20,17 @@ class _AddBankAccountScreenState extends State<AddBankAccountScreen> {
   final TextEditingController ifscCode = TextEditingController();
   final TextEditingController bankHolderName = TextEditingController();
   bool isLoading = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if (widget.map != null) {
+      accountNumber.text = widget.map?["account"];
+      ifscCode.text = widget.map?["ifsc"];
+      bankHolderName.text = widget.map?["name"];
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +80,12 @@ class _AddBankAccountScreenState extends State<AddBankAccountScreen> {
                             BankViewModel bankViewModel =
                                 Provider.of<BankViewModel>(context,
                                     listen: false);
-                            await bankViewModel.saveBankDetail(context, map);
+                            if (widget.map != null) {
+                              await bankViewModel.editBankDetail(
+                                  context, map, widget.map?["id"]);
+                            } else {
+                              await bankViewModel.saveBankDetail(context, map);
+                            }
                             await bankViewModel.getBankDetail(context);
                             toggleLoading();
                             Navigator.of(context).pop();

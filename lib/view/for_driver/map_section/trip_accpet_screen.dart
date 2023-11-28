@@ -5,6 +5,7 @@ import 'package:myride/model/location_model.dart';
 import 'package:myride/model/vehicleinfo.dart';
 import 'package:myride/utils/distance_utils.dart';
 import 'package:myride/utils/utils.dart';
+import 'package:myride/view_model/driver_status_provider.dart';
 import 'package:myride/view_model/driverprofile_viewmodel.dart';
 import 'package:myride/view_model/trip_viewModel.dart';
 import 'package:myride/view_model/vehicleinfo_viewmodel.dart';
@@ -81,14 +82,14 @@ class _TripAcceptScreenState extends State<TripAcceptScreen> {
                   borderRadius: BorderRadius.circular(30)),
               child: Center(
                   child: Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: Text(
-                                    widget.map["status"] == "SCHEDULED"
+                padding: const EdgeInsets.all(5.0),
+                child: Text(
+                  widget.map["status"] == "SCHEDULED"
                       ? "This is Schedule Ride \n ${widget.map['timing']}"
                       : "This is Current Ride",
-                                    style: const TextStyle(fontSize: 14, color: Colors.white),
-                                  ),
-                  )),
+                  style: const TextStyle(fontSize: 14, color: Colors.white),
+                ),
+              )),
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -293,9 +294,12 @@ class _TripAcceptScreenState extends State<TripAcceptScreen> {
 
     DriveProfileViewModel provider =
         Provider.of<DriveProfileViewModel>(context, listen: false);
+    DriverStatusProvider driverStatus =
+        Provider.of<DriverStatusProvider>(context, listen: false);
     VehicleInfoViewModel providerVehicle =
         Provider.of<VehicleInfoViewModel>(context, listen: false);
 
+    driverStatus.startRidingStatus(context);
     List<VehicleInfoo> vehicleList = providerVehicle.vehicleList;
     if (provider.currDriverProfile == null || vehicleList.isEmpty) return;
 

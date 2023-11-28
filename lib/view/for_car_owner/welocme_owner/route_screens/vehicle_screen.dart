@@ -11,6 +11,7 @@ import 'package:myride/view/for_car_owner/welocme_owner/view_document_screen.dar
 import 'package:myride/view/for_driver/driver-details/driver-details.dart';
 import 'package:myride/view/for_driver/vehicle_info/vehicle_info.dart';
 import 'package:myride/view_model/driverprofile_viewmodel.dart';
+import 'package:myride/view_model/trip_viewModel.dart';
 import 'package:myride/view_model/vehicleinfo_viewmodel.dart';
 import 'package:myride/web_socket/trip_socket.dart';
 import 'package:provider/provider.dart';
@@ -26,10 +27,25 @@ class _VehicleScreenState extends State<VehicleScreen> {
   List<VehicleInfoo> vehicleList = [];
 
   VehicleInfoViewModel? _providerVehicle;
+  int size = 0;
+
+  void fetchData() {
+    TripViewModel tripViewModel =
+        Provider.of<TripViewModel>(context, listen: false);
+    tripViewModel.getTrips(context);
+  }
+
+  void tripReadData() async {
+    TripViewModel provider = Provider.of<TripViewModel>(context, listen: true);
+    setState(() {
+      size = provider.completedTripList.length;
+    });
+  }
 
   @override
   void initState() {
     super.initState();
+    fetchData();
     readData();
   }
 
@@ -60,6 +76,7 @@ class _VehicleScreenState extends State<VehicleScreen> {
 
   @override
   Widget build(BuildContext context) {
+    tripReadData();
     return vehicleListView();
   }
 
@@ -103,15 +120,6 @@ class _VehicleScreenState extends State<VehicleScreen> {
             padding: const EdgeInsets.symmetric(vertical: 20),
             child: Column(
               children: [
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Monday 23rd 04:25 PM...",
-                    ),
-                    Text('Detail')
-                  ],
-                ),
                 const SizedBox(
                   height: 10,
                 ),
@@ -123,9 +131,10 @@ class _VehicleScreenState extends State<VehicleScreen> {
                           horizontal: 5, vertical: 20),
                       margin: const EdgeInsets.symmetric(horizontal: 5),
                       color: Colors.white,
-                      child: const Column(
+                      child: Column(
                         children: [
-                          Text("100", style: AppTextStyle.upperitemtmeemtext),
+                          Text(size.toString(),
+                              style: AppTextStyle.upperitemtmeemtext),
                           SizedBox(
                             height: 5,
                           ),

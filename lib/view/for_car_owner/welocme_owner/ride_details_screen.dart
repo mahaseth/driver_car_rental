@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:myride/constant/app_color.dart';
 import 'package:myride/constant/app_screen_size.dart';
 import 'package:myride/constant/app_text_style.dart';
@@ -25,6 +26,9 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    DateTime now = DateTime.parse(tripData.timing);
+    String formattedDate = DateFormat('dd-MM-yyyy , h:mm a').format(now);
+
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -157,6 +161,14 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
                   const SizedBox(
                     height: 25,
                   ),
+                  rowTextView("Schedule Time: ", formattedDate, fontSize: 15),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  rowTextView("Price: ", "₹ 159", fontSize: 15),
+                  const SizedBox(
+                    height: 25,
+                  ),
                   GestureDetector(
                     onTap: () async {
                       CustomerProfile provider =
@@ -215,16 +227,16 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
     );
   }
 
-  rowTextView(String title, String value) {
+  rowTextView(String title, String value, {double fontSize = 12}) {
     return Row(
       children: [
         Text(
           title,
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: fontSize),
         ),
         Text(
           value,
-          style: const TextStyle(fontSize: 12),
+          style: TextStyle(fontSize: fontSize),
         ),
       ],
     );

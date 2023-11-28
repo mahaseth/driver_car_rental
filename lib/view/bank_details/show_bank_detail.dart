@@ -3,8 +3,8 @@ import 'package:myride/constant/app_color.dart';
 import 'package:myride/constant/app_screen_size.dart';
 import 'package:myride/model/bank_model.dart';
 import 'package:myride/utils/utils.dart';
+import 'package:myride/view/bank_details/add_bank_detail.dart';
 import 'package:myride/view_model/bank_view_model.dart';
-import 'package:myride/view_model/driverprofile_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 class BankAccountDetailScreen extends StatefulWidget {
@@ -22,8 +22,6 @@ class _BankAccountDetailScreenState extends State<BankAccountDetailScreen> {
   final TextEditingController ifscCode = TextEditingController();
   final TextEditingController bankHolderName = TextEditingController();
   bool isLoading = false;
-  bool isReadable = true;
-  String editText = "Edit";
 
   BankAccountModel? get bankData => widget.model;
 
@@ -43,8 +41,61 @@ class _BankAccountDetailScreenState extends State<BankAccountDetailScreen> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
+                isLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                updateValues();
+                              },
+                              icon: Icon(Icons.edit)),
+                          IconButton(
+                              onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (inContext) {
+                                      return AlertDialog(
+                                        title:
+                                            const Text('Delete Bank Details'),
+                                        content: const Text(
+                                            'Are you sure you want to delete your bank details'),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: const Text('Cancel'),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              // BankViewModel bankViewModel =
+                                              //     Provider.of<BankViewModel>(context,
+                                              //         listen: false);
+                                              // bankViewModel.deleteBankDetail(
+                                              //     context, bankViewModel.bankModel?.id ?? 1);
+                                              context.showErrorSnackBar(
+                                                  message:
+                                                      "Bidyut working on it");
+
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: const Text('Delete'),
+                                          ),
+                                        ],
+                                      );
+                                    });
+                              },
+                              icon: Icon(Icons.delete)),
+                        ],
+                      ),
+                const SizedBox(
+                  height: 25,
+                ),
                 customTextField(accountNumber, "Account Number"),
                 const SizedBox(
                   height: 10,
@@ -54,39 +105,6 @@ class _BankAccountDetailScreenState extends State<BankAccountDetailScreen> {
                   height: 10,
                 ),
                 customTextField(bankHolderName, "Bank Account holder\'s Name"),
-                const SizedBox(
-                  height: 25,
-                ),
-                isLoading
-                    ? const Center(child: CircularProgressIndicator())
-                    : Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          buttonWidget(editText, () {
-                            setState(() {
-                              isReadable = !isReadable;
-                              editText = isReadable ? "Edit" : "Save";
-                            });
-                            if (isReadable) {
-                              // updateValues();
-                              context.showErrorSnackBar(
-                                  message: "Bidyut working on it");
-                            }
-                          }),
-                          buttonWidget(
-                            "Delete",
-                            () async {
-                              // BankViewModel bankViewModel =
-                              //     Provider.of<BankViewModel>(context,
-                              //         listen: false);
-                              // bankViewModel.deleteBankDetail(
-                              //     context, bankViewModel.bankModel?.id ?? 1);
-                              context.showErrorSnackBar(
-                                  message: "Bidyut working on it");
-                            },
-                          )
-                        ],
-                      )
               ],
             ),
           ),
@@ -96,23 +114,22 @@ class _BankAccountDetailScreenState extends State<BankAccountDetailScreen> {
   }
 
   updateValues() async {
-    toggleLoading();
+    BankViewModel bankViewModel =
+        Provider.of<BankViewModel>(context, listen: false);
 
-    DriveProfileViewModel provider =
-        Provider.of<DriveProfileViewModel>(context, listen: false);
     Map map = {
       'account': accountNumber.text,
       'ifsc': ifscCode.text,
       'name': bankHolderName.text,
-      'driver': provider.currDriverProfile?.id ?? 96,
+      "id": bankViewModel.bankModel?.id ?? 1
     };
-    BankViewModel bankViewModel =
-        Provider.of<BankViewModel>(context, listen: false);
-    await bankViewModel.editBankDetail(
-        context, map, bankViewModel.bankModel?.id ?? 1);
-    await bankViewModel.getBankDetail(context);
-    toggleLoading();
-    Navigator.of(context).pop();
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => AddBankAccountScreen(
+            map: map,
+          ),
+        ));
   }
 
   buttonWidget(label, onSubmit) {
@@ -143,7 +160,7 @@ class _BankAccountDetailScreenState extends State<BankAccountDetailScreen> {
 
   customTextField(controller, label) {
     return TextFormField(
-      readOnly: isReadable,
+      readOnly: true,
       style: const TextStyle(color: Color(0xff151414)),
       decoration: InputDecoration(
         labelText: label,
