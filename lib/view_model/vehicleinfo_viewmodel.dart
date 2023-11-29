@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, prefer_interpolation_to_compose_strings, file_names, prefer_const_constructors
+// ignore_for_file: use_build_context_synchronously, prefer_interpolation_to_compose_strings, file_names, prefer_const_construcabTypeListors
 
 import 'dart:developer';
 
@@ -12,16 +12,16 @@ class VehicleInfoViewModel extends ChangeNotifier {
 
   bool loading = false;
 
-  List<CabType> ct = [];
-  List<VehicleMaker> vma = [];
-  List<VehicleModel> vmo = [];
-  List<CabClass> cc = [];
+  List<CabType> cabTypeList = [];
+  List<VehicleMaker> vehicleMakerList = [];
+  List<VehicleModel> vehicleModelList = [];
+  List<CabClass> cabClassList = [];
   List<VehicleInfoo> vehicleList = [];
 
-  CabType? currct;
-  VehicleMaker? currvma;
-  VehicleModel? currvmo;
-  CabClass? currcc;
+  CabType? vehicleType;
+  VehicleMaker? vehicleMaker;
+  VehicleModel? currVehicleModel;
+  CabClass? currCabClass;
   VehicleInfoo? currentVehicle;
 
   late VehicleInfoo vi;
@@ -31,7 +31,7 @@ class VehicleInfoViewModel extends ChangeNotifier {
     try {
       final response = await _vehicleInfoRepo.cabType(context);
       log("RESPONSE $response");
-      ct = List<CabType>.from(
+      cabTypeList = List<CabType>.from(
         response.map(
           (m) => CabType.fromJson(m),
         ),
@@ -43,12 +43,12 @@ class VehicleInfoViewModel extends ChangeNotifier {
     }
   }
 
-  vehicleMaker(BuildContext context, int id) async {
+  vehicleMakerCall(BuildContext context, int id) async {
     loading = true;
     try {
       final response = await _vehicleInfoRepo.vehicleMaker(context, id);
       log("RESPONSE $response");
-      vma = List<VehicleMaker>.from(
+      vehicleMakerList = List<VehicleMaker>.from(
         response.map(
           (m) => VehicleMaker.fromJson(m),
         ),
@@ -65,7 +65,7 @@ class VehicleInfoViewModel extends ChangeNotifier {
     try {
       final response = await _vehicleInfoRepo.cabClass(context, id);
       log("RESPONSE $response");
-      cc = List<CabClass>.from(
+      cabClassList = List<CabClass>.from(
         response.map(
           (m) => CabClass.fromJson(m),
         ),
@@ -82,7 +82,7 @@ class VehicleInfoViewModel extends ChangeNotifier {
     try {
       final response = await _vehicleInfoRepo.vehicleModel(context, id);
       log("RESPONSE VehicleModel :- $response");
-      vmo = List<VehicleModel>.from(
+      vehicleModelList = List<VehicleModel>.from(
         response.map(
           (m) => VehicleModel.fromJson(m),
         ),

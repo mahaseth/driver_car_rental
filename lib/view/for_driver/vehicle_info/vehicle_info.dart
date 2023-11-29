@@ -227,30 +227,31 @@ class _VehicleInfoState extends State<VehicleInfo> {
                 ),
               ),
             ),
-            ListTile(
-              title: const Text("Vehicle Type"),
-              trailing: _provider!.currct == null
-                  ? const Text("Select")
-                  : Text(_provider!.currct!.cabtype!),
-              onTap: () async {
-                await _provider!.cabType(context);
-                cabtypeBottomSheet();
-              },
-            ),
-            customDivider(),
             Column(
               children: [
                 ListTile(
-                  title: const Text("Vehicle Maker"),
-                  trailing: _provider!.currvma == null
+                  title: const Text("Vehicle Type"),
+                  trailing: _provider!.vehicleType == null
                       ? const Text("Select")
-                      : Text(_provider!.currvma!.maker!),
+                      : Text(_provider!.vehicleType!.cabtype!),
+                  onTap: () async {
+                    await _provider!.cabType(context);
+                    cabtypeBottomSheet();
+                  },
+                ),
+                customDivider(),
+                ListTile(
+                  title: const Text("Vehicle Maker"),
+                  trailing: _provider!.vehicleMaker == null
+                      ? const Text("Select")
+                      : Text(_provider!.vehicleMaker!.maker!),
                   onTap: () async {
                     if (vehicleType == null) {
                       showSnackbar("Please select Vehicle Type First");
                       return;
                     }
-                    await _provider!.vehicleMaker(context, vehicleType! + 1);
+                    await _provider!.vehicleMakerCall(
+                        context, _provider!.vehicleType!.id ?? 1);
                     vehiclemakeBottomSheet();
                   },
                 ),
@@ -260,16 +261,16 @@ class _VehicleInfoState extends State<VehicleInfo> {
                     customDivider(),
                     ListTile(
                       title: const Text("Vehicle Model"),
-                      trailing: _provider!.currvmo == null
+                      trailing: _provider!.currVehicleModel == null
                           ? const Text("Select")
-                          : Text(_provider!.currvmo!.model!),
+                          : Text(_provider!.currVehicleModel!.model!),
                       onTap: () async {
                         if (vehicleMaker == null) {
                           showSnackbar("Please select Vehicle Maker First");
                           return;
                         }
-                        await _provider!
-                            .vehicleModel(context, vehicleMaker! + 1);
+                        await _provider!.vehicleModel(
+                            context, _provider!.vehicleMaker?.id ?? 1);
                         vehiclemodelBottomSheet();
                       },
                     ),
@@ -318,9 +319,9 @@ class _VehicleInfoState extends State<VehicleInfo> {
   }
 
   check() {
-    if (_provider!.currvma != null &&
-        _provider!.currct != null &&
-        _provider!.currvmo != null &&
+    if (_provider!.vehicleMaker != null &&
+        _provider!.vehicleType != null &&
+        _provider!.currVehicleModel != null &&
         _controller.text.isNotEmpty &&
         frontCarPhotoUrl != null &&
         backPhotoUrl != null &&
@@ -353,9 +354,9 @@ class _VehicleInfoState extends State<VehicleInfo> {
       insidePassangerSeat: passengerSeatUrl,
       lastlocation: "",
       driver: 41,
-      maker: _provider!.currvma!.id,
-      model: _provider!.currvmo!.id,
-      cabtype: _provider!.currct!.id,
+      maker: _provider!.vehicleMaker!.id,
+      model: _provider!.currVehicleModel!.id,
+      cabtype: _provider!.vehicleType!.id,
     );
     Navigator.push(
       context,
@@ -489,18 +490,20 @@ class _VehicleInfoState extends State<VehicleInfo> {
                   ),
                   Expanded(
                     child: ListView.builder(
-                      itemCount: _provider!.vma.length,
+                      itemCount: _provider!.vehicleMakerList.length,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         return RadioListTile(
                           activeColor: Appcolors.appgreen,
-                          title: Text(_provider!.vma[index].maker!),
+                          title:
+                              Text(_provider!.vehicleMakerList[index].maker!),
                           value: index,
                           groupValue: vehicleMaker,
                           onChanged: (curr) {
                             setState(() {
                               vehicleMaker = curr;
-                              _provider!.currvma = _provider!.vma[index];
+                              _provider!.vehicleMaker =
+                                  _provider!.vehicleMakerList[index];
                             });
 
                             _provider!.vehicleModel(context, index + 1);
@@ -601,7 +604,7 @@ class _VehicleInfoState extends State<VehicleInfo> {
                   //             val2 = curr;
                   //           });
                   //           setState(() {
-                  //             _provider!.currct = _provider!.ct[index];
+                  //             _provider!.vehicleType = _provider!.ct[index];
                   //           });
                   //
                   //           // _provider!.cabClass(context, index + 1);
@@ -627,7 +630,8 @@ class _VehicleInfoState extends State<VehicleInfo> {
           vehicleType = index;
         });
         setState(() {
-          _provider!.currct = _provider!.ct[index];
+          _provider!.vehicleType = _provider!.cabTypeList[index];
+          _provider!.vehicleMaker = null;
         });
         Navigator.pop(context);
       },
@@ -696,11 +700,12 @@ class _VehicleInfoState extends State<VehicleInfo> {
                   ),
                   Expanded(
                     child: ListView.builder(
-                      itemCount: _provider!.vmo.length,
+                      itemCount: _provider!.vehicleModelList.length,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         return RadioListTile(
-                          title: Text(_provider!.vmo[index].model!),
+                          title:
+                              Text(_provider!.vehicleModelList[index].model!),
                           value: index,
                           groupValue: vehicleModel,
                           activeColor: Appcolors.appgreen,
@@ -709,7 +714,8 @@ class _VehicleInfoState extends State<VehicleInfo> {
                               vehicleModel = curr;
                             });
                             setState(() {
-                              _provider!.currvmo = _provider!.vmo[index];
+                              _provider!.currVehicleModel =
+                                  _provider!.vehicleModelList[index];
                             });
                           },
                         );
