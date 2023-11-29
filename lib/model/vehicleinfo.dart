@@ -155,6 +155,7 @@ class VehicleInfoo {
     addtionaldocument = json["addtional_document"];
     makerText = json['maker']?['maker'] ?? "";
     modelText = json['model']?['model'] ?? "";
+    cabclass = json['model']?['cab_class'] ?? 1;
     cabTypeText = json['cab_type']?['cab_type'] ?? "";
     cabtype = json['cab_type']?['id'] ?? 0;
     cabClassText = json['cab_class']?['cab_class'] ?? "";

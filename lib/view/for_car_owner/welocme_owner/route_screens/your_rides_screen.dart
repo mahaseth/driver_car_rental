@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myride/constant/app_text_style.dart';
 import 'package:myride/model/trip_model.dart';
 import 'package:myride/view/for_car_owner/welocme_owner/ride_details_screen.dart';
+import 'package:myride/view_model/driverprofile_viewmodel.dart';
 import 'package:myride/view_model/trip_viewModel.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +17,7 @@ class YourRideScreen extends StatefulWidget {
 
 class _YourRideScreenState extends State<YourRideScreen> {
   int ridesIndex = 1;
-
+  double totalDistance = 0;
   List<TripModel> tripList = [];
 
   @override
@@ -33,10 +34,12 @@ class _YourRideScreenState extends State<YourRideScreen> {
 
   void readData() async {
     TripViewModel provider = Provider.of<TripViewModel>(context, listen: true);
-
+    DriveProfileViewModel driverProvider =
+        Provider.of<DriveProfileViewModel>(context, listen: true);
     List<TripModel> list =
         ridesIndex == 1 ? provider.activeTripList : provider.scheduledTripList;
     setState(() {
+      totalDistance = driverProvider.currDriverProfile?.totalDistanceKm ?? 0.0;
       tripList = list;
     });
   }
@@ -124,9 +127,9 @@ class _YourRideScreenState extends State<YourRideScreen> {
                           horizontal: 5, vertical: 20),
                       margin: const EdgeInsets.symmetric(horizontal: 5),
                       color: Colors.white,
-                      child: const Column(
+                      child: Column(
                         children: [
-                          Text("1145.5",
+                          Text(totalDistance.toString(),
                               style: AppTextStyle.upperitemtmeemtext),
                           SizedBox(
                             height: 5,
@@ -285,7 +288,8 @@ class _YourRideScreenState extends State<YourRideScreen> {
                           style: const TextStyle(color: Colors.black),
                           children: [
                         TextSpan(
-                            text: "Distance to reach : ${tripModel.distance} KM",
+                            text:
+                                "Distance to reach : ${tripModel.distance} KM",
                             style: AppTextStyle.disitmeemtext),
                         TextSpan(
                             text: "Ride .No :#${tripModel.id}",

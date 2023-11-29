@@ -27,7 +27,8 @@ class _VehicleScreenState extends State<VehicleScreen> {
   List<VehicleInfoo> vehicleList = [];
 
   VehicleInfoViewModel? _providerVehicle;
-  int size = 0;
+  double size = 0;
+  double totalDistance = 0;
 
   void fetchData() {
     TripViewModel tripViewModel =
@@ -36,9 +37,11 @@ class _VehicleScreenState extends State<VehicleScreen> {
   }
 
   void tripReadData() async {
-    TripViewModel provider = Provider.of<TripViewModel>(context, listen: true);
+    DriveProfileViewModel provider =
+        Provider.of<DriveProfileViewModel>(context, listen: true);
     setState(() {
-      size = provider.completedTripList.length;
+      size = provider.currDriverProfile?.totalTrip ?? 0.0;
+      totalDistance = provider.currDriverProfile?.totalDistanceKm ?? 0.0;
     });
   }
 
@@ -63,11 +66,8 @@ class _VehicleScreenState extends State<VehicleScreen> {
     debugPrint("${vehicleList.length}");
 
     if (vehicleList.isNotEmpty) {
-      TripWebSocket().webSocketInit(vehicleList[0].cabtype!,
+      TripWebSocket().webSocketInit(vehicleList[0].cabclass!,
           NavigationService.navigatorKey.currentContext ?? context);
-      // TripWebSocket().webSocketInit(2);
-      debugPrint(
-          "Cab-Class ${vehicleList[0].cabclass} ${vehicleList[0].cabClassText} Cab-Type ${vehicleList[0].cabtype} ${vehicleList[0].cabTypeText}");
     }
     setState(() {
       _providerVehicle!.loading;
@@ -151,9 +151,9 @@ class _VehicleScreenState extends State<VehicleScreen> {
                           horizontal: 5, vertical: 20),
                       margin: const EdgeInsets.symmetric(horizontal: 5),
                       color: Colors.white,
-                      child: const Column(
+                      child: Column(
                         children: [
-                          Text("1145.5",
+                          Text(totalDistance.toString(),
                               style: AppTextStyle.upperitemtmeemtext),
                           SizedBox(
                             height: 5,

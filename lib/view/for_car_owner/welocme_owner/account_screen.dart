@@ -9,9 +9,11 @@ import 'package:myride/utils/rating_stars.dart';
 import 'package:myride/view/for_car_owner/welocme_owner/view_document_screen.dart';
 import 'package:myride/view/for_driver/profile/message_screen.dart';
 import 'package:myride/view/for_driver/profile/write_message.dart';
+import 'package:myride/view/for_driver/splash/splash.dart';
 import 'package:myride/view_model/driverprofile_viewmodel.dart';
 import 'package:myride/view_model/signIn_viewModel.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AccountScreen extends StatefulWidget {
   final Function onItemTapped;
@@ -25,6 +27,8 @@ class AccountScreen extends StatefulWidget {
 class _AccountScreenState extends State<AccountScreen> {
   DriverProfile? driverProfile;
 
+  double size = 0;
+  double totalDistance = 0;
   DriveProfileViewModel? _provider;
   String name = "", location = "", id = "", url = "";
   bool isLoading = false;
@@ -65,6 +69,50 @@ class _AccountScreenState extends State<AccountScreen> {
     readData();
   }
 
+  void showLogout() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Column(
+            children: const [
+              Text('Do you want to log out'),
+            ],
+          ),
+          // content: Text(
+          //     'Your booking has been confirmed\n Driver will pickup you in 2 minutes.'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () async {
+                SharedPreferences sharedPreferences =
+                    await SharedPreferences.getInstance();
+                if (sharedPreferences.containsKey('token')) {
+                  SignInViewModel.token = "";
+                  sharedPreferences.remove('token');
+                  Navigator.of(context).popUntil((route) => false);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SplashScreen(),
+                    ),
+                  );
+                }
+              },
+              child: const Text('YES'),
+            ),
+            TextButton(
+              onPressed: () {
+                // Perform an action here
+                Navigator.of(context).pop();
+              },
+              child: Text('NO'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   void readData() async {
     _provider = Provider.of<DriveProfileViewModel>(context, listen: false);
     setState(() {
@@ -80,6 +128,8 @@ class _AccountScreenState extends State<AccountScreen> {
       location = driverProfile!.fulladdress ?? "";
       id = (driverProfile!.id ?? 0).toString();
       url = driverProfile!.photoupload ?? "";
+      size = driverProfile!.totalTrip ?? 0.0;
+      totalDistance = driverProfile!.totalDistanceKm ?? 0.0;
     });
   }
 
@@ -212,9 +262,10 @@ class _AccountScreenState extends State<AccountScreen> {
                       const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
                   margin: const EdgeInsets.symmetric(horizontal: 5),
                   color: Colors.white,
-                  child: const Column(
+                  child: Column(
                     children: [
-                      Text("100", style: AppTextStyle.upperitemtmeemtext),
+                      Text(size.toString(),
+                          style: AppTextStyle.upperitemtmeemtext),
                       SizedBox(
                         height: 5,
                       ),
@@ -231,9 +282,10 @@ class _AccountScreenState extends State<AccountScreen> {
                       const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
                   margin: const EdgeInsets.symmetric(horizontal: 5),
                   color: Colors.white,
-                  child: const Column(
+                  child: Column(
                     children: [
-                      Text("1145.5", style: AppTextStyle.upperitemtmeemtext),
+                      Text(totalDistance.toString(),
+                          style: AppTextStyle.upperitemtmeemtext),
                       SizedBox(
                         height: 5,
                       ),
@@ -303,7 +355,16 @@ class _AccountScreenState extends State<AccountScreen> {
                             ),
                           ),
                         );
-                      })
+                      }),
+                  Card(
+                    child: ListTile(
+                      leading: Icon(Icons.logout),
+                      title: const Text(
+                        "Logout",
+                      ),
+                      onTap: () => showLogout(),
+                    ),
+                  ),
                 ],
               ),
             )
