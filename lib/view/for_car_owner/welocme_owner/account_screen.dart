@@ -66,7 +66,12 @@ class _AccountScreenState extends State<AccountScreen> {
   @override
   void initState() {
     super.initState();
-    readData();
+    fetchData();
+  }
+
+  void fetchData() async {
+    _provider = Provider.of<DriveProfileViewModel>(context, listen: false);
+    await _provider!.getProfile(context);
   }
 
   void showLogout() {
@@ -114,11 +119,10 @@ class _AccountScreenState extends State<AccountScreen> {
   }
 
   void readData() async {
-    _provider = Provider.of<DriveProfileViewModel>(context, listen: false);
+    _provider = Provider.of<DriveProfileViewModel>(context, listen: true);
     setState(() {
       _provider!.loading;
     });
-    await _provider!.getProfile(context);
     setState(() {
       driverProfile = _provider!.currDriverProfile;
     });
@@ -248,6 +252,7 @@ class _AccountScreenState extends State<AccountScreen> {
 
   @override
   Widget build(BuildContext context) {
+    readData();
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(

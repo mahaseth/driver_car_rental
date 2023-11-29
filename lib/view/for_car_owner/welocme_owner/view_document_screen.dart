@@ -8,8 +8,8 @@ import 'package:myride/constant/app_color.dart';
 import 'package:myride/constant/app_text_style.dart';
 import 'package:myride/model/driverprofile.dart';
 import 'package:myride/model/vehicleinfo.dart';
-import 'package:myride/repository/driverprofile_repo.dart';
-import 'package:myride/view_model/vehicleinfo_viewmodel.dart';
+import 'package:myride/utils/utils.dart';
+import 'package:myride/view_model/driverprofile_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 class ImageNameKey {
@@ -119,11 +119,16 @@ class _ViewDocumentScreenState extends State<ViewDocumentScreen> {
 
         Map<String, dynamic> map = {list[index].key: list[index].link};
         if (profile != null) {
-          DriverProfileRepo().updateProfile(context, map);
+          DriveProfileViewModel provider =
+              Provider.of<DriveProfileViewModel>(context, listen: false);
+          provider.updateProfile(context, map);
         } else {
-          VehicleInfoViewModel provider =
-              Provider.of<VehicleInfoViewModel>(context, listen: false);
-          provider.updateVehicle(context, map);
+          // VehicleInfoViewModel provider =
+          //     Provider.of<VehicleInfoViewModel>(context, listen: false);
+          //
+          // provider.updateVehicle(context, map);
+          context.showErrorSnackBar(
+              message: "This API is yet provided for vehicle only");
         }
         toggleLoading();
       } else {
@@ -263,11 +268,16 @@ class _ViewDocumentScreenState extends State<ViewDocumentScreen> {
         // handleFileUpload("ic");
         Map<String, dynamic> map = {list[index].key: ""};
         if (profile != null) {
-          DriverProfileRepo().updateProfile(context, map);
+          DriveProfileViewModel provider =
+              Provider.of<DriveProfileViewModel>(context, listen: false);
+          provider.updateProfile(context, map);
         } else {
-          VehicleInfoViewModel provider =
-              Provider.of<VehicleInfoViewModel>(context, listen: false);
-          provider.updateVehicle(context, map);
+          // VehicleInfoViewModel provider =
+          //     Provider.of<VehicleInfoViewModel>(context, listen: false);
+          // provider.updateVehicle(context, map);
+
+          context.showErrorSnackBar(
+              message: "This API is yet provided for vehicle only");
         }
         setState(() {
           list[index].link = "";

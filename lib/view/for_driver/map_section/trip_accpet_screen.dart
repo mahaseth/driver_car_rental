@@ -304,13 +304,13 @@ class _TripAcceptScreenState extends State<TripAcceptScreen> {
     if (provider.currDriverProfile == null || vehicleList.isEmpty) return;
 
     TripWebSocket().addMessage(provider.currDriverProfile?.id ?? 96,
-        vehicleList[0].id ?? 2, widget.map["status"]);
+        providerVehicle.currentVehicle?.id ?? 2, widget.map["status"]);
 
     Map tripData = {
       "driver": provider.currDriverProfile?.id ?? 96,
       "driver_profile_pic": provider.currDriverProfile?.photoupload ?? "",
       "status": widget.map["status"],
-      "cab": vehicleList[0].id ?? 2,
+      "cab": providerVehicle.currentVehicle?.id ?? 2,
     };
 
     TripViewModel viewModel =

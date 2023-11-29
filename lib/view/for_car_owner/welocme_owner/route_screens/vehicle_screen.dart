@@ -30,10 +30,14 @@ class _VehicleScreenState extends State<VehicleScreen> {
   double size = 0;
   double totalDistance = 0;
 
-  void fetchData() {
+  void fetchData() async {
     TripViewModel tripViewModel =
         Provider.of<TripViewModel>(context, listen: false);
     tripViewModel.getTrips(context);
+
+    _providerVehicle =
+        Provider.of<VehicleInfoViewModel>(context, listen: false);
+    _providerVehicle!.vehicleListUser(context);
   }
 
   void tripReadData() async {
@@ -49,34 +53,26 @@ class _VehicleScreenState extends State<VehicleScreen> {
   void initState() {
     super.initState();
     fetchData();
-    readData();
   }
 
   void readData() async {
-    _providerVehicle =
-        Provider.of<VehicleInfoViewModel>(context, listen: false);
-    setState(() {
-      _providerVehicle!.loading;
-    });
+    _providerVehicle = Provider.of<VehicleInfoViewModel>(context, listen: true);
 
-    await _providerVehicle!.vehicleListUser(context);
     setState(() {
       vehicleList = _providerVehicle!.vehicleList;
     });
     debugPrint("${vehicleList.length}");
 
     if (vehicleList.isNotEmpty) {
-      TripWebSocket().webSocketInit(vehicleList[0].cabclass!,
+      TripWebSocket().webSocketInit(_providerVehicle!.currentVehicle!.cabclass!,
           NavigationService.navigatorKey.currentContext ?? context);
     }
-    setState(() {
-      _providerVehicle!.loading;
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     tripReadData();
+    readData();
     return vehicleListView();
   }
 
