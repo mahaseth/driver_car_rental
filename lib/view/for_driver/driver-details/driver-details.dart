@@ -92,8 +92,7 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
     FormData formdata =
         FormData.fromMap({"file": await MultipartFile.fromFile(f.path)});
     dio.options.headers['Content-Type'] = 'application/json';
-    dio.options.headers["Authorization"] =
-        "Token 51fbe6e9f6755a819d29c48f644f1160b49de2ee";
+    dio.options.headers["Authorization"] = "Token ${SignInViewModel.token}";
     response = await dio.post(
       "http://3.109.183.75/account/upload/",
       data: formdata,
