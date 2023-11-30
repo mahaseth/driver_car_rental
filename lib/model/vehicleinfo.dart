@@ -109,6 +109,8 @@ class VehicleInfoo {
   String? frontHeadLight;
   String? backHeadLight;
   String? insidePassangerSeat;
+  int? price;
+  String? iconImage;
 
   VehicleInfoo({
     this.id,
@@ -134,6 +136,7 @@ class VehicleInfoo {
     this.addtionaldocument,
     this.pollution,
     this.sound,
+    this.price,
   });
 
   VehicleInfoo.fromJson(Map<String, dynamic> json) {
@@ -160,8 +163,10 @@ class VehicleInfoo {
     cabTypeText = json['cab_type']?['cab_type'] ?? "";
     cabtype = json['cab_type']?['id'] ?? 0;
     cabClassText = json['cab_class']?['cab_class'] ?? "Not present";
+    iconImage = json['cab_class']?['icon'] ?? "";
     pollution = json["pollution"];
     sound = json["sound"];
+    price = json["cab_class"]?['price']?['price'].round() ?? 0;
   }
 
   Map<String, dynamic> toJson() {

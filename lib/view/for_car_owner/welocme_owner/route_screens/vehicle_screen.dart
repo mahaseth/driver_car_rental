@@ -274,7 +274,7 @@ class _VehicleScreenState extends State<VehicleScreen> {
             children: [
               Row(
                 children: [
-                  showImage(vehicleModel?.front ?? ""),
+                  showImage(vehicleModel?.iconImage ?? ""),
                   const SizedBox(
                     width: 10,
                   ),
@@ -298,7 +298,7 @@ class _VehicleScreenState extends State<VehicleScreen> {
                           const SizedBox(
                             width: 70,
                           ),
-                          const Text("₹160/hr"),
+                          Text("₹${vehicleModel?.price ?? 0}/Km"),
                         ],
                       ),
                       const SizedBox(

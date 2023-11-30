@@ -19,7 +19,7 @@ Widget showImage(String url) {
             url,
             width: 75, // Adjust the width and height as needed
             height: 75,
-            fit: BoxFit.cover, // You can adjust the fit as needed
+            fit: BoxFit.contain, // You can adjust the fit as needed
           ),
         );
 }
