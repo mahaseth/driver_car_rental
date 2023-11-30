@@ -5,8 +5,7 @@ import 'package:myride/constant/app_text_style.dart';
 import 'package:myride/model/driverprofile.dart';
 import 'package:myride/model/vehicleinfo.dart';
 import 'package:myride/utils/NavigationService.dart';
-import 'package:myride/view/for_car_owner/additional/additional.dart';
-import 'package:myride/view/for_car_owner/support/support.dart';
+import 'package:myride/utils/image_view.dart';
 import 'package:myride/view/for_car_owner/welocme_owner/view_document_screen.dart';
 import 'package:myride/view/for_driver/driver-details/driver-details.dart';
 import 'package:myride/view/for_driver/vehicle_info/vehicle_info.dart';
@@ -24,7 +23,7 @@ class VehicleScreen extends StatefulWidget {
 }
 
 class _VehicleScreenState extends State<VehicleScreen> {
-  List<VehicleInfoo> vehicleList = [];
+  VehicleInfoo? vehicleModel;
 
   VehicleInfoViewModel? _providerVehicle;
   double size = 0;
@@ -59,11 +58,10 @@ class _VehicleScreenState extends State<VehicleScreen> {
     _providerVehicle = Provider.of<VehicleInfoViewModel>(context, listen: true);
 
     setState(() {
-      vehicleList = _providerVehicle!.vehicleList;
+      vehicleModel = _providerVehicle!.currentVehicle;
     });
-    debugPrint("${vehicleList.length}");
 
-    if (vehicleList.isNotEmpty) {
+    if (vehicleModel != null) {
       TripWebSocket().webSocketInit(_providerVehicle!.currentVehicle!.cabclass!,
           NavigationService.navigatorKey.currentContext ?? context);
     }
@@ -103,7 +101,7 @@ class _VehicleScreenState extends State<VehicleScreen> {
   }
 
   vehicleListView() {
-    if (vehicleList.isEmpty) {
+    if (vehicleModel == null) {
       return showEmptyVehicleList();
     }
 
@@ -131,10 +129,10 @@ class _VehicleScreenState extends State<VehicleScreen> {
                         children: [
                           Text(size.toString(),
                               style: AppTextStyle.upperitemtmeemtext),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
-                          Text(
+                          const Text(
                             "Complete Trips",
                             style: AppTextStyle.upperitemtmeemspantext,
                           )
@@ -151,10 +149,10 @@ class _VehicleScreenState extends State<VehicleScreen> {
                         children: [
                           Text(totalDistance.toString(),
                               style: AppTextStyle.upperitemtmeemtext),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
-                          Text(
+                          const Text(
                             "Kilometers",
                             style: AppTextStyle.upperitemtmeemspantext,
                           )
@@ -168,7 +166,7 @@ class _VehicleScreenState extends State<VehicleScreen> {
                       color: Colors.white,
                       child: const Column(
                         children: [
-                          Text("₹200", style: AppTextStyle.upperitemtmeemtext),
+                          Text("₹0", style: AppTextStyle.upperitemtmeemtext),
                           SizedBox(
                             height: 5,
                           ),
@@ -260,12 +258,14 @@ class _VehicleScreenState extends State<VehicleScreen> {
   }
 
   vehicles() {
-    return Expanded(
-      child: ListView.builder(
-        itemCount: vehicleList.length,
-        itemBuilder: (context, index) {
-          VehicleInfoo vehicleDetail = vehicleList[index];
-          return Padding(
+    return
+      // Expanded(
+      // child: ListView.builder(
+      //   itemCount: vehicleList.length,
+      //   itemBuilder: (context, index) {
+      //     VehicleInfoo vehicleDetail = vehicleList[index];
+      //     return
+            Padding(
             padding: const EdgeInsets.only(top: 8.0),
             child: Column(
               children: [
@@ -274,7 +274,10 @@ class _VehicleScreenState extends State<VehicleScreen> {
                   children: [
                     Row(
                       children: [
-                        Image.asset('assets/icon/car.png'),
+                        showImage(vehicleModel?.front ?? ""),
+                        const SizedBox(
+                          width: 10,
+                        ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -283,7 +286,7 @@ class _VehicleScreenState extends State<VehicleScreen> {
                               height: 10,
                             ),
                             Text(
-                              vehicleDetail.modelText ?? "",
+                              vehicleModel?.modelText ?? "",
                               style: const TextStyle(fontSize: 16),
                             ),
                             const SizedBox(
@@ -291,7 +294,7 @@ class _VehicleScreenState extends State<VehicleScreen> {
                             ),
                             Row(
                               children: [
-                                Text(vehicleDetail.cabTypeText ?? ""),
+                                Text(vehicleModel?.cabTypeText ?? ""),
                                 const SizedBox(
                                   width: 70,
                                 ),
@@ -301,7 +304,7 @@ class _VehicleScreenState extends State<VehicleScreen> {
                             const SizedBox(
                               height: 5,
                             ),
-                            Text('Veh.No :   ${vehicleDetail.numberplate}'),
+                            Text('Veh.No :   ${vehicleModel?.numberplate}'),
                             const SizedBox(
                               height: 10,
                             )
@@ -311,17 +314,43 @@ class _VehicleScreenState extends State<VehicleScreen> {
                     ),
                     Row(
                       children: [
-                        Switch(
-                            value: vehicleDetail.isactive ?? false,
-                            activeColor: Appcolors.appgreen,
-                            inactiveTrackColor: Appcolors.lightRed,
-                            inactiveThumbColor: Colors.red,
-                            onChanged: (value) {
-                              setState(() {
-                                vehicleDetail.isactive = value;
-                              });
-                            }),
-                        const Icon(Icons.more_vert)
+                        Text("${vehicleModel?.cabClassText}"),
+                        GestureDetector(
+                            onTap: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (inContext) {
+                                    return AlertDialog(
+                                      title: const Text('Delete Vehicle'),
+                                      content: const Text(
+                                          'Are you sure you want to delete your vehicle'),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text('Cancel'),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            // BankViewModel bankViewModel =
+                                            //     Provider.of<BankViewModel>(
+                                            //         context,
+                                            //         listen: false);
+                                            //
+                                            // bankViewModel.deleteBankDetail(
+                                            //     context,
+                                            //     bankViewModel.bankModel?.id ??
+                                            //         1);
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text('Delete'),
+                                        ),
+                                      ],
+                                    );
+                                  });
+                            },
+                            child: Icon(Icons.delete))
                       ],
                     )
                   ],
@@ -340,7 +369,7 @@ class _VehicleScreenState extends State<VehicleScreen> {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
                             return ViewDocumentScreen(
-                              vehicleDetail: vehicleDetail,
+                              vehicleDetail: vehicleModel,
                               documentType: "insurance_certiifcate",
                             );
                           }));
@@ -349,7 +378,7 @@ class _VehicleScreenState extends State<VehicleScreen> {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
                             return ViewDocumentScreen(
-                              vehicleDetail: vehicleDetail,
+                              vehicleDetail: vehicleModel,
                               documentType: "registration_certiifcate",
                             );
                           }));
@@ -357,15 +386,21 @@ class _VehicleScreenState extends State<VehicleScreen> {
                         carOptionTile(() {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
-                            return const SupportScreen();
+                            return ViewDocumentScreen(
+                              vehicleDetail: vehicleModel,
+                              documentType: "pollution",
+                            );
                           }));
-                        }, "Support", "assets/icon/frame3.png"),
+                        }, "Pollution", "assets/icon/frame3.png"),
                         carOptionTile(() {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
-                            return const AdditionalScreen();
+                            return ViewDocumentScreen(
+                              vehicleDetail: vehicleModel,
+                              documentType: "sound",
+                            );
                           }));
-                        }, "Additional", "assets/icon/frame4.png")
+                        }, "Sound", "assets/icon/frame4.png")
                       ],
                     ),
                   ),
@@ -373,9 +408,9 @@ class _VehicleScreenState extends State<VehicleScreen> {
               ],
             ),
           );
-        },
-      ),
-    );
+        // },
+      // ),
+    // );
   }
 
   Widget carOptionTile(Function onTap, String title, String imageLocation) {

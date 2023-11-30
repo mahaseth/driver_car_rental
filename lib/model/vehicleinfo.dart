@@ -158,7 +158,7 @@ class VehicleInfoo {
     cabclass = json['model']?['cab_class'] ?? 1;
     cabTypeText = json['cab_type']?['cab_type'] ?? "";
     cabtype = json['cab_type']?['id'] ?? 0;
-    cabClassText = json['cab_class']?['cab_class'] ?? "";
+    cabClassText = json['cab_class']?['cab_class'] ?? "Not present";
     pollution = json["pollution"];
     sound = json["sound"];
   }

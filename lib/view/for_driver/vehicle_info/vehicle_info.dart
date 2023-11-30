@@ -13,6 +13,7 @@ import 'package:myride/constant/app_text_style.dart';
 import 'package:myride/model/vehicleinfo.dart';
 import 'package:myride/utils/utils.dart';
 import 'package:myride/view/for_driver/driver-details/vehicle_extra_document.dart';
+import 'package:myride/view_model/signIn_viewModel.dart';
 import 'package:myride/view_model/vehicleinfo_viewmodel.dart';
 import 'package:provider/provider.dart';
 
@@ -111,8 +112,7 @@ class _VehicleInfoState extends State<VehicleInfo> {
     FormData formdata =
         FormData.fromMap({"file": await MultipartFile.fromFile(f.path)});
     dio.options.headers['Content-Type'] = 'application/json';
-    dio.options.headers["Authorization"] =
-        "Token 51fbe6e9f6755a819d29c48f644f1160b49de2ee";
+    dio.options.headers["Authorization"] = "Token ${SignInViewModel.token}";
     response = await dio.post(
       "http://3.109.183.75/account/upload/",
       data: formdata,

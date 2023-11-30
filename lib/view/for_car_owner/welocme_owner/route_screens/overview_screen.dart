@@ -25,6 +25,7 @@ class DriverOverViewScreenState extends State<DriverOverViewScreen>
   bool light0 = false;
   DriveProfileViewModel? _provider;
   String name = "", location = "", id = "";
+  String onOfText = "OFF";
 
   @override
   void initState() {
@@ -149,9 +150,10 @@ class DriverOverViewScreenState extends State<DriverOverViewScreen>
                             ),
                             child: Row(
                               children: [
-                                const Expanded(
+                                Expanded(
                                     flex: 3,
-                                    child: Center(child: Text("ON DUTY"))),
+                                    child:
+                                        Center(child: Text("$onOfText DUTY"))),
                                 Expanded(
                                   flex: 1,
                                   child: Switch(
@@ -161,6 +163,15 @@ class DriverOverViewScreenState extends State<DriverOverViewScreen>
                                         setState(() {
                                           onDuty = value;
                                         });
+                                        if (onOfText == "OFF") {
+                                          setState(() {
+                                            onOfText = "ON";
+                                          });
+                                        } else {
+                                          setState(() {
+                                            onOfText = "OFF";
+                                          });
+                                        }
                                       }),
                                 )
                               ],

@@ -104,6 +104,7 @@ class VehicleInfoViewModel extends ChangeNotifier {
           (m) => VehicleInfoo.fromJson(m),
         ),
       );
+      currentVehicle = vehicleList[0];
       loading = false;
       notifyListeners();
     } catch (e) {
@@ -135,16 +136,14 @@ class VehicleInfoViewModel extends ChangeNotifier {
     }
   }
 
-  updateVehicle(BuildContext context, var bodyToSend) async {
+  updateVehicle(BuildContext context, var bodyToSend, int id) async {
     loading = true;
     try {
       final response =
-          await _vehicleInfoRepo.updateVehicle(context, bodyToSend);
-      Future.delayed(Duration(seconds: 2), () {
-        loading = false;
-        notifyListeners();
-        print(response);
-      });
+          await _vehicleInfoRepo.updateVehicle(context, bodyToSend, id);
+      print("Updateing Vehicle $response");
+      currentVehicle = VehicleInfoo.fromJson(response);
+      notifyListeners();
     } catch (e) {
       log('Erroer $e');
     }

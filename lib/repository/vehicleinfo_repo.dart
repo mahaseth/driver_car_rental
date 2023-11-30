@@ -37,8 +37,8 @@ class VehicleInfoRepo {
   getVehicleDetail(context, id) async {
     try {
       final response = await _networkService
-          .getGetApiResponse("http://3.109.183.75/cab/$id/get-vehicle/",
-              SignInViewModel.token)
+          .getGetApiResponse(
+              "http://3.109.183.75/cab/$id/get-vehicle/", SignInViewModel.token)
           .catchError((error, stackTrace) {
         Utils.showMyDialog(error.toString(), context);
       });
@@ -90,13 +90,14 @@ class VehicleInfoRepo {
     }
   }
 
-  updateVehicle(context, bodysend) async {
+  updateVehicle(context, bodysend, int id) async {
     try {
       final response = await _networkService
-          .patchApiResponse("http://3.109.183.75/cab/details/", bodysend,
-              SignInViewModel.token)
+          .patchApiResponse("http://3.109.183.75/cab/$id/get-vehicle/",
+              bodysend, SignInViewModel.token)
           .catchError((error, stackTrace) {
-        Utils.showMyDialog(error.toString(), context);
+        print("${error}");
+        // Utils.showMyDialog(error.toString(), context);
       });
       return response;
     } catch (e) {

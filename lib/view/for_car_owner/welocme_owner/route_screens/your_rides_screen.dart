@@ -148,7 +148,7 @@ class _YourRideScreenState extends State<YourRideScreen> {
                       color: Colors.white,
                       child: const Column(
                         children: [
-                          Text("₹200", style: AppTextStyle.upperitemtmeemtext),
+                          Text("₹0", style: AppTextStyle.upperitemtmeemtext),
                           SizedBox(
                             height: 5,
                           ),
