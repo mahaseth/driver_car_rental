@@ -259,157 +259,159 @@ class _VehicleScreenState extends State<VehicleScreen> {
 
   vehicles() {
     return
-      // Expanded(
-      // child: ListView.builder(
-      //   itemCount: vehicleList.length,
-      //   itemBuilder: (context, index) {
-      //     VehicleInfoo vehicleDetail = vehicleList[index];
-      //     return
-            Padding(
-            padding: const EdgeInsets.only(top: 8.0),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        showImage(vehicleModel?.front ?? ""),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              vehicleModel?.modelText ?? "",
-                              style: const TextStyle(fontSize: 16),
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Row(
-                              children: [
-                                Text(vehicleModel?.cabTypeText ?? ""),
-                                const SizedBox(
-                                  width: 70,
-                                ),
-                                const Text("₹160/hr"),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Text('Veh.No :   ${vehicleModel?.numberplate}'),
-                            const SizedBox(
-                              height: 10,
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text("${vehicleModel?.cabClassText}"),
-                        GestureDetector(
-                            onTap: () {
-                              showDialog(
-                                  context: context,
-                                  builder: (inContext) {
-                                    return AlertDialog(
-                                      title: const Text('Delete Vehicle'),
-                                      content: const Text(
-                                          'Are you sure you want to delete your vehicle'),
-                                      actions: <Widget>[
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                          child: const Text('Cancel'),
-                                        ),
-                                        TextButton(
-                                          onPressed: () {
-                                            // BankViewModel bankViewModel =
-                                            //     Provider.of<BankViewModel>(
-                                            //         context,
-                                            //         listen: false);
-                                            //
-                                            // bankViewModel.deleteBankDetail(
-                                            //     context,
-                                            //     bankViewModel.bankModel?.id ??
-                                            //         1);
-                                            Navigator.of(context).pop();
-                                          },
-                                          child: const Text('Delete'),
-                                        ),
-                                      ],
-                                    );
-                                  });
-                            },
-                            child: Icon(Icons.delete))
-                      ],
-                    )
-                  ],
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: Colors.grey)),
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 10.0, right: 10.0, bottom: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        carOptionTile(() {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return ViewDocumentScreen(
-                              vehicleDetail: vehicleModel,
-                              documentType: "insurance_certiifcate",
-                            );
-                          }));
-                        }, "Insurance", "assets/icon/frame1.png"),
-                        carOptionTile(() {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return ViewDocumentScreen(
-                              vehicleDetail: vehicleModel,
-                              documentType: "registration_certiifcate",
-                            );
-                          }));
-                        }, "Registration", "assets/icon/frame2.png"),
-                        carOptionTile(() {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return ViewDocumentScreen(
-                              vehicleDetail: vehicleModel,
-                              documentType: "pollution",
-                            );
-                          }));
-                        }, "Pollution", "assets/icon/frame3.png"),
-                        carOptionTile(() {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return ViewDocumentScreen(
-                              vehicleDetail: vehicleModel,
-                              documentType: "sound",
-                            );
-                          }));
-                        }, "Sound", "assets/icon/frame4.png")
-                      ],
-                    ),
+        // Expanded(
+        // child: ListView.builder(
+        //   itemCount: vehicleList.length,
+        //   itemBuilder: (context, index) {
+        //     VehicleInfoo vehicleDetail = vehicleList[index];
+        //     return
+        Padding(
+      padding: const EdgeInsets.only(top: 8.0),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  showImage(vehicleModel?.front ?? ""),
+                  const SizedBox(
+                    width: 10,
                   ),
-                ),
-              ],
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        vehicleModel?.modelText ?? "",
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        children: [
+                          Text(vehicleModel?.cabTypeText ?? ""),
+                          const SizedBox(
+                            width: 70,
+                          ),
+                          const Text("₹160/hr"),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Text('Veh.No :   ${vehicleModel?.numberplate}'),
+                      const SizedBox(
+                        height: 10,
+                      )
+                    ],
+                  )
+                ],
+              ),
+
+              Text("${vehicleModel?.cabClassText}"),
+              // Row(
+              //   children: [
+              //     Text("${vehicleModel?.cabClassText}"),
+              //     GestureDetector(
+              //         onTap: () {
+              //           showDialog(
+              //               context: context,
+              //               builder: (inContext) {
+              //                 return AlertDialog(
+              //                   title: const Text('Delete Vehicle'),
+              //                   content: const Text(
+              //                       'Are you sure you want to delete your vehicle'),
+              //                   actions: <Widget>[
+              //                     TextButton(
+              //                       onPressed: () {
+              //                         Navigator.of(context).pop();
+              //                       },
+              //                       child: const Text('Cancel'),
+              //                     ),
+              //                     TextButton(
+              //                       onPressed: () {
+              //                         // BankViewModel bankViewModel =
+              //                         //     Provider.of<BankViewModel>(
+              //                         //         context,
+              //                         //         listen: false);
+              //                         //
+              //                         // bankViewModel.deleteBankDetail(
+              //                         //     context,
+              //                         //     bankViewModel.bankModel?.id ??
+              //                         //         1);
+              //                         Navigator.of(context).pop();
+              //                       },
+              //                       child: const Text('Delete'),
+              //                     ),
+              //                   ],
+              //                 );
+              //               });
+              //         },
+              //         child: Icon(Icons.delete))
+              //   ],
+              // )
+            ],
+          ),
+          Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: Colors.grey)),
+            child: Padding(
+              padding:
+                  const EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  carOptionTile(() {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return ViewDocumentScreen(
+                        vehicleDetail: vehicleModel,
+                        documentType: "insurance_certiifcate",
+                      );
+                    }));
+                  }, "Insurance", "assets/icon/frame1.png"),
+                  carOptionTile(() {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return ViewDocumentScreen(
+                        vehicleDetail: vehicleModel,
+                        documentType: "registration_certiifcate",
+                      );
+                    }));
+                  }, "Registration", "assets/icon/frame2.png"),
+                  carOptionTile(() {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return ViewDocumentScreen(
+                        vehicleDetail: vehicleModel,
+                        documentType: "pollution",
+                      );
+                    }));
+                  }, "Pollution", "assets/icon/frame3.png"),
+                  carOptionTile(() {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return ViewDocumentScreen(
+                        vehicleDetail: vehicleModel,
+                        documentType: "sound",
+                      );
+                    }));
+                  }, "Sound", "assets/icon/frame4.png")
+                ],
+              ),
             ),
-          );
-        // },
-      // ),
+          ),
+        ],
+      ),
+    );
+    // },
+    // ),
     // );
   }
 

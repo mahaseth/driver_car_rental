@@ -62,13 +62,14 @@ class VehicleModel {
   int? id;
   int? maker;
   String? model;
-
+  int? cabClass;
   VehicleModel({this.id, this.maker, this.model});
 
   VehicleModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     maker = json['maker']['id'];
     model = json['model'];
+    cabClass = json['cab_class'];
   }
 
   Map<String, dynamic> toJson() {

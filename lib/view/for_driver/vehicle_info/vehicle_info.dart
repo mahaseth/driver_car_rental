@@ -342,22 +342,22 @@ class _VehicleInfoState extends State<VehicleInfo> {
     });
 
     _provider!.vi = VehicleInfoo(
-      isactive: true,
-      numberplate: _controller.text,
-      front: frontCarPhotoUrl,
-      back: backPhotoUrl,
-      right: rightSideUrl,
-      left: leftSideUrl,
-      insideDriverSeat: driverSideUrl,
-      frontHeadLight: frontheadLightUrl,
-      backHeadLight: backHeadUrl,
-      insidePassangerSeat: passengerSeatUrl,
-      lastlocation: "",
-      driver: 41,
-      maker: _provider!.vehicleMaker!.id,
-      model: _provider!.currVehicleModel!.id,
-      cabtype: _provider!.vehicleType!.id,
-    );
+        isactive: true,
+        numberplate: _controller.text,
+        front: frontCarPhotoUrl,
+        back: backPhotoUrl,
+        right: rightSideUrl,
+        left: leftSideUrl,
+        insideDriverSeat: driverSideUrl,
+        frontHeadLight: frontheadLightUrl,
+        backHeadLight: backHeadUrl,
+        insidePassangerSeat: passengerSeatUrl,
+        lastlocation: "",
+        driver: 41,
+        maker: _provider!.vehicleMaker!.id,
+        model: _provider!.currVehicleModel!.id,
+        cabtype: _provider!.vehicleType!.id,
+        cabclass: _provider!.currVehicleModel!.cabClass);
     Navigator.push(
       context,
       MaterialPageRoute(

@@ -30,7 +30,7 @@ class VehicleInfoViewModel extends ChangeNotifier {
     loading = true;
     try {
       final response = await _vehicleInfoRepo.cabType(context);
-      log("RESPONSE $response");
+      log("RESPONSE cabType $response");
       cabTypeList = List<CabType>.from(
         response.map(
           (m) => CabType.fromJson(m),
@@ -47,7 +47,7 @@ class VehicleInfoViewModel extends ChangeNotifier {
     loading = true;
     try {
       final response = await _vehicleInfoRepo.vehicleMaker(context, id);
-      log("RESPONSE $response");
+      log("RESPONSE vehicleMakerCall $response");
       vehicleMakerList = List<VehicleMaker>.from(
         response.map(
           (m) => VehicleMaker.fromJson(m),
@@ -64,7 +64,7 @@ class VehicleInfoViewModel extends ChangeNotifier {
     loading = true;
     try {
       final response = await _vehicleInfoRepo.cabClass(context, id);
-      log("RESPONSE $response");
+      log("RESPONSE cabClass $response");
       cabClassList = List<CabClass>.from(
         response.map(
           (m) => CabClass.fromJson(m),
