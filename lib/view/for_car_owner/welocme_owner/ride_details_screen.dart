@@ -165,7 +165,7 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  rowTextView("Price: ", "₹ 159", fontSize: 15),
+                  rowTextView("Price: ", "Rs ${tripData.amount}", fontSize: 15),
                   const SizedBox(
                     height: 25,
                   ),

@@ -76,7 +76,7 @@ class _TripAcceptScreenState extends State<TripAcceptScreen> {
             ),
             Container(
               width: MediaQuery.of(context).size.width * 0.5,
-              height: 40,
+              height: widget.map["status"] == "SCHEDULED" ? 65 : 40,
               decoration: BoxDecoration(
                   color: const Color(0xFF00B74C),
                   borderRadius: BorderRadius.circular(30)),

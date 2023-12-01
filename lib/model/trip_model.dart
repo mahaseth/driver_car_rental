@@ -18,6 +18,7 @@ class TripModel {
   double destinationLong = 0.0;
   int id;
   String driverProfilePic;
+  int amount = 0;
 
   TripModel({
     required this.isActive,
@@ -33,6 +34,7 @@ class TripModel {
     required this.cabData,
     required this.rideType,
     required this.driverProfilePic,
+    required this.amount,
   });
 
   factory TripModel.fromJson(Map<String, dynamic> json) {
@@ -53,6 +55,7 @@ class TripModel {
       otpCount: json['otp'] ?? 0,
       customer: json['customer'] ?? 0,
       driver: json['driver'] ?? 0,
+      amount: json['amount'].round() ?? 0,
       cabData: json['cab'] == null
           ? VehicleInfoo()
           : VehicleInfoo.fromJson(json['cab']),
