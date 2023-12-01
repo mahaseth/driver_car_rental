@@ -24,7 +24,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   }
 
   void readData() async {
-    String token = 'ad2d45807fbec23b121b86bcfed4ce525731744c';
+    String token = '7687869c4772056d8b2d54a5317b237ff9d79f74';
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.setString("token", token);
   }

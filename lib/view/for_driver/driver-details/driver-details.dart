@@ -34,6 +34,7 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
   final TextEditingController aadhar = TextEditingController();
   final TextEditingController pan = TextEditingController();
   final TextEditingController license = TextEditingController();
+  final TextEditingController email = TextEditingController();
 
   late File? af, ab, p, lf, lb, pu;
   String? afs, abs, ps, lfs, lbs, pus;
@@ -205,6 +206,20 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
                     ),
                   ),
                   customDivider(),
+                  ListTile(
+                    title: const Text("Email"),
+                    trailing: SizedBox(
+                      width: 100,
+                      child: TextField(
+                        controller: email,
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          hintText: "Email",
+                        ),
+                      ),
+                    ),
+                    onTap: () {},
+                  ),
                   addressView(),
                   customDivider(),
                   selectbox(),
@@ -350,6 +365,7 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
             ),
             onPressed: () async {
               check() ? submit() : showSnackbar("All fields are required");
+              // submit();
             },
             child: const Text("SUBMIT "),
           ),
@@ -364,6 +380,7 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
         pinCode.text.isNotEmpty &&
         aadhar.text.isNotEmpty &&
         pan.text.isNotEmpty &&
+        email.text.isNotEmpty &&
         afs != null &&
         abs != null &&
         ps != null &&
@@ -377,8 +394,11 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
     _provider!.driverProfile = DriverProfile(
       firstname: fName.text,
       lastname: lName.text,
-      phone: Provider.of<SignInViewModel>(context, listen: false).phone,
-      email: "abvhhhfced@gmail.com",
+      phone: Provider.of<DriveProfileViewModel>(context, listen: false)
+              .currDriverProfile
+              ?.phone ??
+          "9458942703",
+      email: email.text,
       fulladdress: pinCode.text,
       alternatenumber: "",
       aadharnumber: aadhar.text,
@@ -392,6 +412,7 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
       photoupload: pus,
       termspolicy: true,
       myrideinsurance: true,
+      driverDuty: false,
     );
     setState(() {
       _provider!.loading = true;

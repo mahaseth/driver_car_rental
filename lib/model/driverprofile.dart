@@ -74,7 +74,6 @@ class DriverProfile {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
     data['first_name'] = firstname;
     data['last_name'] = lastname;
     data['phone'] = phone;
@@ -92,10 +91,7 @@ class DriverProfile {
     data['photo_upload'] = photoupload;
     data['terms_policy'] = termspolicy;
     data['myride_insurance'] = myrideinsurance;
-    data['wallet_balance'] = walletBalance;
     data['driver_duty'] = driverDuty;
-    data['total_trip'] = totalTrip;
-    data['total_distance_km'] = totalDistanceKm;
     return data;
   }
 }
