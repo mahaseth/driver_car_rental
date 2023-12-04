@@ -202,7 +202,7 @@ class _PickUpScreenDriverState extends State<PickUpScreenDriver> {
     };
     TripViewModel viewModel =
         Provider.of<TripViewModel>(context, listen: false);
-
+    await viewModel.getCurrentTrip(context, widget.map["trip_id"]);
     await viewModel.editTrip(context, tripData, viewModel.currentTrip!.id);
     TripWebSocket().cancelRideMessage();
   }

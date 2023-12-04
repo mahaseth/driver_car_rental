@@ -9,10 +9,13 @@ import '../view/for_driver/map_section/map_screen.dart';
 
 class TripWebSocket {
   static WebSocketChannel? channel;
+  static bool isDuty = true;
+  static int driverId = -1;
 
   webSocketInit(int id, BuildContext context) {
     debugPrint("Started $id");
-    if (channel != null) return;
+    driverId = id;
+    if (channel != null || driverId == -1) return;
     channel = WebSocketChannel.connect(
       Uri.parse('ws://3.109.183.75:7401/ws/trip-notify/$id'),
     );
@@ -84,5 +87,11 @@ class TripWebSocket {
     };
 
     channel!.sink.add(json.encode(map));
+  }
+
+  void closeChannel() {
+    debugPrint("Channel Closed");
+    channel!.sink.close();
+    channel = null;
   }
 }

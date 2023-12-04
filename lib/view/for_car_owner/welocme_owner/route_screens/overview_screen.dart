@@ -8,6 +8,7 @@ import 'package:myride/view/for_car_owner/welocme_owner/route_screens/your_rides
 import 'package:myride/view/for_driver/payment-amount/payment.dart';
 import 'package:myride/view_model/driverprofile_viewmodel.dart';
 import 'package:myride/view_model/trip_viewModel.dart';
+import 'package:myride/web_socket/trip_socket.dart';
 import 'package:provider/provider.dart';
 
 class DriverOverViewScreen extends StatefulWidget {
@@ -21,11 +22,11 @@ class DriverOverViewScreenState extends State<DriverOverViewScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   DriverProfile? driverProfile;
-  bool onDuty = false;
+  bool onDuty = TripWebSocket.isDuty;
   bool light0 = false;
   DriveProfileViewModel? _provider;
   String name = "", location = "", id = "";
-  String onOfText = "OFF";
+  String onOfText = "ON";
 
   @override
   void initState() {
@@ -160,18 +161,20 @@ class DriverOverViewScreenState extends State<DriverOverViewScreen>
                                       value: onDuty,
                                       activeColor: Appcolors.appgreen,
                                       onChanged: (value) {
+                                        String text = "ON";
+                                        TripWebSocket.isDuty = onDuty;
+                                        if (onOfText == "OFF") {
+                                          text = "ON";
+                                          TripWebSocket().webSocketInit(
+                                              TripWebSocket.driverId, context);
+                                        } else {
+                                          text = "OFF";
+                                          TripWebSocket().closeChannel();
+                                        }
                                         setState(() {
                                           onDuty = value;
+                                          onOfText = text;
                                         });
-                                        if (onOfText == "OFF") {
-                                          setState(() {
-                                            onOfText = "ON";
-                                          });
-                                        } else {
-                                          setState(() {
-                                            onOfText = "OFF";
-                                          });
-                                        }
                                       }),
                                 )
                               ],

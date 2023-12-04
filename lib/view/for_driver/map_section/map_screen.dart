@@ -27,6 +27,7 @@ class MapScreenDriver extends StatefulWidget {
 
 class _MapScreenDriverState extends State<MapScreenDriver> {
   late GoogleMapController _controller;
+  int timing = 30;
 
   late Position position;
   CameraPosition _kGooglePlex = const CameraPosition(
@@ -51,6 +52,28 @@ class _MapScreenDriverState extends State<MapScreenDriver> {
         height = visible ? 0.25 : 0.55;
       });
     });
+    decreaseTiming();
+  }
+
+  void decreaseTiming() async {
+    for (int i = 0; i < 30; i++) {
+      await Future.delayed(const Duration(seconds: 1));
+      setState(() {
+        timing--;
+      });
+    }
+    if (context.mounted) {
+      Navigator.of(context).popUntil((route) {
+        if (route is MaterialPageRoute) {
+          debugPrint("Route :- ${route.builder.runtimeType}");
+          String screenName = "(BuildContext) => WelcomeScreenOwner";
+
+          bool condition = ("${route.builder.runtimeType}" == screenName);
+          return condition;
+        }
+        return false;
+      });
+    }
   }
 
   void readData() async {
@@ -187,7 +210,7 @@ class _MapScreenDriverState extends State<MapScreenDriver> {
                                   height: 70,
                                   width: AppSceenSize.getWidth(context) * 0.95,
                                   color: const Color(0xFF00B74C),
-                                  child: const Row(
+                                  child: Row(
                                     children: [
                                       SizedBox(
                                         width: 10,
@@ -195,7 +218,7 @@ class _MapScreenDriverState extends State<MapScreenDriver> {
                                       CircleAvatar(
                                         radius: 20,
                                         child: Text(
-                                          ' 30\nsec',
+                                          ' $timing\nsec',
                                           style: TextStyle(fontSize: 12),
                                         ),
                                       ),
