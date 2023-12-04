@@ -81,35 +81,63 @@ class _CompleteRideScreenState extends State<CompleteRideScreen> {
           padding: const EdgeInsets.all(12.0),
           child: SizedBox(
             width: MediaQuery.of(context).size.width * 0.9,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
+                    Image.asset(
+                      "assets/icon/route.png",
+                      width: 30,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Image.asset(
-                          "assets/icon/route.png",
-                          width: 30,
+                        Text("Pick-Up"),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.6,
+                          child: Text(tripModel.source,
+                              style: AppTextStyle.listCardProfile),
                         ),
-                        const Text("My Route",
-                            style: AppTextStyle.listCardProfile),
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        Text("Destination"),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.6,
+                          child: Text(tripModel.destination,
+                              style: AppTextStyle.listCardProfile),
+                        ),
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        Row(
+                          children: [
+                            columnTextField("Price", "Rs. ${tripModel.amount}"),
+                            columnTextField(
+                                "Distance", "${tripModel.distance} KM"),
+                            columnTextField("Cab-Type",
+                                tripModel.cabData.cabClassText ?? "Cab"),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
                       ],
                     ),
+                  ],
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
                     const Icon(
                       Icons.arrow_forward_ios,
                       color: Colors.grey,
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // const Text("Monday 22nd 04:25 PM (+01:00)..."),
+                    ),
+                    SizedBox(
+                      height: 25,
+                    ),
                     Text(
                       tripModel.status,
                       style: TextStyle(
@@ -118,64 +146,35 @@ class _CompleteRideScreenState extends State<CompleteRideScreen> {
                               : Colors.red),
                     )
                   ],
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
-                Row(
-                  children: [
-                    Row(
-                      children: [
-                        const Column(
-                          children: [Text("Price"), Text("100 rs")],
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Container(
-                          width: 2,
-                          height: 14,
-                          color: Colors.grey,
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      width: 15,
-                    ),
-                    // Row(
-                    //   children: [
-                    //     const Column(
-                    //       children: [Text("Duration"), Text("5h:30 min")],
-                    //     ),
-                    //     const SizedBox(
-                    //       width: 10,
-                    //     ),
-                    //     Container(
-                    //       width: 2,
-                    //       height: 14,
-                    //       color: Colors.grey,
-                    //     )
-                    //   ],
-                    // ),
-                    const SizedBox(
-                      width: 15,
-                    ),
-                    Column(
-                      children: [
-                        const Text("Distance"),
-                        Text("${tripModel.distance} KM")
-                      ],
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
+                )
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+  columnTextField(String key, String value) {
+    return Row(
+      children: [
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [Text(key), Text(value)],
+        ),
+        const SizedBox(
+          width: 10,
+        ),
+        Container(
+          width: 2,
+          height: 14,
+          color: Colors.grey,
+        ),
+        const SizedBox(
+          width: 10,
+        ),
+      ],
     );
   }
 }
