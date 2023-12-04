@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myride/utils/NavigationService.dart';
 import 'package:myride/view/for_driver/home/home.dart';
+import 'package:myride/view_model/admin_support_viewModel.dart';
 import 'package:myride/view_model/bank_view_model.dart';
 import 'package:myride/view_model/choose_vehicle_type.dart';
 import 'package:myride/view_model/customerprofile_viewmodel.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => TripViewModel()),
         ChangeNotifierProvider(create: (context) => BankViewModel()),
         ChangeNotifierProvider(create: (context) => DriverStatusProvider()),
+        ChangeNotifierProvider(create: (context) => AdminSupportPanel()),
       ],
       child: MaterialApp(
         navigatorKey: NavigationService.navigatorKey,

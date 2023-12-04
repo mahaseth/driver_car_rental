@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:myride/model/admin_messageModel.dart';
+import 'package:myride/view_model/admin_support_viewModel.dart';
+import 'package:provider/provider.dart';
 
 class WriteMessage extends StatefulWidget {
   const WriteMessage({super.key});
@@ -8,6 +11,24 @@ class WriteMessage extends StatefulWidget {
 }
 
 class _WriteMessageState extends State<WriteMessage> {
+  List<AdminMessageModel> messageList = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    readData();
+  }
+
+  void readData() async {
+    AdminSupportPanel provider =
+        Provider.of<AdminSupportPanel>(context, listen: false);
+    await provider.getAllMessages(context);
+    setState(() {
+      messageList = provider.messageList;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
