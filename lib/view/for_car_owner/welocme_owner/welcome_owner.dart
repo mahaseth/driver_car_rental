@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:myride/constant/app_color.dart';
-import 'package:myride/view/bank_details/add_bank_screen.dart';
 import 'package:myride/view/for_car_owner/welocme_owner/account_screen.dart';
 import 'package:myride/view/for_car_owner/welocme_owner/route_screens/overview_screen.dart';
-import 'package:myride/view/for_car_owner/welocme_owner/wallet_screen.dart';
+import 'package:myride/view/route_map_screen.dart';
+import 'package:myride/web_socket/trip_socket.dart';
 
 class WelcomeScreenOwner extends StatefulWidget {
   const WelcomeScreenOwner({super.key});
@@ -14,7 +15,15 @@ class WelcomeScreenOwner extends StatefulWidget {
 
 class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
     with SingleTickerProviderStateMixin {
+  late GoogleMapController _controller;
+  CameraPosition _kGooglePlex = const CameraPosition(
+    target: LatLng(22.5726, 88.3639),
+    zoom: 14.4746,
+  );
+
   int _selectedIndex = 0;
+  bool onDuty = TripWebSocket.isDuty;
+  String onOfText = "ON";
 
   void _onItemTapped(int index) {
     setState(() {
@@ -26,11 +35,9 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
   Widget build(BuildContext context) {
     return Scaffold(
       body: [
+        RouteMapScreen(),
         const DriverOverViewScreen(),
-        const EmptyBankScreen(),
-        AccountScreen(
-          onItemTapped: _onItemTapped,
-        )
+        AccountScreen(onItemTapped: _onItemTapped)
       ][_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
@@ -40,9 +47,9 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
             label: 'Route',
           ),
           BottomNavigationBarItem(
-            icon: Image.asset("assets/images/map.png",
+            icon: Icon(Icons.transfer_within_a_station,
                 color: _selectedIndex == 1 ? Appcolors.appgreen : Colors.grey),
-            label: 'Wallet',
+            label: 'My Trips',
           ),
           BottomNavigationBarItem(
             icon: Image.asset("assets/images/user-square.png",

@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:myride/constant/app_color.dart';
-import 'package:myride/constant/app_text_style.dart';
 import 'package:myride/model/driverprofile.dart';
 import 'package:myride/view/for_car_owner/welocme_owner/route_screens/complete_ride_screen.dart';
-import 'package:myride/view/for_car_owner/welocme_owner/route_screens/vehicle_screen.dart';
+import 'package:myride/view/for_car_owner/welocme_owner/route_screens/schedule_rides.dart';
 import 'package:myride/view/for_car_owner/welocme_owner/route_screens/your_rides_screen.dart';
-import 'package:myride/view/for_driver/payment-amount/payment.dart';
 import 'package:myride/view_model/driverprofile_viewmodel.dart';
 import 'package:myride/view_model/trip_viewModel.dart';
 import 'package:myride/web_socket/trip_socket.dart';
@@ -74,130 +71,6 @@ class DriverOverViewScreenState extends State<DriverOverViewScreen>
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              child: Stack(
-                children: [
-                  Image.asset("assets/images/headerbg.png"),
-                  IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: const Icon(Icons.arrow_back)),
-                  Positioned(
-                    top: MediaQuery.of(context).size.height * 0.1,
-                    width: MediaQuery.of(context).size.width,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                      ),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const PaymentScreen(),
-                                            ));
-
-                                        //   Map map = {
-                                        //     "source":
-                                        //         "Rispana Pull, Dehradun, Uttarakhand#30.2940767#30.2940767",
-                                        //     "destination":
-                                        //         "Jogiwala, Dehradun, Uttarakhan#30.2857815#30.2857815",
-                                        //     "phone_number": "8449269235",
-                                        //     "customer_id": 96,
-                                        //     "name": "Aryan",
-                                        //     "trip_id": 109,
-                                        //   "status": "BOOKED"
-                                        //   };
-                                        //   Navigator.push(
-                                        //       context,
-                                        //       MaterialPageRoute(
-                                        //           builder: (context) =>
-                                        //               MapScreenDriver(
-                                        //                 map: map,
-                                        //                 screenIndex: 0,
-                                        //               )));
-                                      },
-                                      child: Text(
-                                        "Welcome, $name",
-                                        style: AppTextStyle.welcommehead,
-                                      )),
-                                  Text(
-                                    "$location | #$id",
-                                    style: AppTextStyle.welcomesubheading,
-                                  )
-                                ],
-                              ),
-                              const Icon(Icons.notifications_none)
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFD2D2D2),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                    flex: 3,
-                                    child:
-                                        Center(child: Text("$onOfText DUTY"))),
-                                Expanded(
-                                  flex: 1,
-                                  child: Switch(
-                                      value: onDuty,
-                                      activeColor: Appcolors.appgreen,
-                                      onChanged: (value) {
-                                        String text = "ON";
-                                        TripWebSocket.isDuty = onDuty;
-                                        if (onOfText == "OFF") {
-                                          text = "ON";
-                                          TripWebSocket().webSocketInit(
-                                              TripWebSocket.driverId, context);
-                                        } else {
-                                          text = "OFF";
-                                          TripWebSocket().closeChannel();
-                                        }
-                                        setState(() {
-                                          onDuty = value;
-                                          onOfText = text;
-                                        });
-                                      }),
-                                )
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            // vehicleList.isNotEmpty
-            //     ? Center(
-            //         child: addVehicleButton(),
-            //       )
-            //     : const SizedBox.shrink(),
-            const SizedBox(
-              height: 10,
-            ),
             TabBar(
               controller: _tabController,
               indicatorColor: Colors.green,
@@ -205,13 +78,13 @@ class DriverOverViewScreenState extends State<DriverOverViewScreen>
               unselectedLabelColor: Colors.grey,
               tabs: const [
                 Tab(
-                  text: 'My Vehicles',
+                  text: 'Current Rides',
                 ),
                 Tab(
-                  text: 'Your Rides',
+                  text: 'Scheduled Rides',
                 ),
                 Tab(
-                  text: 'Complete',
+                  text: 'Ride History',
                 ),
               ],
             ),
@@ -219,8 +92,8 @@ class DriverOverViewScreenState extends State<DriverOverViewScreen>
               child: TabBarView(
                 controller: _tabController,
                 children: const [
-                  VehicleScreen(),
                   YourRideScreen(),
+                  ScheduledRideScreen(),
                   CompleteRideScreen(),
                 ],
               ),

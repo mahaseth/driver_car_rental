@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:myride/constant/app_text_style.dart';
 import 'package:myride/model/driverprofile.dart';
 import 'package:myride/utils/rating_stars.dart';
+import 'package:myride/view/for_car_owner/welocme_owner/route_screens/overview_screen.dart';
 import 'package:myride/view/for_car_owner/welocme_owner/view_document_screen.dart';
 import 'package:myride/view/for_driver/profile/message_screen.dart';
 import 'package:myride/view/for_driver/profile/write_message.dart';
@@ -35,6 +36,7 @@ class _AccountScreenState extends State<AccountScreen> {
 
   List<String> tileTitle = [
     "My Vehicle",
+    "My Ride",
     "Driving Liscense",
     "Aadhar Card",
     "PAN Card",
@@ -45,6 +47,7 @@ class _AccountScreenState extends State<AccountScreen> {
 
   List<Icon> tileIcons = [
     const Icon(Icons.fire_truck),
+    const Icon(Icons.fire_truck),
     const Icon(Icons.contact_page),
     const Icon(Icons.book),
     const Icon(Icons.book),
@@ -54,7 +57,8 @@ class _AccountScreenState extends State<AccountScreen> {
   ];
 
   List<dynamic> tileOnClick = [
-    1,
+    null,
+    const DriverOverViewScreen(),
     "license_number",
     "aadhar_number",
     "pan_number",

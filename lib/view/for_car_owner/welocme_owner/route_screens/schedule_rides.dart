@@ -8,14 +8,14 @@ import 'package:provider/provider.dart';
 
 import '../../../../constant/app_color.dart';
 
-class YourRideScreen extends StatefulWidget {
-  const YourRideScreen({super.key});
+class ScheduledRideScreen extends StatefulWidget {
+  const ScheduledRideScreen({super.key});
 
   @override
-  State<YourRideScreen> createState() => _YourRideScreenState();
+  State<ScheduledRideScreen> createState() => _YourRideScreenState();
 }
 
-class _YourRideScreenState extends State<YourRideScreen> {
+class _YourRideScreenState extends State<ScheduledRideScreen> {
   int ridesIndex = 1;
   double totalDistance = 0;
   List<TripModel> tripList = [];
@@ -28,16 +28,16 @@ class _YourRideScreenState extends State<YourRideScreen> {
 
   void fetchData() {
     TripViewModel tripViewModel =
-        Provider.of<TripViewModel>(context, listen: false);
+    Provider.of<TripViewModel>(context, listen: false);
     tripViewModel.getTrips(context);
   }
 
   void readData() async {
     TripViewModel provider = Provider.of<TripViewModel>(context, listen: true);
     DriveProfileViewModel driverProvider =
-        Provider.of<DriveProfileViewModel>(context, listen: true);
+    Provider.of<DriveProfileViewModel>(context, listen: true);
     List<TripModel> list =
-        ridesIndex == 1 ? provider.activeTripList : provider.scheduledTripList;
+    ridesIndex == 1 ? provider.activeTripList : provider.scheduledTripList;
     setState(() {
       totalDistance = driverProvider.currDriverProfile?.totalDistanceKm ?? 0.0;
       tripList = list;
@@ -87,18 +87,6 @@ class _YourRideScreenState extends State<YourRideScreen> {
             padding: const EdgeInsets.symmetric(vertical: 20),
             child: Column(
               children: [
-                // const Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   children: [
-                //     Text(
-                //       "Monday 23rd 04:25 PM...",
-                //     ),
-                //     Text('Detail')
-                //   ],
-                // ),
-                // const SizedBox(
-                //   height: 10,
-                // ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -135,7 +123,7 @@ class _YourRideScreenState extends State<YourRideScreen> {
                             height: 5,
                           ),
                           Text(
-                            "Kilometers",
+                            "KM",
                             style: AppTextStyle.upperitemtmeemspantext,
                           )
                         ],
@@ -180,7 +168,7 @@ class _YourRideScreenState extends State<YourRideScreen> {
 
   ridesCardView(String title, int index) {
     Color background =
-        index == ridesIndex ? Appcolors.primaryGreen : Colors.white;
+    index == ridesIndex ? Appcolors.primaryGreen : Colors.white;
     return Expanded(
       flex: 1,
       child: InkWell(
@@ -260,13 +248,13 @@ class _YourRideScreenState extends State<YourRideScreen> {
                       text: TextSpan(
                           style: const TextStyle(color: Colors.black),
                           children: [
-                        const TextSpan(
-                            text: "Drop Point : ",
-                            style: AppTextStyle.dropitmeemtext),
-                        TextSpan(
-                            text: tripModel.destination,
-                            style: AppTextStyle.dropitmeemspantext)
-                      ])),
+                            const TextSpan(
+                                text: "Drop Point : ",
+                                style: AppTextStyle.dropitmeemtext),
+                            TextSpan(
+                                text: tripModel.destination,
+                                style: AppTextStyle.dropitmeemspantext)
+                          ])),
                   const SizedBox(
                     height: 6,
                   ),
@@ -274,14 +262,14 @@ class _YourRideScreenState extends State<YourRideScreen> {
                       text: TextSpan(
                           style: const TextStyle(color: Colors.black),
                           children: [
-                        TextSpan(
-                            text:
+                            TextSpan(
+                                text:
                                 "Distance to reach : ${tripModel.distance} KM",
-                            style: AppTextStyle.disitmeemtext),
-                        TextSpan(
-                            text: "Ride .No :#${tripModel.id}",
-                            style: AppTextStyle.disitmeemspantext),
-                      ])),
+                                style: AppTextStyle.disitmeemtext),
+                            TextSpan(
+                                text: "Ride .No :#${tripModel.id}",
+                                style: AppTextStyle.disitmeemspantext),
+                          ])),
                 ],
               ),
             ),

@@ -91,6 +91,7 @@ class TripWebSocket {
 
   void closeChannel() {
     debugPrint("Channel Closed");
+    if (channel == null) return;
     channel!.sink.close();
     channel = null;
   }

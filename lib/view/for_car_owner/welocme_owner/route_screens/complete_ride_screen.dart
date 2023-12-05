@@ -15,6 +15,8 @@ class CompleteRideScreen extends StatefulWidget {
 class _CompleteRideScreenState extends State<CompleteRideScreen> {
   List<TripModel> tripList = [];
 
+  double totalDistance = 0;
+
   @override
   void initState() {
     super.initState();
@@ -32,7 +34,10 @@ class _CompleteRideScreenState extends State<CompleteRideScreen> {
   @override
   Widget build(BuildContext context) {
     readData();
-    return inComplete();
+    return Column(
+      children: [yourRideView(), inComplete()],
+    );
+    ;
   }
 
   bool conditionForYourRide() {
@@ -70,6 +75,86 @@ class _CompleteRideScreenState extends State<CompleteRideScreen> {
         itemBuilder: (context, index) {
           return _buildCompletedRide(index);
         });
+  }
+
+  yourRideView() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Column(
+        children: [
+          Container(
+            color: const Color(0xFFF5F5F5),
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 5, vertical: 20),
+                      margin: const EdgeInsets.symmetric(horizontal: 5),
+                      color: Colors.white,
+                      child: Column(
+                        children: [
+                          Text("${tripList.length}",
+                              style: AppTextStyle.upperitemtmeemtext),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          const Text(
+                            "Total Trips",
+                            style: AppTextStyle.upperitemtmeemspantext,
+                          )
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.25,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 5, vertical: 20),
+                      margin: const EdgeInsets.symmetric(horizontal: 5),
+                      color: Colors.white,
+                      child: Column(
+                        children: [
+                          Text(totalDistance.toString(),
+                              style: AppTextStyle.upperitemtmeemtext),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            "Total KMs",
+                            style: AppTextStyle.upperitemtmeemspantext,
+                          )
+                        ],
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 5, vertical: 20),
+                      margin: const EdgeInsets.symmetric(horizontal: 5),
+                      color: Colors.white,
+                      child: const Column(
+                        children: [
+                          Text("₹0", style: AppTextStyle.upperitemtmeemtext),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            "Total  Earning",
+                            style: AppTextStyle.upperitemtmeemspantext,
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   _buildCompletedRide(int index) {
