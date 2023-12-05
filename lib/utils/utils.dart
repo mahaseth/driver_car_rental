@@ -68,7 +68,6 @@ extension ShowSnackBar on BuildContext {
   }
 }
 
-
 customDivider() {
   return Container(
     margin: const EdgeInsets.symmetric(

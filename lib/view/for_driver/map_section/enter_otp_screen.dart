@@ -123,19 +123,21 @@ class _EnterOtpScreenState extends State<EnterOtpScreen> {
                     }
                     TripViewModel viewModel =
                         Provider.of<TripViewModel>(context, listen: false);
-          
-                    if (int.parse(otpValue) != viewModel.currentTrip!.otpCount) {
+
+                    if (int.parse(otpValue) !=
+                        viewModel.currentTrip!.otpCount) {
                       context.showErrorSnackBar(
-                          message: "OTP is in-correct. Please enter correct OTP");
+                          message:
+                              "OTP is in-correct. Please enter correct OTP");
                       return;
                     }
                     Map tripData = {
                       "status": "ON_TRIP",
                     };
-          
+
                     viewModel.editTrip(
                         context, tripData, viewModel.currentTrip!.id);
-          
+
                     widget.onSubmit(4);
                   },
                   child: Container(

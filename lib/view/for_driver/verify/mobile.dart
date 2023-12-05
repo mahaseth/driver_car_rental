@@ -16,7 +16,6 @@ class MobileVerify extends StatefulWidget {
 class _MobileVerifyState extends State<MobileVerify> {
   SignInViewModel? _provider;
 
-
   @override
   Widget build(BuildContext context) {
     _provider = Provider.of<SignInViewModel>(context, listen: true);

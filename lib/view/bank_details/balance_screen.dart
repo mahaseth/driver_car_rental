@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myride/services/razor_pay.dart';
 
 class BalanceScreen extends StatefulWidget {
   const BalanceScreen({super.key});
@@ -39,16 +40,18 @@ class _BalanceScreenState extends State<BalanceScreen> {
                       size: 40,
                       color: Colors.white,
                     ),
-                    "Recharge",
-                    () {}),
+                    "Recharge", () {
+                  showRecharegDialog(context);
+                }),
                 buttonCustom(
                     const Icon(
                       Icons.monetization_on_outlined,
                       size: 40,
                       color: Colors.white,
                     ),
-                    "Withdraw",
-                    () {}),
+                    "Withdraw", () {
+                  _showWithDrawDialog(context);
+                }),
                 buttonCustom(
                     const Icon(
                       Icons.settings,
@@ -116,6 +119,126 @@ class _BalanceScreenState extends State<BalanceScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  TextEditingController controller = TextEditingController();
+
+  void showRecharegDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        bool isLoading = false;
+        return StatefulBuilder(
+          builder: (context, changeState) {
+            return AlertDialog(
+              title: Text('Enter the Amount'),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextFormField(
+                    keyboardType: TextInputType.number,
+                    controller: controller,
+                    decoration: InputDecoration(labelText: 'Amount'),
+                  ),
+                  SizedBox(height: 16),
+                  isLoading
+                      ? Center(child: CircularProgressIndicator())
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            ElevatedButton(
+                              onPressed: () async {
+                                String couponCode = controller.text;
+                                debugPrint(couponCode);
+                                changeState(() {
+                                  isLoading = true;
+                                });
+
+                                RazorPayUtils razor = RazorPayUtils();
+
+                                razor.initRazorPay(int.parse(controller.text));
+                                razor.createOrder(int.parse(controller.text));
+                                changeState(() {
+                                  isLoading = false;
+                                });
+
+                                Navigator.pop(context);
+                              },
+                              child: Text('Add'),
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                                // Close the dialog
+                              },
+                              child: Text('Cancel'),
+                            ),
+                          ],
+                        ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  void _showWithDrawDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        bool isLoading = false;
+        return StatefulBuilder(
+          builder: (context, changeState) {
+            return AlertDialog(
+              title: Text('Enter the Amount'),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextFormField(
+                    keyboardType: TextInputType.number,
+                    controller: controller,
+                    decoration: InputDecoration(labelText: 'Amount'),
+                  ),
+                  SizedBox(height: 16),
+                  isLoading
+                      ? Center(child: CircularProgressIndicator())
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            ElevatedButton(
+                              onPressed: () async {
+                                String couponCode = controller.text;
+                                debugPrint(couponCode);
+                                changeState(() {
+                                  isLoading = true;
+                                });
+
+                                changeState(() {
+                                  isLoading = false;
+                                });
+
+                                Navigator.pop(context);
+                              },
+                              child: Text('Withdraw'),
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                                // Close the dialog
+                              },
+                              child: Text('Cancel'),
+                            ),
+                          ],
+                        ),
+                ],
+              ),
+            );
+          },
+        );
+      },
     );
   }
 

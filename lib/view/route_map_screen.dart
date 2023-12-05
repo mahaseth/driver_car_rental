@@ -39,9 +39,10 @@ class _RouteMapScreenState extends State<RouteMapScreen> {
                   height: AppSceenSize.getHeight(context),
                   child: GoogleMap(
                       initialCameraPosition: _kGooglePlex,
-                      myLocationButtonEnabled: true,
+                      myLocationButtonEnabled: false,
                       myLocationEnabled: true,
                       zoomControlsEnabled: false,
+                      compassEnabled: false,
                       onMapCreated: (GoogleMapController controller) {
                         _controller = controller;
                       }),
