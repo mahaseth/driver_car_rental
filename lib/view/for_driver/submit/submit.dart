@@ -1,6 +1,7 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:myride/constant/app_text_style.dart';
+import 'package:myride/view/bank_details/bank_details_screen.dart';
 import 'package:myride/view/for_driver/waiting_for_approval/waiting_for_approval.dart';
 
 class SubmitScreen extends StatefulWidget {
@@ -16,18 +17,6 @@ class _SubmitScreenState extends State<SubmitScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Color getColor(Set<MaterialState> states) {
-      const Set<MaterialState> interactiveStates = <MaterialState>{
-        MaterialState.pressed,
-        MaterialState.hovered,
-        MaterialState.focused,
-      };
-      if (states.any(interactiveStates.contains)) {
-        return Colors.blue;
-      }
-      return Colors.red;
-    }
-
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -123,12 +112,19 @@ class _SubmitScreenState extends State<SubmitScreen> {
         ),
       ),
       bottomNavigationBar: GestureDetector(
-        onTap: () {
-          Navigator.push(
+        onTap: () async {
+          await Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const WaitingForApproval(),
+                builder: (context) => const BankDetailsScreen(),
               ));
+          if (context.mounted) {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const WaitingForApproval(),
+                ));
+          }
         },
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),

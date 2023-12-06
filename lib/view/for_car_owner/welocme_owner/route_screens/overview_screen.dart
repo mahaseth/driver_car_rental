@@ -41,7 +41,6 @@ class DriverOverViewScreenState extends State<DriverOverViewScreen>
         Provider.of<TripViewModel>(context, listen: false);
     await tripViewModel.getTrips(context);
 
-    await _provider!.getProfile(context);
     setState(() {
       driverProfile = _provider!.currDriverProfile;
     });

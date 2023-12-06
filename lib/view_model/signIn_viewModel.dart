@@ -5,8 +5,11 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:myride/repository/signin_repo.dart';
 import 'package:myride/utils/utils.dart';
-import 'package:myride/view/for_driver/profile/choose_vehicle.dart';
+import 'package:myride/view/for_car_owner/welocme_owner/welcome_owner.dart';
+import 'package:myride/view/for_driver/driver-details/driver-details.dart';
 import 'package:myride/view/for_driver/verify/otp.dart';
+import 'package:myride/view_model/driverprofile_viewmodel.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInViewModel extends ChangeNotifier {
@@ -21,7 +24,6 @@ class SignInViewModel extends ChangeNotifier {
 
   get mobileNumberController => _mobileNumberController;
 
-  // String token = 'ad2d45807fbec23b121b86bcfed4ce525731744c';
   static String token = '';
 
   registerDriver(BuildContext context) async {
@@ -123,12 +125,29 @@ class SignInViewModel extends ChangeNotifier {
         sharedPreferences.setString("token", token);
         loading = false;
         notifyListeners();
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const ChooseVehicleScreen(),
-          ),
-        );
+        DriveProfileViewModel provider =
+            Provider.of<DriveProfileViewModel>(context, listen: true);
+        provider.getProfile(context);
+
+        if (provider.currDriverProfile == null ||
+            provider.currDriverProfile!.firstname == null ||
+            provider.currDriverProfile!.firstname!.isEmpty) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return const DriverDetailsScreen();
+              },
+            ),
+          );
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const WelcomeScreenOwner(),
+            ),
+          );
+        }
       } else {
         Utils.showMyDialog("${response['data']}", context);
       }

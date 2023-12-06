@@ -4,7 +4,9 @@ import 'package:myride/constant/app_screen_size.dart';
 import 'package:myride/constant/app_text_style.dart';
 import 'package:myride/view/for_car_owner/welocme_owner/welcome_owner.dart';
 import 'package:myride/view/for_driver/verify/mobile.dart';
+import 'package:myride/view_model/driverprofile_viewmodel.dart';
 import 'package:myride/view_model/signIn_viewModel.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePageScreen extends StatefulWidget {
@@ -76,10 +78,15 @@ class _HomePageScreenState extends State<HomePageScreen> {
   }
 
   void gotoNextScreen() async {
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 2));
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     if (sharedPreferences.containsKey('token')) {
       SignInViewModel.token = sharedPreferences.getString('token') ?? "";
+
+      DriveProfileViewModel provider =
+          Provider.of<DriveProfileViewModel>(context, listen: false);
+      await provider.getProfile(context);
+
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(

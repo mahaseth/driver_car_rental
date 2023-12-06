@@ -15,12 +15,6 @@ class WelcomeScreenOwner extends StatefulWidget {
 
 class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
     with SingleTickerProviderStateMixin {
-  late GoogleMapController _controller;
-  CameraPosition _kGooglePlex = const CameraPosition(
-    target: LatLng(22.5726, 88.3639),
-    zoom: 14.4746,
-  );
-
   int _selectedIndex = 0;
   bool onDuty = TripWebSocket.isDuty;
   String onOfText = "ON";
@@ -35,7 +29,7 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
   Widget build(BuildContext context) {
     return Scaffold(
       body: [
-        RouteMapScreen(),
+        const RouteMapScreen(),
         const DriverOverViewScreen(),
         AccountScreen(onItemTapped: _onItemTapped)
       ][_selectedIndex],
