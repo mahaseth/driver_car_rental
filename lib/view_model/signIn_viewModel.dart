@@ -46,8 +46,18 @@ class SignInViewModel extends ChangeNotifier {
         final response = await _signInRepo.registerDriver(context, bodyTosend);
         log("RESPONSE $response");
 
-        if (response['status'] ||
-            response['data'] == "Number already registered") {
+        if (response['status']) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return OtpScreen(
+                  phoneNumber: _mobileNumberController.text,
+                );
+              },
+            ),
+          );
+        } else if (response['data'] == "Number already registered") {
           loginDriver(context);
         }
         loading = false;
@@ -126,7 +136,7 @@ class SignInViewModel extends ChangeNotifier {
         loading = false;
         notifyListeners();
         DriveProfileViewModel provider =
-            Provider.of<DriveProfileViewModel>(context, listen: true);
+            Provider.of<DriveProfileViewModel>(context, listen: false);
         provider.getProfile(context);
 
         if (provider.currDriverProfile == null ||

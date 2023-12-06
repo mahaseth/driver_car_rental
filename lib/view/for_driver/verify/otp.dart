@@ -94,7 +94,9 @@ class _OtpScreenState extends State<OtpScreen> {
                       children: [
                         const Text("Didn’t receive OTP?"),
                         TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              _provider!.registerDriver(context);
+                            },
                             child: const Text(
                               "Resend",
                               style: TextStyle(
