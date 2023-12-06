@@ -6,6 +6,7 @@ import 'package:myride/view/for_car_owner/welocme_owner/welcome_owner.dart';
 import 'package:myride/view/for_driver/verify/mobile.dart';
 import 'package:myride/view_model/driverprofile_viewmodel.dart';
 import 'package:myride/view_model/signIn_viewModel.dart';
+import 'package:myride/view_model/vehicleinfo_viewmodel.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -86,6 +87,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
       DriveProfileViewModel provider =
           Provider.of<DriveProfileViewModel>(context, listen: false);
       await provider.getProfile(context);
+      VehicleInfoViewModel providerVehicle =
+          Provider.of<VehicleInfoViewModel>(context, listen: false);
+      await providerVehicle.vehicleListUser(context);
 
       Navigator.pushReplacement(
         context,

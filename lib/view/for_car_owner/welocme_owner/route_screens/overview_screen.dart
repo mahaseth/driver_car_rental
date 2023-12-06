@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:myride/model/driverprofile.dart';
 import 'package:myride/view/for_car_owner/welocme_owner/route_screens/complete_ride_screen.dart';
 import 'package:myride/view/for_car_owner/welocme_owner/route_screens/schedule_rides.dart';
 import 'package:myride/view/for_car_owner/welocme_owner/route_screens/your_rides_screen.dart';
-import 'package:myride/view_model/driverprofile_viewmodel.dart';
 import 'package:myride/view_model/trip_viewModel.dart';
-import 'package:myride/web_socket/trip_socket.dart';
 import 'package:provider/provider.dart';
 
 class DriverOverViewScreen extends StatefulWidget {
@@ -18,12 +15,6 @@ class DriverOverViewScreen extends StatefulWidget {
 class DriverOverViewScreenState extends State<DriverOverViewScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  DriverProfile? driverProfile;
-  bool onDuty = TripWebSocket.isDuty;
-  bool light0 = false;
-  DriveProfileViewModel? _provider;
-  String name = "", location = "", id = "";
-  String onOfText = "ON";
 
   @override
   void initState() {
@@ -33,22 +24,9 @@ class DriverOverViewScreenState extends State<DriverOverViewScreen>
   }
 
   void readData() async {
-    _provider = Provider.of<DriveProfileViewModel>(context, listen: false);
-    setState(() {
-      _provider!.loading;
-    });
     TripViewModel tripViewModel =
         Provider.of<TripViewModel>(context, listen: false);
     await tripViewModel.getTrips(context);
-
-    setState(() {
-      driverProfile = _provider!.currDriverProfile;
-    });
-    debugPrint("Updated values :- $driverProfile");
-
-    setState(() {
-      _provider!.loading;
-    });
   }
 
   @override
@@ -59,11 +37,6 @@ class DriverOverViewScreenState extends State<DriverOverViewScreen>
 
   @override
   Widget build(BuildContext context) {
-    if (driverProfile != null) {
-      name = driverProfile!.firstname ?? "";
-      location = driverProfile!.fulladdress ?? "";
-      id = driverProfile!.id.toString() ?? "";
-    }
     return SafeArea(
       child: Scaffold(
         body: Column(

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:myride/constant/app_color.dart';
+import 'package:myride/model/vehicleinfo.dart';
+import 'package:myride/utils/NavigationService.dart';
 import 'package:myride/view/for_car_owner/welocme_owner/account_screen.dart';
 import 'package:myride/view/for_car_owner/welocme_owner/route_screens/overview_screen.dart';
 import 'package:myride/view/route_map_screen.dart';
+import 'package:myride/view_model/vehicleinfo_viewmodel.dart';
 import 'package:myride/web_socket/trip_socket.dart';
+import 'package:provider/provider.dart';
 
 class WelcomeScreenOwner extends StatefulWidget {
   const WelcomeScreenOwner({super.key});
@@ -18,6 +21,25 @@ class _WelcomeScreenOwnerState extends State<WelcomeScreenOwner>
   int _selectedIndex = 0;
   bool onDuty = TripWebSocket.isDuty;
   String onOfText = "ON";
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    startWebSocket();
+  }
+
+  void startWebSocket() {
+    VehicleInfoViewModel providerVehicle =
+        Provider.of<VehicleInfoViewModel>(context, listen: false);
+
+    VehicleInfoo? vehicleModel = providerVehicle.currentVehicle;
+
+    if (vehicleModel != null) {
+      TripWebSocket().webSocketInit(providerVehicle.currentVehicle!.cabclass!,
+          NavigationService.navigatorKey.currentContext ?? context);
+    }
+  }
 
   void _onItemTapped(int index) {
     setState(() {

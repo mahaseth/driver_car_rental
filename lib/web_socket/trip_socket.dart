@@ -58,6 +58,7 @@ class TripWebSocket {
           if (driverStatus.isRidingValue) {
             return;
           }
+          // await getDistance();
           Navigator.push(
               context,
               MaterialPageRoute(
