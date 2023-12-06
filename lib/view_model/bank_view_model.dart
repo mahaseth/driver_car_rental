@@ -54,7 +54,7 @@ class BankViewModel extends ChangeNotifier {
       final response = await _bankRepo.getBankDetail(context);
 
       log("RESPONSE Bank $response");
-      if (response == null) return;
+      if (response == null || (response as List).isEmpty) return;
       try {
         bankModel = BankAccountModel.fromJson(response[0]);
       } catch (e) {

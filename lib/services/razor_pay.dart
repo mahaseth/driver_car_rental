@@ -5,11 +5,11 @@ import 'package:razorpay_flutter/razorpay_flutter.dart';
 class RazorPayUtils {
   final _razorpay = Razorpay();
 
-  void initRazorPay(int amt) {
+  void initRazorPay(int amt, int id) {
     _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
     _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
     _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
-    Map map = {"amount": amt * 100};
+    Map map = {"amount": amt * 100, "customer_id": id};
     RazorPayRepo().createOrder(map);
   }
 

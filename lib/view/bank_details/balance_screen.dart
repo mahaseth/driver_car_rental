@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:myride/services/razor_pay.dart';
+import 'package:myride/view/bank_details/bank_details_screen.dart';
+import 'package:myride/view/bank_details/show_bank_account.dart';
+import 'package:myride/view_model/bank_view_model.dart';
+import 'package:myride/view_model/driverprofile_viewmodel.dart';
+import 'package:provider/provider.dart';
 
 class BalanceScreen extends StatefulWidget {
   const BalanceScreen({super.key});
@@ -58,8 +63,33 @@ class _BalanceScreenState extends State<BalanceScreen> {
                       size: 40,
                       color: Colors.white,
                     ),
-                    "Manage",
-                    () {}),
+                    "Manage", () {
+                  BankViewModel bankViewModel =
+                      Provider.of<BankViewModel>(context, listen: false);
+                  bankViewModel.getBankDetail(context);
+
+                  if (bankViewModel.bankModel == null) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const BankDetailsScreen();
+                        },
+                      ),
+                    );
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return ShowBankAccount(
+                            model: bankViewModel.bankModel,
+                          );
+                        },
+                      ),
+                    );
+                  }
+                }),
               ],
             ),
             Expanded(
@@ -157,7 +187,12 @@ class _BalanceScreenState extends State<BalanceScreen> {
 
                                 RazorPayUtils razor = RazorPayUtils();
 
-                                razor.initRazorPay(int.parse(controller.text));
+                                DriveProfileViewModel provider =
+                                    Provider.of<DriveProfileViewModel>(context,
+                                        listen: false);
+
+                                razor.initRazorPay(int.parse(controller.text),
+                                    provider.driverProfile?.id ?? -1);
                                 razor.createOrder(int.parse(controller.text));
                                 changeState(() {
                                   isLoading = false;

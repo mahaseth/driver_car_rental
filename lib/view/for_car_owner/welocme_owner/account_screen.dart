@@ -63,6 +63,7 @@ class _AccountScreenState extends State<AccountScreen> {
     "aadhar_number",
     "pan_number",
     const MessageScreen(),
+    // const BalanceScreen(),
     const WriteMessage(),
     null,
   ];
@@ -132,12 +133,12 @@ class _AccountScreenState extends State<AccountScreen> {
     });
     setState(() {
       _provider!.loading;
-      name = driverProfile!.firstname ?? "";
-      location = driverProfile!.fulladdress ?? "";
-      id = (driverProfile!.id ?? 0).toString();
-      url = driverProfile!.photoupload ?? "";
-      size = driverProfile!.totalTrip ?? 0.0;
-      totalDistance = driverProfile!.totalDistanceKm ?? 0.0;
+      name = driverProfile?.firstname ?? "";
+      location = driverProfile?.fulladdress ?? "";
+      id = (driverProfile?.id ?? 0).toString();
+      url = driverProfile?.photoupload ?? "";
+      size = driverProfile?.totalTrip ?? 0.0;
+      totalDistance = driverProfile?.totalDistanceKm ?? 0.0;
     });
   }
 

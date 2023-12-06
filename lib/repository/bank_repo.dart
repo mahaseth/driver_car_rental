@@ -67,7 +67,7 @@ class BankAccountRepo {
           .getGetApiResponse("http://3.109.183.75/account/driver-bank-details/",
               SignInViewModel.token)
           .catchError((error, stackTrace) {
-        Utils.showMyDialog(error.toString(), context);
+        // Utils.showMyDialog(error.toString(), context);
         if (kDebugMode) {
           print(error.toString());
         }

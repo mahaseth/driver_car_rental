@@ -19,7 +19,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    readData();
+    // readData();
     gotoNextScreen();
   }
 
