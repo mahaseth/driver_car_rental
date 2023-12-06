@@ -71,32 +71,39 @@ class _VehicleScreenState extends State<VehicleScreen> {
   Widget build(BuildContext context) {
     tripReadData();
     readData();
-    return vehicleListView();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("My Vehicles"),
+      ),
+      body: vehicleListView(),
+    );
   }
 
   showEmptyVehicleList() {
-    return Column(
-      children: [
-        const SizedBox(
-          height: 30,
-        ),
-        Image.asset('assets/icon/empty_image.png'),
-        const SizedBox(
-          height: 10,
-        ),
-        const Text(
-          'Your Vehicles List',
-          style: TextStyle(fontSize: 20),
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        const Text('You don\'t have any vehicles added'),
-        const SizedBox(
-          height: 10,
-        ),
-        addVehicleButton(),
-      ],
+    return Center(
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 30,
+          ),
+          Image.asset('assets/icon/empty_image.png'),
+          const SizedBox(
+            height: 10,
+          ),
+          const Text(
+            'Your Vehicles List',
+            style: TextStyle(fontSize: 20),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          const Text('You don\'t have any vehicles added'),
+          const SizedBox(
+            height: 10,
+          ),
+          addVehicleButton(),
+        ],
+      ),
     );
   }
 

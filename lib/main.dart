@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myride/utils/NavigationService.dart';
-import 'package:myride/view/bank_details/balance_screen.dart';
+import 'package:myride/view/for_car_owner/welocme_owner/route_screens/vehicle_screen.dart';
 import 'package:myride/view/for_driver/home/home.dart';
 import 'package:myride/view_model/admin_support_viewModel.dart';
 import 'package:myride/view_model/bank_view_model.dart';
@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        // home: const BalanceScreen(),
+        // home: const VehicleScreen(),
         home: const HomePageScreen(),
       ),
     );

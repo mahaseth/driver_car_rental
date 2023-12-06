@@ -7,6 +7,7 @@ import 'package:myride/constant/app_text_style.dart';
 import 'package:myride/model/driverprofile.dart';
 import 'package:myride/utils/rating_stars.dart';
 import 'package:myride/view/for_car_owner/welocme_owner/route_screens/overview_screen.dart';
+import 'package:myride/view/for_car_owner/welocme_owner/route_screens/vehicle_screen.dart';
 import 'package:myride/view/for_car_owner/welocme_owner/view_document_screen.dart';
 import 'package:myride/view/for_driver/profile/message_screen.dart';
 import 'package:myride/view/for_driver/profile/write_message.dart';
@@ -42,7 +43,6 @@ class _AccountScreenState extends State<AccountScreen> {
     "PAN Card",
     "Message",
     "Admin Support",
-    "Contact Us",
   ];
 
   List<Icon> tileIcons = [
@@ -53,11 +53,10 @@ class _AccountScreenState extends State<AccountScreen> {
     const Icon(Icons.book),
     const Icon(Icons.book),
     const Icon(Icons.book),
-    const Icon(Icons.phone),
   ];
 
   List<dynamic> tileOnClick = [
-    null,
+    const VehicleScreen(),
     const DriverOverViewScreen(),
     "license_number",
     "aadhar_number",

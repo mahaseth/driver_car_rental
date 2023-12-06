@@ -64,9 +64,9 @@ class DriverOverViewScreenState extends State<DriverOverViewScreen>
       location = driverProfile!.fulladdress ?? "";
       id = driverProfile!.id.toString() ?? "";
     }
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
+    return SafeArea(
+      child: Scaffold(
+        body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
