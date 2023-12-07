@@ -79,8 +79,8 @@ class _AccountScreenState extends State<AccountScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Column(
-            children: const [
+          title: const Column(
+            children: [
               Text('Do you want to log out'),
             ],
           ),
@@ -98,7 +98,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => SplashScreen(),
+                      builder: (context) => const SplashScreen(),
                     ),
                   );
                 }
@@ -110,7 +110,7 @@ class _AccountScreenState extends State<AccountScreen> {
                 // Perform an action here
                 Navigator.of(context).pop();
               },
-              child: Text('NO'),
+              child: const Text('NO'),
             ),
           ],
         );
@@ -271,10 +271,10 @@ class _AccountScreenState extends State<AccountScreen> {
                     children: [
                       Text(size.toString(),
                           style: AppTextStyle.upperitemtmeemtext),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
-                      Text(
+                      const Text(
                         "Complete Trips",
                         style: AppTextStyle.upperitemtmeemspantext,
                       )
@@ -291,10 +291,10 @@ class _AccountScreenState extends State<AccountScreen> {
                     children: [
                       Text(totalDistance.toString(),
                           style: AppTextStyle.upperitemtmeemtext),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
-                      Text(
+                      const Text(
                         "Kilometers",
                         style: AppTextStyle.upperitemtmeemspantext,
                       )
@@ -363,7 +363,7 @@ class _AccountScreenState extends State<AccountScreen> {
                       }),
                   Card(
                     child: ListTile(
-                      leading: Icon(Icons.logout),
+                      leading: const Icon(Icons.logout),
                       title: const Text(
                         "Logout",
                       ),
