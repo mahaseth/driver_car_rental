@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:csc_picker/csc_picker.dart';
 import 'package:dio/dio.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
@@ -36,10 +37,13 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
   final TextEditingController license = TextEditingController();
   final TextEditingController email = TextEditingController();
 
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   late File? af, ab, p, lf, lb, pu;
   String? afs, abs, ps, lfs, lbs, pus;
 
   Dio dio = Dio();
+  String countryValue = "", stateValue = "", cityValue = "";
 
   late Response response;
 
@@ -173,57 +177,29 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Column(
-                children: [
-                  ListTile(
-                    title: const Text("First Name"),
-                    trailing: SizedBox(
-                      width: 100,
-                      child: TextField(
-                        controller: fName,
-                        decoration: const InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "First Name",
-                        ),
-                      ),
+            Form(
+              key: _formKey,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Column(
+                  children: [
+                    inputTextField(fName, "First Name *", width: 1),
+                    const SizedBox(
+                      height: 25,
                     ),
-                    onTap: () {},
-                  ),
-                  customDivider(),
-                  ListTile(
-                    title: const Text("Last Name"),
-                    trailing: SizedBox(
-                      width: 100,
-                      child: TextField(
-                        controller: lName,
-                        decoration: const InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "Last Name",
-                        ),
-                      ),
+                    inputTextField(lName, "Last Name *", width: 1),
+                    const SizedBox(
+                      height: 25,
                     ),
-                  ),
-                  customDivider(),
-                  ListTile(
-                    title: const Text("Email"),
-                    trailing: SizedBox(
-                      width: 100,
-                      child: TextField(
-                        controller: email,
-                        decoration: const InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "Email",
-                        ),
-                      ),
+                    inputTextField(email, "Email *", width: 1),
+                    const SizedBox(
+                      height: 25,
                     ),
-                    onTap: () {},
-                  ),
-                  addressView(),
-                  customDivider(),
-                  selectbox(),
-                ],
+                    addressView(),
+                    customDivider(),
+                    selectbox(),
+                  ],
+                ),
               ),
             )
           ],
@@ -244,112 +220,174 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
   }
 
   uploadImageBoxView(String hint, String? file, String uploadText) {
-    return Container(
-        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-        child: DottedBorder(
-          color: const Color(0xFFdddddd),
-          strokeWidth: 1,
-          dashPattern: const [5, 6],
-          child: Row(
-            children: [
-              Expanded(
-                child: TextFormField(
-                  readOnly: true,
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(
-                      Icons.check_box,
-                      color: file != null ? Appcolors.appgreen : Colors.grey,
-                    ),
-                    hintText: hint,
-                    hintStyle: const TextStyle(
-                      color: Color(0xFF999999),
-                      fontSize: 12,
-                    ),
-                    border: InputBorder.none,
-                  ),
-                ),
+    return Row(
+      children: [
+        Expanded(
+          child: TextFormField(
+            readOnly: true,
+            decoration: InputDecoration(
+              prefixIcon: Icon(
+                Icons.check_box,
+                color: file != null ? Appcolors.appgreen : Colors.grey,
               ),
-              ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF00B74C),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 12,
-                  ),
-                ),
-                onPressed: () async {
-                  handleFileUpload(uploadText);
-                },
-                icon: const Icon(
-                  Icons.upload,
-                  size: 15,
-                ),
-                label: file != null
-                    ? const Text("Uploaded")
-                    : const Text("Upload"),
+              hintText: hint,
+              hintStyle: const TextStyle(
+                color: Color(0xFF999999),
+                fontSize: 12,
               ),
-            ],
+              border: InputBorder.none,
+            ),
           ),
-        ));
+        ),
+        ElevatedButton.icon(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFF00B74C),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10,
+              vertical: 12,
+            ),
+          ),
+          onPressed: () async {
+            handleFileUpload(uploadText);
+          },
+          icon: const Icon(
+            Icons.upload,
+            size: 15,
+          ),
+          label: file != null ? const Text("Uploaded") : const Text("Upload"),
+        ),
+      ],
+    );
   }
 
   selectbox() {
     return Column(
       children: [
-        ListTile(
-          title: const Text("Adhaar No. *"),
-          trailing: SizedBox(
-            width: 100,
-            child: TextField(
-              controller: aadhar,
-              decoration: const InputDecoration(
-                border: InputBorder.none,
-                hintText: "Number",
+        countryValue != "🇮🇳    India"
+            ? const SizedBox.shrink()
+            : Card(
+                child: DottedBorder(
+                  color: const Color(0xff2f2f2f),
+                  strokeWidth: 1,
+                  dashPattern: const [5, 6],
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      inputTextField(aadhar, "Adhaar No. *", width: 0.9),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      uploadImageBoxView('Adhar Upload Front...', afs, "af"),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      uploadImageBoxView('Adhar Upload back...', abs, "ab"),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            ),
-          ),
-        ),
-        uploadImageBoxView('Adhar Upload Front...', afs, "af"),
-        uploadImageBoxView('Adhar Upload back...', abs, "ab"),
-        ListTile(
-          title: const Text("PAN No. *"),
-          trailing: SizedBox(
-            width: 100,
-            child: TextField(
-              controller: pan,
-              decoration: const InputDecoration(
-                border: InputBorder.none,
-                hintText: "Pan-Number",
-              ),
-            ),
-          ),
-        ),
-        uploadImageBoxView('Pan Upload...', ps, "p"),
-        ListTile(
-          title: const Text("Licence Number. *"),
-          trailing: SizedBox(
-            width: 100,
-            child: TextField(
-              controller: license,
-              decoration: const InputDecoration(
-                border: InputBorder.none,
-                hintText: "Number",
-              ),
-            ),
-          ),
-        ),
-        uploadImageBoxView('Licence Upload Front...', lfs, "lf"),
-        uploadImageBoxView('Licence Upload back...', lbs, "lb"),
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: const Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [Text("Car Owner Photo"), Text("")],
-          ),
-        ),
-        uploadImageBoxView('Upload Photo', pus, "pu"),
         const SizedBox(
-          height: 25,
+          height: 15,
+        ),
+        countryValue == "🇮🇳    India"
+            ? const SizedBox.shrink()
+            : Card(
+                child: DottedBorder(
+                  color: const Color(0xff2f2f2f),
+                  strokeWidth: 1,
+                  dashPattern: const [5, 6],
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      inputTextField(aadhar, "PassPort No. *", width: 0.9),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      uploadImageBoxView('Passport Upload Front...', afs, "af"),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      uploadImageBoxView('Passport Upload back...', abs, "ab"),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+        const SizedBox(
+          height: 15,
+        ),
+        countryValue != "🇮🇳    India"
+            ? const SizedBox.shrink()
+            : Card(
+                child: DottedBorder(
+                  color: const Color(0xff2f2f2f),
+                  strokeWidth: 1,
+                  dashPattern: const [5, 6],
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      inputTextField(pan, "PAN No. *", width: 0.9),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      uploadImageBoxView('Pan Upload...', ps, "p"),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+        const SizedBox(
+          height: 15,
+        ),
+        Card(
+          child: DottedBorder(
+            color: const Color(0xff2f2f2f),
+            strokeWidth: 1,
+            dashPattern: const [5, 6],
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 15,
+                ),
+                inputTextField(license, "Licence Number. *", width: 0.9),
+                const SizedBox(
+                  height: 15,
+                ),
+                uploadImageBoxView('Licence Upload Front...', lfs, "lf"),
+                const SizedBox(
+                  height: 15,
+                ),
+                uploadImageBoxView('Licence Upload back...', lbs, "lb"),
+                const SizedBox(
+                  height: 15,
+                ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        Card(
+          child: DottedBorder(
+            color: const Color(0xff2f2f2f),
+            strokeWidth: 1,
+            dashPattern: const [5, 6],
+            child: uploadImageBoxView('Upload Photo', pus, "pu"),
+          ),
         ),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
@@ -364,8 +402,13 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
               ),
             ),
             onPressed: () async {
-              check() ? submit() : showSnackbar("All fields are required");
-              // submit();
+              if (_formKey.currentState!.validate()) {
+                check()
+                    ? submit()
+                    : context.showErrorSnackBar(
+                        message: "All fields are required");
+                // submit();
+              }
             },
             child: const Text("SUBMIT "),
           ),
@@ -424,26 +467,28 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(
-          height: 15,
-        ),
-        const Center(
-          child: Text("Full Address"),
-        ),
-        const SizedBox(
-          height: 5,
-        ),
-        customDivider(),
         inputTextField(pinCode, "Pincode *", width: 0.4),
         const SizedBox(
           height: 15,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            inputTextField(state, "State *", width: 0.4),
-            inputTextField(city, "City *", width: 0.4),
-          ],
+        CSCPicker(
+          onCountryChanged: (value) {
+            setState(() {
+              countryValue = value;
+            });
+
+            debugPrint("State Value $countryValue");
+          },
+          onStateChanged: (value) {
+            setState(() {
+              stateValue = value ?? "";
+            });
+          },
+          onCityChanged: (value) {
+            setState(() {
+              cityValue = value ?? "";
+            });
+          },
         ),
         const SizedBox(
           height: 15,
@@ -469,11 +514,12 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
     return SizedBox(
       width: AppSceenSize.getWidth(context) * width,
       height: 50,
-      child: TextField(
+      child: TextFormField(
+        validator: validator,
         controller: controller,
         decoration: InputDecoration(
             border: const OutlineInputBorder(),
-            hintText: hintText,
+            // hintText: hintText,
             labelText: hintText),
       ),
     );

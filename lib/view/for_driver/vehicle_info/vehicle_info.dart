@@ -194,10 +194,10 @@ class _VehicleInfoState extends State<VehicleInfo> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                coustomline(),
-                coustomline(),
-                coustomline(),
-                coustomline(),
+                customLine(),
+                customLine(),
+                customLine(),
+                customLine(),
               ],
             ),
             const SizedBox(
@@ -252,7 +252,7 @@ class _VehicleInfoState extends State<VehicleInfo> {
                     }
                     await _provider!.vehicleMakerCall(
                         context, _provider!.vehicleType!.id ?? 1);
-                    vehiclemakeBottomSheet();
+                    vehicleMakeBottomSheet();
                   },
                 ),
                 customDivider(),
@@ -277,18 +277,12 @@ class _VehicleInfoState extends State<VehicleInfo> {
                   ],
                 ),
                 customDivider(),
-                ListTile(
-                  title: const Text("Vehicle Plate Number"),
-                  trailing: SizedBox(
-                    width: 100,
-                    child: TextField(
-                      controller: _controller,
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "Number Plate",
-                      ),
-                    ),
-                  ),
+                const SizedBox(
+                  height: 15,
+                ),
+                inputTextField(_controller, "Vehicle Number*", width: 0.95),
+                const SizedBox(
+                  height: 15,
                 ),
                 selectbox(),
               ],
@@ -370,54 +364,43 @@ class _VehicleInfoState extends State<VehicleInfo> {
     );
   }
 
-  uploadImageBoxView(String hint, String? file, String uploadText) {
-    return Container(
-        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-        child: DottedBorder(
-          color: const Color(0xFFdddddd),
-          strokeWidth: 1,
-          dashPattern: const [5, 6],
-          child: Row(
-            children: [
-              Expanded(
-                child: TextFormField(
-                  readOnly: true,
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(
-                      Icons.check_box,
-                      color: file != null ? Appcolors.appgreen : Colors.grey,
-                    ),
-                    hintText: hint,
-                    hintStyle: const TextStyle(
-                      color: Color(0xFF999999),
-                      fontSize: 12,
-                    ),
-                    border: InputBorder.none,
+  uploadSquareBox(String hint, String? file, String uploadText) {
+    return GestureDetector(
+      onTap: () {
+        handleFileUpload(uploadText);
+      },
+      child: Container(
+          width: 100,
+          height: 100,
+          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          child: DottedBorder(
+            color: const Color(0xFFdddddd),
+            strokeWidth: 1,
+            dashPattern: const [5, 6],
+            child: file != null
+                ? Image.network(file)
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                          flex: 1,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const SizedBox(
+                                height: 50,
+                                width: 50,
+                                child: Icon(Icons.add),
+                              ),
+                              Text(hint)
+                            ],
+                          )),
+                    ],
                   ),
-                ),
-              ),
-              ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF00B74C),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 12,
-                  ),
-                ),
-                onPressed: () async {
-                  handleFileUpload(uploadText);
-                },
-                icon: const Icon(
-                  Icons.upload,
-                  size: 15,
-                ),
-                label: file != null
-                    ? const Text("Uploaded")
-                    : const Text("Upload"),
-              ),
-            ],
-          ),
-        ));
+          )),
+    );
   }
 
   selectbox() {
@@ -427,16 +410,29 @@ class _VehicleInfoState extends State<VehicleInfo> {
         const ListTile(
           title: Text("Upload Car Photos*"),
         ),
-        uploadImageBoxView('Front', frontCarPhotoUrl, "ic"),
-        uploadImageBoxView('Back', backPhotoUrl, "rc"),
-        uploadImageBoxView('Right Side', rightSideUrl, "mc"),
-        uploadImageBoxView('Left Side', leftSideUrl, "ad"),
-        uploadImageBoxView(
-            'Inside the driver Seat', driverSideUrl, "driverSeat"),
-        uploadImageBoxView(
-            'Inside the passanger seat', passengerSeatUrl, "passangerSeat"),
-        uploadImageBoxView('Front Head Lights', frontheadLightUrl, "frontHead"),
-        uploadImageBoxView('Back Head Lights', backHeadUrl, "backHead"),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            uploadSquareBox('Front', frontCarPhotoUrl, "ic"),
+            uploadSquareBox('Back', backPhotoUrl, "ic"),
+            uploadSquareBox('Right Side', rightSideUrl, "ic"),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            uploadSquareBox('Left Side', leftSideUrl, "ic"),
+            uploadSquareBox('Interior', passengerSeatUrl, "ic"),
+            uploadSquareBox('Interior', driverSideUrl, "ic"),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            uploadSquareBox('Front Number Plate', frontheadLightUrl, "ic"),
+            uploadSquareBox('Back Number Plate', backHeadUrl, "ic"),
+          ],
+        ),
         const SizedBox(
           height: 25,
         )
@@ -444,7 +440,7 @@ class _VehicleInfoState extends State<VehicleInfo> {
     );
   }
 
-  coustomline() {
+  customLine() {
     return Container(
       width: MediaQuery.of(context).size.width * 0.20,
       height: 4,
@@ -452,7 +448,7 @@ class _VehicleInfoState extends State<VehicleInfo> {
     );
   }
 
-  vehiclemakeBottomSheet() {
+  vehicleMakeBottomSheet() {
     Future.delayed(const Duration(seconds: 1));
     showModalBottomSheet<void>(
       shape: const RoundedRectangleBorder(
@@ -656,6 +652,21 @@ class _VehicleInfoState extends State<VehicleInfo> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  inputTextField(TextEditingController controller, String hintText,
+      {double width = 1}) {
+    return SizedBox(
+      width: AppSceenSize.getWidth(context) * width,
+      height: 50,
+      child: TextField(
+        controller: controller,
+        decoration: InputDecoration(
+            border: const OutlineInputBorder(),
+            // hintText: hintText,
+            labelText: hintText),
       ),
     );
   }

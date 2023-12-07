@@ -37,7 +37,6 @@ class _CompleteRideScreenState extends State<CompleteRideScreen> {
     return Column(
       children: [yourRideView(), inComplete()],
     );
-    ;
   }
 
   bool conditionForYourRide() {
@@ -70,11 +69,13 @@ class _CompleteRideScreenState extends State<CompleteRideScreen> {
   }
 
   _buildCompleteRide() {
-    return ListView.builder(
-        itemCount: tripList.length,
-        itemBuilder: (context, index) {
-          return _buildCompletedRide(index);
-        });
+    return Expanded(
+      child: ListView.builder(
+          itemCount: tripList.length,
+          itemBuilder: (context, index) {
+            return _buildCompletedRide(index);
+          }),
+    );
   }
 
   yourRideView() {
@@ -119,10 +120,10 @@ class _CompleteRideScreenState extends State<CompleteRideScreen> {
                         children: [
                           Text(totalDistance.toString(),
                               style: AppTextStyle.upperitemtmeemtext),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
-                          Text(
+                          const Text(
                             "Total KMs",
                             style: AppTextStyle.upperitemtmeemspantext,
                           )
@@ -179,7 +180,7 @@ class _CompleteRideScreenState extends State<CompleteRideScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Pick-Up"),
+                        const Text("Pick-Up"),
                         SizedBox(
                           width: MediaQuery.of(context).size.width * 0.6,
                           child: Text(tripModel.source,
@@ -188,7 +189,7 @@ class _CompleteRideScreenState extends State<CompleteRideScreen> {
                         const SizedBox(
                           height: 25,
                         ),
-                        Text("Destination"),
+                        const Text("Destination"),
                         SizedBox(
                           width: MediaQuery.of(context).size.width * 0.6,
                           child: Text(tripModel.destination,
@@ -220,12 +221,13 @@ class _CompleteRideScreenState extends State<CompleteRideScreen> {
                       Icons.arrow_forward_ios,
                       color: Colors.grey,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 25,
                     ),
                     Text(
                       tripModel.status,
                       style: TextStyle(
+                          fontSize: 12,
                           color: tripModel.status == "COMPLETED"
                               ? Appcolors.appgreen
                               : Colors.red),
