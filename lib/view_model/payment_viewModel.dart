@@ -21,6 +21,9 @@ class PaymentViewModel extends ChangeNotifier {
           (m) => PaymentModel.fromJson(m),
         ),
       );
+      paymentList.sort((A, B) {
+        return B.createdAt.compareTo(A.createdAt);
+      });
       notifyListeners();
     } catch (e) {
       log('Error cab-class $e');

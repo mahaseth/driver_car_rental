@@ -137,7 +137,7 @@ class SignInViewModel extends ChangeNotifier {
         notifyListeners();
         DriveProfileViewModel provider =
             Provider.of<DriveProfileViewModel>(context, listen: false);
-        provider.getProfile(context);
+        await provider.getProfile(context);
 
         if (provider.currDriverProfile == null ||
             provider.currDriverProfile!.firstname == null ||

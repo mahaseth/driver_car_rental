@@ -237,11 +237,11 @@ class _BalanceScreenState extends State<BalanceScreen> {
                                     Provider.of<DriveProfileViewModel>(context,
                                         listen: false);
 
-                                razor.initRazorPay(
+                                await razor.initRazorPay(
                                     int.parse(controller.text),
                                     provider.driverProfile?.id ?? -1,
                                     screenContext);
-                                razor.createOrder(int.parse(controller.text));
+                                await razor.createOrder(int.parse(controller.text));
                                 changeState(() {
                                   isLoading = false;
                                 });

@@ -9,13 +9,13 @@ class RazorPayUtils {
   final _razorpay = Razorpay();
   static BuildContext? context;
 
-  void initRazorPay(int amt, int id, BuildContext getContext) {
+  Future initRazorPay(int amt, int id, BuildContext getContext) async {
     _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
     _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
     _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
     Map map = {"amount": amt * 100};
     context = getContext;
-    RazorPayRepo().createOrder(map);
+    await RazorPayRepo().createOrder(map);
   }
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) async {
