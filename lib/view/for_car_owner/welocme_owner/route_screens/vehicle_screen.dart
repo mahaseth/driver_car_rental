@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myride/constant/app_color.dart';
 import 'package:myride/constant/app_screen_size.dart';
-import 'package:myride/constant/app_text_style.dart';
 import 'package:myride/model/driverprofile.dart';
 import 'package:myride/model/vehicleinfo.dart';
 import 'package:myride/utils/NavigationService.dart';
@@ -114,84 +113,7 @@ class _VehicleScreenState extends State<VehicleScreen> {
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Column(
-        children: [
-          Container(
-            color: const Color(0xFFF5F5F5),
-            padding: const EdgeInsets.symmetric(vertical: 20),
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 5, vertical: 20),
-                      margin: const EdgeInsets.symmetric(horizontal: 5),
-                      color: Colors.white,
-                      child: Column(
-                        children: [
-                          Text(size.toString(),
-                              style: AppTextStyle.upperitemtmeemtext),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          const Text(
-                            "Complete Trips",
-                            style: AppTextStyle.upperitemtmeemspantext,
-                          )
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.25,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 5, vertical: 20),
-                      margin: const EdgeInsets.symmetric(horizontal: 5),
-                      color: Colors.white,
-                      child: Column(
-                        children: [
-                          Text(totalDistance.toString(),
-                              style: AppTextStyle.upperitemtmeemtext),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          const Text(
-                            "Kilometers",
-                            style: AppTextStyle.upperitemtmeemspantext,
-                          )
-                        ],
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 5, vertical: 20),
-                      margin: const EdgeInsets.symmetric(horizontal: 5),
-                      color: Colors.white,
-                      child: const Column(
-                        children: [
-                          Text("₹0", style: AppTextStyle.upperitemtmeemtext),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            "Today’s  Earning",
-                            style: AppTextStyle.upperitemtmeemspantext,
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
-          vehicles(),
-        ],
-      ),
+      child: vehicles(),
     );
   }
 

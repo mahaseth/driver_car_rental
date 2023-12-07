@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:myride/model/driverprofile.dart';
+import 'package:myride/model/payment_model.dart';
 import 'package:myride/services/razor_pay.dart';
 import 'package:myride/view/bank_details/bank_details_screen.dart';
 import 'package:myride/view/bank_details/show_bank_account.dart';
 import 'package:myride/view_model/bank_view_model.dart';
 import 'package:myride/view_model/driverprofile_viewmodel.dart';
+import 'package:myride/view_model/payment_viewModel.dart';
 import 'package:provider/provider.dart';
 
 class BalanceScreen extends StatefulWidget {
@@ -14,11 +17,48 @@ class BalanceScreen extends StatefulWidget {
 }
 
 class _BalanceScreenState extends State<BalanceScreen> {
+  DriverProfile? driver;
+  List<PaymentModel> paymentList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    readData();
+  }
+
+  void readData() async {
+    DriveProfileViewModel driverProvider =
+        Provider.of<DriveProfileViewModel>(context, listen: false);
+
+    PaymentViewModel paymentViewModel =
+        Provider.of<PaymentViewModel>(context, listen: false);
+    await paymentViewModel.getPaymentHistory();
+    setState(() {
+      driver = driverProvider.currDriverProfile;
+      paymentList = paymentViewModel.paymentList;
+    });
+  }
+
+  void fetchData() async {
+    DriveProfileViewModel driverProvider =
+        Provider.of<DriveProfileViewModel>(context, listen: true);
+
+    PaymentViewModel paymentViewModel =
+        Provider.of<PaymentViewModel>(context, listen: true);
+
+    setState(() {
+      driver = driverProvider.currDriverProfile;
+      paymentList = paymentViewModel.paymentList;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    fetchData();
+
     return Scaffold(
       appBar: AppBar(
-        title: Text("Wallet"),
+        title: const Text("Wallet"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -29,11 +69,12 @@ class _BalanceScreenState extends State<BalanceScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                columnWiseText("Balance", "Rs 1000"),
-                columnWiseText("Available Withdraw", "Rs 400"),
+                columnWiseText("Balance", "Rs ${driver?.walletBalance ?? 0}"),
+                columnWiseText(
+                    "Available Withdraw", "Rs ${driver?.walletBalance ?? 0}"),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 25,
             ),
             Row(
@@ -46,7 +87,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
                       color: Colors.white,
                     ),
                     "Recharge", () {
-                  showRecharegDialog(context);
+                  showRechargeDialog(context);
                 }),
                 buttonCustom(
                     const Icon(
@@ -63,10 +104,10 @@ class _BalanceScreenState extends State<BalanceScreen> {
                       size: 40,
                       color: Colors.white,
                     ),
-                    "Manage", () {
+                    "Manage", () async {
                   BankViewModel bankViewModel =
                       Provider.of<BankViewModel>(context, listen: false);
-                  bankViewModel.getBankDetail(context);
+                  await bankViewModel.getBankDetail(context);
 
                   if (bankViewModel.bankModel == null) {
                     Navigator.push(
@@ -94,29 +135,34 @@ class _BalanceScreenState extends State<BalanceScreen> {
             ),
             Expanded(
                 child: ListView.builder(
-                    itemCount: 8,
+                    itemCount: paymentList.length,
                     itemBuilder: (context, index) {
-                      if (index % 2 == 0) {
+                      PaymentModel model = paymentList[index];
+                      if (model.transactionType == "credit" &&
+                          model.isSuccess) {
                         return cardViewItem(
-                            Icon(
+                            const Icon(
                               Icons.add,
                               color: Colors.green,
                             ),
-                            "Trip Amount",
-                            "Trip id #23212",
-                            "Rs 200");
-                      } else if (index % 5 == 0) {
+                            "Recharge",
+                            // "Trip Amount",
+                            "Trip id #${model.orderId}",
+                            "Rs ${model.amount}");
+                      } else if (model.transactionType == "credit") {
                         return cardViewItem(
-                            Icon(
-                              Icons.monetization_on,
+                            const Icon(
+                              Icons.add,
                               color: Colors.green,
                             ),
-                            "Bonus",
-                            "Trip id #23212",
-                            "Rs 200");
+                            "Recharge",
+                            // "Trip Amount",
+                            "Trip id #${model.orderId}",
+                            "Rs ${model.amount}",
+                            status: "Failed");
                       } else if (index % 3 == 0) {
                         return cardViewItem(
-                            Icon(
+                            const Icon(
                               Icons.money_off_csred_rounded,
                               color: Colors.red,
                             ),
@@ -126,7 +172,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
                             colors: Colors.red);
                       } else if (index % 7 == 0) {
                         return cardViewItem(
-                            Icon(
+                            const Icon(
                               Icons.money_off_csred_rounded,
                               color: Colors.red,
                             ),
@@ -136,7 +182,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
                             colors: Colors.red);
                       } else {
                         return cardViewItem(
-                            Icon(
+                            const Icon(
                               Icons.money_off_csred_rounded,
                               color: Colors.red,
                             ),
@@ -154,26 +200,26 @@ class _BalanceScreenState extends State<BalanceScreen> {
 
   TextEditingController controller = TextEditingController();
 
-  void showRecharegDialog(BuildContext context) {
+  void showRechargeDialog(BuildContext screenContext) {
     showDialog(
-      context: context,
+      context: screenContext,
       builder: (BuildContext context) {
         bool isLoading = false;
         return StatefulBuilder(
           builder: (context, changeState) {
             return AlertDialog(
-              title: Text('Enter the Amount'),
+              title: const Text('Enter the Amount'),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   TextFormField(
                     keyboardType: TextInputType.number,
                     controller: controller,
-                    decoration: InputDecoration(labelText: 'Amount'),
+                    decoration: const InputDecoration(labelText: 'Amount'),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   isLoading
-                      ? Center(child: CircularProgressIndicator())
+                      ? const Center(child: CircularProgressIndicator())
                       : Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
@@ -191,8 +237,10 @@ class _BalanceScreenState extends State<BalanceScreen> {
                                     Provider.of<DriveProfileViewModel>(context,
                                         listen: false);
 
-                                razor.initRazorPay(int.parse(controller.text),
-                                    provider.driverProfile?.id ?? -1);
+                                razor.initRazorPay(
+                                    int.parse(controller.text),
+                                    provider.driverProfile?.id ?? -1,
+                                    screenContext);
                                 razor.createOrder(int.parse(controller.text));
                                 changeState(() {
                                   isLoading = false;
@@ -200,14 +248,14 @@ class _BalanceScreenState extends State<BalanceScreen> {
 
                                 Navigator.pop(context);
                               },
-                              child: Text('Add'),
+                              child: const Text('Add'),
                             ),
                             ElevatedButton(
                               onPressed: () {
                                 Navigator.pop(context);
                                 // Close the dialog
                               },
-                              child: Text('Cancel'),
+                              child: const Text('Cancel'),
                             ),
                           ],
                         ),
@@ -228,18 +276,18 @@ class _BalanceScreenState extends State<BalanceScreen> {
         return StatefulBuilder(
           builder: (context, changeState) {
             return AlertDialog(
-              title: Text('Enter the Amount'),
+              title: const Text('Enter the Amount'),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   TextFormField(
                     keyboardType: TextInputType.number,
                     controller: controller,
-                    decoration: InputDecoration(labelText: 'Amount'),
+                    decoration: const InputDecoration(labelText: 'Amount'),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   isLoading
-                      ? Center(child: CircularProgressIndicator())
+                      ? const Center(child: CircularProgressIndicator())
                       : Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
@@ -257,14 +305,14 @@ class _BalanceScreenState extends State<BalanceScreen> {
 
                                 Navigator.pop(context);
                               },
-                              child: Text('Withdraw'),
+                              child: const Text('Withdraw'),
                             ),
                             ElevatedButton(
                               onPressed: () {
                                 Navigator.pop(context);
                                 // Close the dialog
                               },
-                              child: Text('Cancel'),
+                              child: const Text('Cancel'),
                             ),
                           ],
                         ),
@@ -278,7 +326,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
   }
 
   Widget cardViewItem(icon, title, subtitle, amt,
-      {Color colors = Colors.green}) {
+      {Color colors = Colors.green, String? status}) {
     return GestureDetector(
       onTap: () {},
       child: Card(
@@ -286,9 +334,19 @@ class _BalanceScreenState extends State<BalanceScreen> {
           leading: icon,
           title: Text(title),
           subtitle: Text(subtitle),
-          trailing: Text(
-            amt,
-            style: TextStyle(color: colors, fontSize: 18),
+          trailing: Column(
+            children: [
+              Text(
+                amt,
+                style: TextStyle(color: colors, fontSize: 18),
+              ),
+              status != null
+                  ? Text(
+                      status,
+                      style: const TextStyle(color: Colors.red, fontSize: 14),
+                    )
+                  : const SizedBox.shrink()
+            ],
           ),
         ),
       ),
@@ -301,13 +359,13 @@ class _BalanceScreenState extends State<BalanceScreen> {
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
                 color: Colors.blue[200],
                 borderRadius: BorderRadius.circular(10)),
             child: icon,
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Text(title)

@@ -218,20 +218,6 @@ class _TripAcceptScreenState extends State<TripAcceptScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
                       onTap: () async {
-                        // var start = await getCurrentLocation();
-                        // LocationData end =
-                        //     parseLocationString(widget.map["destination"]);
-                        // var destination = LatLng(end.latitude, end.longitude);
-                        // final double distance =
-                        //     calculateDistance(start, destination) / 1000.0;
-                        // if (distance > 10.0) {
-                        //   Utils.showMyDialog(
-                        //       "You cannot accept this ride as customer are far from you.",
-                        //       context);
-                        //   Navigator.of(context).pop();
-                        //   return;
-                        // }
-
                         await rideSelection();
                       },
                       child: Container(

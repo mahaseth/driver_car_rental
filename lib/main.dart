@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:myride/utils/NavigationService.dart';
-import 'package:myride/view/for_car_owner/welocme_owner/route_screens/vehicle_screen.dart';
 import 'package:myride/view/for_driver/home/home.dart';
 import 'package:myride/view_model/admin_support_viewModel.dart';
 import 'package:myride/view_model/bank_view_model.dart';
@@ -9,6 +8,7 @@ import 'package:myride/view_model/customerprofile_viewmodel.dart';
 import 'package:myride/view_model/driver_status_provider.dart';
 import 'package:myride/view_model/driverprofile_viewmodel.dart';
 import 'package:myride/view_model/message_viewmodel.dart';
+import 'package:myride/view_model/payment_viewModel.dart';
 import 'package:myride/view_model/signIn_viewModel.dart';
 import 'package:myride/view_model/trip_viewModel.dart';
 import 'package:myride/view_model/vehicleinfo_viewmodel.dart';
@@ -36,6 +36,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => BankViewModel()),
         ChangeNotifierProvider(create: (context) => DriverStatusProvider()),
         ChangeNotifierProvider(create: (context) => AdminSupportPanel()),
+        ChangeNotifierProvider(create: (context) => PaymentViewModel()),
       ],
       child: MaterialApp(
         navigatorKey: NavigationService.navigatorKey,

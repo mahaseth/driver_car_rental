@@ -66,7 +66,7 @@ class DriverProfile {
     photoupload = json['photo_upload'];
     termspolicy = json['terms_policy'];
     myrideinsurance = json['myride_insurance'];
-    walletBalance = json['wallet_balance'] ?? 0.0;
+    walletBalance = json['wallet_balance'] / 100 ?? 0.0;
     driverDuty = json['driver_duty'] ?? false;
     totalTrip = json['total_trip'] ?? 0.0;
     totalDistanceKm = json['total_distance_km'] ?? 0.0;

@@ -1,7 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:myride/utils/distance_utils.dart';
 import 'package:myride/view_model/driver_status_provider.dart';
+import 'package:myride/view_model/trip_viewModel.dart';
 import 'package:provider/provider.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -25,7 +28,7 @@ class TripWebSocket {
   void listenSocket(context) {
     debugPrint("Listen");
 
-    channel!.stream.listen((message) {
+    channel!.stream.listen((message) async {
       try {
         Map map = jsonDecode(message);
         debugPrint("Message $map");
@@ -58,7 +61,9 @@ class TripWebSocket {
           if (driverStatus.isRidingValue) {
             return;
           }
-          // await getDistance();
+
+          if (await checkDistanceCondition(context, map)) return;
+
           Navigator.push(
               context,
               MaterialPageRoute(
@@ -95,5 +100,21 @@ class TripWebSocket {
     if (channel == null) return;
     channel!.sink.close();
     channel = null;
+  }
+
+  Future<bool> checkDistanceCondition(context, map) async {
+    TripViewModel viewModel =
+        Provider.of<TripViewModel>(context, listen: false);
+
+    await viewModel.getCurrentTrip(context, map["trip_id"]);
+
+    var start = await getCurrentLocation();
+    var destination = LatLng(viewModel.currentTrip?.destinationLat ?? 0.0,
+        viewModel.currentTrip?.destinationLong ?? 0.0);
+    double distanceDouble = calculateDistance(start, destination);
+    if (distanceDouble > 5.0) {
+      return true;
+    }
+    return false;
   }
 }
