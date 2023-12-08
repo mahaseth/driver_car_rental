@@ -25,6 +25,15 @@ class _RouteMapScreenState extends State<RouteMapScreen> {
   bool onDuty = TripWebSocket.isDuty;
   String onOfText = "ON";
 
+  void changeMapPosition() async {
+    Position position = await LocationServices().currentLocation();
+    _kGooglePlex = CameraPosition(
+      target: LatLng(position.latitude, position.longitude),
+      zoom: 14.4746,
+    );
+    _controller.animateCamera(CameraUpdate.newCameraPosition(_kGooglePlex));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,12 +48,13 @@ class _RouteMapScreenState extends State<RouteMapScreen> {
                   height: AppSceenSize.getHeight(context),
                   child: GoogleMap(
                       initialCameraPosition: _kGooglePlex,
-                      myLocationButtonEnabled: false,
                       myLocationEnabled: true,
+                      myLocationButtonEnabled: false,
                       zoomControlsEnabled: false,
                       compassEnabled: false,
                       onMapCreated: (GoogleMapController controller) {
                         _controller = controller;
+                        changeMapPosition();
                       }),
                 ),
                 Positioned(
@@ -96,17 +106,7 @@ class _RouteMapScreenState extends State<RouteMapScreen> {
                       ),
                       padding: const EdgeInsets.all(5.0),
                       child: IconButton(
-                          onPressed: () async {
-                            Position position =
-                                await LocationServices().currentLocation();
-                            _kGooglePlex = CameraPosition(
-                              target:
-                                  LatLng(position.latitude, position.longitude),
-                              zoom: 14.4746,
-                            );
-                            _controller.animateCamera(
-                                CameraUpdate.newCameraPosition(_kGooglePlex));
-                          },
+                          onPressed: changeMapPosition,
                           icon: Icon(Icons.my_location_outlined)),
                     )),
                 Positioned(

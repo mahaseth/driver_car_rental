@@ -27,6 +27,7 @@ class LocationServices {
 
     if (permission == LocationPermission.denied ||
         permission == LocationPermission.deniedForever) {
+      await Geolocator.requestPermission();
       return Future.error('Location permissions are denied');
     }
     return await Geolocator.getCurrentPosition();

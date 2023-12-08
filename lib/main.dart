@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myride/utils/NavigationService.dart';
 import 'package:myride/view/for_driver/home/home.dart';
-import 'package:myride/view/for_driver/vehicle_info/vehicle_info.dart';
 import 'package:myride/view_model/admin_support_viewModel.dart';
 import 'package:myride/view_model/bank_view_model.dart';
 import 'package:myride/view_model/choose_vehicle_type.dart';
