@@ -11,7 +11,6 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:myride/constant/app_screen_size.dart';
 import 'package:myride/constant/app_text_style.dart';
 import 'package:myride/model/vehicleinfo.dart';
-import 'package:myride/utils/utils.dart';
 import 'package:myride/view/for_driver/driver-details/vehicle_extra_document.dart';
 import 'package:myride/view_model/signIn_viewModel.dart';
 import 'package:myride/view_model/vehicleinfo_viewmodel.dart';
@@ -48,7 +47,8 @@ class _VehicleInfoState extends State<VehicleInfo> {
       backHeadUrl,
       frontheadLightUrl,
       passengerSeatUrl,
-      driverSideUrl;
+      driverSideUrl,
+      additionalImage;
 
   VehicleInfoViewModel? _provider;
 
@@ -151,6 +151,9 @@ class _VehicleInfoState extends State<VehicleInfo> {
         case 'passangerSeat':
           passengerSeatUrl = response.data['url'];
           break;
+        case 'additionalImage':
+          additionalImage = response.data['url'];
+          break;
         default:
       }
 
@@ -172,6 +175,9 @@ class _VehicleInfoState extends State<VehicleInfo> {
       ),
     );
   }
+
+  String carType = "AUTO";
+  List<String> carOption = ["AUTO", "Taxi", "Bike", "Cab"];
 
   @override
   Widget build(BuildContext context) {
@@ -228,23 +234,56 @@ class _VehicleInfoState extends State<VehicleInfo> {
               ),
             ),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                ListTile(
-                  title: const Text("Vehicle Type"),
-                  trailing: _provider!.vehicleType == null
-                      ? const Text("Select")
-                      : Text(_provider!.vehicleType!.cabtype!),
+                GestureDetector(
                   onTap: () async {
                     await _provider!.cabType(context);
                     cabtypeBottomSheet();
                   },
+                  child: Container(
+                    decoration: containerDecoration(),
+                    padding: const EdgeInsets.all(10),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _provider!.vehicleType == null
+                            ? const Text(
+                                "Cab Type",
+                                style: TextStyle(fontSize: 18),
+                              )
+                            : Text(
+                                _provider!.vehicleType!.cabtype!,
+                                style: const TextStyle(fontSize: 18),
+                              ),
+                        const Icon(Icons.arrow_drop_down_sharp),
+                      ],
+                    ),
+                  ),
                 ),
-                customDivider(),
-                ListTile(
-                  title: const Text("Vehicle Maker"),
-                  trailing: _provider!.vehicleMaker == null
-                      ? const Text("Select")
-                      : Text(_provider!.vehicleMaker!.maker!),
+                const SizedBox(
+                  height: 15,
+                ),
+                GestureDetector(
+                  child: Container(
+                    decoration: containerDecoration(),
+                    padding: const EdgeInsets.all(10),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _provider!.vehicleMaker == null
+                            ? const Text(
+                                "Vehicle Maker",
+                                style: TextStyle(fontSize: 18),
+                              )
+                            : Text(
+                                _provider!.vehicleMaker!.maker!,
+                                style: const TextStyle(fontSize: 18),
+                              ),
+                        const Icon(Icons.arrow_drop_down_sharp),
+                      ],
+                    ),
+                  ),
                   onTap: () async {
                     if (vehicleType == null) {
                       showSnackbar("Please select Vehicle Type First");
@@ -255,28 +294,39 @@ class _VehicleInfoState extends State<VehicleInfo> {
                     vehicleMakeBottomSheet();
                   },
                 ),
-                customDivider(),
-                Column(
-                  children: [
-                    customDivider(),
-                    ListTile(
-                      title: const Text("Vehicle Model"),
-                      trailing: _provider!.currVehicleModel == null
-                          ? const Text("Select")
-                          : Text(_provider!.currVehicleModel!.model!),
-                      onTap: () async {
-                        if (vehicleMaker == null) {
-                          showSnackbar("Please select Vehicle Maker First");
-                          return;
-                        }
-                        await _provider!.vehicleModel(
-                            context, _provider!.vehicleMaker?.id ?? 1);
-                        vehiclemodelBottomSheet();
-                      },
-                    ),
-                  ],
+                const SizedBox(
+                  height: 15,
                 ),
-                customDivider(),
+                GestureDetector(
+                  child: Container(
+                    decoration: containerDecoration(),
+                    padding: const EdgeInsets.all(10),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _provider!.currVehicleModel == null
+                            ? const Text(
+                                "Vehicle Model",
+                                style: TextStyle(fontSize: 18),
+                              )
+                            : Text(
+                                _provider!.currVehicleModel!.model!,
+                                style: const TextStyle(fontSize: 18),
+                              ),
+                        const Icon(Icons.arrow_drop_down_sharp),
+                      ],
+                    ),
+                  ),
+                  onTap: () async {
+                    if (vehicleMaker == null) {
+                      showSnackbar("Please select Vehicle Maker First");
+                      return;
+                    }
+                    await _provider!.vehicleModel(
+                        context, _provider!.vehicleMaker?.id ?? 1);
+                    vehiclemodelBottomSheet();
+                  },
+                ),
                 const SizedBox(
                   height: 15,
                 ),
@@ -284,7 +334,7 @@ class _VehicleInfoState extends State<VehicleInfo> {
                 const SizedBox(
                   height: 15,
                 ),
-                selectbox(),
+                selectBox(),
               ],
             )
           ],
@@ -310,6 +360,15 @@ class _VehicleInfoState extends State<VehicleInfo> {
         ),
       ),
     );
+  }
+
+  containerDecoration() {
+    return BoxDecoration(
+        border: Border.all(
+          color: const Color(0xFF8D8D8D), // Specify the color of the border
+          width: 2.0, // Specify the width of the border
+        ),
+        borderRadius: const BorderRadius.all(Radius.circular(10.0)));
   }
 
   check() {
@@ -380,8 +439,8 @@ class _VehicleInfoState extends State<VehicleInfo> {
             child: file != null
                 ? Image.network(file)
                 : Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
                           flex: 1,
@@ -390,11 +449,14 @@ class _VehicleInfoState extends State<VehicleInfo> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               const SizedBox(
-                                height: 50,
-                                width: 50,
+                                height: 75,
+                                width: 75,
                                 child: Icon(Icons.add),
                               ),
-                              Text(hint)
+                              Text(
+                                hint,
+                                style: const TextStyle(fontSize: 12),
+                              )
                             ],
                           )),
                     ],
@@ -403,35 +465,47 @@ class _VehicleInfoState extends State<VehicleInfo> {
     );
   }
 
-  selectbox() {
+  selectBox() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const ListTile(
           title: Text("Upload Car Photos*"),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            uploadSquareBox('Front', frontCarPhotoUrl, "ic"),
-            uploadSquareBox('Back', backPhotoUrl, "ic"),
-            uploadSquareBox('Right Side', rightSideUrl, "ic"),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            uploadSquareBox('Left Side', leftSideUrl, "ic"),
-            uploadSquareBox('Interior', passengerSeatUrl, "ic"),
-            uploadSquareBox('Interior', driverSideUrl, "ic"),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            uploadSquareBox('Front Number Plate', frontheadLightUrl, "ic"),
-            uploadSquareBox('Back Number Plate', backHeadUrl, "ic"),
-          ],
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  uploadSquareBox('Front', frontCarPhotoUrl, "ic"),
+                  uploadSquareBox('Back', backPhotoUrl, "rc"),
+                  uploadSquareBox('Right Side', rightSideUrl, "mc"),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  uploadSquareBox('Left Side', leftSideUrl, "ad"),
+                  uploadSquareBox(
+                      'Interior', passengerSeatUrl, "passangerSeat"),
+                  uploadSquareBox('Interior', driverSideUrl, "driverSeat"),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  uploadSquareBox(
+                      'Front No. Plate', frontheadLightUrl, "backHead"),
+                  uploadSquareBox('Back No. Plate', backHeadUrl, "backHead"),
+                  uploadSquareBox(
+                      'Additional Image', additionalImage, "additionImage"),
+                ],
+              ),
+            ],
+          ),
         ),
         const SizedBox(
           height: 25,
@@ -585,30 +659,6 @@ class _VehicleInfoState extends State<VehicleInfo> {
                       ],
                     ),
                   ),
-                  // Expanded(
-                  //   child: ListView.builder(
-                  //     itemCount: _provider!.ct.length,
-                  //     shrinkWrap: true,
-                  //     itemBuilder: (context, index) {
-                  //       return RadioListTile(
-                  //         title: Text(_provider!.ct[index].cabtype!),
-                  //         value: index,
-                  //         activeColor: Appcolors.appgreen,
-                  //         groupValue: val2,
-                  //         onChanged: (curr) {
-                  //           changeState(() {
-                  //             val2 = curr;
-                  //           });
-                  //           setState(() {
-                  //             _provider!.vehicleType = _provider!.ct[index];
-                  //           });
-                  //
-                  //           // _provider!.cabClass(context, index + 1);
-                  //         },
-                  //       );
-                  //     },
-                  //   ),
-                  // ),
                 ],
               ),
             );

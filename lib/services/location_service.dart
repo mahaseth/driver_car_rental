@@ -22,9 +22,12 @@ class LocationServices {
   }
 
   Future<Position> currentLocation() async {
+    permission = await Geolocator.checkPermission();
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      return Future.error('Location services are disabled.');
+
+    if (permission == LocationPermission.denied ||
+        permission == LocationPermission.deniedForever) {
+      return Future.error('Location permissions are denied');
     }
     return await Geolocator.getCurrentPosition();
   }

@@ -26,6 +26,8 @@ class SignInViewModel extends ChangeNotifier {
 
   static String token = '';
 
+  // static String token = '059ee0c177bb71e9747ffea45def5721e12ce45d';
+
   registerDriver(BuildContext context) async {
     if (_mobileNumberController.text.length != 10) {
       ScaffoldMessenger.of(context).showSnackBar(

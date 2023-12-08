@@ -94,7 +94,7 @@ class _RouteMapScreenState extends State<RouteMapScreen> {
                         color: const Color(0xFFFFFFFF),
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      padding: EdgeInsets.all(5.0),
+                      padding: const EdgeInsets.all(5.0),
                       child: IconButton(
                           onPressed: () async {
                             Position position =
