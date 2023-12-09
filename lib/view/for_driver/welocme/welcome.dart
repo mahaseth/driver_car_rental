@@ -209,8 +209,8 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Container(
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 5, vertical: 20),
                       margin: const EdgeInsets.symmetric(horizontal: 5),
                       color: Colors.white,
                       child: const Column(
@@ -228,8 +228,8 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width * 0.25,
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 5, vertical: 20),
                       margin: const EdgeInsets.symmetric(horizontal: 5),
                       color: Colors.white,
                       child: const Column(
@@ -247,8 +247,8 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                       ),
                     ),
                     Container(
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 5, vertical: 20),
                       margin: const EdgeInsets.symmetric(horizontal: 5),
                       color: Colors.white,
                       child: const Column(
@@ -285,7 +285,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             decoration: BoxDecoration(
                 border: Border.all(
-                    width: 1, color: Colors.grey, style: BorderStyle.solid),
+                    width: 1, color: Colors.green, style: BorderStyle.solid),
                 color: Colors.white),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,

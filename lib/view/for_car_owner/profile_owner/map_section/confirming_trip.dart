@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:myride/constant/app_screen_size.dart';
-import 'package:myride/view/for_driver/map_section/pickup_ride.dart';
 
 class ConfirmingTrip extends StatefulWidget {
   const ConfirmingTrip({super.key});
@@ -55,10 +54,10 @@ class _ConfirmingTripState extends State<ConfirmingTrip> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return const PickRideScreen();
-                        }));
+                        // Navigator.push(context,
+                        //     MaterialPageRoute(builder: (context) {
+                        //   return const PickRideScreen();
+                        // }));
                       },
                       child: Container(
                         height: 70,

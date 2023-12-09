@@ -2,8 +2,9 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
+
 import 'app_exception.dart';
 
 class NetworkApiService {
@@ -118,6 +119,24 @@ class NetworkApiService {
     return responseJson;
   }
 
+  Future deleteApiResponse(String url, String token) async {
+    dynamic responseJson;
+    try {
+      Response response = await delete(
+        Uri.parse(url),
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': "Token $token"
+        },
+      );
+
+      responseJson = returnResponse(response);
+    } on SocketException {
+      throw FetchDataException('No Internet Connection');
+    }
+    return responseJson;
+  }
+
   dynamic returnResponse(http.Response response) {
     switch (response.statusCode) {
       case 200:
@@ -137,7 +156,7 @@ class NetworkApiService {
         throw UnauthorisedException(response.body.toString());
       default:
         throw FetchDataException(
-            'Error accured while communicating with serverwith status code${response.statusCode}');
+            'Error accured while communicating with server with status code${response.statusCode}');
     }
   }
 }

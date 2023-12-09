@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:myride/model/admin_messageModel.dart';
 import 'package:myride/view/for_driver/profile/write_message.dart';
+import 'package:myride/view_model/admin_support_viewModel.dart';
+import 'package:provider/provider.dart';
 
 class MessageScreen extends StatefulWidget {
   const MessageScreen({super.key});
@@ -9,6 +13,23 @@ class MessageScreen extends StatefulWidget {
 }
 
 class _MessageScreenState extends State<MessageScreen> {
+  List<AdminMessageModel> messageList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    readData();
+  }
+
+  void readData() async {
+    AdminSupportPanel provider =
+        Provider.of<AdminSupportPanel>(context, listen: false);
+    await provider.getAllMessages(context);
+    setState(() {
+      messageList = provider.messageList;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -75,20 +96,24 @@ class _MessageScreenState extends State<MessageScreen> {
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.6,
       child: ListView.separated(
-          itemCount: 4,
+          itemCount: messageList.length,
           separatorBuilder: (context, index) {
             return const Divider(
               color: Colors.grey,
             );
           },
           itemBuilder: (context, index) {
+            AdminMessageModel model = messageList[index];
+            String formattedDate =
+                DateFormat('dd-MM-yyyy , h:mm a').format(model.createdAt);
+
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
                   const CircleAvatar(
                     radius: 30,
-                    child: Text('K'),
+                    child: Text('A'),
                   ),
                   const SizedBox(
                     width: 10,
@@ -96,24 +121,17 @@ class _MessageScreenState extends State<MessageScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text("Admin"),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.5,
-                          ),
-                          const Text("1:58pm")
-                        ],
-                      ),
+                      Text(formattedDate),
+                      Text("Subject :- ${model.subject}"),
                       const SizedBox(
                         height: 10,
                       ),
                       SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.7,
-                        child: const Text(
-                            "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint."),
-                      )
+                          width: MediaQuery.of(context).size.width * 0.7,
+                          child: Text(
+                            model.message,
+                            overflow: TextOverflow.clip,
+                          ))
                     ],
                   ),
                 ],

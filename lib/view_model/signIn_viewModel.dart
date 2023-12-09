@@ -5,20 +5,28 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:myride/repository/signin_repo.dart';
 import 'package:myride/utils/utils.dart';
-import 'package:myride/view/for_driver/verify/email.dart';
+import 'package:myride/view/for_car_owner/welocme_owner/welcome_owner.dart';
+import 'package:myride/view/for_driver/driver-details/driver-details.dart';
 import 'package:myride/view/for_driver/verify/otp.dart';
+import 'package:myride/view_model/driverprofile_viewmodel.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInViewModel extends ChangeNotifier {
   final _signInRepo = SignInRepo();
 
   bool loading = false;
 
+  // String phone = '9749880501';
   String phone = '';
 
   final _mobileNumberController = TextEditingController();
+
   get mobileNumberController => _mobileNumberController;
 
-  String token = '';
+  static String token = '';
+
+  // static String token = '059ee0c177bb71e9747ffea45def5721e12ce45d';
 
   registerDriver(BuildContext context) async {
     if (_mobileNumberController.text.length != 10) {
@@ -40,8 +48,18 @@ class SignInViewModel extends ChangeNotifier {
         final response = await _signInRepo.registerDriver(context, bodyTosend);
         log("RESPONSE $response");
 
-        if (response['status'] ||
-            response['data'] == "Number already registered") {
+        if (response['status']) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return OtpScreen(
+                  phoneNumber: _mobileNumberController.text,
+                );
+              },
+            ),
+          );
+        } else if (response['data'] == "Number already registered") {
           loginDriver(context);
         }
         loading = false;
@@ -76,7 +94,9 @@ class SignInViewModel extends ChangeNotifier {
             context,
             MaterialPageRoute(
               builder: (context) {
-                return const OtpScreen();
+                return OtpScreen(
+                  phoneNumber: _mobileNumberController.text,
+                );
               },
             ),
           );
@@ -111,15 +131,35 @@ class SignInViewModel extends ChangeNotifier {
 
       if (response['status'] == true) {
         debugPrint("Token : " + response['token']);
-        token = response['token'].toString();
+        token = response['token'];
+        SharedPreferences sharedPreferences =
+            await SharedPreferences.getInstance();
+        sharedPreferences.setString("token", token);
         loading = false;
         notifyListeners();
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const EmailScreen(),
-          ),
-        );
+        DriveProfileViewModel provider =
+            Provider.of<DriveProfileViewModel>(context, listen: false);
+        await provider.getProfile(context);
+
+        if (provider.currDriverProfile == null ||
+            provider.currDriverProfile!.firstname == null ||
+            provider.currDriverProfile!.firstname!.isEmpty) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return const DriverDetailsScreen();
+              },
+            ),
+          );
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const WelcomeScreenOwner(),
+            ),
+          );
+        }
       } else {
         Utils.showMyDialog("${response['data']}", context);
       }

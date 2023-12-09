@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:myride/constant/app_screen_size.dart';
 import 'package:myride/constant/app_text_style.dart';
-import 'package:myride/view/for_driver/map_section/enter_otp_screen.dart';
 
 class PickRideScreen extends StatefulWidget {
   const PickRideScreen({super.key});
@@ -269,10 +268,10 @@ class _PickRideScreenState extends State<PickRideScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return const EnterOtpScreen();
-                    }));
+                    // Navigator.push(context,
+                    //     MaterialPageRoute(builder: (context) {
+                    //   return const EnterOtpScreen();
+                    // }));
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.44,

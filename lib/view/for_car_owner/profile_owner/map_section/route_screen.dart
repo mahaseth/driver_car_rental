@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:myride/constant/app_screen_size.dart';
 import 'package:myride/constant/app_text_style.dart';
-import 'package:myride/view/for_driver/map_section/confirming_trip.dart';
 
 class RouteScreen extends StatefulWidget {
   const RouteScreen({super.key});
@@ -268,10 +267,10 @@ class _RouteScreenState extends State<RouteScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return const ConfirmingTrip();
-                    }));
+                    // Navigator.push(context,
+                    //     MaterialPageRoute(builder: (context) {
+                    //   return const ConfirmingTrip();
+                    // }));
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.3,

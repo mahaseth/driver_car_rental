@@ -1,5 +1,4 @@
 import 'package:myride/view_model/signIn_viewModel.dart';
-import 'package:provider/provider.dart';
 
 import '../services/api_services.dart';
 import '../utils/utils.dart';
@@ -10,8 +9,8 @@ class VehicleInfoRepo {
   cabType(context) async {
     try {
       final response = await _networkService
-          .getGetApiResponse("http://3.109.183.75/cab/cab-type/",
-              Provider.of<SignInViewModel>(context, listen: false).token)
+          .getGetApiResponse(
+              "http://3.109.183.75/cab/cab-type/", SignInViewModel.token)
           .catchError((error, stackTrace) {
         Utils.showMyDialog(error.toString(), context);
       });
@@ -21,11 +20,25 @@ class VehicleInfoRepo {
     }
   }
 
-  vehicleMaker(context) async {
+  vehicleMaker(context, id) async {
     try {
       final response = await _networkService
-          .getGetApiResponse("http://3.109.183.75/cab/vehicle-maker/",
-              Provider.of<SignInViewModel>(context, listen: false).token)
+          .getGetApiResponse("http://3.109.183.75/cab/$id/vehicle-maker/",
+              SignInViewModel.token)
+          .catchError((error, stackTrace) {
+        Utils.showMyDialog(error.toString(), context);
+      });
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  getVehicleDetail(context, id) async {
+    try {
+      final response = await _networkService
+          .getGetApiResponse(
+              "http://3.109.183.75/cab/$id/get-vehicle/", SignInViewModel.token)
           .catchError((error, stackTrace) {
         Utils.showMyDialog(error.toString(), context);
       });
@@ -38,8 +51,8 @@ class VehicleInfoRepo {
   cabClass(context, int id) async {
     try {
       final response = await _networkService
-          .getGetApiResponse("http://3.109.183.75/cab/$id/cab-class/",
-              Provider.of<SignInViewModel>(context, listen: false).token)
+          .getGetApiResponse(
+              "http://3.109.183.75/cab/$id/cab-class/", SignInViewModel.token)
           .catchError((error, stackTrace) {
         Utils.showMyDialog(error.toString(), context);
       });
@@ -53,7 +66,7 @@ class VehicleInfoRepo {
     try {
       final response = await _networkService
           .getGetApiResponse("http://3.109.183.75/cab/$id/vehicle-model/",
-              Provider.of<SignInViewModel>(context, listen: false).token)
+              SignInViewModel.token)
           .catchError((error, stackTrace) {
         Utils.showMyDialog(error.toString(), context);
       });
@@ -67,7 +80,36 @@ class VehicleInfoRepo {
     try {
       final response = await _networkService
           .postApiResponse("http://3.109.183.75/cab/details/", bodysend,
-              Provider.of<SignInViewModel>(context, listen: false).token)
+              SignInViewModel.token)
+          .catchError((error, stackTrace) {
+        Utils.showMyDialog(error.toString(), context);
+      });
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  updateVehicle(context, bodysend, int id) async {
+    try {
+      final response = await _networkService
+          .patchApiResponse("http://3.109.183.75/cab/$id/get-vehicle/",
+              bodysend, SignInViewModel.token)
+          .catchError((error, stackTrace) {
+        print("${error}");
+        // Utils.showMyDialog(error.toString(), context);
+      });
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  vehicleFetchUser(context) async {
+    try {
+      final response = await _networkService
+          .getGetApiResponse(
+              "http://3.109.183.75/cab/details/", SignInViewModel.token)
           .catchError((error, stackTrace) {
         Utils.showMyDialog(error.toString(), context);
       });

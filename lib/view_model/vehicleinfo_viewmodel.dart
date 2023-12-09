@@ -1,6 +1,7 @@
-// ignore_for_file: use_build_context_synchronously, prefer_interpolation_to_compose_strings, file_names, prefer_const_constructors
+// ignore_for_file: use_build_context_synchronously, prefer_interpolation_to_compose_strings, file_names, prefer_const_construcabTypeListors
 
 import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:myride/model/vehicleinfo.dart';
 import 'package:myride/repository/vehicleinfo_repo.dart';
@@ -11,15 +12,17 @@ class VehicleInfoViewModel extends ChangeNotifier {
 
   bool loading = false;
 
-  List<CabType> ct = [];
-  List<VehicleMaker> vma = [];
-  List<VehicleModel> vmo = [];
-  List<CabClass> cc = [];
+  List<CabType> cabTypeList = [];
+  List<VehicleMaker> vehicleMakerList = [];
+  List<VehicleModel> vehicleModelList = [];
+  List<CabClass> cabClassList = [];
+  List<VehicleInfoo> vehicleList = [];
 
-  CabType? currct;
-  VehicleMaker? currvma;
-  VehicleModel? currvmo;
-  CabClass? currcc;
+  CabType? vehicleType;
+  VehicleMaker? vehicleMaker;
+  VehicleModel? currVehicleModel;
+  CabClass? currCabClass;
+  VehicleInfoo? currentVehicle;
 
   late VehicleInfoo vi;
 
@@ -27,8 +30,8 @@ class VehicleInfoViewModel extends ChangeNotifier {
     loading = true;
     try {
       final response = await _vehicleInfoRepo.cabType(context);
-      log("RESPONSE $response");
-      ct = List<CabType>.from(
+      log("RESPONSE cabType $response");
+      cabTypeList = List<CabType>.from(
         response.map(
           (m) => CabType.fromJson(m),
         ),
@@ -40,12 +43,12 @@ class VehicleInfoViewModel extends ChangeNotifier {
     }
   }
 
-  vehicleMaker(BuildContext context) async {
+  vehicleMakerCall(BuildContext context, int id) async {
     loading = true;
     try {
-      final response = await _vehicleInfoRepo.vehicleMaker(context);
-      log("RESPONSE $response");
-      vma = List<VehicleMaker>.from(
+      final response = await _vehicleInfoRepo.vehicleMaker(context, id);
+      log("RESPONSE vehicleMakerCall $response");
+      vehicleMakerList = List<VehicleMaker>.from(
         response.map(
           (m) => VehicleMaker.fromJson(m),
         ),
@@ -61,8 +64,8 @@ class VehicleInfoViewModel extends ChangeNotifier {
     loading = true;
     try {
       final response = await _vehicleInfoRepo.cabClass(context, id);
-      log("RESPONSE $response");
-      cc = List<CabClass>.from(
+      log("RESPONSE cabClass $response");
+      cabClassList = List<CabClass>.from(
         response.map(
           (m) => CabClass.fromJson(m),
         ),
@@ -78,8 +81,8 @@ class VehicleInfoViewModel extends ChangeNotifier {
     loading = true;
     try {
       final response = await _vehicleInfoRepo.vehicleModel(context, id);
-      log("RESPONSE $response");
-      vmo = List<VehicleModel>.from(
+      log("RESPONSE VehicleModel :- $response");
+      vehicleModelList = List<VehicleModel>.from(
         response.map(
           (m) => VehicleModel.fromJson(m),
         ),
@@ -89,6 +92,25 @@ class VehicleInfoViewModel extends ChangeNotifier {
     } catch (e) {
       log('Erroer $e');
     }
+  }
+
+  Future<List<VehicleInfoo>> vehicleListUser(BuildContext context) async {
+    loading = true;
+    try {
+      final response = await _vehicleInfoRepo.vehicleFetchUser(context);
+      log("RESPONSE Vehicle List :- $response");
+      vehicleList = List<VehicleInfoo>.from(
+        response.map(
+          (m) => VehicleInfoo.fromJson(m),
+        ),
+      );
+      currentVehicle = vehicleList[0];
+      loading = false;
+      notifyListeners();
+    } catch (e) {
+      log('Erroer Vehicle List $e');
+    }
+    return vehicleList;
   }
 
   submit(BuildContext context) async {
@@ -109,6 +131,19 @@ class VehicleInfoViewModel extends ChangeNotifier {
           ),
         );
       });
+    } catch (e) {
+      log('Erroer $e');
+    }
+  }
+
+  updateVehicle(BuildContext context, var bodyToSend, int id) async {
+    loading = true;
+    try {
+      final response =
+          await _vehicleInfoRepo.updateVehicle(context, bodyToSend, id);
+      print("Updateing Vehicle $response");
+      currentVehicle = VehicleInfoo.fromJson(response);
+      notifyListeners();
     } catch (e) {
       log('Erroer $e');
     }

@@ -31,11 +31,10 @@ class AppTextStyle {
       color: Color(0xFF666666), fontSize: 13, fontWeight: FontWeight.w400);
 
 // otp screen
-
   static const otpheadingtext = TextStyle(
-      fontSize: 18, fontWeight: FontWeight.w400, color: Color(0xFF333333));
+      fontSize: 12, color: Color(0xFF666666), fontWeight: FontWeight.w400);
   static const otpsubheading = TextStyle(
-      color: Color(0xFF666666), fontSize: 13, fontWeight: FontWeight.w400);
+      color: Color(0xFF666666), fontSize: 21, fontWeight: FontWeight.w400);
   static const drhsubheading = TextStyle(
     color: Color(0xFF666666),
     fontSize: 13,
@@ -64,7 +63,10 @@ class AppTextStyle {
       fontSize: 24, fontWeight: FontWeight.w400, color: Color(0xFF333333));
   static const welcomesubheading = TextStyle(
       fontSize: 16, fontWeight: FontWeight.w300, color: Color(0xFF333333));
+
 // welcome ride item
+  static const boldUpperText = TextStyle(
+      fontSize: 15, fontWeight: FontWeight.bold, color: Color(0xFF333333));
   static const upperitemtmeemtext = TextStyle(
       fontSize: 15, fontWeight: FontWeight.w500, color: Color(0xFF333333));
   static const upperitemtmeemspantext = TextStyle(

@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:myride/constant/app_color.dart';
 import 'package:myride/constant/app_screen_size.dart';
 import 'package:myride/constant/app_text_style.dart';
+import 'package:myride/utils/utils.dart';
 import 'package:myride/view/for_car_owner/vehicle_info_owner/vehicle_info_owner.dart';
 
 class DriverDetailsOwner extends StatefulWidget {
@@ -137,16 +138,6 @@ class _DriverDetailsOwnerState extends State<DriverDetailsOwner> {
         ));
   }
 
-  customDivider() {
-    return Container(
-        margin: const EdgeInsets.symmetric(
-          horizontal: 10,
-        ),
-        child: const Divider(
-          color: Color.fromARGB(255, 206, 204, 204),
-        ));
-  }
-
   selectbox() {
     return Column(
       children: [
@@ -177,8 +168,8 @@ class _DriverDetailsOwnerState extends State<DriverDetailsOwner> {
                   ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF00B74C),
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 12)),
                     onPressed: handleFileUpload,
                     icon: const Icon(
                       Icons.upload,
@@ -218,8 +209,8 @@ class _DriverDetailsOwnerState extends State<DriverDetailsOwner> {
                   ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF00B74C),
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 12)),
                     onPressed: handleFileUpload,
                     icon: const Icon(
                       Icons.upload,
@@ -266,8 +257,8 @@ class _DriverDetailsOwnerState extends State<DriverDetailsOwner> {
                   ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF00B74C),
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 12)),
                     onPressed: handleFileUpload,
                     icon: const Icon(
                       Icons.upload,
@@ -314,8 +305,8 @@ class _DriverDetailsOwnerState extends State<DriverDetailsOwner> {
                   ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF00B74C),
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 12)),
                     onPressed: handleFileUpload,
                     icon: const Icon(
                       Icons.upload,
@@ -355,8 +346,8 @@ class _DriverDetailsOwnerState extends State<DriverDetailsOwner> {
                   ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF00B74C),
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 12)),
                     onPressed: handleFileUpload,
                     icon: const Icon(
                       Icons.upload,
@@ -403,8 +394,8 @@ class _DriverDetailsOwnerState extends State<DriverDetailsOwner> {
                   ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF00B74C),
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 10, vertical: 12)),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 12)),
                     onPressed: handleFileUpload,
                     icon: const Icon(
                       Icons.upload,
@@ -425,7 +416,8 @@ class _DriverDetailsOwnerState extends State<DriverDetailsOwner> {
             width: AppSceenSize.getWidth(context),
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white, backgroundColor: Appcolors.appgreen, // Text color
+                  foregroundColor: Colors.white,
+                  backgroundColor: Appcolors.appgreen, // Text color
                   padding: const EdgeInsets.all(16), // Button padding
                   shape: RoundedRectangleBorder(
                     borderRadius:

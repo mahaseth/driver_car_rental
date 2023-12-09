@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:myride/utils/utils.dart';
+import 'package:myride/view_model/admin_support_viewModel.dart';
+import 'package:provider/provider.dart';
 
 class WriteMessage extends StatefulWidget {
   const WriteMessage({super.key});
@@ -8,6 +11,22 @@ class WriteMessage extends StatefulWidget {
 }
 
 class _WriteMessageState extends State<WriteMessage> {
+  TextEditingController subjectController = TextEditingController();
+  TextEditingController messageController = TextEditingController();
+
+  void sendMessage() async {
+    AdminSupportPanel provider =
+        Provider.of<AdminSupportPanel>(context, listen: false);
+    Map map = {
+      "subject": subjectController.text,
+      "message": messageController.text
+    };
+    await provider.sendMessageAdmin(context, map);
+    subjectController.clear();
+    messageController.clear();
+    context.showSnackBar(message: "Message sent");
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -21,7 +40,14 @@ class _WriteMessageState extends State<WriteMessage> {
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(8.0),
           child: GestureDetector(
-            onTap: () {},
+            onTap: () {
+              if (subjectController.text.isEmpty ||
+                  messageController.text.isEmpty) {
+                context.showErrorSnackBar(message: "Please fill all details");
+                return;
+              }
+              sendMessage();
+            },
             child: Container(
               width: MediaQuery.of(context).size.width * 0.9,
               height: 44,
@@ -82,7 +108,7 @@ class _WriteMessageState extends State<WriteMessage> {
   }
 
   _buildMessageSection() {
-    return const Padding(
+    return Padding(
       padding: EdgeInsets.only(right: 20.0, left: 20.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,8 +123,9 @@ class _WriteMessageState extends State<WriteMessage> {
           SizedBox(
             height: 40,
             child: TextField(
+              controller: subjectController,
               decoration: InputDecoration(
-                labelText: 'Vehicle Change',
+                labelText: 'Subject',
                 border: OutlineInputBorder(), // This adds the outline border
               ),
             ),
@@ -111,9 +138,10 @@ class _WriteMessageState extends State<WriteMessage> {
             height: 10,
           ),
           TextField(
+            controller: messageController,
             maxLines: 5,
             decoration: InputDecoration(
-              labelText: 'Vehicle Change',
+              labelText: 'Write a message',
               border: OutlineInputBorder(), // This adds the outline border
             ),
           ),

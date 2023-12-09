@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:myride/constant/app_screen_size.dart';
 import 'package:myride/constant/app_text_style.dart';
+import 'package:myride/utils/utils.dart';
 import 'package:myride/view/for_car_owner/submit_owner/submit_owner.dart';
+
 // import 'package:file_picker/file_picker.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';
@@ -156,16 +158,6 @@ class _VehicleInfoOwnerState extends State<VehicleInfoOwner> {
     );
   }
 
-  customDivider() {
-    return Container(
-        margin: const EdgeInsets.symmetric(
-          horizontal: 10,
-        ),
-        child: const Divider(
-          color: Color.fromARGB(255, 206, 204, 204),
-        ));
-  }
-
   selectbox() {
     return Column(
       children: [
@@ -203,7 +195,7 @@ class _VehicleInfoOwnerState extends State<VehicleInfoOwner> {
                       Icons.cancel,
                       size: 15,
                     ),
-                    label: const Text("Cancle"),
+                    label: const Text("Cancel"),
                   ),
                 ],
               ),

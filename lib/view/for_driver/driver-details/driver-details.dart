@@ -1,4 +1,6 @@
 import 'dart:io';
+
+import 'package:csc_picker/csc_picker.dart';
 import 'package:dio/dio.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
@@ -9,6 +11,7 @@ import 'package:myride/constant/app_color.dart';
 import 'package:myride/constant/app_screen_size.dart';
 import 'package:myride/constant/app_text_style.dart';
 import 'package:myride/model/driverprofile.dart';
+import 'package:myride/utils/utils.dart';
 import 'package:myride/view_model/driverprofile_viewmodel.dart';
 import 'package:myride/view_model/signIn_viewModel.dart';
 import 'package:provider/provider.dart';
@@ -23,23 +26,33 @@ class DriverDetailsScreen extends StatefulWidget {
 class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
   final TextEditingController fName = TextEditingController();
   final TextEditingController lName = TextEditingController();
-  final TextEditingController address = TextEditingController();
-  final TextEditingController phone = TextEditingController();
-  final TextEditingController altphone = TextEditingController();
+  final TextEditingController pinCode = TextEditingController();
+  final TextEditingController state = TextEditingController();
+  final TextEditingController city = TextEditingController();
+  final TextEditingController houseNumber = TextEditingController();
+  final TextEditingController roadName = TextEditingController();
+  final TextEditingController nearbyPlace = TextEditingController();
   final TextEditingController aadhar = TextEditingController();
   final TextEditingController pan = TextEditingController();
   final TextEditingController license = TextEditingController();
+  final TextEditingController email = TextEditingController();
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   late File? af, ab, p, lf, lb, pu;
   String? afs, abs, ps, lfs, lbs, pus;
 
   Dio dio = Dio();
+  String countryValue = "", stateValue = "", cityValue = "";
 
   late Response response;
 
   DriveProfileViewModel? _provider;
 
   void handleFileUpload(String type) async {
+    setState(() {
+      _provider!.loading = true;
+    });
     try {
       FilePickerResult? result = await FilePicker.platform.pickFiles();
       if (result != null) {
@@ -70,8 +83,11 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
             break;
           default:
         }
+      } else {
+        setState(() {
+          _provider!.loading = true;
+        });
       }
-      setState(() {});
     } on PlatformException catch (e) {
       showSnackbar("Error Uploading file $e");
     }
@@ -81,8 +97,7 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
     FormData formdata =
         FormData.fromMap({"file": await MultipartFile.fromFile(f.path)});
     dio.options.headers['Content-Type'] = 'application/json';
-    dio.options.headers["Authorization"] =
-        "Token 51fbe6e9f6755a819d29c48f644f1160b49de2ee";
+    dio.options.headers["Authorization"] = "Token ${SignInViewModel.token}";
     response = await dio.post(
       "http://3.109.183.75/account/upload/",
       data: formdata,
@@ -121,6 +136,9 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
     } else {
       showSnackbar("Error during connection to server, try again!");
     }
+    setState(() {
+      _provider!.loading = false;
+    });
   }
 
   @override
@@ -159,94 +177,33 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
                 ),
               ),
             ),
-            Column(
-              children: [
-                ListTile(
-                  title: const Text("First Name"),
-                  trailing: SizedBox(
-                    width: 100,
-                    child: TextField(
-                      controller: fName,
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "First Name",
-                      ),
+            Form(
+              key: _formKey,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Column(
+                  children: [
+                    inputTextField(fName, "First Name *", width: 1),
+                    const SizedBox(
+                      height: 25,
                     ),
-                  ),
-                  onTap: () {},
-                ),
-                customDivider(),
-                ListTile(
-                  title: const Text("Last Name"),
-                  trailing: SizedBox(
-                    width: 100,
-                    child: TextField(
-                      controller: lName,
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "Last Name",
-                      ),
+                    inputTextField(lName, "Last Name *", width: 1),
+                    const SizedBox(
+                      height: 25,
                     ),
-                  ),
-                ),
-                customDivider(),
-                ListTile(
-                  title: const Text("Full Adress"),
-                  trailing: SizedBox(
-                    width: 100,
-                    child: TextField(
-                      controller: address,
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "Address",
-                      ),
+                    inputTextField(email, "Email *", width: 1),
+                    const SizedBox(
+                      height: 25,
                     ),
-                  ),
+                    addressView(),
+                    customDivider(),
+                    selectbox(),
+                  ],
                 ),
-                customDivider(),
-                ListTile(
-                  title: const Text("Alternate Phone Number"),
-                  trailing: SizedBox(
-                    width: 100,
-                    child: TextField(
-                      controller: altphone,
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "264728372",
-                      ),
-                    ),
-                  ),
-                ),
-                customDivider(),
-                ListTile(
-                  title: const Text("Adhaar No. *"),
-                  trailing: SizedBox(
-                    width: 100,
-                    child: TextField(
-                      controller: aadhar,
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "348728372",
-                      ),
-                    ),
-                  ),
-                ),
-                selectbox(),
-              ],
+              ),
             )
           ],
         ),
-      ),
-    );
-  }
-
-  customDivider() {
-    return Container(
-      margin: const EdgeInsets.symmetric(
-        horizontal: 10,
-      ),
-      child: const Divider(
-        color: Color.fromARGB(255, 206, 204, 204),
       ),
     );
   }
@@ -262,325 +219,175 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
     );
   }
 
+  uploadImageBoxView(String hint, String? file, String uploadText) {
+    return Row(
+      children: [
+        Expanded(
+          child: TextFormField(
+            readOnly: true,
+            decoration: InputDecoration(
+              prefixIcon: Icon(
+                Icons.check_box,
+                color: file != null ? Appcolors.appgreen : Colors.grey,
+              ),
+              hintText: hint,
+              hintStyle: const TextStyle(
+                color: Color(0xFF999999),
+                fontSize: 12,
+              ),
+              border: InputBorder.none,
+            ),
+          ),
+        ),
+        ElevatedButton.icon(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFF00B74C),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10,
+              vertical: 12,
+            ),
+          ),
+          onPressed: () async {
+            handleFileUpload(uploadText);
+          },
+          icon: const Icon(
+            Icons.upload,
+            size: 15,
+          ),
+          label: file != null ? const Text("Uploaded") : const Text("Upload"),
+        ),
+      ],
+    );
+  }
+
   selectbox() {
     return Column(
       children: [
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: DottedBorder(
-            color: const Color(0xFFdddddd),
-            strokeWidth: 1,
-            dashPattern: const [5, 6],
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    readOnly: true,
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.check_box,
-                        color: Colors.grey,
+        countryValue != "🇮🇳    India"
+            ? const SizedBox.shrink()
+            : Card(
+                child: DottedBorder(
+                  color: const Color(0xff2f2f2f),
+                  strokeWidth: 1,
+                  dashPattern: const [5, 6],
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 15,
                       ),
-                      hintText: 'Adhar Upload Front...',
-                      hintStyle: TextStyle(
-                        color: Color(0xFF999999),
-                        fontSize: 12,
+                      inputTextField(aadhar, "Adhaar No. *", width: 0.9),
+                      const SizedBox(
+                        height: 15,
                       ),
-                      border: InputBorder.none,
-                    ),
-                  ),
-                ),
-                ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF00B74C),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 12,
-                    ),
-                  ),
-                  onPressed: () async {
-                    handleFileUpload("af");
-                  },
-                  icon: const Icon(
-                    Icons.upload,
-                    size: 15,
-                  ),
-                  label: afs != null
-                      ? const Text("Uploaded")
-                      : const Text("Upload"),
-                ),
-              ],
-            ),
-          ),
-        ),
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: DottedBorder(
-            color: const Color(0xFFdddddd),
-            strokeWidth: 1,
-            dashPattern: const [5, 6],
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    readOnly: true,
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.check_box,
-                        color: Colors.grey,
+                      uploadImageBoxView('Adhar Upload Front...', afs, "af"),
+                      const SizedBox(
+                        height: 15,
                       ),
-                      hintText: 'Adhar Upload Back...',
-                      hintStyle:
-                          TextStyle(color: Color(0xFF999999), fontSize: 12),
-                      border: InputBorder.none,
-                    ),
+                      uploadImageBoxView('Adhar Upload back...', abs, "ab"),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                    ],
                   ),
                 ),
-                ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF00B74C),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 12,
-                    ),
-                  ),
-                  onPressed: () async {
-                    handleFileUpload("ab");
-                  },
-                  icon: const Icon(
-                    Icons.upload,
-                    size: 15,
-                  ),
-                  label: abs != null
-                      ? const Text("Uploaded")
-                      : const Text("Upload"),
-                ),
-              ],
-            ),
-          ),
-        ),
-        ListTile(
-          title: const Text("PAN No. *"),
-          trailing: SizedBox(
-            width: 100,
-            child: TextField(
-              controller: pan,
-              decoration: const InputDecoration(
-                border: InputBorder.none,
-                hintText: "Pan-Number",
               ),
-            ),
-          ),
+        const SizedBox(
+          height: 15,
         ),
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: DottedBorder(
-            color: const Color(0xFFdddddd),
-            strokeWidth: 1,
-            dashPattern: const [5, 6],
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    readOnly: true,
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.check_box,
-                        color: Colors.grey,
+        countryValue == "🇮🇳    India"
+            ? const SizedBox.shrink()
+            : Card(
+                child: DottedBorder(
+                  color: const Color(0xff2f2f2f),
+                  strokeWidth: 1,
+                  dashPattern: const [5, 6],
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 15,
                       ),
-                      hintText: 'Pan Upload...',
-                      hintStyle:
-                          TextStyle(color: Color(0xFF999999), fontSize: 12),
-                      border: InputBorder.none,
-                    ),
+                      inputTextField(aadhar, "PassPort No. *", width: 0.9),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      uploadImageBoxView('Passport Upload Front...', afs, "af"),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      uploadImageBoxView('Passport Upload back...', abs, "ab"),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                    ],
                   ),
                 ),
-                ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF00B74C),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 12,
-                    ),
-                  ),
-                  onPressed: () async {
-                    handleFileUpload("p");
-                  },
-                  icon: const Icon(
-                    Icons.upload,
-                    size: 15,
-                  ),
-                  label: ps != null
-                      ? const Text("Uploaded")
-                      : const Text("Upload"),
-                ),
-              ],
-            ),
-          ),
-        ),
-        ListTile(
-          title: const Text("License No. *"),
-          trailing: SizedBox(
-            width: 100,
-            child: TextField(
-              controller: license,
-              decoration: const InputDecoration(
-                border: InputBorder.none,
-                hintText: "License-Number",
               ),
-            ),
-          ),
+        const SizedBox(
+          height: 15,
         ),
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        countryValue != "🇮🇳    India"
+            ? const SizedBox.shrink()
+            : Card(
+                child: DottedBorder(
+                  color: const Color(0xff2f2f2f),
+                  strokeWidth: 1,
+                  dashPattern: const [5, 6],
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      inputTextField(pan, "PAN No. *", width: 0.9),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      uploadImageBoxView('Pan Upload...', ps, "p"),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+        const SizedBox(
+          height: 15,
+        ),
+        Card(
           child: DottedBorder(
-            color: const Color(0xFFdddddd),
+            color: const Color(0xff2f2f2f),
             strokeWidth: 1,
             dashPattern: const [5, 6],
-            child: Row(
+            child: Column(
               children: [
-                Expanded(
-                  child: TextFormField(
-                    readOnly: true,
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.check_box,
-                        color: Colors.grey,
-                      ),
-                      hintText: 'License Front',
-                      hintStyle: TextStyle(
-                        color: Color(0xFF999999),
-                        fontSize: 12,
-                      ),
-                      border: InputBorder.none,
-                    ),
-                  ),
+                const SizedBox(
+                  height: 15,
                 ),
-                ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF00B74C),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 12,
-                    ),
-                  ),
-                  onPressed: () async {
-                    handleFileUpload("lf");
-                  },
-                  icon: const Icon(
-                    Icons.upload,
-                    size: 15,
-                  ),
-                  label: lfs != null
-                      ? const Text("Uploaded")
-                      : const Text("Upload"),
+                inputTextField(license, "Licence Number. *", width: 0.9),
+                const SizedBox(
+                  height: 15,
                 ),
-              ],
-            ),
-          ),
-        ),
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: DottedBorder(
-            color: const Color(0xFFdddddd),
-            strokeWidth: 1,
-            dashPattern: const [5, 6],
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    readOnly: true,
-                    decoration: const InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.check_box,
-                          color: Colors.grey,
-                        ),
-                        hintText: 'License Back',
-                        hintStyle:
-                            TextStyle(color: Color(0xFF999999), fontSize: 12),
-                        border: InputBorder.none),
-                  ),
+                uploadImageBoxView('Licence Upload Front...', lfs, "lf"),
+                const SizedBox(
+                  height: 15,
                 ),
-                ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF00B74C),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 12,
-                    ),
-                  ),
-                  onPressed: () async {
-                    handleFileUpload("lb");
-                  },
-                  icon: const Icon(
-                    Icons.upload,
-                    size: 15,
-                  ),
-                  label: lbs != null
-                      ? const Text("Uploaded")
-                      : const Text("Upload"),
-                ),
-              ],
-            ),
-          ),
-        ),
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: const Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [Text("Photo Upload"), Text("")],
-          ),
-        ),
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: DottedBorder(
-            color: const Color(0xFFdddddd),
-            strokeWidth: 1,
-            dashPattern: const [5, 6],
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    readOnly: true,
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.check_box,
-                        color: Colors.grey,
-                      ),
-                      hintText: 'Driver Photo',
-                      hintStyle: TextStyle(
-                        color: Color(0xFF999999),
-                        fontSize: 12,
-                      ),
-                      border: InputBorder.none,
-                    ),
-                  ),
-                ),
-                ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF00B74C),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 12,
-                    ),
-                  ),
-                  onPressed: () async {
-                    handleFileUpload("pu");
-                  },
-                  icon: const Icon(
-                    Icons.upload,
-                    size: 15,
-                  ),
-                  label: pus != null
-                      ? const Text("Uploaded")
-                      : const Text("Upload"),
+                uploadImageBoxView('Licence Upload back...', lbs, "lb"),
+                const SizedBox(
+                  height: 15,
                 ),
               ],
             ),
           ),
         ),
         const SizedBox(
-          height: 25,
+          height: 15,
+        ),
+        Card(
+          child: DottedBorder(
+            color: const Color(0xff2f2f2f),
+            strokeWidth: 1,
+            dashPattern: const [5, 6],
+            child: uploadImageBoxView('Upload Photo', pus, "pu"),
+          ),
         ),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
@@ -595,7 +402,13 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
               ),
             ),
             onPressed: () async {
-              check() ? submit() : showSnackbar("All fields are required");
+              if (_formKey.currentState!.validate()) {
+                check()
+                    ? submit()
+                    : context.showErrorSnackBar(
+                        message: "All fields are required");
+                // submit();
+              }
             },
             child: const Text("SUBMIT "),
           ),
@@ -607,15 +420,13 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
   check() {
     if (fName.text.isNotEmpty &&
         lName.text.isNotEmpty &&
-        address.text.isNotEmpty &&
-        altphone.text.isNotEmpty &&
+        pinCode.text.isNotEmpty &&
         aadhar.text.isNotEmpty &&
-        pan.text.isNotEmpty & license.text.isNotEmpty &&
+        pan.text.isNotEmpty &&
+        email.text.isNotEmpty &&
         afs != null &&
         abs != null &&
         ps != null &&
-        lfs != null &&
-        lbs != null &&
         pus != null) {
       return true;
     }
@@ -626,10 +437,13 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
     _provider!.driverProfile = DriverProfile(
       firstname: fName.text,
       lastname: lName.text,
-      phone: Provider.of<SignInViewModel>(context, listen: false).phone,
-      email: "abvhhhfced@gmail.com",
-      fulladdress: address.text,
-      alternatenumber: altphone.text,
+      phone: Provider.of<DriveProfileViewModel>(context, listen: false)
+              .currDriverProfile
+              ?.phone ??
+          "9458942703",
+      email: email.text,
+      fulladdress: pinCode.text,
+      alternatenumber: "",
       aadharnumber: aadhar.text,
       aadharuploadfront: afs,
       aadharuploadback: abs,
@@ -641,10 +455,73 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
       photoupload: pus,
       termspolicy: true,
       myrideinsurance: true,
+      driverDuty: false,
     );
     setState(() {
       _provider!.loading = true;
     });
     _provider!.makeProfile(context);
+  }
+
+  addressView() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        inputTextField(pinCode, "Pincode *", width: 0.4),
+        const SizedBox(
+          height: 15,
+        ),
+        CSCPicker(
+          onCountryChanged: (value) {
+            setState(() {
+              countryValue = value;
+            });
+
+            debugPrint("State Value $countryValue");
+          },
+          onStateChanged: (value) {
+            setState(() {
+              stateValue = value ?? "";
+            });
+          },
+          onCityChanged: (value) {
+            setState(() {
+              cityValue = value ?? "";
+            });
+          },
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        inputTextField(houseNumber, "House No, Building Name *"),
+        const SizedBox(
+          height: 15,
+        ),
+        inputTextField(roadName, "Road name, Area, Colony *"),
+        const SizedBox(
+          height: 15,
+        ),
+        inputTextField(nearbyPlace, "Add nearby famous landmark"),
+        const SizedBox(
+          height: 15,
+        ),
+      ],
+    );
+  }
+
+  inputTextField(TextEditingController controller, String hintText,
+      {double width = 1}) {
+    return SizedBox(
+      width: AppSceenSize.getWidth(context) * width,
+      height: 50,
+      child: TextFormField(
+        validator: validator,
+        controller: controller,
+        decoration: InputDecoration(
+            border: const OutlineInputBorder(),
+            // hintText: hintText,
+            labelText: hintText),
+      ),
+    );
   }
 }

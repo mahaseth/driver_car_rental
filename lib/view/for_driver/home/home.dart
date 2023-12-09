@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:myride/constant/app_color.dart';
 import 'package:myride/constant/app_screen_size.dart';
 import 'package:myride/constant/app_text_style.dart';
-import 'package:myride/view/for_car_owner/verify_owner/verify_owner.dart';
-import 'package:myride/view/for_driver/verify/verify.dart';
+import 'package:myride/view/for_car_owner/welocme_owner/welcome_owner.dart';
+import 'package:myride/view/for_driver/verify/mobile.dart';
+import 'package:myride/view_model/driverprofile_viewmodel.dart';
+import 'package:myride/view_model/signIn_viewModel.dart';
+import 'package:myride/view_model/vehicleinfo_viewmodel.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePageScreen extends StatefulWidget {
   const HomePageScreen({super.key});
@@ -13,6 +18,20 @@ class HomePageScreen extends StatefulWidget {
 }
 
 class _HomePageScreenState extends State<HomePageScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // readData();
+    gotoNextScreen();
+  }
+
+  void readData() async {
+    String token = '7687869c4772056d8b2d54a5317b237ff9d79f74';
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setString("token", token);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,53 +58,11 @@ class _HomePageScreenState extends State<HomePageScreen> {
               const SizedBox(
                 height: 50,
               ),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const VerifyOwnerScreen();
-                  }));
-                },
-                style: TextButton.styleFrom(
-                  backgroundColor: const Color(0xFF1B6864), // No background color
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                  shape: RoundedRectangleBorder(
-                    side: const BorderSide(
-                        width: 0, color: Color(0xFF00B74C)), // Border
-                    borderRadius: BorderRadius.circular(8), // Rounded corners
-                  ),
-                ),
-                child: const Text(
-                  'For Car Owner',
-                  style: AppTextStyle.buttontext,
+              Center(
+                child: CircularProgressIndicator(
+                  color: Colors.blueAccent,
                 ),
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const VerifyScreen(),
-                      ));
-                },
-                style: TextButton.styleFrom(
-                  backgroundColor: Colors.transparent, // No background color
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                  shape: RoundedRectangleBorder(
-                    side: const BorderSide(
-                        width: 1, color: Color(0xFF00B74C)), // Border
-                    borderRadius: BorderRadius.circular(8), // Rounded corners
-                  ),
-                ),
-                child: const Text(
-                  'Driver Registration',
-                  style: AppTextStyle.buttontextone,
-                ),
-              )
             ],
           ),
           Positioned(
@@ -99,5 +76,33 @@ class _HomePageScreenState extends State<HomePageScreen> {
         ],
       ),
     );
+  }
+
+  void gotoNextScreen() async {
+    await Future.delayed(const Duration(seconds: 2));
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    if (sharedPreferences.containsKey('token')) {
+      SignInViewModel.token = sharedPreferences.getString('token') ?? "";
+
+      DriveProfileViewModel provider =
+          Provider.of<DriveProfileViewModel>(context, listen: false);
+      await provider.getProfile(context);
+      VehicleInfoViewModel providerVehicle =
+          Provider.of<VehicleInfoViewModel>(context, listen: false);
+      await providerVehicle.vehicleListUser(context);
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const WelcomeScreenOwner(),
+        ),
+      );
+    } else {
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const MobileVerify(),
+          ));
+    }
   }
 }

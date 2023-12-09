@@ -94,11 +94,13 @@ class _EmailScreenOwnerState extends State<EmailScreenOwner> {
           Positioned(
               bottom: 10,
               child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                   width: AppSceenSize.getWidth(context),
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white, backgroundColor: Appcolors.appgreen, // Text color
+                        foregroundColor: Colors.white,
+                        backgroundColor: Appcolors.appgreen, // Text color
                         padding: const EdgeInsets.all(16), // Button padding
                         shape: RoundedRectangleBorder(
                           borderRadius:

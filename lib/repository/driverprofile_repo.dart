@@ -1,5 +1,4 @@
 import 'package:myride/view_model/signIn_viewModel.dart';
-import 'package:provider/provider.dart';
 
 import '../services/api_services.dart';
 import '../utils/utils.dart';
@@ -9,11 +8,10 @@ class DriverProfileRepo {
 
   makeProfile(context, var bodyTosend) async {
     try {
+      print("Token ${SignInViewModel.token}");
       final response = await _networkService
-          .putApiResponse(
-              "http://3.109.183.75/account/driver-profile/",
-              bodyTosend,
-              Provider.of<SignInViewModel>(context, listen: false).token)
+          .patchApiResponse("http://3.109.183.75/account/driver-profile/",
+              bodyTosend, SignInViewModel.token)
           .catchError((error, stackTrace) {
         Utils.showMyDialog(error.toString(), context);
       });
@@ -26,10 +24,8 @@ class DriverProfileRepo {
   updateProfile(context, var bodyTosend) async {
     try {
       final response = await _networkService
-          .patchApiResponse(
-              "http://3.109.183.75/account/driver-profile/",
-              bodyTosend,
-              Provider.of<SignInViewModel>(context, listen: false).token)
+          .patchApiResponse("http://3.109.183.75/account/driver-profile/",
+              bodyTosend, SignInViewModel.token)
           .catchError((error, stackTrace) {
         Utils.showMyDialog(error.toString(), context);
       });
@@ -43,7 +39,7 @@ class DriverProfileRepo {
     try {
       final response = await _networkService
           .getGetApiResponse("http://3.109.183.75/account/driver-profile/",
-              Provider.of<SignInViewModel>(context, listen: false).token)
+              SignInViewModel.token)
           .catchError(
         (error, stackTrace) {
           Utils.showMyDialog(error.toString(), context);

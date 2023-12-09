@@ -43,7 +43,8 @@ class _HomeScreenOwnerState extends State<HomeScreenOwner> {
                   // Button click action
                 },
                 style: TextButton.styleFrom(
-                  backgroundColor: const Color(0xFF1B6864), // No background color
+                  backgroundColor:
+                      const Color(0xFF1B6864), // No background color
                   padding:
                       const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                   shape: RoundedRectangleBorder(

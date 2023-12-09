@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:myride/constant/app_screen_size.dart';
-import 'package:myride/view/for_driver/map_section/end_ride.dart';
 
 class EnterOtpScreen extends StatefulWidget {
   const EnterOtpScreen({super.key});
@@ -236,7 +235,8 @@ class _EnterOtpScreenState extends State<EnterOtpScreen> {
                   height: 40,
                   child: TextField(
                     controller: _otpControllers[index],
-                    focusNode: _focusNodes[index], // Add this line
+                    focusNode: _focusNodes[index],
+                    // Add this line
                     textAlign: TextAlign.center,
                     keyboardType: TextInputType.number,
                     maxLength: 1,
@@ -264,9 +264,9 @@ class _EnterOtpScreenState extends State<EnterOtpScreen> {
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const EndRideScreen();
-                  }));
+                  // Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  //   return const EndRideScreen();
+                  // }));
                 },
                 child: Container(
                   width: MediaQuery.of(context).size.width * 0.44,
