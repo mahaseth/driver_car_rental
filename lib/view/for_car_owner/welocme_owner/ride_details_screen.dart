@@ -115,7 +115,7 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
                         child: Text(
                           tripData.source,
                           overflow: TextOverflow.clip,
-                          style: TextStyle(fontSize: 12),
+                          style: const TextStyle(fontSize: 12),
                         ),
                       )
                     ],
@@ -142,7 +142,7 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
                         child: Text(
                           tripData.destination,
                           overflow: TextOverflow.clip,
-                          style: TextStyle(fontSize: 12),
+                          style: const TextStyle(fontSize: 12),
                         ),
                       )
                     ],

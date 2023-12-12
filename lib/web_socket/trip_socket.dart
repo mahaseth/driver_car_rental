@@ -64,6 +64,7 @@ class TripWebSocket {
 
           if (await checkDistanceCondition(context, map)) return;
 
+          debugPrint("Going to next Screen start");
           Navigator.push(
               context,
               MaterialPageRoute(
@@ -71,6 +72,7 @@ class TripWebSocket {
                         map: map,
                         screenIndex: 0,
                       )));
+          debugPrint("Going to next Screen end");
         }
       } catch (e) {
         debugPrint("There is a error in accpeting $e");
@@ -103,17 +105,23 @@ class TripWebSocket {
   }
 
   Future<bool> checkDistanceCondition(context, map) async {
-    TripViewModel viewModel =
-        Provider.of<TripViewModel>(context, listen: false);
+    print("Checking distance condition");
+    try {
+      TripViewModel viewModel =
+          Provider.of<TripViewModel>(context, listen: false);
 
-    await viewModel.getCurrentTrip(context, map["trip_id"]);
+      await viewModel.getCurrentTrip(context, map["trip_id"]);
 
-    var start = await getCurrentLocation();
-    var destination = LatLng(viewModel.currentTrip?.destinationLat ?? 0.0,
-        viewModel.currentTrip?.destinationLong ?? 0.0);
-    double distanceDouble = calculateDistance(start, destination);
-    if (distanceDouble > 5.0) {
-      return true;
+      var start = await getCurrentLocation();
+      var destination = LatLng(viewModel.currentTrip?.destinationLat ?? 0.0,
+          viewModel.currentTrip?.destinationLong ?? 0.0);
+      // double distanceDouble = calculateDistance(start, destination);
+      // if (distanceDouble > 5.0) {
+      //   return true;
+      // }
+      return false;
+    } catch (e) {
+      print("Error while checking distance to accept trip $e");
     }
     return false;
   }

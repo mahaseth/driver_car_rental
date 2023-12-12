@@ -118,7 +118,7 @@ class VehicleInfoViewModel extends ChangeNotifier {
     var bodytoSend = vi.toJson();
     try {
       final response = await _vehicleInfoRepo.submit(context, bodytoSend);
-      Future.delayed(Duration(seconds: 2), () {
+      Future.delayed(const Duration(seconds: 2), () {
         loading = false;
         notifyListeners();
         print(response);

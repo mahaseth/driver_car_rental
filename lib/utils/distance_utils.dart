@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
-import 'package:location/location.dart';
 
 const String mapKey = "AIzaSyCYwHNeqOW-oeSSex-b-vqUyZb3vWcWxVA";
 
@@ -63,7 +63,7 @@ double calculateDistance(LatLng from, LatLng to) {
 }
 
 Future<LatLng> getCurrentLocation() async {
-  Location currentLocation = Location();
-  var location = await currentLocation.getLocation();
-  return LatLng(location.latitude as double, location.longitude as double);
+  Position position = await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high);
+  return LatLng(position.latitude, position.longitude);
 }

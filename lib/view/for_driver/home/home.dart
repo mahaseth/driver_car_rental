@@ -58,7 +58,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
               const SizedBox(
                 height: 50,
               ),
-              Center(
+              const Center(
                 child: CircularProgressIndicator(
                   color: Colors.blueAccent,
                 ),

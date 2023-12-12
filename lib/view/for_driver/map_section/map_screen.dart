@@ -212,20 +212,20 @@ class _MapScreenDriverState extends State<MapScreenDriver> {
                                   color: const Color(0xFF00B74C),
                                   child: Row(
                                     children: [
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 10,
                                       ),
                                       CircleAvatar(
                                         radius: 20,
                                         child: Text(
                                           ' $timing\nsec',
-                                          style: TextStyle(fontSize: 12),
+                                          style: const TextStyle(fontSize: 12),
                                         ),
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 10,
                                       ),
-                                      Expanded(
+                                      const Expanded(
                                           child: Text(
                                               'It will automatically transfer to other driver after time completed.')),
                                     ],

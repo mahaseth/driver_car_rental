@@ -35,6 +35,12 @@ class _RouteMapScreenState extends State<RouteMapScreen> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
@@ -107,7 +113,7 @@ class _RouteMapScreenState extends State<RouteMapScreen> {
                       padding: const EdgeInsets.all(5.0),
                       child: IconButton(
                           onPressed: changeMapPosition,
-                          icon: Icon(Icons.my_location_outlined)),
+                          icon: const Icon(Icons.my_location_outlined)),
                     )),
                 Positioned(
                     bottom: 50,
@@ -117,7 +123,7 @@ class _RouteMapScreenState extends State<RouteMapScreen> {
                         color: const Color(0xFFFFFFFF),
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      padding: EdgeInsets.all(5.0),
+                      padding: const EdgeInsets.all(5.0),
                       child: IconButton(
                           onPressed: () {
                             debugPrint("Button Clicked");
@@ -127,7 +133,7 @@ class _RouteMapScreenState extends State<RouteMapScreen> {
                                   builder: (context) => const BalanceScreen(),
                                 ));
                           },
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.monetization_on_rounded,
                             size: 50,
                             color: Colors.amber,
