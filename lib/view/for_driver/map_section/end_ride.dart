@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myride/constant/app_text_style.dart';
 import 'package:myride/model/location_model.dart';
 import 'package:myride/view_model/trip_viewModel.dart';
+import 'package:myride/web_socket/trip_socket.dart';
 import 'package:provider/provider.dart';
 
 class EndRideScreenOwner extends StatefulWidget {
@@ -151,7 +152,7 @@ class _EndRideScreenOwnerState extends State<EndRideScreenOwner> {
 
                         await viewModel.editTrip(
                             context, tripData, viewModel.currentTrip!.id);
-
+                        TripWebSocket().cancelRideMessage("COMPLETED");
                         setState(() {
                           isLoading = false;
                         });

@@ -62,7 +62,7 @@ class _MapScreenDriverState extends State<MapScreenDriver> {
         timing--;
       });
     }
-    if (context.mounted) {
+    if (context.mounted && currentIndex == 0) {
       Navigator.of(context).popUntil((route) {
         if (route is MaterialPageRoute) {
           debugPrint("Route :- ${route.builder.runtimeType}");

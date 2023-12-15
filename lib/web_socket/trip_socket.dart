@@ -89,9 +89,9 @@ class TripWebSocket {
     channel!.sink.add(json.encode(data));
   }
 
-  void cancelRideMessage() {
+  void cancelRideMessage(String value) {
     Map map = {
-      "status": "DRIVER_REJECTED",
+      "status": value,
     };
 
     channel!.sink.add(json.encode(map));
