@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:myride/constant/app_text_style.dart';
 import 'package:myride/model/location_model.dart';
+import 'package:myride/view_model/driverprofile_viewmodel.dart';
 import 'package:myride/view_model/trip_viewModel.dart';
+import 'package:myride/web_socket/trip_detail_socket.dart';
 import 'package:myride/web_socket/trip_socket.dart';
 import 'package:provider/provider.dart';
+
+import '../../../web_socket/payment_socket.dart';
 
 class PickUpScreenDriver extends StatefulWidget {
   final Function onSubmit;
@@ -27,6 +31,18 @@ class _PickUpScreenDriverState extends State<PickUpScreenDriver> {
     LocationData end = parseLocationString(widget.map["destination"]);
     startLocation = start.location;
     endingLocation = end.location;
+    startWebSockets();
+  }
+
+  void startWebSockets() {
+    PaymentWebSocket().webSocketInit(widget.map["trip_id"]);
+    PaymentWebSocket().listenSocket(context);
+
+    DriveProfileViewModel provider =
+        Provider.of<DriveProfileViewModel>(context, listen: true);
+
+    String url = provider.currDriverProfile?.photoupload ?? "";
+    TripSecurityWebSocket().webSocketInit(widget.map["trip_id"],url);
   }
 
   @override

@@ -44,8 +44,6 @@ class _MapScreenDriverState extends State<MapScreenDriver> {
   void initState() {
     super.initState();
     currentIndex = widget.screenIndex;
-    PaymentWebSocket().webSocketInit();
-    PaymentWebSocket().listenSocket(context);
     readData();
     KeyboardVisibilityController().onChange.listen((bool visible) {
       setState(() {
