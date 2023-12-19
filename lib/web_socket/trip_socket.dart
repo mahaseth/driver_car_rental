@@ -33,7 +33,9 @@ class TripWebSocket {
       try {
         Map map = jsonDecode(message);
         debugPrint("Message $map");
-        if (map["driver_id"] != null || map["status"] == "DRIVER_REJECTED") {
+        if (map["driver_id"] != null ||
+            map["status"] == "DRIVER_REJECTED" ||
+            map["status"] == "COMPLETED") {
           return;
         }
         if (map["status"] == "CANCELLED") {
