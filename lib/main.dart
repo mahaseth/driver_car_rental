@@ -15,8 +15,9 @@ import 'package:myride/view_model/trip_viewModel.dart';
 import 'package:myride/view_model/vehicleinfo_viewmodel.dart';
 import 'package:provider/provider.dart';
 
-void main() {
-  LocalNotificationService().init();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await LocalNotificationService().init();
 
   runApp(const MyApp());
 }
