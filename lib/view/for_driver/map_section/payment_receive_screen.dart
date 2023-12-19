@@ -3,7 +3,7 @@ import 'package:myride/constant/app_color.dart';
 import 'package:myride/constant/app_screen_size.dart';
 import 'package:myride/model/trip_model.dart';
 import 'package:myride/repository/payment_repo.dart';
-import 'package:myride/view/for_car_owner/welocme_owner/welcome_owner.dart';
+import 'package:myride/view/for_driver/map_section/rating.dart';
 import 'package:myride/view_model/trip_viewModel.dart';
 import 'package:provider/provider.dart';
 
@@ -79,10 +79,10 @@ class _TipsScreenState extends State<TipsScreen> {
     return Scaffold(
         backgroundColor: Appcolors.mainbg,
         appBar: AppBar(
-          shadowColor: Color.fromARGB(0, 255, 193, 7),
+          shadowColor: const Color.fromARGB(0, 255, 193, 7),
           centerTitle: true,
           backgroundColor: Appcolors.mainbg,
-          title: Text("Payment"),
+          title: const Text("Payment"),
         ),
         body: Container(
           height: AppSceenSize.getHeight(context) * 0.75,
@@ -95,23 +95,22 @@ class _TipsScreenState extends State<TipsScreen> {
           child: Column(
             children: [
               paymentShowView(),
-              SizedBox(height: 10.0),
+              const SizedBox(height: 10.0),
               Container(
                 width: AppSceenSize.getWidth(context) * 0.90,
-                padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFF28B910),
+                    backgroundColor: const Color(0xFF28B910),
                   ),
                   onPressed: () async {
-                    Navigator.of(context).popUntil((route) => false);
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const WelcomeScreenOwner(),
+                          builder: (context) => const RatingScreen(),
                         ));
                   },
-                  child: Text('Paid'),
+                  child: const Text('Paid'),
                 ),
               ),
             ],

@@ -14,7 +14,7 @@ class TripSecurityWebSocket {
     channel = WebSocketChannel.connect(
       Uri.parse('ws://3.109.183.75:7401/ws/trip-tracking/$tripId'),
     );
-    Timer.periodic(Duration(seconds: 3), (Timer t) async {
+    Timer.periodic(const Duration(seconds: 3), (Timer t) async {
       try {
         LatLng currentLocation = await getCurrentLocation();
         addMessage(currentLocation.latitude, currentLocation.longitude, url);
