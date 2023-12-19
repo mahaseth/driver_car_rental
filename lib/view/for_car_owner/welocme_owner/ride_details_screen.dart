@@ -153,8 +153,8 @@ class _RideDetailScreenState extends State<RideDetailScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      rowTextView("Ride Type: ",
-                          tripData.cabData.cabTypeText ?? "Vehicle"),
+                      rowTextView(
+                          "Ride Type: ", tripData.cabData.model ?? "Vehicle"),
                       rowTextView("Trip Distance: ", "${tripData.distance} KM"),
                     ],
                   ),

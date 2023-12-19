@@ -6,6 +6,7 @@ import '../services/api_services.dart';
 class RazorPayRepo {
   final _networkService = NetworkApiService();
   static String orderId = "";
+  static String qrImage = "";
   static int transId = 1;
 
   createOrder(var bodyTosend) async {
@@ -52,6 +53,36 @@ class RazorPayRepo {
         },
       );
       //DriverProfile driverProfile = DriverProfile.fromJson(response);
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  createQrCode(var bodyTosend) async {
+    try {
+      debugPrint(bodyTosend.toString());
+      final response = await _networkService
+          .postApiResponse("http://3.109.183.75/payment/create-trip-payment/",
+              bodyTosend, SignInViewModel.token)
+          .catchError((error, stackTrace) {});
+      debugPrint("Response is :- $response");
+      if (response != null) {
+        orderId = response['order_id'] ?? response['qr_id'] ?? "";
+        qrImage = response['image_url'] ?? "";
+      }
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  verifyQrCode(var bodyTosend) async {
+    try {
+      final response = await _networkService
+          .postApiResponse("http://3.109.183.75/payment/verify-trip-signature/",
+              bodyTosend, SignInViewModel.token)
+          .catchError((error, stackTrace) {});
       return response;
     } catch (e) {
       rethrow;
