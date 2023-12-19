@@ -39,10 +39,10 @@ class _PickUpScreenDriverState extends State<PickUpScreenDriver> {
     PaymentWebSocket().listenSocket(context);
 
     DriveProfileViewModel provider =
-        Provider.of<DriveProfileViewModel>(context, listen: true);
+        Provider.of<DriveProfileViewModel>(context, listen: false);
 
     String url = provider.currDriverProfile?.photoupload ?? "";
-    TripSecurityWebSocket().webSocketInit(widget.map["trip_id"],url);
+    TripSecurityWebSocket().webSocketInit(widget.map["trip_id"], url);
   }
 
   @override

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:myride/utils/distance_utils.dart';
+import 'package:myride/utils/local_notification.dart';
 import 'package:myride/view_model/driver_status_provider.dart';
 import 'package:myride/view_model/trip_viewModel.dart';
 import 'package:provider/provider.dart';
@@ -65,6 +66,8 @@ class TripWebSocket {
           if (await checkDistanceCondition(context, map)) return;
 
           debugPrint("Going to next Screen start");
+          LocalNotificationService().showNotification(
+              "New Ride available", "There is a new ride.Please check it.");
           Navigator.push(
               context,
               MaterialPageRoute(

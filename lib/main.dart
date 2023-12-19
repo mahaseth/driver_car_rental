@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myride/utils/NavigationService.dart';
+import 'package:myride/utils/local_notification.dart';
 import 'package:myride/view/for_driver/home/home.dart';
 import 'package:myride/view_model/admin_support_viewModel.dart';
 import 'package:myride/view_model/bank_view_model.dart';
@@ -15,6 +16,8 @@ import 'package:myride/view_model/vehicleinfo_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  LocalNotificationService().init();
+
   runApp(const MyApp());
 }
 
