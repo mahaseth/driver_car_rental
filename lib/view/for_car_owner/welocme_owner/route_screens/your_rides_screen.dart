@@ -131,10 +131,10 @@ class _YourRideScreenState extends State<YourRideScreen> {
                         children: [
                           Text(totalDistance.toString(),
                               style: AppTextStyle.upperitemtmeemtext),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
-                          Text(
+                          const Text(
                             "Kilometers",
                             style: AppTextStyle.upperitemtmeemspantext,
                           )

@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 
 Widget showImage(String url) {
   return url.isEmpty
-      ? CircleAvatar(
+      ? const CircleAvatar(
           backgroundColor: Colors.black,
           radius: 25,
           child: Icon(

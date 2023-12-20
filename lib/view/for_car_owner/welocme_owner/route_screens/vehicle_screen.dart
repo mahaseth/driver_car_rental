@@ -72,7 +72,7 @@ class _VehicleScreenState extends State<VehicleScreen> {
     readData();
     return Scaffold(
       appBar: AppBar(
-        title: Text("My Vehicles"),
+        title: const Text("My Vehicles"),
       ),
       body: vehicleListView(),
     );

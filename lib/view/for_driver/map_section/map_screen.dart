@@ -4,14 +4,13 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:myride/constant/app_screen_size.dart';
 import 'package:myride/services/location_service.dart';
-import 'package:myride/view/for_car_owner/welocme_owner/welcome_owner.dart';
 import 'package:myride/view/for_driver/chat/chat_screen.dart';
 import 'package:myride/view/for_driver/map_section/confirming_trip.dart';
 import 'package:myride/view/for_driver/map_section/end_ride.dart';
 import 'package:myride/view/for_driver/map_section/enter_otp_screen.dart';
+import 'package:myride/view/for_driver/map_section/payment_receive_screen.dart';
 import 'package:myride/view/for_driver/map_section/pickup_ride.dart';
 import 'package:myride/view/for_driver/map_section/trip_accpet_screen.dart';
-import 'package:myride/web_socket/payment_socket.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MapScreenDriver extends StatefulWidget {
@@ -44,8 +43,6 @@ class _MapScreenDriverState extends State<MapScreenDriver> {
   void initState() {
     super.initState();
     currentIndex = widget.screenIndex;
-    PaymentWebSocket().webSocketInit();
-    PaymentWebSocket().listenSocket(context);
     readData();
     KeyboardVisibilityController().onChange.listen((bool visible) {
       setState(() {
@@ -62,7 +59,7 @@ class _MapScreenDriverState extends State<MapScreenDriver> {
         timing--;
       });
     }
-    if (context.mounted) {
+    if (context.mounted && currentIndex == 0) {
       Navigator.of(context).popUntil((route) {
         if (route is MaterialPageRoute) {
           debugPrint("Route :- ${route.builder.runtimeType}");
@@ -212,20 +209,20 @@ class _MapScreenDriverState extends State<MapScreenDriver> {
                                   color: const Color(0xFF00B74C),
                                   child: Row(
                                     children: [
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 10,
                                       ),
                                       CircleAvatar(
                                         radius: 20,
                                         child: Text(
                                           ' $timing\nsec',
-                                          style: TextStyle(fontSize: 12),
+                                          style: const TextStyle(fontSize: 12),
                                         ),
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 10,
                                       ),
-                                      Expanded(
+                                      const Expanded(
                                           child: Text(
                                               'It will automatically transfer to other driver after time completed.')),
                                     ],
@@ -270,11 +267,10 @@ class _MapScreenDriverState extends State<MapScreenDriver> {
 
   void changeIndex(val) {
     if (val == 5) {
-      Navigator.of(context).popUntil((route) => false);
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const WelcomeScreenOwner(),
+            builder: (context) => const TipsScreen(),
           ));
       return;
     }

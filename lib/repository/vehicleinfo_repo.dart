@@ -96,7 +96,7 @@ class VehicleInfoRepo {
           .patchApiResponse("http://3.109.183.75/cab/$id/get-vehicle/",
               bodysend, SignInViewModel.token)
           .catchError((error, stackTrace) {
-        print("${error}");
+        print("$error");
         // Utils.showMyDialog(error.toString(), context);
       });
       return response;

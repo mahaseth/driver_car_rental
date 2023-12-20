@@ -10,15 +10,17 @@ class TripModel {
   int otpCount;
   int customer;
   int driver;
-  VehicleInfoo cabData;
+  VehicleModel cabData;
   int rideType;
   double sourceLat = 0.0;
   double sourceLong = 0.0;
   double destinationLat = 0.0;
   double destinationLong = 0.0;
   int id;
+  int amount;
   String driverProfilePic;
-  int amount = 0;
+  String? carIcon;
+  String? paymentMode;
 
   TripModel({
     required this.isActive,
@@ -33,17 +35,20 @@ class TripModel {
     required this.driver,
     required this.cabData,
     required this.rideType,
-    required this.driverProfilePic,
     required this.amount,
+    required this.driverProfilePic,
+    this.carIcon,
+    this.paymentMode,
   });
 
   factory TripModel.fromJson(Map<String, dynamic> json) {
+    print(json.toString());
     List<String> source = json['source'].split('#');
     List<String> destination = json['destination'].split('#');
 
     String destinationText = destination[0];
     String sourceText = source[0];
-    print(json['cab']?.toString() ?? "He");
+
     TripModel model = TripModel(
       isActive: json['is_active'] ?? false,
       status: json['status'] ?? "",
@@ -51,16 +56,18 @@ class TripModel {
       source: sourceText,
       destination: destinationText,
       distance: json['distance'] ?? 0.0,
+      amount: json['amount'].round() ?? 0,
       timing: json['timing'] ?? "",
       otpCount: json['otp'] ?? 0,
       customer: json['customer'] ?? 0,
       driver: json['driver'] ?? 0,
-      amount: json['amount'].round() ?? 0,
       cabData: json['cab'] == null
-          ? VehicleInfoo()
-          : VehicleInfoo.fromJson(json['cab']),
+          ? VehicleModel()
+          : VehicleModel.fromJson(json['cab']),
       rideType: json['ride_type']?["cab_type"]?["id"] ?? 0,
       id: json['id'] ?? 0,
+      carIcon: json['ride_type']?["icon"] ?? "",
+      paymentMode: json['payment_choice'] ?? "OTHER",
     );
     try {
       model.sourceLat = double.tryParse(source[1]) ?? 0.0;

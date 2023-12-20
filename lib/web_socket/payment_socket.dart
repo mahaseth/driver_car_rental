@@ -7,10 +7,10 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 class PaymentWebSocket {
   static WebSocketChannel? channel;
 
-  webSocketInit() {
+  webSocketInit(int tripId) {
     debugPrint("Started");
     channel = WebSocketChannel.connect(
-      Uri.parse('ws://3.109.183.75:7401/ws/payment-notify/82'),
+      Uri.parse('ws://3.109.183.75:7401/ws/payment-notify/$tripId'),
     );
   }
 

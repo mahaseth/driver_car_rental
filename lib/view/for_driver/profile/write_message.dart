@@ -109,38 +109,38 @@ class _WriteMessageState extends State<WriteMessage> {
 
   _buildMessageSection() {
     return Padding(
-      padding: EdgeInsets.only(right: 20.0, left: 20.0),
+      padding: const EdgeInsets.only(right: 20.0, left: 20.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
-          Text("Subject"),
-          SizedBox(
+          const Text("Subject"),
+          const SizedBox(
             height: 10,
           ),
           SizedBox(
             height: 40,
             child: TextField(
               controller: subjectController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Subject',
                 border: OutlineInputBorder(), // This adds the outline border
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 40,
           ),
-          Text("Message"),
-          SizedBox(
+          const Text("Message"),
+          const SizedBox(
             height: 10,
           ),
           TextField(
             controller: messageController,
             maxLines: 5,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelText: 'Write a message',
               border: OutlineInputBorder(), // This adds the outline border
             ),

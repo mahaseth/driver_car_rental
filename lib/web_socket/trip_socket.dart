@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:myride/utils/distance_utils.dart';
+import 'package:myride/utils/local_notification.dart';
 import 'package:myride/view_model/driver_status_provider.dart';
 import 'package:myride/view_model/trip_viewModel.dart';
 import 'package:provider/provider.dart';
@@ -32,7 +33,9 @@ class TripWebSocket {
       try {
         Map map = jsonDecode(message);
         debugPrint("Message $map");
-        if (map["driver_id"] != null || map["status"] == "DRIVER_REJECTED") {
+        if (map["driver_id"] != null ||
+            map["status"] == "DRIVER_REJECTED" ||
+            map["status"] == "COMPLETED") {
           return;
         }
         if (map["status"] == "CANCELLED") {
@@ -46,6 +49,11 @@ class TripWebSocket {
               ),
               backgroundColor: Colors.red,
             ));
+
+          DriverStatusProvider driverStatus =
+              Provider.of<DriverStatusProvider>(context, listen: false);
+
+          driverStatus.finishRidingStatus(context);
           Navigator.of(context).popUntil((route) {
             if (route is MaterialPageRoute) {
               String screenName = "(BuildContext) => WelcomeScreenOwner";
@@ -64,6 +72,9 @@ class TripWebSocket {
 
           if (await checkDistanceCondition(context, map)) return;
 
+          debugPrint("Going to next Screen start");
+          LocalNotificationService().showNotification(
+              "New Ride available", "There is a new ride.Please check it.");
           Navigator.push(
               context,
               MaterialPageRoute(
@@ -71,6 +82,7 @@ class TripWebSocket {
                         map: map,
                         screenIndex: 0,
                       )));
+          debugPrint("Going to next Screen end");
         }
       } catch (e) {
         debugPrint("There is a error in accpeting $e");
@@ -87,9 +99,9 @@ class TripWebSocket {
     channel!.sink.add(json.encode(data));
   }
 
-  void cancelRideMessage() {
+  void cancelRideMessage(String value) {
     Map map = {
-      "status": "DRIVER_REJECTED",
+      "status": value,
     };
 
     channel!.sink.add(json.encode(map));
@@ -103,17 +115,23 @@ class TripWebSocket {
   }
 
   Future<bool> checkDistanceCondition(context, map) async {
-    TripViewModel viewModel =
-        Provider.of<TripViewModel>(context, listen: false);
+    print("Checking distance condition");
+    try {
+      TripViewModel viewModel =
+          Provider.of<TripViewModel>(context, listen: false);
 
-    await viewModel.getCurrentTrip(context, map["trip_id"]);
+      await viewModel.getCurrentTrip(context, map["trip_id"]);
 
-    var start = await getCurrentLocation();
-    var destination = LatLng(viewModel.currentTrip?.destinationLat ?? 0.0,
-        viewModel.currentTrip?.destinationLong ?? 0.0);
-    double distanceDouble = calculateDistance(start, destination);
-    if (distanceDouble > 5.0) {
-      return true;
+      var start = await getCurrentLocation();
+      var destination = LatLng(viewModel.currentTrip?.destinationLat ?? 0.0,
+          viewModel.currentTrip?.destinationLong ?? 0.0);
+      // double distanceDouble = calculateDistance(start, destination);
+      // if (distanceDouble > 5.0) {
+      //   return true;
+      // }
+      return false;
+    } catch (e) {
+      print("Error while checking distance to accept trip $e");
     }
     return false;
   }
