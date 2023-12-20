@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myride/constant/app_text_style.dart';
 import 'package:myride/model/location_model.dart';
+import 'package:myride/view_model/driver_status_provider.dart';
 import 'package:myride/view_model/driverprofile_viewmodel.dart';
 import 'package:myride/view_model/trip_viewModel.dart';
 import 'package:myride/web_socket/trip_detail_socket.dart';
@@ -189,6 +190,12 @@ class _PickUpScreenDriverState extends State<PickUpScreenDriver> {
                         }
                         return false;
                       });
+
+                      DriverStatusProvider driverStatus =
+                          Provider.of<DriverStatusProvider>(context,
+                              listen: false);
+
+                      driverStatus.finishRidingStatus(context);
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.44,

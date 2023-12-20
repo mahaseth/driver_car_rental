@@ -49,6 +49,11 @@ class TripWebSocket {
               ),
               backgroundColor: Colors.red,
             ));
+
+          DriverStatusProvider driverStatus =
+              Provider.of<DriverStatusProvider>(context, listen: false);
+
+          driverStatus.finishRidingStatus(context);
           Navigator.of(context).popUntil((route) {
             if (route is MaterialPageRoute) {
               String screenName = "(BuildContext) => WelcomeScreenOwner";
