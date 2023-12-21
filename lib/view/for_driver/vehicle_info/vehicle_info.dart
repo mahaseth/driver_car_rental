@@ -47,7 +47,7 @@ class _VehicleInfoState extends State<VehicleInfo> {
       backHeadUrl,
       frontheadLightUrl,
       passengerSeatUrl,
-      driverSideUrl,
+      interiorImageUrl,
       additionalImage;
 
   VehicleInfoViewModel? _provider;
@@ -96,7 +96,14 @@ class _VehicleInfoState extends State<VehicleInfo> {
             ad = File(result.files.single.path.toString());
             uploadFile("frontHead", ad!);
             break;
+          case 'additionalImage':
+            ad = File(result.files.single.path.toString());
+            uploadFile("additionalImage", ad!);
+            break;
           default:
+            ad = File(result.files.single.path.toString());
+            uploadFile("frontHead", ad!);
+            break;
         }
       } else {
         setState(() {
@@ -140,7 +147,7 @@ class _VehicleInfoState extends State<VehicleInfo> {
           leftSideUrl = response.data['url'];
           break;
         case 'driverSeat':
-          driverSideUrl = response.data['url'];
+          interiorImageUrl = response.data['url'];
           break;
         case 'backHead':
           backHeadUrl = response.data['url'];
@@ -383,7 +390,7 @@ class _VehicleInfoState extends State<VehicleInfo> {
         passengerSeatUrl != null &&
         backHeadUrl != null &&
         frontheadLightUrl != null &&
-        driverSideUrl != null) {
+        interiorImageUrl != null) {
       return true;
     }
     return false;
@@ -401,7 +408,7 @@ class _VehicleInfoState extends State<VehicleInfo> {
         back: backPhotoUrl,
         right: rightSideUrl,
         left: leftSideUrl,
-        insideDriverSeat: driverSideUrl,
+        insideDriverSeat: interiorImageUrl,
         frontHeadLight: frontheadLightUrl,
         backHeadLight: backHeadUrl,
         insidePassangerSeat: passengerSeatUrl,
@@ -491,17 +498,17 @@ class _VehicleInfoState extends State<VehicleInfo> {
                   uploadSquareBox('Left Side', leftSideUrl, "ad"),
                   uploadSquareBox(
                       'Interior', passengerSeatUrl, "passangerSeat"),
-                  uploadSquareBox('Interior', driverSideUrl, "driverSeat"),
+                  uploadSquareBox('Interior', interiorImageUrl, "driverSeat"),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   uploadSquareBox(
-                      'Front No. Plate', frontheadLightUrl, "backHead"),
+                      'Front No. Plate', frontheadLightUrl, "frontHead"),
                   uploadSquareBox('Back No. Plate', backHeadUrl, "backHead"),
                   uploadSquareBox(
-                      'Additional Image', additionalImage, "additionImage"),
+                      'Additional Image', additionalImage, "additionalImage"),
                 ],
               ),
             ],

@@ -35,6 +35,7 @@ class TripWebSocket {
         debugPrint("Message $map");
         if (map["driver_id"] != null ||
             map["status"] == "DRIVER_REJECTED" ||
+            map["status"] == "ON_TRIP" ||
             map["status"] == "COMPLETED") {
           return;
         }
@@ -97,6 +98,12 @@ class TripWebSocket {
       "status": status,
     };
     channel!.sink.add(json.encode(data));
+  }
+
+  void sendOnRideMessage(int id) {
+    Map map = {"status": "ON_TRIP", "trip_id": id};
+
+    channel!.sink.add(json.encode(map));
   }
 
   void cancelRideMessage(String value) {
