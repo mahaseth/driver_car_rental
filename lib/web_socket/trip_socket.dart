@@ -1,15 +1,37 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_background/flutter_background.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:myride/utils/distance_utils.dart';
 import 'package:myride/utils/local_notification.dart';
 import 'package:myride/view_model/driver_status_provider.dart';
 import 'package:myride/view_model/trip_viewModel.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../view/for_driver/map_section/map_screen.dart';
+
+
+void handleBackgroundExecution() async {
+
+  final status = await Permission.ignoreBatteryOptimizations.request();
+
+  FlutterBackground.enableBackgroundExecution();
+
+  debugPrint('Background initialisation done');
+
+  Timer.periodic(const Duration(seconds: 5), (timer) async {
+    TripWebSocket();
+
+  });
+
+  if (status.isDenied) {
+
+  }
+}
 
 class TripWebSocket {
   static WebSocketChannel? channel;
