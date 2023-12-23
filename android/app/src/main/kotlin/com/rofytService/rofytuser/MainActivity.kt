@@ -1,4 +1,4 @@
-package com.example.myride
+package com.rofytService.rofytuser
 
 import io.flutter.embedding.android.FlutterActivity
 

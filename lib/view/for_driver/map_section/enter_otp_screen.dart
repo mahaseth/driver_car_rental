@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:myride/utils/utils.dart';
 import 'package:myride/view_model/trip_viewModel.dart';
+import 'package:myride/web_socket/trip_socket.dart';
 import 'package:provider/provider.dart';
 
 class EnterOtpScreen extends StatefulWidget {
@@ -137,7 +138,8 @@ class _EnterOtpScreenState extends State<EnterOtpScreen> {
 
                     viewModel.editTrip(
                         context, tripData, viewModel.currentTrip!.id);
-
+                    TripWebSocket()
+                        .sendOnRideMessage(viewModel.currentTrip!.id);
                     widget.onSubmit(4);
                   },
                   child: Container(

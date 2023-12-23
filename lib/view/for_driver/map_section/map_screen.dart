@@ -3,6 +3,7 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:myride/constant/app_screen_size.dart';
+import 'package:myride/model/location_model.dart';
 import 'package:myride/services/location_service.dart';
 import 'package:myride/view/for_driver/chat/chat_screen.dart';
 import 'package:myride/view/for_driver/map_section/confirming_trip.dart';
@@ -199,6 +200,51 @@ class _MapScreenDriverState extends State<MapScreenDriver> {
                             ],
                           ),
                         ),
+                        if (currentIndex != 0)
+                          Positioned(
+                            top: MediaQuery.of(context).size.height * 0.38,
+                            left: 10,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: GestureDetector(
+                                onTap: () async {
+                                  LocationData start =
+                                      parseLocationString(widget.map["source"]);
+                                  double destinationLat = start.latitude;
+                                  double destinationLng = start.longitude;
+                                  final String googleMapUrl =
+                                      'https://www.google.com/maps/dir/?api=1&destination=$destinationLat,$destinationLng';
+
+                                  await launchUrl(Uri.parse(googleMapUrl));
+                                },
+                                child: Container(
+                                  width: 90,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                      color: const Color(0xFF0D94CE),
+                                      borderRadius: BorderRadius.circular(30)),
+                                  child: const Center(
+                                      child: Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Row(
+                                      children: [
+                                        Icon(Icons.pin_drop),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text(
+                                          "Go to Pick Location",
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.white),
+                                        ),
+                                      ],
+                                    ),
+                                  )),
+                                ),
+                              ),
+                            ),
+                          ),
                         currentIndex == 0
                             ? Positioned(
                                 left: 10,
