@@ -219,6 +219,9 @@ class _MapScreenDriverState extends State<MapScreenDriver> {
                                   double destinationLat = locationData.latitude;
                                   double destinationLng =
                                       locationData.longitude;
+
+                                  debugPrint(
+                                      "Data :- $destinationLat $destinationLng");
                                   final String googleMapUrl =
                                       'https://www.google.com/maps/dir/?api=1&destination=$destinationLat,$destinationLng';
 

@@ -127,6 +127,18 @@ class _RouteMapScreenState extends State<RouteMapScreen> {
                       child: IconButton(
                           onPressed: () {
                             debugPrint("Button Clicked");
+                            // Map socketData = {
+                            //   "source":
+                            //       "307 b, Sector 10, Steel Plant Twp, Visakhapatnam, Pedamadaka, Andhra Pradesh 530032, India#17.6476978#17.6476978",
+                            //   "destination":
+                            //       "Kurmannapalem, Visakhapatnam, Andhra Pradesh, India#17.6905906#17.6905906",
+                            //   "phone_number": "8309057182",
+                            //   "name": "Aryna",
+                            //   "trip_id": 510,
+                            //   "customer_id": 154,
+                            //   "status": "BOOKED",
+                            // };
+                            // TripWebSocket().dummyData(socketData);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
