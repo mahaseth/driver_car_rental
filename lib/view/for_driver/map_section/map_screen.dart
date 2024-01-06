@@ -208,38 +208,47 @@ class _MapScreenDriverState extends State<MapScreenDriver> {
                               padding: const EdgeInsets.all(8.0),
                               child: GestureDetector(
                                 onTap: () async {
-                                  LocationData start =
-                                      parseLocationString(widget.map["source"]);
-                                  double destinationLat = start.latitude;
-                                  double destinationLng = start.longitude;
+                                  LocationData locationData;
+                                  if (currentIndex == 4) {
+                                    locationData = parseLocationString(
+                                        widget.map["destination"]);
+                                  } else {
+                                    locationData = parseLocationString(
+                                        widget.map["source"]);
+                                  }
+                                  double destinationLat = locationData.latitude;
+                                  double destinationLng =
+                                      locationData.longitude;
+
+                                  debugPrint(
+                                      "Data :- $destinationLat $destinationLng");
                                   final String googleMapUrl =
                                       'https://www.google.com/maps/dir/?api=1&destination=$destinationLat,$destinationLng';
 
                                   await launchUrl(Uri.parse(googleMapUrl));
                                 },
                                 child: Container(
-                                  width: 90,
+                                  width: 175,
                                   height: 40,
+                                  padding: const EdgeInsets.all(8.0),
                                   decoration: BoxDecoration(
                                       color: const Color(0xFF0D94CE),
                                       borderRadius: BorderRadius.circular(30)),
-                                  child: const Center(
-                                      child: Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Row(
-                                      children: [
-                                        Icon(Icons.pin_drop),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Text(
-                                          "Go to Pick Location",
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              color: Colors.white),
-                                        ),
-                                      ],
-                                    ),
+                                  child: Center(
+                                      child: Row(
+                                    children: [
+                                      const Icon(Icons.pin_drop),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                        currentIndex == 4
+                                            ? "Go to destination"
+                                            : "Go to Pick-Up",
+                                        style: const TextStyle(
+                                            fontSize: 14, color: Colors.white),
+                                      ),
+                                    ],
                                   )),
                                 ),
                               ),
