@@ -18,7 +18,6 @@ import 'package:myride/web_socket/trip_socket.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
 
   FlutterBackground.initialize();
@@ -29,7 +28,6 @@ void main() async {
 
   runApp(const MyApp());
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

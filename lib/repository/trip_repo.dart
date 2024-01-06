@@ -55,8 +55,8 @@ class TripRepo {
   getCurrentTrip(context, id) async {
     try {
       final response = await _networkService
-          .getGetApiResponse(
-              "http://13.200.69.54/trip/$id/driver-trip/", SignInViewModel.token)
+          .getGetApiResponse("http://13.200.69.54/trip/$id/driver-trip/",
+              SignInViewModel.token)
           .catchError(
         (error, stackTrace) {
           Utils.showMyDialog(error.toString(), context);

@@ -3,7 +3,7 @@ import 'package:permission_handler/permission_handler.dart';
 
 class LocalNotificationService {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-  FlutterLocalNotificationsPlugin();
+      FlutterLocalNotificationsPlugin();
 
   Future<void> requestNotificationPermissions() async {
     var status = await Permission.notification.status;
@@ -16,13 +16,13 @@ class LocalNotificationService {
   Future<void> init() async {
     await requestNotificationPermissions();
     const AndroidInitializationSettings initializationSettingsAndroid =
-    AndroidInitializationSettings('@mipmap/ic_launcher');
+        AndroidInitializationSettings('@mipmap/ic_launcher');
 
     const DarwinInitializationSettings initializationSettingsIOS =
-    DarwinInitializationSettings();
+        DarwinInitializationSettings();
 
     const InitializationSettings initializationSettings =
-    InitializationSettings(
+        InitializationSettings(
       android: initializationSettingsAndroid,
       iOS: initializationSettingsIOS,
     );
@@ -38,14 +38,14 @@ class LocalNotificationService {
 
   void showNotification(String title, String value) async {
     const AndroidNotificationDetails androidNotificationDetails =
-    AndroidNotificationDetails('ride_notification', 'Rides Notification',
-        channelDescription: 'Notification regarding new Rides',
-        importance: Importance.max,
-        priority: Priority.high,
-        ticker: 'ticker');
+        AndroidNotificationDetails('ride_notification', 'Rides Notification',
+            channelDescription: 'Notification regarding new Rides',
+            importance: Importance.max,
+            priority: Priority.high,
+            ticker: 'ticker');
 
     const NotificationDetails notificationDetails =
-    NotificationDetails(android: androidNotificationDetails);
+        NotificationDetails(android: androidNotificationDetails);
     await flutterLocalNotificationsPlugin
         .show(0, title, value, notificationDetails, payload: 'Not present');
   }

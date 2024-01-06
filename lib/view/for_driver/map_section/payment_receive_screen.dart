@@ -98,7 +98,8 @@ class _TipsScreenState extends State<TipsScreen> {
               const SizedBox(height: 10.0),
               Container(
                 width: AppSceenSize.getWidth(context) * 0.90,
-                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF28B910),

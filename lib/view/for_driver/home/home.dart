@@ -85,10 +85,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
       SignInViewModel.token = sharedPreferences.getString('token') ?? "";
       debugPrint(SignInViewModel.token);
       DriveProfileViewModel provider =
-      Provider.of<DriveProfileViewModel>(context, listen: false);
+          Provider.of<DriveProfileViewModel>(context, listen: false);
       await provider.getProfile(context);
       VehicleInfoViewModel providerVehicle =
-      Provider.of<VehicleInfoViewModel>(context, listen: false);
+          Provider.of<VehicleInfoViewModel>(context, listen: false);
       await providerVehicle.vehicleListUser(context);
 
       Navigator.pushReplacement(

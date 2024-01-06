@@ -93,8 +93,8 @@ class VehicleInfoRepo {
   updateVehicle(context, bodysend, int id) async {
     try {
       final response = await _networkService
-          .patchApiResponse("http://13.200.69.54/cab/$id/get-vehicle/", bodysend,
-              SignInViewModel.token)
+          .patchApiResponse("http://13.200.69.54/cab/$id/get-vehicle/",
+              bodysend, SignInViewModel.token)
           .catchError((error, stackTrace) {
         print("$error");
         // Utils.showMyDialog(error.toString(), context);

@@ -241,7 +241,8 @@ class _BalanceScreenState extends State<BalanceScreen> {
                                     int.parse(controller.text),
                                     provider.driverProfile?.id ?? -1,
                                     screenContext);
-                                await razor.createOrder(int.parse(controller.text));
+                                await razor
+                                    .createOrder(int.parse(controller.text));
                                 changeState(() {
                                   isLoading = false;
                                 });

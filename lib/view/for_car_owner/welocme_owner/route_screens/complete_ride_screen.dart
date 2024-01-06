@@ -203,8 +203,8 @@ class _CompleteRideScreenState extends State<CompleteRideScreen> {
                             columnTextField("Price", "Rs. ${tripModel.amount}"),
                             columnTextField(
                                 "Distance", "${tripModel.distance} KM"),
-                            columnTextField("Cab-Type",
-                                tripModel.cabData.model ?? "Cab"),
+                            columnTextField(
+                                "Cab-Type", tripModel.cabData.model ?? "Cab"),
                           ],
                         ),
                         const SizedBox(
