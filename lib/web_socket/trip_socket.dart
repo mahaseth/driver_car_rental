@@ -38,7 +38,7 @@ class TripWebSocket {
     driverId = id;
     if (channel != null || driverId == -1) return;
     channel = WebSocketChannel.connect(
-      Uri.parse('ws://http://13.200.69.54/:7401/ws/trip-notify/$id'),
+      Uri.parse('ws://13.200.69.54:7401/ws/trip-notify/$id'),
     );
     TripWebSocket().listenSocket(context);
   }
@@ -49,7 +49,7 @@ class TripWebSocket {
     channel!.stream.listen((message) async {
       try {
         Map map = jsonDecode(message);
-        debugPrint("Message $map");
+        debugPrint("Driver Message $map");
         if (map["driver_id"] != null ||
             map["status"] == "DRIVER_REJECTED" ||
             map["status"] == "ON_TRIP" ||
@@ -88,7 +88,7 @@ class TripWebSocket {
             return;
           }
 
-          if (await checkDistanceCondition(context, map)) return;
+          // if (await checkDistanceCondition(context, map)) return;
 
           debugPrint("Going to next Screen start");
           LocalNotificationService().showNotification(

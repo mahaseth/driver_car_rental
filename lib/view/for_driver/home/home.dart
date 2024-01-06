@@ -27,7 +27,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   }
 
   void readData() async {
-    String token = '7687869c4772056d8b2d54a5317b237ff9d79f74';
+    String token = 'bb510009ac5fd68aecb5ba2401b00b5fa57aa2ff';
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.setString("token", token);
   }
@@ -83,12 +83,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     if (sharedPreferences.containsKey('token')) {
       SignInViewModel.token = sharedPreferences.getString('token') ?? "";
-
+      debugPrint(SignInViewModel.token);
       DriveProfileViewModel provider =
-          Provider.of<DriveProfileViewModel>(context, listen: false);
+      Provider.of<DriveProfileViewModel>(context, listen: false);
       await provider.getProfile(context);
       VehicleInfoViewModel providerVehicle =
-          Provider.of<VehicleInfoViewModel>(context, listen: false);
+      Provider.of<VehicleInfoViewModel>(context, listen: false);
       await providerVehicle.vehicleListUser(context);
 
       Navigator.pushReplacement(

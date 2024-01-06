@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_background/flutter_background.dart';
-import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:myride/utils/NavigationService.dart';
 import 'package:myride/utils/local_notification.dart';
 import 'package:myride/view/for_driver/home/home.dart';

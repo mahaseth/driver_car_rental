@@ -119,7 +119,7 @@ class _VehicleScreenState extends State<VehicleScreen> {
 
   DriverProfile? driverProfile;
 
-   addVehicleButton() {
+  addVehicleButton() {
     DriveProfileViewModel? provider =
         Provider.of<DriveProfileViewModel>(context, listen: true);
     setState(() {

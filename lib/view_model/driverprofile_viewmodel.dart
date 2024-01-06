@@ -75,7 +75,7 @@ class DriveProfileViewModel extends ChangeNotifier {
       currDriverProfile = DriverProfile.fromJson(response);
       notifyListeners();
     } catch (e) {
-      log('Erroer $e');
+      log('Error in getProfile $e');
     }
   }
 }
