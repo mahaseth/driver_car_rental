@@ -10,7 +10,7 @@ class PaymentWebSocket {
   webSocketInit(int tripId) {
     debugPrint("Started");
     channel = WebSocketChannel.connect(
-      Uri.parse('ws://3.109.183.75:7401/ws/payment-notify/$tripId'),
+      Uri.parse('ws://http://13.200.69.54/:7401/ws/payment-notify/$tripId'),
     );
   }
 

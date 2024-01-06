@@ -10,7 +10,7 @@ class CustomerProfileRepo {
     try {
       final response = await _networkService
           .getGetApiResponse(
-              "http://3.109.183.75/account/$id/get-customer-profile/",
+              "http://13.200.69.54/account/$id/get-customer-profile/",
               SignInViewModel.token)
           .catchError(
         (error, stackTrace) {

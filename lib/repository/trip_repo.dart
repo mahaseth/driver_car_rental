@@ -9,7 +9,7 @@ class TripRepo {
   startTrip(context, var bodyTosend) async {
     try {
       final response = await _networkService
-          .postApiResponse("http://3.109.183.75/trip/driver-trip/", bodyTosend,
+          .postApiResponse("http://13.200.69.54/trip/driver-trip/", bodyTosend,
               SignInViewModel.token)
           .catchError((error, stackTrace) {
         Utils.showMyDialog(error.toString(), context);
@@ -23,7 +23,7 @@ class TripRepo {
   editTrip(context, var bodyTosend, id) async {
     try {
       final response = await _networkService
-          .patchApiResponse("http://3.109.183.75/trip/$id/driver-trip/",
+          .patchApiResponse("http://13.200.69.54/trip/$id/driver-trip/",
               bodyTosend, SignInViewModel.token)
           .catchError((error, stackTrace) {
         print("Error in editTrip ");
@@ -39,7 +39,7 @@ class TripRepo {
     try {
       final response = await _networkService
           .getGetApiResponse(
-              "http://3.109.183.75/trip/driver-trip/", SignInViewModel.token)
+              "http://13.200.69.54/trip/driver-trip/", SignInViewModel.token)
           .catchError(
         (error, stackTrace) {
           Utils.showMyDialog(error.toString(), context);
@@ -55,8 +55,8 @@ class TripRepo {
   getCurrentTrip(context, id) async {
     try {
       final response = await _networkService
-          .getGetApiResponse("http://3.109.183.75/trip/$id/driver-trip/",
-              SignInViewModel.token)
+          .getGetApiResponse(
+              "http://13.200.69.54/trip/$id/driver-trip/", SignInViewModel.token)
           .catchError(
         (error, stackTrace) {
           Utils.showMyDialog(error.toString(), context);

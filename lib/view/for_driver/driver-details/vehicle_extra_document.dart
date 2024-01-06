@@ -97,7 +97,7 @@ class _VehicleExtraDocument extends State<VehicleExtraDocument> {
     dio.options.headers['Content-Type'] = 'application/json';
     dio.options.headers["Authorization"] = "Token ${SignInViewModel.token}";
     response = await dio.post(
-      "http://3.109.183.75/account/upload/",
+      "http://13.200.69.54/account/upload/",
       data: formdata,
       onSendProgress: (int sent, int total) {
         String percentage = (sent / total * 100).toStringAsFixed(2);

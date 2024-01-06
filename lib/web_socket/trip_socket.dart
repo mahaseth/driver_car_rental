@@ -14,9 +14,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../view/for_driver/map_section/map_screen.dart';
 
-
 void handleBackgroundExecution() async {
-
   final status = await Permission.ignoreBatteryOptimizations.request();
 
   FlutterBackground.enableBackgroundExecution();
@@ -25,12 +23,9 @@ void handleBackgroundExecution() async {
 
   Timer.periodic(const Duration(seconds: 5), (timer) async {
     TripWebSocket();
-
   });
 
-  if (status.isDenied) {
-
-  }
+  if (status.isDenied) {}
 }
 
 class TripWebSocket {
@@ -43,7 +38,7 @@ class TripWebSocket {
     driverId = id;
     if (channel != null || driverId == -1) return;
     channel = WebSocketChannel.connect(
-      Uri.parse('ws://3.109.183.75:7401/ws/trip-notify/$id'),
+      Uri.parse('ws://http://13.200.69.54/:7401/ws/trip-notify/$id'),
     );
     TripWebSocket().listenSocket(context);
   }
@@ -113,8 +108,7 @@ class TripWebSocket {
     });
   }
 
-  void dummyData(data){
-
+  void dummyData(data) {
     channel!.sink.add(json.encode(data));
   }
 

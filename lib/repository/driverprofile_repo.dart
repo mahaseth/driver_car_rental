@@ -10,7 +10,7 @@ class DriverProfileRepo {
     try {
       print("Token ${SignInViewModel.token}");
       final response = await _networkService
-          .patchApiResponse("http://3.109.183.75/account/driver-profile/",
+          .patchApiResponse("http://13.200.69.54/account/driver-profile/",
               bodyTosend, SignInViewModel.token)
           .catchError((error, stackTrace) {
         Utils.showMyDialog(error.toString(), context);
@@ -24,7 +24,7 @@ class DriverProfileRepo {
   updateProfile(context, var bodyTosend) async {
     try {
       final response = await _networkService
-          .patchApiResponse("http://3.109.183.75/account/driver-profile/",
+          .patchApiResponse("http://13.200.69.54/account/driver-profile/",
               bodyTosend, SignInViewModel.token)
           .catchError((error, stackTrace) {
         Utils.showMyDialog(error.toString(), context);
@@ -38,7 +38,7 @@ class DriverProfileRepo {
   getProfile(context) async {
     try {
       final response = await _networkService
-          .getGetApiResponse("http://3.109.183.75/account/driver-profile/",
+          .getGetApiResponse("http://13.200.69.54/account/driver-profile/",
               SignInViewModel.token)
           .catchError(
         (error, stackTrace) {

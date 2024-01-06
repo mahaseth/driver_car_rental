@@ -12,7 +12,7 @@ class TripSecurityWebSocket {
   webSocketInit(int tripId, String url) async {
     debugPrint("Started");
     channel = WebSocketChannel.connect(
-      Uri.parse('ws://3.109.183.75:7401/ws/trip-tracking/$tripId'),
+      Uri.parse('ws://http://13.200.69.54/:7401/ws/trip-tracking/$tripId'),
     );
     Timer.periodic(const Duration(seconds: 3), (Timer t) async {
       try {

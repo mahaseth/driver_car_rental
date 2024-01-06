@@ -10,7 +10,7 @@ class SignInRepo {
     try {
       final response = await _networkService
           .postApiResponse(
-              "http://3.109.183.75/account/driver-register/", bodyTosend, "")
+              "http://13.200.69.54/account/driver-register/", bodyTosend, "")
           .catchError((error, stackTrace) {
         Utils.showMyDialog(error.toString(), context);
         if (kDebugMode) {
@@ -27,7 +27,7 @@ class SignInRepo {
     try {
       final response = await _networkService
           .postApiResponse(
-              "http://3.109.183.75/account/driver-login/", bodyTosend, "")
+              "http://13.200.69.54/account/driver-login/", bodyTosend, "")
           .catchError((error, stackTrace) {
         Utils.showMyDialog(error.toString(), context);
         if (kDebugMode) {

@@ -10,7 +10,7 @@ class BankAccountRepo {
   saveBankDetail(context, map) async {
     try {
       final response = await _networkService
-          .postApiResponse("http://3.109.183.75/account/driver-bank-details/",
+          .postApiResponse("http:/13.200.69.54/account/driver-bank-details/",
               map, SignInViewModel.token)
           .catchError((error, stackTrace) {
         Utils.showMyDialog(error.toString(), context);
@@ -29,7 +29,7 @@ class BankAccountRepo {
     try {
       final response = await _networkService
           .deleteApiResponse(
-              "http://3.109.183.75/account/$id/driver-bank-delete/",
+              "http:/13.200.69.54/account/$id/driver-bank-delete/",
               SignInViewModel.token)
           .catchError((error, stackTrace) {
         debugPrint("Delete Succesfull $error");
@@ -46,7 +46,7 @@ class BankAccountRepo {
   editBankDetail(context, map, id) async {
     try {
       final response = await _networkService
-          .putApiResponse("http://3.109.183.75/account/$id/driver-bank-delete/",
+          .putApiResponse("http:/13.200.69.54/account/$id/driver-bank-delete/",
               map, SignInViewModel.token)
           .catchError((error, stackTrace) {
         Utils.showMyDialog(error.toString(), context);
@@ -64,7 +64,7 @@ class BankAccountRepo {
   getBankDetail(context) async {
     try {
       final response = await _networkService
-          .getGetApiResponse("http://3.109.183.75/account/driver-bank-details/",
+          .getGetApiResponse("http:/13.200.69.54/account/driver-bank-details/",
               SignInViewModel.token)
           .catchError((error, stackTrace) {
         // Utils.showMyDialog(error.toString(), context);

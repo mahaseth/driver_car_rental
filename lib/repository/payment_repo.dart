@@ -13,7 +13,7 @@ class RazorPayRepo {
     try {
       debugPrint(bodyTosend.toString());
       final response = await _networkService
-          .postApiResponse("http://3.109.183.75/payment/driver-create-order/",
+          .postApiResponse("http://13.200.69.54/payment/driver-create-order/",
               bodyTosend, SignInViewModel.token)
           .catchError((error, stackTrace) {});
       debugPrint("Response Create order is :- $response");
@@ -29,7 +29,7 @@ class RazorPayRepo {
     try {
       final response = await _networkService
           .postApiResponse(
-              "http://3.109.183.75/payment/driver-verify-signature/",
+              "http://13.200.69.54/payment/driver-verify-signature/",
               bodyTosend,
               SignInViewModel.token)
           .catchError((error, stackTrace) {});
@@ -45,7 +45,7 @@ class RazorPayRepo {
     try {
       final response = await _networkService
           .getGetApiResponse(
-              "http://3.109.183.75/payment/driver-payment-history/",
+              "http://13.200.69.54/payment/driver-payment-history/",
               SignInViewModel.token)
           .catchError(
         (error, stackTrace) {
@@ -63,7 +63,7 @@ class RazorPayRepo {
     try {
       debugPrint(bodyTosend.toString());
       final response = await _networkService
-          .postApiResponse("http://3.109.183.75/payment/create-trip-payment/",
+          .postApiResponse("http://13.200.69.54/payment/create-trip-payment/",
               bodyTosend, SignInViewModel.token)
           .catchError((error, stackTrace) {});
       debugPrint("Response is :- $response");
@@ -80,7 +80,7 @@ class RazorPayRepo {
   verifyQrCode(var bodyTosend) async {
     try {
       final response = await _networkService
-          .postApiResponse("http://3.109.183.75/payment/verify-trip-signature/",
+          .postApiResponse("http://13.200.69.54/payment/verify-trip-signature/",
               bodyTosend, SignInViewModel.token)
           .catchError((error, stackTrace) {});
       return response;

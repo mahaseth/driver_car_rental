@@ -14,7 +14,7 @@ class MessageRepo {
       };
       final response = await _networkService
           .postApiResponse(
-              "http://3.109.183.75/chat/room-name/", map, SignInViewModel.token)
+              "http://13.200.69.54/chat/room-name/", map, SignInViewModel.token)
           .catchError((error, stackTrace) {
         Utils.showMyDialog(error.toString(), context);
         if (kDebugMode) {
@@ -32,7 +32,7 @@ class MessageRepo {
     try {
       final response = await _networkService
           .getGetApiResponse(
-              "http://3.109.183.75/chat/$room/messages/", SignInViewModel.token)
+              "http://13.200.69.54/chat/$room/messages/", SignInViewModel.token)
           .catchError((error, stackTrace) {
         Utils.showMyDialog(error.toString(), context);
         if (kDebugMode) {

@@ -59,7 +59,7 @@ class _ChatScreenState extends State<ChatScreen> {
     debugPrint(provider.roomKey);
     getMessagesView();
     channel = WebSocketChannel.connect(
-      Uri.parse('ws://3.109.183.75:7401/ws/chat/${provider.roomKey}'),
+      Uri.parse('ws://http://13.200.69.54/:7401/ws/chat/${provider.roomKey}'),
     );
 
     channel!.stream.listen((message) {
